@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mini-car racing</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+      integrity="sha512-1cK78a1o+ht2JcaW6g8OXYwqpev9+6GqOkz9xmBN9iUUhIndKtxwILGWYOSibOKjLsEdjyjZvYDq/cZwNeak0w=="
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./styles/scss.css" />
+    <link rel="icon" href="./icons-and-images/engine2.png" />
+  </head>
+  <body>
+    <noscript>
+      У вас заборонений Javascript. Перевірте налаштування браузеру
+    </noscript>
+    <section id="titres" class="titres">
+      <h1
+        data-aos-duration="1000"
+        id="h1"
+        data-aos="flip-down"
+        style="grid-column: 2/4; grid-row: 1/2"
+      >
+        Дякую за гру!
+      </h1>
+      <img
+        loading="lazy"
+        data-aos-duration="1000"
+        style="grid-column: 1/2; grid-row: 2/3"
+        data-aos="flip-right"
+        src="./icons-and-images/engine2.png"
+      />
+      <p
+        data-aos-duration="1000"
+        style="grid-column: 2/4; grid-row: 2/3"
+        data-aos="flip-down"
+      >
+        Головний розробник - Дириль Даніель
+      </p>
+      <img
+        loading="lazy"
+        data-aos-duration="1000"
+        style="grid-column: 4/5; grid-row: 3/4"
+        data-aos="flip-left"
+        src="./icons-and-images/roads/day.png"
+      />
+      <img
+        loading="lazy"
+        data-aos-duration="1000"
+        style="grid-column: 1/2; grid-row: 4/5"
+        data-aos="flip-right"
+        src="./icons-and-images/cars/sedan.png"
+      />
+      <p
+        data-aos-duration="1000"
+        style="grid-column: 2/4; grid-row: 3/4"
+        data-aos="flip-down"
+      >
+        Головні дизайнери - Creator IT Academy
+      </p>
+      <p
+        data-aos-duration="1000"
+        style="grid-column: 2/4; grid-row: 4/5"
+        data-aos="flip-down"
+      >
+        Другорядний дизайнер - Дириль Даніель
+      </p>
+      <img
+        loading="lazy"
+        data-aos-duration="1000"
+        style="grid-column: 4/5; grid-row: 5/6"
+        data-aos="flip-left"
+        src="./icons-and-images/parts-back-images/night.jpg"
+      />
+      <p
+        data-aos-duration="1000"
+        style="grid-column: 2/4; grid-row: 5/6"
+        data-aos="flip-down"
+      >
+        Сценарист - Дириль Даніель
+      </p>
+      <img
+        loading="lazy"
+        data-aos-duration="1000"
+        style="grid-column: 1/2; grid-row: 6/7"
+        src="./useless-images/car1dark.png"
+        data-aos="flip-right"
+      />
+      <p
+        data-aos-duration="1000"
+        style="grid-column: 2/4; grid-row: 6/7"
+        data-aos="flip-down"
+      >
+        Головний тестувальник - Дириль Даніель
+      </p>
+      <img
+        loading="lazy"
+        style="grid-column: 4/5; grid-row: 7/8"
+        data-aos="flip-left"
+        src="./icons-and-images/warning.png"
+      />
+      <p
+        data-aos-duration="1000"
+        style="grid-column: 2/4; grid-row: 7/8"
+        data-aos="flip-down"
+      >
+        Другорядний тестувальник - Станіслав Романовський
+      </p>
+      <img
+        loading="lazy"
+        data-aos-duration="1000"
+        style="grid-column: 1/2; grid-row: 8/9"
+        data-aos="flip-right"
+        src="./icons-and-images/disabled-race.png"
+      />
+      <p
+        data-aos-duration="1000"
+        style="grid-column: 2/4; grid-row: 8/9"
+        data-aos="flip-down"
+      >
+        Технологій навчив - Викладач Северин Максим
+      </p>
+      <a
+        data-aos-duration="1000"
+        href="#titres"
+        data-aos="fade-up"
+        style="
+          grid-column: 2/4;
+          grid-row: 9/10;
+          text-decoration: none;
+          color: white;
+          margin-bottom: 100px;
+        "
+        class="close-titres"
+        >Закрити титри</a
+      >
+    </section>
+    <section class="gameplay-pause">
+      <div class="screen-div">
+        <h1 class="gameplay-headline">
+          Вітаю з проходженням вступу! (гортай донизу)
+        </h1>
+      </div>
+      <div class="screen-div">
+        <button class="save-the-progress-button">Зберегти прогрес?</button>
+      </div>
+      <div class="screen-div">
+        <div class="parts-of-script completed-parts">
+          <h3>Пройдені частини</h3>
+          <div class="parts">
+            <a
+              href="#wrap"
+              class="part introduction-restart"
+              style="background-color: black"
+            >
+              Вступ
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="screen-div">
+        <div class="parts-of-script uncompleted-parts">
+          <h3>Залишилось пройти</h3>
+          <div class="parts">
+            <a
+              href="#wrap"
+              class="part firstRace-begin"
+              style="
+                background-image: url(./icons-and-images/parts-back-images/rain.jpg);
+              "
+            >
+              Перша гонка
+            </a>
+            <a
+              href="#wrap"
+              class="part secondRace-begin"
+              style="
+                background-image: url(./icons-and-images/parts-back-images/day.jpg);
+                color: red;
+              "
+            >
+              Друга гонка<img
+                src="./icons-and-images/disabled-race.png"
+                alt="locked"
+                loading="lazy"
+              />
+            </a>
+            <a
+              href="#wrap"
+              class="part finalRace-begin"
+              style="
+                background-image: url(./icons-and-images/parts-back-images/night.jpg);
+                color: red;
+              "
+            >
+              Фінальна гонка<img
+                src="./icons-and-images/disabled-race.png"
+                alt="locked"
+                loading="lazy"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="screen-div">
+        <a
+          style="text-decoration: none"
+          href="./contact.html"
+          target="_blank"
+          class="contact-link-button"
+          >Сконтактуватись?</a
+        >
+      </div>
+    </section>
+
+    <div class="pause">
+      <img src="./icons-and-images/pause.svg" alt="" loading="lazy" />
+    </div>
+    <section class="menu">
+      <div class="menu-content">
+        <nav>
+          <button class="back-to-menu-button">Назад до меню?</button>
+          <button class="music-settings">Бажаєте ввімкнути МУЗОН?</button>
+        </nav>
+        <div class="handling-settings">
+          <div class="keyboard">
+            <h2>Управління (нажми, щоб змінити)</h2>
+            <div class="keyAction">Газ</div>
+            <div class="keyName accelerate">arrowup</div>
+            <div class="keyAction">Тормоз</div>
+            <div class="keyName deccelerate">arrowdown</div>
+            <div class="keyAction">Передача вгору</div>
+            <div class="keyName gearUp">shift</div>
+            <div class="keyAction">Передача вниз</div>
+            <div class="keyName gearDown">control</div>
+            <div class="keyAction">Мотор</div>
+            <div class="keyName engine">enter</div>
+            <div class="keyAction">Меню</div>
+            <div class="keyName goToMenu">escape</div>
+            <div class="keyAction">Музика</div>
+            <div class="keyName listenMusic">m</div>
+            <button class="reset-keyboard">Повернутись до стандарту?</button>
+          </div>
+        </div>
+        <div class="action-settings">
+          Рівень Екшену:
+
+          <input
+            disabled
+            class="action-level-input"
+            type="range"
+            step="100"
+            value="100"
+          />
+        </div>
+      </div>
+      <div class="menu-content" style="flex-direction: column">
+        <div class="explanation">
+          <select id="">
+            <option selected disabled>Обери пояснення</option>
+            <option value="acceleration">Ефективний розгін</option>
+            <option value="turn">Механіка поворотів</option>
+            <option value="music">Яка музика використовується</option>
+            <option value="speedCheat">Хочеш почитерити?</option>
+          </select>
+          <p class="explanation-content">поки нічого</p>
+        </div>
+      </div>
+    </section>
+
+    <header>
+      <div class="logo">Mini-car racing</div>
+      <button class="continue-game-button">Готовий?</button>
+    </header>
+
+    <main id="wrap">
+      <div class="background">
+        <div class="tunnel">
+          <img src="./icons-and-images/tunnel/left.png" loading="lazy" />
+          <img
+            src="./icons-and-images/tunnel/right.png"
+            alt=""
+            loading="lazy"
+          />
+        </div>
+        <div class="road">
+          <img
+            class="road-image"
+            src="./icons-and-images/roads/rain.png"
+            alt=""
+            loading="lazy"
+          />
+          <div class="bottom-road-box">
+            <div class="enemy-position"></div>
+            <div class="turn-position">
+              Через <span class="turn-distance">200m</span> ,
+              <span class="turn-speed">130km/h</span>
+            </div>
+            <div class="car">
+              <img
+                src="./icons-and-images/flame.png"
+                class="flame my-flame"
+                alt=""
+                loading="lazy"
+              />
+              <img
+                src="./icons-and-images/wheel.png"
+                alt=""
+                class="wheel one my-wheel"
+                loading="lazy"
+              />
+              <img
+                src="./icons-and-images/wheel.png"
+                alt=""
+                class="wheel two my-wheel"
+                loading="lazy"
+              />
+              <img
+                src="./icons-and-images/cars/myCar-lightened.png"
+                alt="car"
+                class="vehicle"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer>
+        <div class="rpm footer-el">
+          <div class="numbers">
+            <p style="margin-top: 149px; margin-left: 10px">1000</p>
+            <p style="margin-top: 100px; margin-left: 7px">2000</p>
+            <p style="margin-top: 54px; margin-left: 25px">3000</p>
+            <p style="margin-top: 20px; margin-left: 63px">4000</p>
+            <p style="margin-top: 6px; margin-left: 113px">5000</p>
+            <p style="margin-top: 18px; margin-left: 162px">6000</p>
+            <p style="margin-top: 54px; margin-left: 201px">7000</p>
+            <p style="margin-top: 98px; margin-left: 218px">8000</p>
+            <p style="margin-top: 148px; margin-left: 213px">9000</p>
+            <p style="margin-top: 191px; margin-left: 186px">10000</p>
+          </div>
+          <div class="car-counter-number rpm-counter-number"></div>
+          <div class="car-counter rpm-counter">
+            <div
+              style="background-color: white"
+              class="car-counter_center rpm-counter_center"
+            ></div>
+            <div class="car-counter_stick"></div>
+          </div>
+        </div>
+        <div class="speed footer-el">
+          <div class="numbers">
+            <p style="margin-top: 195px; margin-left: 38px">0</p>
+            <p style="margin-top: 177px; margin-left: 23px">10</p>
+            <p style="margin-top: 161px; margin-left: 14px">20</p>
+            <p style="margin-top: 143px; margin-left: 8px">30</p>
+            <p style="margin-top: 125px; margin-left: 4px">40</p>
+            <p style="margin-top: 105px; margin-left: 4px">50</p>
+            <p style="margin-top: 85px; margin-left: 7px">60</p>
+            <p style="margin-top: 67px; margin-left: 14px">70</p>
+            <p style="margin-top: 48px; margin-left: 24px">80</p>
+            <p style="margin-top: 34px; margin-left: 36px">90</p>
+            <p style="margin-top: 21px; margin-left: 49px">100</p>
+            <p style="margin-top: 5px; margin-left: 84px">120</p>
+            <p style="margin-left: 123px; margin-top: 1px">140</p>
+            <p style="margin-left: 160px; margin-top: 11px">160</p>
+            <p style="margin-left: 192px; margin-top: 33px">180</p>
+            <p style="margin-left: 215px; margin-top: 67px">200</p>
+            <p style="margin-left: 226px; margin-top: 105px">220</p>
+            <p style="margin-top: 143px; margin-left: 222px">240</p>
+            <p style="margin-left: 205px; margin-top: 180px">260</p>
+          </div>
+          <div class="gear-counter">N</div>
+          <div class="car-counter-number speed-counter-number"></div>
+          <div class="car-counter speed-counter">
+            <div class="car-counter_center speed-counter_center"></div>
+            <div class="car-counter_stick"></div>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"
+      integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw=="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"
+      integrity="sha512-aUhL2xOCrpLEuGD5f6tgHbLYEXRpYZ8G5yD+WlFrXrPy2IrWBlu6bih5C9H6qGsgqnU6mgx6KtU8TreHpASprw=="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"
+      integrity="sha512-A7AYk1fGKX6S2SsHywmPkrnzTZHrgiVT7GcQkLGDe2ev0aWb8zejytzS8wjo7PGEXKqJOrjQ4oORtnimIRZBtw=="
+      crossorigin="anonymous"
+    ></script>
+    <script src="./javascript/otherJs/variables.js"></script>
+    <script type="module" src="./javascript/main.js"></script>
+  </body>
+</html>

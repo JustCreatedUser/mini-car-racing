@@ -1,0 +1,339 @@
+@use "sass:math";
+@import "./scss-modules/footer", "./scss-modules/gameplay-pause",
+  "./scss-modules/mixins", "./scss-modules/road";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: monospace;
+  user-select: none;
+}
+body {
+  min-height: 100vh;
+  overflow: hidden;
+  background-color: black;
+}
+html {
+  scroll-behavior: smooth;
+}
+@media only screen and (max-width: 1325px) and (min-width: 750px) {
+  .spd-counter {
+    font-size: 22px;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .spd-counter {
+    font-size: 1.2em;
+  }
+}
+.action-level-input {
+  cursor: pointer;
+  filter: sepia(100%) saturate(500%);
+}
+.handling-settings {
+  text-align: center;
+}
+.race-counting {
+  position: absolute;
+  font-size: 30vh;
+  align-self: center;
+  justify-self: center;
+  color: white;
+}
+.explanation {
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  &-content {
+    max-width: 70%;
+    align-self: center;
+  }
+  select {
+    padding: 10px;
+    border-radius: 20px;
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    option {
+      margin: 10px;
+    }
+  }
+}
+.continue-game-button {
+  border: 2px solid grey;
+  padding: 5px;
+  color: white;
+  align-items: center;
+  border-radius: 5px;
+  display: none;
+  margin-left: 40px;
+  cursor: pointer;
+  background-color: transparent;
+}
+.back-to-menu-button {
+  visibility: hidden;
+}
+.screen-div {
+  @include addFlex(center, center);
+}
+.cheat-button {
+  font-size: 18px;
+  font-weight: 600;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  border: 2px solid white;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+.part {
+  @include addFlex(center, center);
+  &s {
+    @include addFlex(center);
+    &-of-script {
+      @include addFlex(unset, center, column);
+    }
+  }
+}
+.gameplay-pause {
+  @include setAnimations(3s ease-in, 0, absolute);
+  @include addFlex(unset, center, column);
+  display: none;
+}
+.gear-counter {
+  @include setMargin(113px, 105px);
+}
+.spd-counter {
+  @include addFlex(center, center);
+}
+footer {
+  @include setAnimations(0.5s, 0, absolute);
+  @include addFlex(space-between, center);
+  display: none;
+}
+.car-counter {
+  @include addFlex(center, center, column);
+}
+.background {
+  @include setAnimations(2s linear, $pos: absolute);
+}
+.road {
+  @include setAnimations(240ms linear, $pos: relative);
+}
+.vehicle {
+  @include setAnimations(0.5s, $pos: absolute);
+}
+.wheel {
+  @include setAnimations(240ms linear, $pos: absolute);
+}
+.car {
+  .one {
+    @include setMargin(117px, 22px);
+  }
+  .two {
+    @include setMargin(22px, 22px);
+  }
+}
+.firstRace {
+  .one {
+    @include setMargin(112px, 36px);
+  }
+  .two {
+    @include setMargin(24px, 36px);
+  }
+}
+.secondRace {
+  .one {
+    @include setMargin(118px, 36px);
+  }
+  .two {
+    @include setMargin(23px, 36px);
+  }
+  .vehicle {
+    @include setMargin(unset, 13px);
+  }
+}
+.finalRace {
+  .one {
+    @include setMargin(25px, 22px);
+  }
+  .two {
+    @include setMargin(115px, 22px);
+  }
+}
+.flame {
+  @include setMargin(-9px, 30px);
+  @include setAnimations($pos: absolute, $op: 0);
+}
+#wrap,
+.explanation {
+  @include addFlex(unset, center, column);
+}
+header,
+body,
+.announcement {
+  @include addFlex(center, center);
+}
+.menu {
+  @include addFlex(space-evenly, center, column);
+  display: none;
+  position: fixed;
+  font-size: 20px;
+  color: white;
+  z-index: 10;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgb(0, 0, 0, 0.9);
+  &-content {
+    @include addFlex(space-evenly, center);
+    width: 100%;
+  }
+}
+nav {
+  @include addFlex(space-between);
+  position: fixed;
+  top: 0;
+  min-height: 50px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.937);
+  z-index: 11;
+  padding: 5px 10px;
+  button {
+    @include setAnimations(1s);
+    cursor: pointer;
+    font-size: 20px;
+    border: 1px solid black;
+    padding: 3px 10px;
+    &:hover {
+      background-color: black;
+      border: 1px solid white;
+      color: white;
+    }
+  }
+}
+.intro-words {
+  @include setAnimations(2s, 0);
+  font-size: 50px;
+  color: white;
+}
+.tunnel {
+  @include setAnimations(1s, $pos: absolute);
+  right: -65%;
+  display: flex;
+  top: 40px;
+  :last-child {
+    z-index: 11;
+  }
+}
+#wrap {
+  @include setAnimations(3s cubic-bezier(0.65, 0.05, 0.36, 1), 0);
+  transform: scale(2);
+  margin-left: 30vw;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  height: 100vh;
+  width: 100%;
+  background-image: url("../icons-and-images/background-images/rain.jpg");
+  background-repeat: repeat-x;
+  overflow: hidden;
+  display: none;
+  background-size: cover;
+}
+header {
+  @include setAnimations(2s, 0, absolute);
+  top: 20px;
+  z-index: 1;
+  padding: 0 25px;
+  border: 4px white solid;
+  min-width: 20%;
+  min-height: 5vh;
+  padding: 30px 70px;
+  text-align: center;
+  background-color: black;
+  color: white;
+  font-size: 20px;
+  border-radius: 15px;
+  max-width: 80%;
+}
+.announcement {
+  @include setAnimations(1s, 0, absolute);
+  font-style: italic;
+  z-index: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgb(0, 0, 0);
+  font-size: 100px;
+  text-align: center;
+}
+.veryLargeText {
+  @include setAnimations(0.4s, $pos: absolute);
+  display: flex;
+  -webkit-text-fill-color: transparent;
+  background-clip: text !important;
+  background: linear-gradient(red, white);
+  text-align: center;
+  font-size: 100px;
+  justify-self: center;
+  align-items: center;
+  z-index: 10;
+}
+.pause {
+  @include setAnimations(1s, 1, fixed);
+  height: 70px;
+  width: 70px;
+  display: flex;
+  cursor: pointer;
+  line-height: 70px;
+  font-size: 80px;
+  color: white;
+  top: 60px;
+  z-index: 11;
+  right: 3vw;
+  img {
+    position: absolute;
+    height: 50px;
+  }
+}
+.car,
+.enemy-car {
+  @include setAnimations(0.5s linear, $pos: absolute);
+}
+.titres {
+  transition: 1s;
+  padding-top: 5vw;
+  top: 0;
+  z-index: 20;
+  position: absolute;
+  background-color: black;
+  color: white;
+  font-size: setSizeWithMath(30);
+  font-weight: bold;
+  display: none;
+  opacity: 0;
+  width: 100vw;
+  grid-template-rows: auto;
+  row-gap: 3vw;
+  * {
+    align-self: center;
+    justify-self: center;
+  }
+  img {
+    width: 25vw;
+    min-width: 20vw;
+    padding: 2.5vw;
+  }
+  &_text {
+    display: grid;
+    text-align: center;
+  }
+  &_column {
+    &_left,
+    &_right {
+      @include addFlex(unset, center, column);
+    }
+  }
+}

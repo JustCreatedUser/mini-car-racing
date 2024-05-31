@@ -1,0 +1,81 @@
+@use "sass:math";
+@import "./styles/scss-modules/mixins";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  padding: 4vw;
+  justify-content: space-between;
+  height: 100vh;
+  align-items: center;
+  font-size: setSizeWithMath(25);
+  color: white;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(black 0%, rgba(255, 0, 0, 0.8) 100%);
+  font-weight: bold;
+}
+form {
+  display: grid;
+  column-gap: 3vw;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 2vw;
+  width: setSizeWithMath(1400);
+  height: 70vh;
+}
+h1 {
+  font-size: 4vw;
+}
+input,
+textarea {
+  border-radius: 10px 0 10px 0;
+  border: 2px solid white;
+  color: white;
+  font-size: 1.1em;
+  height: 80%;
+  background-color: transparent;
+  padding: 5px 10px;
+}
+textarea {
+  flex: 3 !important;
+  width: setSizeWithMath(400) !important;
+}
+label,
+button {
+  color: white;
+  border-radius: 10px 0 10px 0;
+  padding: 0 5%;
+  display: flex;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 20px 10px black;
+}
+label {
+  gap: 6%;
+  justify-content: space-around;
+  padding: setSizeWithMath(10) setSizeWithMath(20);
+  flex-direction: column;
+  * {
+    text-align: center;
+    width: 80%;
+  }
+}
+*::-webkit-scrollbar {
+  background-color: red;
+  width: 10px;
+  &-thumb {
+    background-color: black;
+  }
+}
+button {
+  grid-column: 1/3;
+  grid-row: 3/4;
+  text-align: center;
+  box-shadow: black 0 0 20px 10px;
+  font-size: setSizeWithMath(25);
+}

@@ -1,0 +1,727 @@
+footer {
+  bottom: 0;
+  width: 100%;
+  height: 30vh;
+  padding: 0 5%;
+}
+
+.speed-counter {
+  transition: 60ms;
+}
+.speed-counter_center {
+  transform: rotate(0deg);
+}
+
+.numbers {
+  overflow: visible;
+  position: absolute;
+}
+.numbers p {
+  overflow: visible;
+  color: white;
+  position: absolute;
+  font-size: 9px;
+}
+
+.car-counter {
+  transform: rotate(-45deg);
+  width: 100%;
+  height: 100%;
+}
+.car-counter-number {
+  margin-top: 180px;
+  border-radius: 20px;
+  font-size: 20px;
+  overflow: visible;
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  align-self: center;
+}
+.car-counter_stick {
+  width: 70px;
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+  height: 5px;
+  transform: translate(-59px);
+  background-color: white;
+  position: absolute;
+}
+.car-counter_center {
+  height: 50px;
+  border: 2px solid white;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+}
+
+.rpm {
+  background-color: black;
+  height: 30vh;
+  aspect-ratio: 1/1;
+}
+.rpm-counter {
+  transition: 60ms;
+}
+.rpm-counter .car-counter_stick {
+  width: 64px;
+}
+
+.footer-el {
+  border-top: 4px dashed white;
+  border-left: 2px dashed white;
+  border-right: 2px dashed white;
+  border-bottom: 2px solid black;
+  border-radius: 50%;
+  background-color: black;
+  height: 248px;
+  aspect-ratio: 1/1;
+  z-index: 12;
+  display: flex;
+  flex-direction: column;
+}
+
+.gear-counter {
+  position: absolute;
+  color: white;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.spd-counter {
+  color: rgba(255, 217, 0, 0);
+  height: 60%;
+  width: 70%;
+  border: 3px solid black;
+  margin: 0 5%;
+  border-radius: 20%;
+  font-size: 25px;
+}
+
+.gameplay-pause {
+  z-index: 1;
+  top: 0;
+  background: linear-gradient(black 0%, rgba(255, 0, 0, 0.5) 100%);
+  min-height: 100vh;
+  width: 100%;
+  color: white;
+}
+
+.screen-div {
+  text-align: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(9, 1fr);
+  width: 400px;
+  height: 300px;
+  color: white;
+  background-color: black;
+}
+.keyboard * {
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid black;
+  font-size: 20px;
+}
+.keyboard h2 {
+  grid-row-end: 3;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-column-start: 1;
+}
+
+.reset-keyboard {
+  grid-row: 10/11;
+  grid-column: 1/3;
+}
+
+.keyName {
+  cursor: cell;
+}
+
+.part {
+  color: white;
+  font-weight: bolder;
+  border-radius: 10px;
+  background-size: cover;
+  cursor: pointer;
+  box-shadow: 0 0 40px 3px black;
+  border: 2px solid white;
+  min-width: 400px;
+  width: 25vw;
+  aspect-ratio: 2/1;
+}
+.part img {
+  height: 50px;
+}
+.parts {
+  flex-wrap: wrap;
+  gap: 5vw;
+}
+.parts-of-script {
+  font-size: 30px;
+}
+.parts-of-script h3 {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+::-webkit-scrollbar {
+  background-color: red;
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: black;
+}
+
+.save-the-progress-button,
+.contact-link-button,
+.uncompleted-parts button {
+  font-size: 50px;
+  background: black;
+  color: white;
+  border-radius: 20px;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid white;
+  cursor: pointer;
+}
+
+.gameplay-headline {
+  font-size: 50px;
+}
+
+.flame {
+  height: 4px;
+  width: 9px;
+}
+
+.car,
+.enemy-car {
+  top: 130px;
+  z-index: 3;
+  width: 150px;
+  left: 11%;
+}
+
+.enemy-car {
+  overflow: visible;
+  margin-top: 30px;
+  top: unset;
+}
+.enemy-position {
+  display: none;
+  font-weight: bolder;
+  font-size: 50px;
+  position: absolute;
+  margin-top: 30px;
+  left: 10%;
+  z-index: 12;
+}
+
+.wheel {
+  width: 20px;
+  z-index: 2;
+  margin-top: 22px;
+}
+
+.vehicle {
+  width: 150px;
+  z-index: 5;
+}
+
+.road {
+  width: 100%;
+  background-image: url("../icons-and-images/roads/rain.png");
+  background-repeat: repeat-x;
+}
+.road-image {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.bottom-road-box {
+  position: absolute;
+  bottom: 0;
+  overflow: visible;
+  width: 100%;
+  height: 50%;
+}
+
+.background {
+  width: 120%;
+  bottom: 30vh;
+}
+
+.turn-position {
+  display: none;
+  font-size: 40px;
+  color: white;
+  position: absolute;
+  right: 10%;
+  z-index: 12;
+  margin-top: 13vh;
+}
+
+.turn-position span,
+.enemy-position {
+  -webkit-text-fill-color: transparent;
+  background-clip: text !important;
+  background: linear-gradient(red, white);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: monospace;
+  user-select: none;
+}
+
+body {
+  min-height: 100vh;
+  overflow: hidden;
+  background-color: black;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media only screen and (max-width: 1325px) and (min-width: 750px) {
+  .spd-counter {
+    font-size: 22px;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .spd-counter {
+    font-size: 1.2em;
+  }
+}
+.action-level-input {
+  cursor: pointer;
+  filter: sepia(100%) saturate(500%);
+}
+
+.handling-settings {
+  text-align: center;
+}
+
+.race-counting {
+  position: absolute;
+  font-size: 30vh;
+  align-self: center;
+  justify-self: center;
+  color: white;
+}
+
+.explanation {
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+.explanation-content {
+  max-width: 70%;
+  align-self: center;
+}
+.explanation select {
+  padding: 10px;
+  border-radius: 20px;
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+.explanation select option {
+  margin: 10px;
+}
+
+.continue-game-button {
+  border: 2px solid grey;
+  padding: 5px;
+  color: white;
+  align-items: center;
+  border-radius: 5px;
+  display: none;
+  margin-left: 40px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.back-to-menu-button {
+  visibility: hidden;
+}
+
+.screen-div {
+  display: flex;
+  flex-direction: unset;
+  align-items: center;
+  justify-content: center;
+}
+
+.cheat-button {
+  font-size: 18px;
+  font-weight: 600;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  border: 2px solid white;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+.part {
+  display: flex;
+  flex-direction: unset;
+  align-items: center;
+  justify-content: center;
+}
+.parts {
+  display: flex;
+  flex-direction: unset;
+  align-items: unset;
+  justify-content: center;
+}
+.parts-of-script {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: unset;
+}
+
+.gameplay-pause {
+  transition: 3s ease-in;
+  opacity: 0;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: unset;
+  display: none;
+}
+
+.gear-counter {
+  margin-left: 113px;
+  margin-top: 105px;
+}
+
+.spd-counter {
+  display: flex;
+  flex-direction: unset;
+  align-items: center;
+  justify-content: center;
+}
+
+footer {
+  transition: 0.5s;
+  opacity: 0;
+  position: absolute;
+  display: flex;
+  flex-direction: unset;
+  align-items: center;
+  justify-content: space-between;
+  display: none;
+}
+
+.car-counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.background {
+  transition: 2s linear;
+  opacity: unset;
+  position: absolute;
+}
+
+.road {
+  transition: 240ms linear;
+  opacity: unset;
+  position: relative;
+}
+
+.vehicle {
+  transition: 0.5s;
+  opacity: unset;
+  position: absolute;
+}
+
+.wheel {
+  transition: 240ms linear;
+  opacity: unset;
+  position: absolute;
+}
+
+.car .one {
+  margin-left: 117px;
+  margin-top: 22px;
+}
+.car .two {
+  margin-left: 22px;
+  margin-top: 22px;
+}
+
+.firstRace .one {
+  margin-left: 112px;
+  margin-top: 36px;
+}
+.firstRace .two {
+  margin-left: 24px;
+  margin-top: 36px;
+}
+
+.secondRace .one {
+  margin-left: 118px;
+  margin-top: 36px;
+}
+.secondRace .two {
+  margin-left: 23px;
+  margin-top: 36px;
+}
+.secondRace .vehicle {
+  margin-left: unset;
+  margin-top: 13px;
+}
+
+.finalRace .one {
+  margin-left: 25px;
+  margin-top: 22px;
+}
+.finalRace .two {
+  margin-left: 115px;
+  margin-top: 22px;
+}
+
+.flame {
+  margin-left: -9px;
+  margin-top: 30px;
+  transition: unset;
+  opacity: 0;
+  position: absolute;
+}
+
+#wrap,
+.explanation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: unset;
+}
+
+header,
+body,
+.announcement {
+  display: flex;
+  flex-direction: unset;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  display: none;
+  position: fixed;
+  font-size: 20px;
+  color: white;
+  z-index: 10;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+.menu-content {
+  display: flex;
+  flex-direction: unset;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+nav {
+  display: flex;
+  flex-direction: unset;
+  align-items: unset;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  min-height: 50px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.937);
+  z-index: 11;
+  padding: 5px 10px;
+}
+nav button {
+  transition: 1s;
+  opacity: unset;
+  position: unset;
+  cursor: pointer;
+  font-size: 20px;
+  border: 1px solid black;
+  padding: 3px 10px;
+}
+nav button:hover {
+  background-color: black;
+  border: 1px solid white;
+  color: white;
+}
+
+.intro-words {
+  transition: 2s;
+  opacity: 0;
+  position: unset;
+  font-size: 50px;
+  color: white;
+}
+
+.tunnel {
+  transition: 1s;
+  opacity: unset;
+  position: absolute;
+  right: -65%;
+  display: flex;
+  top: 40px;
+}
+.tunnel :last-child {
+  z-index: 11;
+}
+
+#wrap {
+  transition: 3s cubic-bezier(0.65, 0.05, 0.36, 1);
+  opacity: 0;
+  position: unset;
+  transform: scale(2);
+  margin-left: 30vw;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  height: 100vh;
+  width: 100%;
+  background-image: url("../icons-and-images/background-images/rain.jpg");
+  background-repeat: repeat-x;
+  overflow: hidden;
+  display: none;
+  background-size: cover;
+}
+
+header {
+  transition: 2s;
+  opacity: 0;
+  position: absolute;
+  top: 20px;
+  z-index: 1;
+  padding: 0 25px;
+  border: 4px white solid;
+  min-width: 20%;
+  min-height: 5vh;
+  padding: 30px 70px;
+  text-align: center;
+  background-color: black;
+  color: white;
+  font-size: 20px;
+  border-radius: 15px;
+  max-width: 80%;
+}
+
+.announcement {
+  transition: 1s;
+  opacity: 0;
+  position: absolute;
+  font-style: italic;
+  z-index: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgb(0, 0, 0);
+  font-size: 100px;
+  text-align: center;
+}
+
+.veryLargeText {
+  transition: 0.4s;
+  opacity: unset;
+  position: absolute;
+  display: flex;
+  -webkit-text-fill-color: transparent;
+  background-clip: text !important;
+  background: linear-gradient(red, white);
+  text-align: center;
+  font-size: 100px;
+  justify-self: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.pause {
+  transition: 1s;
+  opacity: 1;
+  position: fixed;
+  height: 70px;
+  width: 70px;
+  display: flex;
+  cursor: pointer;
+  line-height: 70px;
+  font-size: 80px;
+  color: white;
+  top: 60px;
+  z-index: 11;
+  right: 3vw;
+}
+.pause img {
+  position: absolute;
+  height: 50px;
+}
+
+.car,
+.enemy-car {
+  transition: 0.5s linear;
+  opacity: unset;
+  position: absolute;
+}
+
+.titres {
+  transition: 1s;
+  padding-top: 5vw;
+  top: 0;
+  z-index: 20;
+  position: absolute;
+  background-color: black;
+  color: white;
+  font-size: 1.5625vw;
+  font-weight: bold;
+  display: none;
+  opacity: 0;
+  width: 100vw;
+  grid-template-rows: auto;
+  row-gap: 3vw;
+}
+.titres * {
+  align-self: center;
+  justify-self: center;
+}
+.titres img {
+  width: 25vw;
+  min-width: 20vw;
+  padding: 2.5vw;
+}
+.titres_text {
+  display: grid;
+  text-align: center;
+}
+.titres_column_left, .titres_column_right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: unset;
+}
+
+/*# sourceMappingURL=scss.css.map */
