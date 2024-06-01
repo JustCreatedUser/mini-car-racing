@@ -340,16 +340,16 @@ function selectInfoInMenu() {
           (item) => item == true
         );
       if (music.hidden.cheaterSongWasDiscovered) {
+        number++;
         $(".undiscovered-music-left").before(
           ` ${number}) Never gonna give you up - Rick Astley; `
         );
-        number++;
       }
       if (music.hidden.finalSongWasDiscovered) {
+        number++;
         $(".undiscovered-music-left").before(
           ` ${number}) THE TOP by KEN BLAST; `
         );
-        number++;
       }
 
       if (numberArray.length == 2) {
