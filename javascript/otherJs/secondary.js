@@ -352,7 +352,7 @@ function selectInfoInMenu() {
         );
         number--;
       }
-      if (numberArray.length == 3) {
+      if (numberArray.length == 2) {
         $(".undiscovered-music-left").remove();
       }
       break;
