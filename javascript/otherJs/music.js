@@ -2,10 +2,13 @@
 "use strict";
 export const music = {
   songsList: [
+    "https://ia801400.us.archive.org/27/items/need-for-speed-underground-soundtrack-2003-gamerip/07.%20Element%20Eighty%20-%20Broken%20Promises%20%28NFS%20Underground%20Edition%29.mp3",
     "https://dn720306.ca.archive.org/0/items/gas-gas-gas/Gas%20Gas%20Gas.mp3",
     "https://ia601301.us.archive.org/22/items/61-zb-4-pz-6-sf-l.-ac-uf-1000-1000-ql-80/01.%20Styles%20of%20Beyond%20-%20Nine%20Thou%20%28Superstars%20Remix%29.mp3",
     "https://ia800701.us.archive.org/34/items/InitialDDejaVu_201811/Initial%20D-Deja%20Vu.mp3",
+    "https://ia601400.us.archive.org/27/items/need-for-speed-underground-soundtrack-2003-gamerip/02.%20The%20Crystal%20Method%20-%20Born%20Too%20Slow%20%28NFS%20Underground%20Edition%29.mp3",
     "https://ia800503.us.archive.org/15/items/RunningInThe90s_201608/Running_in_the_90s.mp3",
+    "https://ia801400.us.archive.org/27/items/need-for-speed-underground-soundtrack-2003-gamerip/06.%20Static-X%20-%20The%20Only%20%28NFS%20Underground%20Edition%29.mp3",
   ],
   listenedCycle: [],
   song: undefined,
@@ -15,7 +18,7 @@ export const music = {
     cheaterSongWasDiscovered: false,
     finalSongWasDiscovered: false,
   },
-  index: Math.round(Math.random() * 3),
+  index: Math.round(Math.random() * (music.songsList.length - 1)),
   hasBeenListened: false,
   isPlaying: false,
   checkMusicDurationInterval: undefined,

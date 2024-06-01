@@ -330,10 +330,10 @@ function selectInfoInMenu() {
       break;
     case "music":
       $(".explanation-content")
-        .html(`1) running in the 90s - Max Coveri; 2) Deja vu - Dave Rodgers; 3) Gas Gas Gas - Manuel; 4) Styles of Beyond - Nine Thou (Superstars Remix); 
+        .html(`1) running in the 90s - Max Coveri; 2) Deja vu - Dave Rodgers; 3) Gas Gas Gas - Manuel; 4) Styles of Beyond - Nine Thou (Superstars Remix); 5) Born too slow - The Crystal Method; 6)The only - StaticX; 7) Broken Promises - Element Eighty;
       <span class='undiscovered-music-left'>Назви решти творів ти отримаєш при проходженні гри</span>
         `);
-      let number = 4,
+      let number = music.listenedCycle.length + music.songsList.length,
         numberArray = Object.values(music.hidden).filter(
           (item) => item == true
         );
