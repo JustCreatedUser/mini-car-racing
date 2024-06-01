@@ -353,7 +353,7 @@ function selectInfoInMenu() {
       }
 
       if (numberArray.length == 2) {
-        $(".undiscovered-music-left").remove();
+        $(".undiscovered-music-left").text("Ти знайшов всі пісні!");
       }
       break;
   }
