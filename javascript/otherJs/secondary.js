@@ -339,19 +339,19 @@ function selectInfoInMenu() {
         numberArray = Object.values(music.hidden).filter(
           (item) => item == true
         );
-
-      if (music.hidden.finalSongWasDiscovered) {
-        $(".undiscovered-music-left").before(
-          ` ${number}) THE TOP by KEN BLAST; `
-        );
-        number++;
-      }
       if (music.hidden.cheaterSongWasDiscovered) {
         $(".undiscovered-music-left").before(
           ` ${number}) Never gonna give you up - Rick Astley; `
         );
         number++;
       }
+      if (music.hidden.finalSongWasDiscovered) {
+        $(".undiscovered-music-left").before(
+          ` ${number}) THE TOP by KEN BLAST; `
+        );
+        number++;
+      }
+
       if (numberArray.length == 2) {
         $(".undiscovered-music-left").remove();
       }
