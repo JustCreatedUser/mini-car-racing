@@ -708,8 +708,10 @@ header {
   align-self: center;
   justify-self: center;
 }
-.titres img {
+.titres img,
+.titres svg {
   width: 25vw;
+  height: auto;
   min-width: 20vw;
   padding: 2.5vw;
 }
