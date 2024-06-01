@@ -73,8 +73,8 @@
         2) Deja vu - Dave Rodgers ("https://ia800701.us.archive.org/34/items/InitialDDejaVu_201811/Initial%20D-Deja%20Vu.mp3")
         3) Gas Gas Gas - Manuel ("https://dn720306.ca.archive.org/0/items/gas-gas-gas/Gas%20Gas%20Gas.mp3")
         4) Styles of Beyond - Nine Thou (Superstars Remix) : ("https://ia601301.us.archive.org/22/items/61-zb-4-pz-6-sf-l.-ac-uf-1000-1000-ql-80/01.%20Styles%20of%20Beyond%20-%20Nine%20Thou%20%28Superstars%20Remix%29.mp3")
-        6) на фінальну гонку піде THE TOP by KEN BLAST
-
+        5) на фінальну гонку піде THE TOP by KEN BLAST
+        Решту пісень я вже не записуватиму, бо вони і так відображатимуться в меню паузи.
 
 }
 
