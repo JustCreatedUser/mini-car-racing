@@ -59,8 +59,14 @@ $(".reset-keyboard").click(function () {
 });
 function keyDown(e) {
   if (!choosingKeysMode) {
-    let keyName =
-      e.code == "Space" ? e.code.toLowerCase() : e.key.toLowerCase();
+    let keyName;
+    if (e.code.includes("Key")) {
+      keyName = e.code.split("Key")[1].toLowerCase();
+    } else if (e.code == "Space") {
+      keyName = "space";
+    } else {
+      keyName = e.key.toLowerCase();
+    }
     switch (keyName) {
       case keyboard.accelerate:
         if (!myCar.acceleration) {
