@@ -124,16 +124,15 @@ function keyDown(e) {
       return;
     }
     let name;
-    switch (e.code) {
-      case "Space":
-        name = "code";
-        break;
-      default:
-        name = "key";
-        break;
+    if (e.code.includes("Key")) {
+      name = e.code.split("Key")[1];
+    } else if (e.code == "Space") {
+      name = e.code;
+    } else {
+      name = e.key;
     }
-    $("." + keyToChoose).text(e[name].toLowerCase());
-    keyboard[keyToChoose] = e[name].toLowerCase();
+    $("." + keyToChoose).text(name.toLowerCase());
+    keyboard[keyToChoose] = name.toLowerCase();
     keyToChoose = undefined;
     choosingKeysMode = false;
     localStorage.setItem("mini-car-racing-keyboard", JSON.stringify(keyboard));
