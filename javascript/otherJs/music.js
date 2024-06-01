@@ -18,7 +18,7 @@ export const music = {
     cheaterSongWasDiscovered: false,
     finalSongWasDiscovered: false,
   },
-  index: Math.round(Math.random() * (music.songsList.length - 1)),
+  index: Math.round(Math.random() * 6),
   hasBeenListened: false,
   isPlaying: false,
   checkMusicDurationInterval: undefined,
