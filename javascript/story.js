@@ -382,13 +382,15 @@ class Race extends Story {
             $(".titres").css({ opacity: 1 });
             document.body.style.overflowY = "scroll";
             changes.rewriteEverything();
-            $(".save-the-progress-button").css({
-              background: "black",
-              color: "white",
-              borderBottom: "2px solid white",
-            });
-            $(".save-the-progress-button").text("Зберегти прогрес?");
-            permissions.toSaveProgress = true;
+            if (totalProgress != "Everything") {
+              $(".save-the-progress-button").css({
+                background: "black",
+                color: "white",
+                borderBottom: "2px solid white",
+              });
+              $(".save-the-progress-button").text("Зберегти прогрес?");
+              permissions.toSaveProgress = true;
+            }
             $(".tunnel").css("right", "-65%");
             setTimeout(AOS.init, 500);
             setTimeout(() => {
