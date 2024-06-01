@@ -25,6 +25,7 @@ function pause() {
     $(".pause img").attr("src", "./icons-and-images/pause.svg");
     $(".pause p").remove();
     isGamePaused = false;
+    $("select").val("");
   }
 }
 function useGuideBlockButton() {
