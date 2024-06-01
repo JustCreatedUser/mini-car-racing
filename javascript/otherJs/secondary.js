@@ -26,6 +26,7 @@ function pause() {
     $(".pause p").remove();
     isGamePaused = false;
     $("select").val("Обери пояснення");
+    $(".explanation-content").text("поки нічого");
   }
 }
 function useGuideBlockButton() {
