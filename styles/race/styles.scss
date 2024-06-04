@@ -1,6 +1,5 @@
 @use "sass:math";
-@import "./scss-modules/footer", "./scss-modules/gameplay-pause",
-  "./scss-modules/mixins", "./scss-modules/road";
+@import "./footer", "./gameplay-pause", "../mixins", "./road";
 
 * {
   margin: 0;

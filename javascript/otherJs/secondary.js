@@ -158,7 +158,33 @@ function fastest_speed_cheat() {
     }, 1000);
   }
 }
+function setStylesForPhone() {
+  
+}
 function useLocalStorageAndCookies() {
+  if (!localStorage.getItem("device")) {
+    let isThereAKeyboard = confirm(
+      "Привіт в Mini-car racing! Спершу скажіть: у вас є клавіатура?"
+    );
+    if (isThereAKeyboard) {
+      alert(
+        'У частині "вступ" розказане управління і в меню паузи ви можете його відкоригувати. Приємної гри!'
+      );
+      device = "computer";
+      localStorage.setItem("device", device);
+    } else {
+      alert(
+        "Прошу тримати свій девайс в горизонтальному положенні для зручності"
+      );
+      device = "phone";
+    }
+    localStorage.setItem("device", device);
+  } else {
+    device = localStorage.getItem("device");
+  }
+  if (device == "phone") {
+    setStylesForPhone(0);
+  }
   if (!navigator.cookieEnabled) {
     alert(
       "У вас відключено файли cookie. Тут вони використовуються для того, щоб запам'ятати те - хочете ви слухати музику, чи ні. Для кращих емоцій вам варто дозволити використання цих файлів"

@@ -1,5 +1,5 @@
 @use "sass:math";
-@import "../scss-modules/mixins";
+@import "../mixins";
 $windowSize: 640;
 * {
   user-select: none;

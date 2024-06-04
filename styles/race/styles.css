@@ -108,7 +108,7 @@ footer {
 
 .screen-div {
   text-align: center;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
 }
 
@@ -688,4 +688,4 @@ header {
   position: absolute;
 }
 
-/*# sourceMappingURL=scss.css.map */
+/*# sourceMappingURL=styles.css.map */

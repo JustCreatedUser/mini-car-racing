@@ -1,1 +1,11 @@
-{"version":3,"sourceRoot":"","sources":["styles.scss","../scss-modules/_mixins.scss"],"names":[],"mappings":"AAEA;EACE;EACA;EACA;;;AAEF;EACE;;;AAEF;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;;AACA;EACE;EACA;;AAEF;AAAA;EAEE;EACA;EACA;EACA;;AAEF;EACE;EACA;;AAGA;ECxCF;EACA,gBDyCoC;ECxCpC,aDwC4B;ECvC5B,iBDuCqB;;;AAKvB;EACE;EACA;;;AAEF;EACE;EACA;;;AAEF;EACE","file":"styles.css"}
+{
+  "version": 3,
+  "sourceRoot": "",
+  "sources": [
+    "styles.scss",
+    "../_mixins.scss"
+  ],
+  "names": [],
+  "mappings": "AAEA;EACE;EACA;EACA;;;AAEF;EACE;;;AAEF;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;;AACA;EACE;EACA;;AAEF;AAAA;EAEE;EACA;EACA;EACA;;AAEF;EACE;EACA;;AAGA;ECxCF;EACA,gBDyCoC;ECxCpC,aDwC4B;ECvC5B,iBDuCqB;;;AAKvB;EACE;EACA;;;AAEF;EACE;EACA;;;AAEF;EACE",
+  "file": "styles.css"
+}
