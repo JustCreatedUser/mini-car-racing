@@ -1,0 +1,54 @@
+@use "sass:math";
+@import "../scss-modules/mixins";
+body {
+  background-color: black;
+}
+.credits {
+  transition: 1s;
+  padding-top: 5vw;
+  top: 0;
+  z-index: 20;
+  position: absolute;
+  background-color: black;
+  color: white;
+  font-size: setSizeWithMath(30);
+  font-weight: bold;
+  display: grid;
+  opacity: 1;
+  width: 100vw;
+  grid-template-rows: auto;
+  row-gap: 3vw;
+  * {
+    align-self: center;
+    justify-self: center;
+  }
+  img,
+  svg {
+    width: 25vw;
+    height: auto;
+    min-width: 20vw;
+    padding: 2.5vw;
+  }
+  &_text {
+    display: grid;
+    text-align: center;
+  }
+  &_column {
+    &_left,
+    &_right {
+      @include addFlex(unset, center, column);
+    }
+  }
+}
+
+body {
+  height: 100vh;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar {
+  background-color: red;
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: black;
+}

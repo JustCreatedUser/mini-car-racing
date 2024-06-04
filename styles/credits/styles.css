@@ -1,0 +1,57 @@
+body {
+  background-color: black;
+}
+
+.credits {
+  transition: 1s;
+  padding-top: 5vw;
+  top: 0;
+  z-index: 20;
+  position: absolute;
+  background-color: black;
+  color: white;
+  font-size: 1.5625vw;
+  font-weight: bold;
+  display: grid;
+  opacity: 1;
+  width: 100vw;
+  grid-template-rows: auto;
+  row-gap: 3vw;
+}
+.credits * {
+  align-self: center;
+  justify-self: center;
+}
+.credits img,
+.credits svg {
+  width: 25vw;
+  height: auto;
+  min-width: 20vw;
+  padding: 2.5vw;
+}
+.credits_text {
+  display: grid;
+  text-align: center;
+}
+.credits_column_left, .credits_column_right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: unset;
+}
+
+body {
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  background-color: red;
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: black;
+}
+
+/*# sourceMappingURL=styles.css.map */

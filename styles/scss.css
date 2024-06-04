@@ -688,42 +688,4 @@ header {
   position: absolute;
 }
 
-.credits {
-  transition: 1s;
-  padding-top: 5vw;
-  top: 0;
-  z-index: 20;
-  position: absolute;
-  background-color: black;
-  color: white;
-  font-size: 1.5625vw;
-  font-weight: bold;
-  display: none;
-  opacity: 0;
-  width: 100vw;
-  grid-template-rows: auto;
-  row-gap: 3vw;
-}
-.credits * {
-  align-self: center;
-  justify-self: center;
-}
-.credits img,
-.credits svg {
-  width: 25vw;
-  height: auto;
-  min-width: 20vw;
-  padding: 2.5vw;
-}
-.credits_text {
-  display: grid;
-  text-align: center;
-}
-.credits_column_left, .credits_column_right {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: unset;
-}
-
 /*# sourceMappingURL=scss.css.map */
