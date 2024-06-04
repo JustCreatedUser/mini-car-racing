@@ -688,7 +688,7 @@ header {
   position: absolute;
 }
 
-.titres {
+.credits {
   transition: 1s;
   padding-top: 5vw;
   top: 0;
@@ -704,22 +704,22 @@ header {
   grid-template-rows: auto;
   row-gap: 3vw;
 }
-.titres * {
+.credits * {
   align-self: center;
   justify-self: center;
 }
-.titres img,
-.titres svg {
+.credits img,
+.credits svg {
   width: 25vw;
   height: auto;
   min-width: 20vw;
   padding: 2.5vw;
 }
-.titres_text {
+.credits_text {
   display: grid;
   text-align: center;
 }
-.titres_column_left, .titres_column_right {
+.credits_column_left, .credits_column_right {
   display: flex;
   flex-direction: column;
   align-items: center;

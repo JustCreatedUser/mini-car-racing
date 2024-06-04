@@ -302,7 +302,7 @@ header {
 .enemy-car {
   @include setAnimations(0.5s linear, $pos: absolute);
 }
-.titres {
+.credits {
   transition: 1s;
   padding-top: 5vw;
   top: 0;
