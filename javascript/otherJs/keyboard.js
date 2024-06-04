@@ -19,7 +19,6 @@ $(".keyName").click(function () {
     choosingKeysMode = true;
     keyToChoose = $(this)[0].classList[1];
     $(this).text("Нажми кнопку");
-    console.log(keyToChoose);
     keyboard[keyToChoose] = undefined;
   }
 });

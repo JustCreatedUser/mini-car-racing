@@ -73,10 +73,11 @@
             required
             placeholder="Розробник зверне увагу!"
             name="message"
+            id="message"
           ></textarea>
         </div>
         <div class="back-page">
-          <button type="submit">Надіслати</button>
+          <button type="submit" onclick="clearInputs()">Надіслати</button>
           <label
             for="checkboxPage2"
             style="justify-self: start; align-self: end"
@@ -115,12 +116,6 @@
           $(this).css("border", "2px solid green");
         }
       }
-      $("input").on("input", changeBorder);
-      $("textarea").on("input", changeBorder);
-      email.oninput = changeBorder;
-      $("input").on("click", changeBorder);
-      $("textarea").on("click", changeBorder);
-      email.onclick = changeBorder;
       function fixAnimation() {
         let checked = $(this).is(":checked");
         let el = $(
@@ -140,6 +135,34 @@
           $(el).css("z-index", neededPosition);
         }, 250);
       }
+      function clearInputs() {
+        let completedInputs = inputs.filter((element) => element.value != "");
+        if (
+          completedInputs.length == 0 ||
+          (!email.value.includes("@gmail.com") && completedInputs.length > 1)
+        ) {
+          return;
+        }
+        inputs.forEach((element) => {
+          element.value = "";
+          element.style.border = "1px dashed black";
+        });
+        labels.forEach((element) => {
+          element.checked = false;
+        });
+        $(".cover .back-page").css("backface-visibility", "hidden");
+        $(".cover .front-page").css("visibility", "visible");
+        cover.style.zIndex = 4;
+        page1.style.zIndex = 3;
+        page2.style.zIndex = 2;
+      }
+      $("input").on("input", changeBorder);
+      $("textarea").on("input", changeBorder);
+      email.oninput = changeBorder;
+      $("input").on("click", changeBorder);
+      $("textarea").on("click", changeBorder);
+      email.onclick = changeBorder;
+      let inputs = [email, rating, message];
       let labels = [checkboxCover, checkboxPage1, checkboxPage2];
       labels.forEach((element) => {
         element.oninput = fixAnimation;
