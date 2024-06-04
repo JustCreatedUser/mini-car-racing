@@ -143,18 +143,20 @@
         ) {
           return;
         }
-        inputs.forEach((element) => {
-          element.value = "";
-          element.style.border = "1px dashed black";
-        });
-        labels.forEach((element) => {
-          element.checked = false;
-        });
-        $(".cover .back-page").css("backface-visibility", "hidden");
-        $(".cover .front-page").css("visibility", "visible");
-        cover.style.zIndex = 4;
-        page1.style.zIndex = 3;
-        page2.style.zIndex = 2;
+        setTimeout(() => {
+          inputs.forEach((element) => {
+            element.value = "";
+            element.style.border = "1px dashed black";
+          });
+          labels.forEach((element) => {
+            element.checked = false;
+          });
+          $(".cover .back-page").css("backface-visibility", "hidden");
+          $(".cover .front-page").css("visibility", "visible");
+          cover.style.zIndex = 4;
+          page1.style.zIndex = 3;
+          page2.style.zIndex = 2;
+        }, 300);
       }
       $("input").on("input", changeBorder);
       $("textarea").on("input", changeBorder);
