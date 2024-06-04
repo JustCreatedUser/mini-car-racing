@@ -89,11 +89,4 @@ $(".continue-game-button").click(useGuideBlockButton);
 $(".action-level-input").on("mousemove", actionLevelChange);
 $(".explanation-content").on("click", ".cheat-button", fastest_speed_cheat);
 $(".uncompleted-parts").on("click", "button", restartTheGame);
-$("body").on("click", ".credits .close-credits", function () {
-  $(".credits").css({ opacity: 0 });
-  setTimeout(() => {
-    $(".credits").css({ display: "none" });
-    $(".gameplay-pause").css({ display: "flex", opacity: 1 });
-  }, 1000);
-});
 window.document.onload = useLocalStorageAndCookies();

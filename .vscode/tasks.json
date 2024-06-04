@@ -10,7 +10,13 @@
     {
       "label": "Compile Contact scss",
       "type": "shell",
-      "command": "sass ./styles/contact.scss ./styles/contact.css",
+      "command": "sass ./styles/contact/styles.scss ./styles/contact/styles.css",
+      "group": "build"
+    },
+    {
+      "label": "Compile Credits scss",
+      "type": "shell",
+      "command": "sass ./styles/credits/styles.scss ./styles/credits/styles.css",
       "group": "build"
     }
   ]

@@ -363,60 +363,13 @@ class Race extends Story {
 
           break;
         case finalRace:
-          $(".gameplay-headline").text(
-            "Як швидко минає час... Нижче можна скинути прогрес."
-          );
           guideBlock.style.opacity = "0";
           guideBlockText.innerText = "Mini-car racing";
           $("#wrap").css({ transition: "3s", opacity: 0 });
-          $(".completed-parts .parts").append($(".finalRace-begin"));
-          $(".uncompleted-parts h3").text("Вже все пройдено...");
-          if (document.querySelector(".uncompleted-parts button") == null) {
-            $(".uncompleted-parts").append(
-              `<button>Скинути прогрес і перезавантажитись?</button>`
-            );
-          }
-          $(".credits").css({ display: "grid" });
           setTimeout(() => {
-            wrap.style.display = "none";
-            $(".credits").css({ opacity: 1 });
-            document.body.style.overflowY = "scroll";
-            changes.rewriteEverything();
-            if (totalProgress != "Everything") {
-              $(".save-the-progress-button").css({
-                background: "black",
-                color: "white",
-                borderBottom: "2px solid white",
-              });
-              $(".save-the-progress-button").text("Зберегти прогрес?");
-              permissions.toSaveProgress = true;
-            }
-            $(".tunnel").css("right", "-65%");
-            setTimeout(AOS.init, 500);
-            setTimeout(() => {
-              let page = window.document.documentElement,
-                position = page.scrollTop;
-
-              let scrolling = setInterval(() => {
-                let expression =
-                  document.documentElement.offsetHeight == window.innerHeight
-                    ? window.document.documentElement.scrollHeight -
-                      window.innerHeight
-                    : document.documentElement.offsetHeight -
-                      window.innerHeight;
-                if (
-                  position != page.scrollTop ||
-                  page.scrollTop == expression
-                ) {
-                  clearInterval(scrolling);
-                }
-                position += 2;
-                window.scroll({
-                  top: page.scrollTop + 2,
-                  behavior: "instant",
-                });
-              }, 10);
-            }, 1000);
+            location.replace(
+              "https://mini-car-racing.netlify.app/credits.html"
+            );
           }, 2000);
           break;
       }
