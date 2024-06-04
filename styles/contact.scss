@@ -8,6 +8,7 @@ $windowSize: 640;
   box-sizing: border-box;
 }
 button[type="submit"] {
+  cursor: pointer;
   color: red;
   font-size: setSizeWithMath(25, $windowSize, 100vh);
   border: dashed 1px black;
