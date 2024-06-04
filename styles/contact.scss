@@ -7,6 +7,16 @@ $windowSize: 640;
   padding: 0;
   box-sizing: border-box;
 }
+button[type="submit"] {
+  color: red;
+  font-size: setSizeWithMath(25, $windowSize, 100vh);
+  border: dashed 1px black;
+  border-radius: setSizeWithMath(10, $windowSize, 100vh) 0
+    setSizeWithMath(10, $windowSize, 100vh) 0;
+  padding: setSizeWithMath(10, $windowSize, 100vh)
+    setSizeWithMath(15, $windowSize, 100vh);
+}
+
 body {
   overflow: hidden;
   background: linear-gradient(black 0%, white 100%);

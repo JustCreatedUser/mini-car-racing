@@ -5,6 +5,14 @@
   box-sizing: border-box;
 }
 
+button[type=submit] {
+  color: red;
+  font-size: 3.90625vh;
+  border: dashed 1px black;
+  border-radius: 1.5625vh 0 1.5625vh 0;
+  padding: 1.5625vh 2.34375vh;
+}
+
 body {
   overflow: hidden;
   background: linear-gradient(black 0%, white 100%);
