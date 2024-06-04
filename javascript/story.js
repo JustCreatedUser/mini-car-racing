@@ -376,10 +376,10 @@ class Race extends Story {
               `<button>Скинути прогрес і перезавантажитись?</button>`
             );
           }
-          $(".titres").css({ display: "grid" });
+          $(".credits").css({ display: "grid" });
           setTimeout(() => {
             wrap.style.display = "none";
-            $(".titres").css({ opacity: 1 });
+            $(".credits").css({ opacity: 1 });
             document.body.style.overflowY = "scroll";
             changes.rewriteEverything();
             if (totalProgress != "Everything") {

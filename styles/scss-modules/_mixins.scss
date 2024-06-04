@@ -13,6 +13,6 @@
   margin-left: $ml;
   margin-top: $mt;
 }
-@function setSizeWithMath($content) {
-  @return math.div($content, 1920) * 100vw;
+@function setSizeWithMath($content, $container: 1920, $value: 100vw) {
+  @return math.div($content, $container) * $value;
 }

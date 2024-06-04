@@ -11,47 +11,90 @@
     <noscript>
       У вас заборонений Javascript. Перевірте налаштування браузеру
     </noscript>
-    <h1>Бажаєте висловити свої враження?</h1>
+    <input type="checkbox" id="checkboxCover" />
+    <input type="checkbox" id="checkboxPage1" />
+    <input type="checkbox" id="checkboxPage2" />
     <form action="https://formspree.io/f/xeqywdpp" method="POST">
-      <label style="grid-column: 1 / 2">
-        <span>Ваша електронна пошта</span>
-        <input
-          type="email"
-          name="email"
-          placeholder="me@gmail.com"
-          required
-          autocomplete="off"
-        />
+      <div class="cover" id="cover">
+        <div class="front-page" style="transform: translateZ(1px)">
+          Тут ти заповнюєш анкету інформацією
+        </div>
+        <div
+          class="back-page"
+          style="transform: rotateY(180deg) translateZ(-1px)"
+        >
+          Це буде адресовано автору гри!
+        </div>
+        <label for="checkboxCover"></label>
+      </div>
+      <label class="page" id="page1">
+        <div class="front-page">
+          <label for="checkboxPage1" style="justify-self: end; align-self: end"
+            >&rarr;</label
+          >
+          <span>Ваша електронна пошта</span>
+          <input
+            id="email"
+            type="email"
+            name="email"
+            placeholder="me@gmail.com"
+            required
+            autocomplete="off"
+          />
+        </div>
+        <div class="back-page">
+          <label
+            style="justify-self: start; align-self: end"
+            for="checkboxPage1"
+            >&larr;</label
+          >
+          <span>Ваша оцінка з 10 балів</span>
+          <input
+            type="number"
+            name="rating"
+            min="0"
+            max="10"
+            step="0.1"
+            id="rating"
+            required
+            autocomplete="off"
+            placeholder="10?"
+            oninput="checkRating()"
+          />
+        </div>
       </label>
-      <label style="grid-row: 2 / 3; grid-column: 1 / 2">
-        <span>Ваша оцінка з 10 балів</span>
-        <input
-          type="number"
-          name="rating"
-          min="0"
-          max="10"
-          step="0.1"
-          id="rating"
-          required
-          autocomplete="off"
-          placeholder="10?"
-          oninput="checkRating()"
-        />
+      <label class="page" id="page2">
+        <div class="front-page">
+          <label for="checkboxPage2" style="justify-self: end; align-self: end"
+            >&rarr;</label
+          >
+          <span style="justify-self: center">Ваша думка:</span>
+          <textarea
+            required
+            placeholder="Розробник зверне увагу!"
+            name="message"
+          ></textarea>
+        </div>
+        <div class="back-page">
+          <label
+            for="checkboxPage2"
+            style="justify-self: start; align-self: end"
+            >&larr;</label
+          >
+        </div>
       </label>
-      <label style="grid-column: 2 / 3; grid-row: 1 / 3">
-        <span>Ваша думка:</span>
-        <textarea
-          required
-          placeholder="Розробник зверне увагу!"
-          name="message"
-        ></textarea>
-      </label>
+      <div class="back-cover"></div>
 
-      <button type="submit">Вислати</button>
+      <!-- <button type="submit">Вислати</button> -->
     </form>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"
+      integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw=="
+      crossorigin="anonymous"
+    ></script>
     <script>
       function checkRating() {
-        if (rating.value >= 9) {
+        if (rating.value >= 8) {
           if (rating.value > 10) {
             rating.value = 10;
           }
@@ -59,11 +102,47 @@
         } else if (rating.value < 5) {
           rating.style.color = "red";
         } else {
-          rating.style.color = "white";
+          rating.style.color = "black";
         }
         rating.value = rating.value.replace("+", "");
         rating.value = rating.value.replace("-", "");
       }
+      function changeBorder() {
+        if ($(this).val() == "") {
+          $(this).css("border", "2px solid red");
+        } else {
+          $(this).css("border", "2px solid green");
+        }
+      }
+      $("input").on("input", changeBorder);
+      $("textarea").on("input", changeBorder);
+      email.oninput = changeBorder;
+      $("input").on("click", changeBorder);
+      $("textarea").on("click", changeBorder);
+      email.onclick = changeBorder;
+      function fixAnimation() {
+        let checked = $(this).is(":checked");
+        let el = $(
+          `#${$(this).attr("id").replace("checkbox", "").toLowerCase()}`
+        );
+        let neededPosition = (Number($(el).css("z-index")) - 4) * -1;
+        setTimeout(() => {
+          if ($(this)[0] == checkboxCover) {
+            if (checked) {
+              $(".cover .back-page").css("backface-visibility", "visible");
+              $(".cover .front-page").css("visibility", "hidden");
+            } else {
+              $(".cover .back-page").css("backface-visibility", "hidden");
+              $(".cover .front-page").css("visibility", "visible");
+            }
+          }
+          $(el).css("z-index", neededPosition);
+        }, 250);
+      }
+      let labels = [checkboxCover, checkboxPage1, checkboxPage2];
+      labels.forEach((element) => {
+        element.oninput = fixAnimation;
+      });
     </script>
   </body>
 </html>
