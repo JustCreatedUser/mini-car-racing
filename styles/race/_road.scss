@@ -19,9 +19,9 @@
   &-position {
     display: none;
     font-weight: bolder;
-    font-size: 50px;
+    font-size: setSizeWithMath(50, 1080, 100vh);
     position: absolute;
-    margin-top: 30px;
+    margin-top: setSizeWithMath(30, 1080, 100vh);
     left: 10%;
     z-index: 12;
   }
@@ -61,15 +61,15 @@
 }
 .turn-position {
   display: none;
-  font-size: 40px;
+  font-size: setSizeWithMath(40, 1080, 100vh);
   color: white;
   position: absolute;
   right: 10%;
   z-index: 12;
   margin-top: 13vh;
 }
-.turn-position span,
-.enemy-position {
+.enemy-position,
+.turn-position span {
   -webkit-text-fill-color: transparent;
   background-clip: text !important;
   background: linear-gradient(red, white);

@@ -162,14 +162,9 @@ function setStylesForPhone() {
   $(".keyboard").css("display", "none");
   $(".menu-content").css("justify-content", "center");
   $("footer").attr("class", "phone-counters");
-  $("footer").html(`
-  
-  
-  
-  
-  
-  
-  `);
+  $("footer").html(``);
+  $(".background").css({ bottom: "unset" });
+  $(".road").css({ height: "63.9vh" });
 }
 function changeDevice() {
   let change = device == "computer" ? "phone" : "computer";

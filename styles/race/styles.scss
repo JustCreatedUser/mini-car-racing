@@ -198,7 +198,10 @@ html {
   }
 }
 .flame {
-  @include setMargin(-9px, 30px);
+  @include setMargin(
+    setSizeWithMath(-9, 1080, 100vh),
+    setSizeWithMath(30, 1080, 100vh)
+  );
   @include setAnimations($pos: absolute, $op: 0);
 }
 #race,

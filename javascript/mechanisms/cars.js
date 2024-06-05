@@ -33,7 +33,7 @@ let carStats = {
       overtakeFunction: (enemyCar = enemyCars.array[enemyCars.index]) => {
         let move = Math.round(enemyCar.spd - myCar.spd);
 
-        enemyCar.position += move * 2;
+        enemyCar.position += move * (window.innerHeight / 540);
         $(enemyCar.className).css("margin-left", `${enemyCar.position}px`);
       },
       start: (car = enemyCars.array[enemyCars.index]) => {
@@ -56,7 +56,7 @@ class Car {
   wheelsRotation() {
     if (this.gear !== 0) {
       this.spd = this.rpm * this.gearMultiplier;
-      this.rotation = Math.sqrt(this.spd) * 50;
+      this.rotation = Math.sqrt(this.spd) * (window.innerHeight / 21.6);
     }
   }
 }
@@ -288,8 +288,8 @@ function set240msInterval() {
         $(car.wheel).css("transform", `rotate(${car.degrees}deg)`);
       }
       if (!finish) {
-        backgroundPositionX -= myCar.spd * 2;
-        raceBackgroundPositionX -= myCar.spd / 8;
+        backgroundPositionX -= myCar.spd * (window.innerHeight / 540);
+        raceBackgroundPositionX -= myCar.spd / (window.innerHeight / 135);
         race.style.backgroundPositionX = raceBackgroundPositionX + "px";
         road.style.backgroundPositionX = backgroundPositionX + "px";
         switch (progress) {
@@ -298,7 +298,7 @@ function set240msInterval() {
             break;
         }
       } else {
-        myCarPosition += myCar.spd * 2;
+        myCarPosition += myCar.spd * (window.innerHeight / 540);
         $(myCar.className).css({
           transition: "240ms linear",
           "margin-left": `${myCarPosition}px`,
