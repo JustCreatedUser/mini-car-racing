@@ -96,7 +96,12 @@
   overflow: visible;
   color: white;
   position: absolute;
+}
+.numbers p[class*=speed] {
   font-size: 0.8333333333vh;
+}
+.numbers p[class*=rpm] {
+  font-size: 2.1296296296vh;
 }
 
 .car-counter {
@@ -135,6 +140,14 @@
   height: 30vh;
   aspect-ratio: 1/1;
 }
+.rpm_scale {
+  margin-left: 9.64444vh;
+  margin-top: 6.61vh;
+  color: grey;
+  font-weight: lighter;
+  position: absolute;
+  font-size: 1.2037037037vh;
+}
 .rpm-counter {
   transition: 60ms;
 }
@@ -142,44 +155,44 @@
   width: 5.9259259259vh;
 }
 .rpm1 {
-  margin-top: 13.7962962963vh;
-  margin-left: 0.9259259259vh;
+  margin-left: 1.0185185185vh;
+  margin-top: 13.0555555556vh;
 }
 .rpm2 {
-  margin-top: 9.2592592593vh;
-  margin-left: 0.6481481481vh;
+  margin-left: 0.5555555556vh;
+  margin-top: 8.3333333333vh;
 }
 .rpm3 {
-  margin-top: 5vh;
-  margin-left: 2.3148148148vh;
+  margin-left: 2.5vh;
+  margin-top: 3.9814814815vh;
 }
 .rpm4 {
-  margin-top: 1.8518518519vh;
-  margin-left: 5.8333333333vh;
+  margin-left: 5.7407407407vh;
+  margin-top: 1.0185185185vh;
 }
 .rpm5 {
-  margin-top: 0.5555555556vh;
-  margin-left: 10.462962963vh;
+  margin-left: 10.7407407407vh;
+  margin-top: 0vh;
 }
 .rpm6 {
-  margin-top: 1.6666666667vh;
-  margin-left: 15vh;
+  margin-left: 15.3703703704vh;
+  margin-top: 1.2037037037vh;
 }
 .rpm7 {
-  margin-top: 5vh;
-  margin-left: 18.6111111111vh;
+  margin-left: 18.8888888889vh;
+  margin-top: 4.4444444444vh;
 }
 .rpm8 {
-  margin-top: 9.0740740741vh;
-  margin-left: 20.1851851852vh;
+  margin-left: 20.8333333333vh;
+  margin-top: 8.3333333333vh;
 }
 .rpm9 {
-  margin-top: 13.7037037037vh;
-  margin-left: 19.7222222222vh;
+  margin-left: 20.3703703704vh;
+  margin-top: 12.962962963vh;
 }
 .rpm10 {
-  margin-top: 17.6851851852vh;
-  margin-left: 17.2222222222vh;
+  margin-left: 17.1296296296vh;
+  margin-top: 17.037037037vh;
 }
 
 .footer-el {
@@ -655,6 +668,7 @@ body,
   font-size: 20px;
   color: white;
   z-index: 10;
+  overflow-y: scroll;
   top: 0;
   height: 100%;
   width: 100%;
