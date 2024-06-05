@@ -25,7 +25,7 @@ class Story {
   }
   tip(guideInfo = "") {
     music.changeVolume(0.5);
-    wrap.style.opacity = ".5";
+    race.style.opacity = ".5";
     guideBlockText.innerText = guideInfo;
     if (this != introduction) {
       changes.movingPause = true;
@@ -50,7 +50,7 @@ class Intro extends Story {
       }
     }
     $("footer").css({ display: "none", opacity: 0 });
-    $("#wrap").css({
+    $("#race").css({
       display: "none",
       transform: "scale(2)",
       transition: "3s cubic-bezier(0.65, 0.05, 0.36, 1)",
@@ -76,9 +76,9 @@ class Intro extends Story {
             h1.style.opacity = 0;
             setTimeout(() => {
               h1.remove();
-              $("#wrap").css({ display: "flex" });
+              $("#race").css({ display: "flex" });
               setTimeout(() => {
-                $("#wrap").css({
+                $("#race").css({
                   opacity: ".7",
                   transform: "scale(1)",
                   marginLeft: "0",
@@ -97,7 +97,7 @@ class Intro extends Story {
                       Спершу - запуск двигуна. Нажми "${keyboard.engine}" щоб це зробити`);
                   }, 2000);
                   action = 0;
-                  wrap.style.transition = "240ms linear";
+                  race.style.transition = "240ms linear";
                 }, 3000);
               }, 1000);
             }, 2000);
@@ -112,13 +112,13 @@ class Intro extends Story {
     $(".gameplay-pause").css("display", "flex");
     guideBlock.style.opacity = "0";
     guideBlockText.innerText = "Mini-car racing";
-    wrap.style.transition = "1s cubic-bezier(0.65, 0.05, 0.36, 1)";
-    wrap.style.opacity = "0";
+    race.style.transition = "1s cubic-bezier(0.65, 0.05, 0.36, 1)";
+    race.style.opacity = "0";
     setTimeout(() => {
       changes.rewriteEverything();
       permissions.toSaveProgress = true;
       $(".gameplay-pause").css("opacity", "1");
-      $("#wrap").css("display", "none");
+      $("#race").css("display", "none");
       document.body.style.overflowY = "scroll";
     }, 2000);
     music.changeVolume(0.5);
@@ -180,7 +180,7 @@ class Race extends Story {
     $(".bottom-road-box").prepend(append);
     permissions.toPause = false;
     $(".pause").css("display", "none");
-    wrap.style.opacity = 1;
+    race.style.opacity = 1;
     $(".enemy-position").css("visibility", "hidden");
     $(".turn-position").css("display", "0");
     changes.movingPause = true;
@@ -197,10 +197,10 @@ class Race extends Story {
         transform: "rotate(6000deg)",
       });
       $(".enemy-vehicle").css("transform", "rotate(1deg)");
-      wrap.style.transition = "4s ease-out";
-      wrap.style.opacity = ".5";
-      wrapBackgroundPositionX = -300;
-      wrap.style.backgroundPositionX = "-300px";
+      race.style.transition = "4s ease-out";
+      race.style.opacity = ".5";
+      raceBackgroundPositionX = -300;
+      race.style.backgroundPositionX = "-300px";
       guideBlock.style.opacity = "0";
       car.style.transition = "4s ease-out";
       car.style.marginLeft = 0;
@@ -213,7 +213,7 @@ class Race extends Story {
       setTimeout(() => {
         car.style.transition = "unset";
         road.style.transition = "240ms linear";
-        $("#wrap").css({
+        $("#race").css({
           transform: "scale(1)",
           transition: "1s",
           marginLeft: 0,
@@ -238,7 +238,7 @@ class Race extends Story {
           });
           permissions.toPause = true;
           $(".pause").css("display", "flex");
-          wrap.style.transition = "240ms linear";
+          race.style.transition = "240ms linear";
           changes.movingPause = false;
         }, 1000);
       }, 4000);
@@ -261,7 +261,7 @@ class Race extends Story {
       setTimeout(() => {
         text.textContent = "1";
         setTimeout(() => {
-          wrap.style.opacity = 0.7;
+          race.style.opacity = 0.7;
           this.changes.startRace = true;
           music.changeVolume(1);
           enemyCars.array[enemyCars.index].fns.start();
@@ -365,7 +365,7 @@ class Race extends Story {
         case finalRace:
           guideBlock.style.opacity = "0";
           guideBlockText.innerText = "Mini-car racing";
-          $("#wrap").css({ transition: "3s", opacity: 0 });
+          $("#race").css({ transition: "3s", opacity: 0 });
           setTimeout(() => {
             location.replace(
               "https://mini-car-racing.netlify.app/credits.html"
@@ -381,8 +381,8 @@ class Race extends Story {
           $(".gameplay-pause").css("display", "flex");
           guideBlock.style.opacity = "0";
           guideBlockText.innerText = "Mini-car racing";
-          wrap.style.transition = "1s cubic-bezier(0.65, 0.05, 0.36, 1)";
-          wrap.style.opacity = "0";
+          race.style.transition = "1s cubic-bezier(0.65, 0.05, 0.36, 1)";
+          race.style.opacity = "0";
           setTimeout(() => {
             changes.rewriteEverything();
             if (
@@ -399,7 +399,7 @@ class Race extends Story {
             }
             finish = false;
             $(".gameplay-pause").css("opacity", "1");
-            $("#wrap").css("display", "none");
+            $("#race").css("display", "none");
             document.body.style.overflowY = "scroll";
           }, 2000);
           music.changeVolume(0.5);
@@ -416,7 +416,7 @@ class Race extends Story {
     this.tip(`Тормози до ${turns.array[turns.index].maxSpeed}km/h!`);
     $(".turn-speed").text(`${turns.array[turns.index].maxSpeed}km/h`);
     changes.movingPause = false;
-    wrap.style.opacity = 0.7;
+    race.style.opacity = 0.7;
     let distance = turns.array[turns.index].distanceToIt * -40;
     let position = backgroundPositionX + distance;
     music.changeVolume(1);
@@ -448,7 +448,7 @@ introduction = new Intro(
     engine: () => {
       if (action > 0) {
         music.changeVolume(1);
-        wrap.style.opacity = ".7";
+        race.style.opacity = ".7";
         guideBlockText.innerText = "Добре!";
         setTimeout(() => {
           introduction.tip(
@@ -471,7 +471,7 @@ introduction = new Intro(
       if (myCar.rpm < 6000 && action === 2 && !changes.introduction.first) {
         changes.introduction.first = true;
         music.changeVolume(1);
-        wrap.style.opacity = ".7";
+        race.style.opacity = ".7";
       }
     },
     inLessRpm: () => {
@@ -479,12 +479,12 @@ introduction = new Intro(
         changes.introduction.IntroDestionationPause = false;
         changes.introduction.useBrakesAction = true;
         changes.movingPause = false;
-        wrap.style.opacity = ".7";
+        race.style.opacity = ".7";
         permissions.forInertia = true;
       } else if (action == 6) {
         changes.movingPause = false;
         permissions.forInertia = true;
-        wrap.style.opacity = ".7";
+        race.style.opacity = ".7";
       }
       music.changeVolume(1);
       if (myCar.rpm < 3000 && !changes.introduction.gearDownAction) {
@@ -519,7 +519,7 @@ introduction = new Intro(
     accelerationExplanation: () => {
       if (action == 3) {
         music.changeVolume(1);
-        wrap.style.opacity = ".7";
+        race.style.opacity = ".7";
         guideBlockText.innerText = `Чудово! Тепер, щоб доїхати до першої гонки, піднімай обороти і переключай передачі за допомогою "${keyboard.accelerate}" і "${keyboard.gearUp}".`;
       }
     },
@@ -538,7 +538,7 @@ introduction = new Intro(
       music.changeVolume(1);
       if (changes.movingPause) {
         changes.movingPause = false;
-        wrap.style.opacity = ".7";
+        race.style.opacity = ".7";
         guideBlockText.innerText =
           "Як ти вже побачив - коробка передач - справа, тому, з огляду на неї, переключи передачі вниз аж до першої.";
       }
@@ -549,7 +549,7 @@ introduction = new Intro(
 firstRace = new Race(
   {
     engine: () => {
-      wrap.style.opacity = 0.7;
+      race.style.opacity = 0.7;
       music.changeVolume(1);
       guideBlockText.textContent =
         "Готуйся! Набери обороти, а коли натиснеш на цю кнопку → , то запустиш відлік до початку гонки. Коли відлік закінчиться - ПЕРЕКЛЮЧАЙ ПЕРЕДАЧУ ВГОРУ І ЖЕНИ";
@@ -569,7 +569,7 @@ secondRace = new Race(
   {
     engine: () => {
       $(".continue-game-button").css("display", "flex");
-      wrap.style.opacity = 1;
+      race.style.opacity = 1;
       permissions.forMoreRpm = true;
       permissions.forLessRpm = true;
       myCar.noClutchMode = true;
@@ -581,7 +581,7 @@ finalRace = new Race(
   {
     engine: () => {
       $(".continue-game-button").css("display", "flex");
-      wrap.style.opacity = 1;
+      race.style.opacity = 1;
       permissions.forMoreRpm = true;
       permissions.forLessRpm = true;
       myCar.noClutchMode = true;

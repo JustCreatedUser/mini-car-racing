@@ -289,8 +289,8 @@ function set240msInterval() {
       }
       if (!finish) {
         backgroundPositionX -= myCar.spd * 2;
-        wrapBackgroundPositionX -= myCar.spd / 8;
-        wrap.style.backgroundPositionX = wrapBackgroundPositionX + "px";
+        raceBackgroundPositionX -= myCar.spd / 8;
+        race.style.backgroundPositionX = raceBackgroundPositionX + "px";
         road.style.backgroundPositionX = backgroundPositionX + "px";
         switch (progress) {
           case "introduction":

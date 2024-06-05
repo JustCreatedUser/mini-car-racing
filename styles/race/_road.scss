@@ -1,18 +1,19 @@
+@import "../mixins";
 .flame {
   height: 4px;
   width: 9px;
 }
 .car,
 .enemy-car {
-  top: 130px;
+  top: setSizeWithMath(130, 1080, 100vh);
   z-index: 3;
-  width: 150px;
+  width: setSizeWithMath(150, 1080, 100vh);
   left: 11%;
 }
 .enemy {
   &-car {
     overflow: visible;
-    margin-top: 30px;
+    margin-top: setSizeWithMath(30, 1080, 100vh);
     top: unset;
   }
   &-position {
@@ -26,17 +27,21 @@
   }
 }
 .wheel {
-  width: 20px;
+  width: setSizeWithMath(20, 1080, 100vh);
   z-index: 2;
-  margin-top: 22px;
+  margin-top: setSizeWithMath(22, 1080, 100vh);
 }
 .vehicle {
-  width: 150px;
+  width: setSizeWithMath(150, 1080, 100vh);
   z-index: 5;
 }
 .road {
+  background-position-x: 0;
+  background-position-y: bottom;
+  background-size: contain;
+  height: 41.3vh;
   width: 100%;
-  background-image: url("../icons-and-images/roads/rain.png");
+  background-image: url("../../icons-and-images/roads/rain.png");
   background-repeat: repeat-x;
   &-image {
     opacity: 0;

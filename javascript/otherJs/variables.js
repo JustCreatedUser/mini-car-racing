@@ -14,7 +14,7 @@ class StoryChanges {
       switch (this) {
         case changes.introduction:
         case changes.firstRace:
-          wrap.style.backgroundImage =
+          race.style.backgroundImage =
             "url(./icons-and-images/background-images/rain.jpg)";
           road.style.backgroundImage = "url(./icons-and-images/roads/rain.png)";
           $(".car .vehicle").attr(
@@ -24,7 +24,7 @@ class StoryChanges {
           break;
 
         case changes.secondRace:
-          wrap.style.backgroundImage =
+          race.style.backgroundImage =
             "url(./icons-and-images/background-images/day.jpg)";
           road.style.backgroundImage = "url(./icons-and-images/roads/day.png)";
           $(".car .vehicle").attr(
@@ -33,7 +33,7 @@ class StoryChanges {
           );
           break;
         case changes.finalRace:
-          wrap.style.backgroundImage =
+          race.style.backgroundImage =
             "url(./icons-and-images/background-images/night.jpg)";
           road.style.backgroundImage =
             "url(./icons-and-images/roads/night.png)";
@@ -66,7 +66,7 @@ let guideBlockText = document.querySelector(".logo"),
   hasChanged = undefined,
   action = 0,
   isEngineWorking = false,
-  wrapBackgroundPositionX = 0,
+  raceBackgroundPositionX = 0,
   backgroundPositionX = 0,
   flame,
   isGamePaused = false,

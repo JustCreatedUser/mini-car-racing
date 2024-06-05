@@ -1,4 +1,4 @@
-footer {
+.computer-counters {
   bottom: 0;
   width: 100%;
   height: 30vh;
@@ -11,6 +11,82 @@ footer {
 .speed-counter_center {
   transform: rotate(0deg);
 }
+.speed0 {
+  margin-top: 18.0555555556vh;
+  margin-left: 3.5185185185vh;
+}
+.speed1 {
+  margin-top: 16.3888888889vh;
+  margin-left: 2.1296296296vh;
+}
+.speed2 {
+  margin-top: 14.9074074074vh;
+  margin-left: 1.2962962963vh;
+}
+.speed3 {
+  margin-top: 13.2407407407vh;
+  margin-left: 0.7407407407vh;
+}
+.speed4 {
+  margin-top: 11.5740740741vh;
+  margin-left: 0.3703703704vh;
+}
+.speed5 {
+  margin-top: 9.7222222222vh;
+  margin-left: 0.3703703704vh;
+}
+.speed6 {
+  margin-top: 7.8703703704vh;
+  margin-left: 0.6481481481vh;
+}
+.speed7 {
+  margin-top: 6.2037037037vh;
+  margin-left: 1.2962962963vh;
+}
+.speed8 {
+  margin-top: 4.4444444444vh;
+  margin-left: 2.2222222222vh;
+}
+.speed9 {
+  margin-top: 3.1481481481vh;
+  margin-left: 3.3333333333vh;
+}
+.speed10 {
+  margin-top: 1.9444444444vh;
+  margin-left: 4.537037037vh;
+}
+.speed12 {
+  margin-top: 0.462962963vh;
+  margin-left: 7.7777777778vh;
+}
+.speed14 {
+  margin-top: 0.0925925926vh;
+  margin-left: 11.3888888889vh;
+}
+.speed16 {
+  margin-top: 1.0185185185vh;
+  margin-left: 14.8148148148vh;
+}
+.speed18 {
+  margin-top: 3.0555555556vh;
+  margin-left: 17.7777777778vh;
+}
+.speed20 {
+  margin-top: 6.2037037037vh;
+  margin-left: 19.9074074074vh;
+}
+.speed22 {
+  margin-top: 9.7222222222vh;
+  margin-left: 20.9259259259vh;
+}
+.speed24 {
+  margin-top: 13.2407407407vh;
+  margin-left: 20.5555555556vh;
+}
+.speed26 {
+  margin-top: 16.6666666667vh;
+  margin-left: 18.9814814815vh;
+}
 
 .numbers {
   overflow: visible;
@@ -20,7 +96,7 @@ footer {
   overflow: visible;
   color: white;
   position: absolute;
-  font-size: 9px;
+  font-size: 0.8333333333vh;
 }
 
 .car-counter {
@@ -29,9 +105,9 @@ footer {
   height: 100%;
 }
 .car-counter-number {
-  margin-top: 180px;
-  border-radius: 20px;
-  font-size: 20px;
+  margin-top: 16.6666666667vh;
+  border-radius: 1.8518518519vh;
+  font-size: 1.8518518519vh;
   overflow: visible;
   color: white;
   font-weight: bold;
@@ -39,17 +115,17 @@ footer {
   align-self: center;
 }
 .car-counter_stick {
-  width: 70px;
-  border-top-left-radius: 50px;
-  border-bottom-left-radius: 50px;
-  height: 5px;
-  transform: translate(-59px);
+  width: 6.4814814815vh;
+  border-top-left-radius: 4.6296296296vh;
+  border-bottom-left-radius: 4.6296296296vh;
+  height: 0.462962963vh;
+  transform: translate(-5.462962963vh);
   background-color: white;
   position: absolute;
 }
 .car-counter_center {
-  height: 50px;
-  border: 2px solid white;
+  height: 4.6296296296vh;
+  border: 0.1851851852vh solid white;
   aspect-ratio: 1/1;
   border-radius: 50%;
 }
@@ -63,17 +139,57 @@ footer {
   transition: 60ms;
 }
 .rpm-counter .car-counter_stick {
-  width: 64px;
+  width: 5.9259259259vh;
+}
+.rpm1 {
+  margin-top: 13.7962962963vh;
+  margin-left: 0.9259259259vh;
+}
+.rpm2 {
+  margin-top: 9.2592592593vh;
+  margin-left: 0.6481481481vh;
+}
+.rpm3 {
+  margin-top: 5vh;
+  margin-left: 2.3148148148vh;
+}
+.rpm4 {
+  margin-top: 1.8518518519vh;
+  margin-left: 5.8333333333vh;
+}
+.rpm5 {
+  margin-top: 0.5555555556vh;
+  margin-left: 10.462962963vh;
+}
+.rpm6 {
+  margin-top: 1.6666666667vh;
+  margin-left: 15vh;
+}
+.rpm7 {
+  margin-top: 5vh;
+  margin-left: 18.6111111111vh;
+}
+.rpm8 {
+  margin-top: 9.0740740741vh;
+  margin-left: 20.1851851852vh;
+}
+.rpm9 {
+  margin-top: 13.7037037037vh;
+  margin-left: 19.7222222222vh;
+}
+.rpm10 {
+  margin-top: 17.6851851852vh;
+  margin-left: 17.2222222222vh;
 }
 
 .footer-el {
-  border-top: 4px dashed white;
-  border-left: 2px dashed white;
-  border-right: 2px dashed white;
-  border-bottom: 2px solid black;
+  border-top: 0.3703703704vh dashed white;
+  border-left: 0.1851851852vh dashed white;
+  border-right: 0.1851851852vh dashed white;
+  border-bottom: 0.1851851852vh solid black;
   border-radius: 50%;
   background-color: black;
-  height: 248px;
+  height: 22.962962963vh;
   aspect-ratio: 1/1;
   z-index: 12;
   display: flex;
@@ -84,17 +200,7 @@ footer {
   position: absolute;
   color: white;
   font-weight: bold;
-  font-size: 30px;
-}
-
-.spd-counter {
-  color: rgba(255, 217, 0, 0);
-  height: 60%;
-  width: 70%;
-  border: 3px solid black;
-  margin: 0 5%;
-  border-radius: 20%;
-  font-size: 25px;
+  font-size: 2.7777777778vh;
 }
 
 .gameplay-pause {
@@ -110,6 +216,11 @@ footer {
   text-align: center;
   min-height: 100vh;
   width: 100%;
+}
+
+.uncompleted-parts button {
+  width: 25vw;
+  min-width: 500px;
 }
 
 .keyboard {
@@ -205,15 +316,15 @@ footer {
 
 .car,
 .enemy-car {
-  top: 130px;
+  top: 12.037037037vh;
   z-index: 3;
-  width: 150px;
+  width: 13.8888888889vh;
   left: 11%;
 }
 
 .enemy-car {
   overflow: visible;
-  margin-top: 30px;
+  margin-top: 2.7777777778vh;
   top: unset;
 }
 .enemy-position {
@@ -227,19 +338,23 @@ footer {
 }
 
 .wheel {
-  width: 20px;
+  width: 1.8518518519vh;
   z-index: 2;
-  margin-top: 22px;
+  margin-top: 2.037037037vh;
 }
 
 .vehicle {
-  width: 150px;
+  width: 13.8888888889vh;
   z-index: 5;
 }
 
 .road {
+  background-position-x: 0;
+  background-position-y: bottom;
+  background-size: contain;
+  height: 41.3vh;
   width: 100%;
-  background-image: url("../icons-and-images/roads/rain.png");
+  background-image: url("../../icons-and-images/roads/rain.png");
   background-repeat: repeat-x;
 }
 .road-image {
@@ -295,16 +410,6 @@ html {
   scroll-behavior: smooth;
 }
 
-@media only screen and (max-width: 1325px) and (min-width: 750px) {
-  .spd-counter {
-    font-size: 22px;
-  }
-}
-@media only screen and (max-width: 1000px) {
-  .spd-counter {
-    font-size: 1.2em;
-  }
-}
 .action-level-input {
   cursor: pointer;
   filter: sepia(100%) saturate(500%);
@@ -344,13 +449,14 @@ html {
 }
 
 .continue-game-button {
-  border: 2px solid grey;
-  padding: 5px;
+  font-size: 1.8518518519vh;
+  border: 0.1851851852vh solid grey;
+  padding: 0.462962963vh;
   color: white;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 0.462962963vh;
   display: none;
-  margin-left: 40px;
+  margin-left: 3.7037037037vh;
   cursor: pointer;
   background-color: transparent;
 }
@@ -366,7 +472,8 @@ html {
   justify-content: center;
 }
 
-.cheat-button {
+.cheat-button,
+.change-device {
   font-size: 18px;
   font-weight: 600;
   background-color: black;
@@ -408,8 +515,8 @@ html {
 }
 
 .gear-counter {
-  margin-left: 113px;
-  margin-top: 105px;
+  margin-left: 10.462962963vh;
+  margin-top: 9.7222222222vh;
 }
 
 .spd-counter {
@@ -419,7 +526,7 @@ html {
   justify-content: center;
 }
 
-footer {
+.computer-counters {
   transition: 0.5s;
   opacity: 0;
   position: absolute;
@@ -462,43 +569,55 @@ footer {
 }
 
 .car .one {
-  margin-left: 117px;
-  margin-top: 22px;
+  margin-left: 10.8333333333vh;
+  margin-top: 2.037037037vh;
 }
 .car .two {
-  margin-left: 22px;
-  margin-top: 22px;
+  margin-left: 2.037037037vh;
+  margin-top: 2.037037037vh;
 }
 
 .firstRace .one {
-  margin-left: 112px;
-  margin-top: 36px;
+  margin-left: 10.3703703704vh;
+  margin-top: 3.3333333333vh;
 }
 .firstRace .two {
-  margin-left: 24px;
-  margin-top: 36px;
+  margin-left: 2.2222222222vh;
+  margin-top: 3.3333333333vh;
+}
+.firstRace .flame {
+  margin-left: 0;
+  margin-top: 4.1666666667vh;
 }
 
 .secondRace .one {
-  margin-left: 118px;
-  margin-top: 36px;
+  margin-left: 10.9259259259vh;
+  margin-top: 3.3333333333vh;
 }
 .secondRace .two {
-  margin-left: 23px;
-  margin-top: 36px;
+  margin-left: 2.1296296296vh;
+  margin-top: 3.3333333333vh;
 }
 .secondRace .vehicle {
   margin-left: unset;
-  margin-top: 13px;
+  margin-top: 1.2037037037vh;
+}
+.secondRace .flame {
+  margin-left: -0.8333333333vh;
+  margin-top: 3.9814814815vh;
 }
 
 .finalRace .one {
-  margin-left: 25px;
-  margin-top: 22px;
+  margin-left: 2.3148148148vh;
+  margin-top: 2.037037037vh;
 }
 .finalRace .two {
-  margin-left: 115px;
-  margin-top: 22px;
+  margin-left: 10.6481481481vh;
+  margin-top: 2.037037037vh;
+}
+.finalRace .flame {
+  margin-left: -0.6481481481vh;
+  margin-top: 2.6851851852vh;
 }
 
 .flame {
@@ -509,7 +628,7 @@ footer {
   position: absolute;
 }
 
-#wrap,
+#race,
 .explanation {
   display: flex;
   flex-direction: column;
@@ -581,23 +700,24 @@ nav button:hover {
   transition: 2s;
   opacity: 0;
   position: unset;
-  font-size: 50px;
+  font-size: 10vh;
   color: white;
 }
 
 .tunnel {
+  height: 38.6111111111vh;
   transition: 1s;
   opacity: unset;
   position: absolute;
   right: -65%;
   display: flex;
-  top: 40px;
+  top: 4.2592592593vh;
 }
 .tunnel :last-child {
   z-index: 11;
 }
 
-#wrap {
+#race {
   transition: 3s cubic-bezier(0.65, 0.05, 0.36, 1);
   opacity: 0;
   position: unset;
@@ -607,7 +727,7 @@ nav button:hover {
   transform-style: preserve-3d;
   height: 100vh;
   width: 100%;
-  background-image: url("../icons-and-images/background-images/rain.jpg");
+  background-image: url("../../icons-and-images/background-images/rain.jpg");
   background-repeat: repeat-x;
   overflow: hidden;
   display: none;
@@ -618,18 +738,18 @@ header {
   transition: 2s;
   opacity: 0;
   position: absolute;
-  top: 20px;
+  top: 1.8518518519vh;
   z-index: 1;
-  padding: 0 25px;
-  border: 4px white solid;
+  padding: 0 2.3148148148vh;
+  border: 0.3703703704vh white solid;
   min-width: 20%;
   min-height: 5vh;
-  padding: 30px 70px;
+  padding: 2.7777777778vh 6.4814814815vh;
   text-align: center;
   background-color: black;
   color: white;
-  font-size: 20px;
-  border-radius: 15px;
+  font-size: 1.8518518519vh;
+  border-radius: 1.3888888889vh;
   max-width: 80%;
 }
 
@@ -642,7 +762,7 @@ header {
   height: 100vh;
   width: 100vw;
   background-color: rgb(0, 0, 0);
-  font-size: 100px;
+  font-size: 9.2592592593vh;
   text-align: center;
 }
 
@@ -655,7 +775,7 @@ header {
   background-clip: text !important;
   background: linear-gradient(red, white);
   text-align: center;
-  font-size: 100px;
+  font-size: 9.2592592593vh;
   justify-self: center;
   align-items: center;
   z-index: 10;
@@ -672,7 +792,7 @@ header {
   line-height: 70px;
   font-size: 80px;
   color: white;
-  top: 60px;
+  top: 5.5555555556vh;
   z-index: 11;
   right: 3vw;
 }

@@ -61,7 +61,7 @@ function returnToMenu() {
     guideBlock.style.opacity = "0";
     $(".enemy-position").css("visibility", "hidden");
     $(".turn-position").css("display", "0");
-    wrap.style.opacity = 0;
+    race.style.opacity = 0;
     setTimeout(() => {
       myCar.fns.useTheEngine(true);
       changes.rewriteEverything();
@@ -159,7 +159,25 @@ function fastest_speed_cheat() {
   }
 }
 function setStylesForPhone() {
+  $(".keyboard").css("display", "none");
+  $(".menu-content").css("justify-content", "center");
+  $("footer").attr("class", "phone-counters");
+  $("footer").html(`
   
+  
+  
+  
+  
+  
+  `);
+}
+function changeDevice() {
+  let change = device == "computer" ? "phone" : "computer";
+  localStorage.setItem("device", change);
+  let reloading = confirm("Перезагрузити гру?");
+  if (reloading) {
+    location.reload();
+  }
 }
 function useLocalStorageAndCookies() {
   if (!localStorage.getItem("device")) {
@@ -183,7 +201,7 @@ function useLocalStorageAndCookies() {
     device = localStorage.getItem("device");
   }
   if (device == "phone") {
-    setStylesForPhone(0);
+    setStylesForPhone();
   }
   if (!navigator.cookieEnabled) {
     alert(
@@ -229,7 +247,10 @@ function useLocalStorageAndCookies() {
   if (localStorage.getItem("finalSongWasDiscovered")) {
     music.hidden.finalSongWasDiscovered = true;
   }
-  if (localStorage.getItem("mini-car-racing-keyboard")) {
+  if (
+    localStorage.getItem("mini-car-racing-keyboard") &&
+    device == "computer"
+  ) {
     let savedKeyboard = JSON.parse(
       localStorage.getItem("mini-car-racing-keyboard")
     );
@@ -299,10 +320,10 @@ function gameOver(reason) {
   $(".enemy-position").css("visibility", "hidden");
   $(".turn-position").css("display", "0");
   $(".tunnel").css("right", "-75%");
-  wrap.style.opacity = 0.5;
+  race.style.opacity = 0.5;
   setTimeout(() => {
     changes.movingPause = true;
-    wrap.style.opacity = 0;
+    race.style.opacity = 0;
     guideBlock.style.opacity = 0;
     let h1 = document.createElement("h1");
     h1.className = "veryLargeText";
@@ -377,10 +398,14 @@ function selectInfoInMenu() {
           ` ${number}) THE TOP by KEN BLAST; `
         );
       }
-
       if (numberArray.length == 2) {
         $(".undiscovered-music-left").text("Ти знайшов всі пісні!");
       }
+      break;
+    case "device":
+      $(".explanation-content").html(
+        'Якщо хочеш змінити дезайн і управління на інший девайс, то нажми на <button class="change-device">МЕНЕ</button>'
+      );
       break;
   }
 }
@@ -423,7 +448,7 @@ function chooseChapter() {
   }
   if (continuing) {
     music.changeVolume(1);
-    $("#wrap").css({
+    $("#race").css({
       opacity: 0,
       display: "flex",
     });
@@ -439,30 +464,30 @@ function chooseChapter() {
           $(".gameplay-pause").css("display", "none");
           break;
         case 2:
-          $("#wrap").css({ transform: "scale(1.5)", marginLeft: "20vw" });
+          $("#race").css({ transform: "scale(1.5)", marginLeft: "20vw" });
           firstRace.beginning(
             firstRace.tip(
               "Як Бачиш - пора змагатись! Якщо ти забув управління - зайди в меню паузи). Зараз заведи мотор"
             ),
-            "<div class='enemy-car firstRace'><img src='./icons-and-images/wheel.png' alt='' class='wheel one enemy-wheel'><img style='margin-top:45px; margin-left:0px;' src='./icons-and-images/flame.png' class='flame enemy-flame'><img src='./icons-and-images/wheel.png' alt='' class='wheel two enemy-wheel'/><img src='./icons-and-images/cars/firstRace.png' alt='car' class='vehicle enemy-vehicle' /></div>"
+            "<div class='enemy-car firstRace'><img src='./icons-and-images/wheel.png' alt='' class='wheel one enemy-wheel'><img src='./icons-and-images/flame.png' class='flame enemy-flame'><img src='./icons-and-images/wheel.png' alt='' class='wheel two enemy-wheel'/><img src='./icons-and-images/cars/firstRace.png' alt='car' class='vehicle enemy-vehicle' /></div>"
           );
           $(".gameplay-pause").css("display", "none");
           break;
         case 3:
-          $("#wrap").css({ transform: "scale(1.5)", marginLeft: "20vw" });
+          $("#race").css({ transform: "scale(1.5)", marginLeft: "20vw" });
           secondRace.beginning(
             secondRace.tip(
               `Хоч тобі і вдалось пройти першу гонку, але тепер противник швидший, а до поворотів треба швидше тормозити. \n все як минулого разу: двигун => обороти => кнопка => відлік => передача вгору`
             ),
-            "<div class='enemy-car secondRace'><img src='./icons-and-images/wheel.png' alt='' class='wheel one enemy-wheel'><img style='margin-top:43px; margin-left:-9px;' src='./icons-and-images/flame.png' class='flame enemy-flame'><img src='./icons-and-images/wheel.png' alt='' class='wheel two enemy-wheel'/><img src='./icons-and-images/cars/secondRace.png' alt='car' class='vehicle enemy-vehicle' /></div>"
+            "<div class='enemy-car secondRace'><img src='./icons-and-images/wheel.png' alt='' class='wheel one enemy-wheel'><img src='./icons-and-images/flame.png' class='flame enemy-flame'><img src='./icons-and-images/wheel.png' alt='' class='wheel two enemy-wheel'/><img src='./icons-and-images/cars/secondRace.png' alt='car' class='vehicle enemy-vehicle' /></div>"
           );
 
           break;
         case 4:
-          $("#wrap").css({ transform: "scale(1.5)", marginLeft: "20vw" });
+          $("#race").css({ transform: "scale(1.5)", marginLeft: "20vw" });
           finalRace.beginning(
             secondRace.tip("Настав час... ...змагатись за першість..."),
-            "<div class='enemy-car finalRace'><img src='./icons-and-images/wheel.png' alt='' class='wheel one enemy-wheel'><img style='margin-top:29px; margin-left:-7px;' src='./icons-and-images/flame.png' class='flame enemy-flame'><img src='./icons-and-images/wheel.png' alt='' class='wheel two enemy-wheel'/><img src='./icons-and-images/cars/finalRace.png' alt='car' class='vehicle enemy-vehicle' /></div>"
+            "<div class='enemy-car finalRace'><img src='./icons-and-images/wheel.png' alt='' class='wheel one enemy-wheel'><img  src='./icons-and-images/flame.png' class='flame enemy-flame'><img src='./icons-and-images/wheel.png' alt='' class='wheel two enemy-wheel'/><img src='./icons-and-images/cars/finalRace.png' alt='car' class='vehicle enemy-vehicle' /></div>"
           );
           if (music.finalSong === undefined) {
             music.finalSong = new Audio(
@@ -506,6 +531,7 @@ function restartTheGame() {
   setTimeout(location.reload(), 500);
 }
 export {
+  changeDevice,
   restartTheGame,
   chooseChapter,
   selectInfoInMenu,
