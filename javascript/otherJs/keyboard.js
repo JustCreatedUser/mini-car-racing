@@ -57,7 +57,7 @@ $(".reset-keyboard").click(function () {
   localStorage.setItem("mini-car-racing-keyboard", JSON.stringify(keyboard));
 });
 function keyDown(e) {
-  if (!choosingKeysMode) {
+  if (!choosingKeysMode && device == "computer") {
     let keyName;
     if (e.code.includes("Key")) {
       keyName = e.code.split("Key")[1].toLowerCase();
@@ -68,8 +68,7 @@ function keyDown(e) {
     }
     switch (keyName) {
       case keyboard.accelerate:
-        if (!myCar.acceleration) {
-          myCar.decceleration = false;
+        if (!myCar.acceleration && !myCar.decceleration) {
           myCar.acceleration = true;
           if (
             myCar.moveDirection != "acceleration" &&
@@ -82,7 +81,7 @@ function keyDown(e) {
         }
         break;
       case keyboard.deccelerate:
-        if (isEngineWorking && !myCar.decceleration) {
+        if (isEngineWorking && !myCar.decceleration && !myCar.acceleration) {
           if (
             myCar.moveDirection != "decceleration" &&
             isEngineWorking &&
@@ -91,7 +90,6 @@ function keyDown(e) {
             myCar.moveDirection = `decceleration`;
           }
           myCar.decceleration = true;
-          myCar.acceleration = false;
         }
         break;
       case keyboard.engine:
@@ -114,7 +112,7 @@ function keyDown(e) {
         music.listenToMusic();
         break;
     }
-  } else {
+  } else if (device == "computer") {
     let keyExists = Object.values(keyboard).filter(
       (el) => el == e.key.toLowerCase()
     );
@@ -138,20 +136,23 @@ function keyDown(e) {
   }
 }
 function keyUp(e) {
-  let keyName = e.code == "Space" ? e.code.toLowerCase() : e.key.toLowerCase();
-  if (keyName == keyboard.accelerate && action > 1 && myCar.acceleration) {
-    myCar.acceleration = false;
-    rpmFunctions.inertiaMechanism();
-    myCar.exhaust();
-    if (myCar.moveDirection !== 0) {
-      myCar.moveDirection = 0;
-      $(".car .vehicle").css("transform", "rotate(0)");
-    }
-  } else if (keyName == keyboard.deccelerate && myCar.decceleration) {
-    myCar.decceleration = false;
-    if (myCar.moveDirection !== 0) {
-      myCar.moveDirection = 0;
-      $(".car .vehicle").css("transform", "rotate(0)");
+  if (device == "computer") {
+    let keyName =
+      e.code == "Space" ? e.code.toLowerCase() : e.key.toLowerCase();
+    if (keyName == keyboard.accelerate && action > 1 && myCar.acceleration) {
+      myCar.acceleration = false;
+      rpmFunctions.inertiaMechanism();
+      myCar.exhaust();
+      if (myCar.moveDirection !== 0) {
+        myCar.moveDirection = 0;
+        $(".car .vehicle").css("transform", "rotate(0)");
+      }
+    } else if (keyName == keyboard.deccelerate && myCar.decceleration) {
+      myCar.decceleration = false;
+      if (myCar.moveDirection !== 0) {
+        myCar.moveDirection = 0;
+        $(".car .vehicle").css("transform", "rotate(0)");
+      }
     }
   }
 }

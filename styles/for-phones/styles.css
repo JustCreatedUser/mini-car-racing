@@ -1,0 +1,94 @@
+div.keyboard {
+  display: none;
+}
+
+div.background {
+  bottom: unset;
+}
+
+div.road {
+  height: 63.602vh;
+}
+
+div.menu-content {
+  justify-content: center;
+}
+
+img.wheel {
+  width: 2.8518518519vh;
+}
+
+div.car,
+div.enemy-car {
+  width: 21.3888888889vh;
+}
+
+div.enemy-car {
+  margin-top: 4.2777777778vh;
+}
+
+img.vehicle {
+  width: 21.3888888889vh;
+}
+
+div.car {
+  top: 18.537037037vh;
+}
+div.car img.one {
+  margin-left: 16.6833333333vh;
+  margin-top: 3.137037037vh;
+}
+div.car img.two {
+  margin-left: 3.137037037vh;
+  margin-top: 3.137037037vh;
+}
+
+.firstRace img.one {
+  margin-left: 15.9703703704vh;
+  margin-top: 5.1333333333vh;
+}
+.firstRace img.two {
+  margin-left: 3.4222222222vh;
+  margin-top: 5.1333333333vh;
+}
+.firstRace img.flame {
+  margin-left: 0;
+  margin-top: 6.4166666667vh;
+}
+
+.secondRace img.one {
+  margin-left: 16.8259259259vh;
+  margin-top: 5.1333333333vh;
+}
+.secondRace img.two {
+  margin-left: 3.2796296296vh;
+  margin-top: 5.1333333333vh;
+}
+.secondRace img.vehicle {
+  margin-left: unset;
+  margin-top: 1.8537037037vh;
+}
+.secondRace img.flame {
+  margin-left: -1.2833333333vh;
+  margin-top: 6.1314814815vh;
+}
+
+.finalRace img.one {
+  margin-left: 3.5648148148vh;
+  margin-top: 3.137037037vh;
+}
+.finalRace img.two {
+  margin-left: 16.3981481481vh;
+  margin-top: 3.137037037vh;
+}
+.finalRace img.flame {
+  margin-left: -0.9981481481vh;
+  margin-top: 4.1351851852vh;
+}
+
+img.flame {
+  margin-left: -1.2833333333vh;
+  margin-top: 4.2777777778vh;
+}
+
+/*# sourceMappingURL=styles.css.map */

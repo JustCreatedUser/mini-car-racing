@@ -4,7 +4,7 @@
     {
       "label": "Compile Race scss",
       "type": "shell",
-      "command": "sass ./styles/styles.scss ./styles/scss.css",
+      "command": "sass ./styles/race/styles.scss ./styles/race/styles.css",
       "group": "build"
     },
     {
@@ -17,6 +17,12 @@
       "label": "Compile Credits scss",
       "type": "shell",
       "command": "sass ./styles/credits/styles.scss ./styles/credits/styles.css",
+      "group": "build"
+    },
+    {
+      "label": "Compile Phones scss",
+      "type": "shell",
+      "command": "sass ./styles/for-phones/styles.scss ./styles/for-phones/styles.css",
       "group": "build"
     }
   ]

@@ -8,6 +8,7 @@ import {
   secondRaceCar,
 } from "./mechanisms/cars.js";
 import {
+  changeDevice,
   selectInfoInMenu,
   saveProgress,
   actionLevelChange,
@@ -60,11 +61,11 @@ changes.rewriteEverything = () => {
   car.style.marginTop = 0;
   hasChanged = undefined;
   action = 0;
-  wrapBackgroundPositionX = 0;
+  raceBackgroundPositionX = 0;
   backgroundPositionX = 0;
   $(".turn-position").css("display", "none");
   $(".my-wheel").css("transform", `rotate(0deg)`);
-  wrap.style.backgroundPositionX = wrapBackgroundPositionX + "px";
+  race.style.backgroundPositionX = raceBackgroundPositionX + "px";
   road.style.backgroundPositionX = backgroundPositionX + "px";
   $(".enemy-wheel").css("transform", `rotate(0deg)`);
   myCar.acceleration = false;
@@ -89,4 +90,5 @@ $(".continue-game-button").click(useGuideBlockButton);
 $(".action-level-input").on("mousemove", actionLevelChange);
 $(".explanation-content").on("click", ".cheat-button", fastest_speed_cheat);
 $(".uncompleted-parts").on("click", "button", restartTheGame);
+$(".explanation-content").on("click", ".change-device", changeDevice);
 window.document.onload = useLocalStorageAndCookies();
