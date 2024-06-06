@@ -18,6 +18,12 @@
       "type": "shell",
       "command": "sass ./styles/credits/styles.scss ./styles/credits/styles.css",
       "group": "build"
+    },
+    {
+      "label": "Compile Phones scss",
+      "type": "shell",
+      "command": "sass ./styles/for-phones/styles.scss ./styles/for-phones/styles.css",
+      "group": "build"
     }
   ]
 }

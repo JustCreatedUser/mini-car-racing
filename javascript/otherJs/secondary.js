@@ -159,12 +159,11 @@ function fastest_speed_cheat() {
   }
 }
 function setStylesForPhone() {
-  $(".keyboard").css("display", "none");
-  $(".menu-content").css("justify-content", "center");
+  $("head").append(`
+    <link rel="stylesheet" href="./styles/for-phones/styles.css" />
+    `);
   $("footer").attr("class", "phone-counters");
   $("footer").html(``);
-  $(".background").css({ bottom: "unset" });
-  $(".road").css({ height: "63.9vh" });
 }
 function changeDevice() {
   let change = device == "computer" ? "phone" : "computer";

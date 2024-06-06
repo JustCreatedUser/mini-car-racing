@@ -1,0 +1,108 @@
+$scale: 1.54;
+@import "../mixins";
+div.keyboard {
+  display: none;
+}
+div.background {
+  bottom: unset;
+}
+div.road {
+  height: 41.3vh * $scale;
+}
+div.menu-content {
+  justify-content: center;
+}
+img.wheel {
+  width: setSizeWithMath(20, 1080, 100vh) * $scale;
+}
+div.car,
+div.enemy-car {
+  width: setSizeWithMath(150, 1080, 100vh) * $scale;
+}
+div.enemy-car {
+  margin-top: setSizeWithMath(30, 1080, 100vh) * $scale;
+}
+img.vehicle {
+  width: setSizeWithMath(150, 1080, 100vh) * $scale;
+}
+div.car {
+  top: setSizeWithMath(130, 1080, 100vh) * $scale;
+  img.one {
+    @include setMargin(
+      setSizeWithMath(117, 1080, 100vh) * $scale,
+      setSizeWithMath(22, 1080, 100vh) * $scale
+    );
+  }
+  img.two {
+    @include setMargin(
+      setSizeWithMath(22, 1080, 100vh) * $scale,
+      setSizeWithMath(22, 1080, 100vh) * $scale
+    );
+  }
+}
+.firstRace {
+  img.one {
+    @include setMargin(
+      setSizeWithMath(112, 1080, 100vh) * $scale,
+      setSizeWithMath(36, 1080, 100vh) * $scale
+    );
+  }
+  img.two {
+    @include setMargin(
+      setSizeWithMath(24, 1080, 100vh) * $scale,
+      setSizeWithMath(36, 1080, 100vh) * $scale
+    );
+  }
+  img.flame {
+    @include setMargin(0, setSizeWithMath(45, 1080, 100vh) * $scale);
+  }
+}
+.secondRace {
+  img.one {
+    @include setMargin(
+      setSizeWithMath(118, 1080, 100vh) * $scale,
+      setSizeWithMath(36, 1080, 100vh) * $scale
+    );
+  }
+  img.two {
+    @include setMargin(
+      setSizeWithMath(23, 1080, 100vh) * $scale,
+      setSizeWithMath(36, 1080, 100vh) * $scale
+    );
+  }
+  img.vehicle {
+    @include setMargin(unset, setSizeWithMath(13, 1080, 100vh) * $scale);
+  }
+  img.flame {
+    @include setMargin(
+      setSizeWithMath(-9, 1080, 100vh) * $scale,
+      setSizeWithMath(43, 1080, 100vh) * $scale
+    );
+  }
+}
+.finalRace {
+  img.one {
+    @include setMargin(
+      setSizeWithMath(25, 1080, 100vh) * $scale,
+      setSizeWithMath(22, 1080, 100vh) * $scale
+    );
+  }
+  img.two {
+    @include setMargin(
+      setSizeWithMath(115, 1080, 100vh) * $scale,
+      setSizeWithMath(22, 1080, 100vh) * $scale
+    );
+  }
+  img.flame {
+    @include setMargin(
+      setSizeWithMath(-7, 1080, 100vh) * $scale,
+      setSizeWithMath(29, 1080, 100vh) * $scale
+    );
+  }
+}
+img.flame {
+  @include setMargin(
+    setSizeWithMath(-9, 1080, 100vh) * $scale,
+    setSizeWithMath(30, 1080, 100vh) * $scale
+  );
+}
