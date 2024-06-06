@@ -4,6 +4,7 @@ div.keyboard {
 
 div.background {
   bottom: unset;
+  left: -3vh;
 }
 
 div.road {
@@ -16,6 +17,16 @@ div.menu-content {
 
 img.wheel {
   width: 2.8518518519vh;
+}
+
+div.enemy-position {
+  font-size: 7.1296296296vh;
+  margin-top: 4.2777777778vh;
+}
+
+div.turn-position {
+  font-size: 5.7037037037vh;
+  margin-top: 20.02vh;
 }
 
 div.car,

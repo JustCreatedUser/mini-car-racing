@@ -5,6 +5,7 @@ div.keyboard {
 }
 div.background {
   bottom: unset;
+  left: -3vh;
 }
 div.road {
   height: 41.3vh * $scale;
@@ -14,6 +15,14 @@ div.menu-content {
 }
 img.wheel {
   width: setSizeWithMath(20, 1080, 100vh) * $scale;
+}
+div.enemy-position {
+  font-size: setSizeWithMath(50, 1080, 100vh) * $scale;
+  margin-top: setSizeWithMath(30, 1080, 100vh) * $scale;
+}
+div.turn-position {
+  font-size: setSizeWithMath(40, 1080, 100vh) * $scale;
+  margin-top: 13vh * $scale;
 }
 div.car,
 div.enemy-car {

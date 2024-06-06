@@ -57,7 +57,7 @@ $(".reset-keyboard").click(function () {
   localStorage.setItem("mini-car-racing-keyboard", JSON.stringify(keyboard));
 });
 function keyDown(e) {
-  if (!choosingKeysMode && device == "computer") {
+  if (!choosingKeysMode) {
     let keyName;
     if (e.code.includes("Key")) {
       keyName = e.code.split("Key")[1].toLowerCase();
@@ -136,23 +136,20 @@ function keyDown(e) {
   }
 }
 function keyUp(e) {
-  if (device == "computer") {
-    let keyName =
-      e.code == "Space" ? e.code.toLowerCase() : e.key.toLowerCase();
-    if (keyName == keyboard.accelerate && action > 1 && myCar.acceleration) {
-      myCar.acceleration = false;
-      rpmFunctions.inertiaMechanism();
-      myCar.exhaust();
-      if (myCar.moveDirection !== 0) {
-        myCar.moveDirection = 0;
-        $(".car .vehicle").css("transform", "rotate(0)");
-      }
-    } else if (keyName == keyboard.deccelerate && myCar.decceleration) {
-      myCar.decceleration = false;
-      if (myCar.moveDirection !== 0) {
-        myCar.moveDirection = 0;
-        $(".car .vehicle").css("transform", "rotate(0)");
-      }
+  let keyName = e.code == "Space" ? e.code.toLowerCase() : e.key.toLowerCase();
+  if (keyName == keyboard.accelerate && action > 1 && myCar.acceleration) {
+    myCar.acceleration = false;
+    rpmFunctions.inertiaMechanism();
+    myCar.exhaust();
+    if (myCar.moveDirection !== 0) {
+      myCar.moveDirection = 0;
+      $(".car .vehicle").css("transform", "rotate(0)");
+    }
+  } else if (keyName == keyboard.deccelerate && myCar.decceleration) {
+    myCar.decceleration = false;
+    if (myCar.moveDirection !== 0) {
+      myCar.moveDirection = 0;
+      $(".car .vehicle").css("transform", "rotate(0)");
     }
   }
 }
