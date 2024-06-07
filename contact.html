@@ -122,7 +122,7 @@
           `#${$(this).attr("id").replace("checkbox", "").toLowerCase()}`
         );
         let neededPosition = (Number($(el).css("z-index")) - 4) * -1;
-        setTimeout(() => {
+       setTimeout(() => {
           if ($(this)[0] == checkboxCover) {
             if (checked) {
               $(".cover .back-page").css("backface-visibility", "visible");
@@ -130,6 +130,16 @@
             } else {
               $(".cover .back-page").css("backface-visibility", "hidden");
               $(".cover .front-page").css("visibility", "visible");
+            }
+          } else {
+            let it =
+              "#" + $(this).attr("id").replace("checkbox", "").toLowerCase();
+            if (checked) {
+              $(it + ` .front-page`).css("visibility", "hidden");
+              $(it + ` .back-page`).css("visibility", "visible");
+            } else {
+              $(it + ` .back-page`).css("visibility", "hidden");
+              $(it + ` .front-page`).css("visibility", "visible");
             }
           }
           $(el).css("z-index", neededPosition);
