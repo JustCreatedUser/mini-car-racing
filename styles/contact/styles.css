@@ -118,7 +118,7 @@ textarea {
 }
 
 #checkboxCover:checked ~ form {
-  transform: translateX(200px);
+  transform: translateX(27.34375vh);
 }
 #checkboxCover:checked ~ form .cover {
   perspective: 1500px;
@@ -156,3 +156,4 @@ textarea {
 }
 
 /*# sourceMappingURL=styles.css.map */
+
