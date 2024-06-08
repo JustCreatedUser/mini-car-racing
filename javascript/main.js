@@ -34,31 +34,24 @@ changes.rewriteEverything = () => {
   myCar.decceleration = false;
   myCar.noClutchMode = true;
   myCar.moveDirection = 0;
-  enemyCars.array[enemyCars.index].position = 0;
-  enemyCars.array[enemyCars.index].spd = 0;
-  enemyCars.array[enemyCars.index].gearMultiplier = 0;
-  enemyCars.array[enemyCars.index].noClutchMode = true;
-  enemyCars.array[enemyCars.index].gear = 0;
-  enemyCars.array[enemyCars.index].moveDirection = 0;
-  enemyCars.array[enemyCars.index].rotation = 200;
-  enemyCars.array[enemyCars.index].degrees = 0;
-  let rpm;
-  switch (enemyCars.array[enemyCars.index]) {
-    case firstRaceCar:
-      rpm = 2000;
-      break;
-    case secondRaceCar:
-      rpm = 5000;
-      break;
-    case finalRaceCar:
-      rpm = 8000;
-      break;
-  }
+  enemyCars.array.forEach((car) => {
+    car.position = 0;
+    car.spd = 0;
+    car.gearMultiplier = 0;
+    car.noClutchMode = true;
+    car.gear = 0;
+    car.moveDirection = 0;
+    car.rotation = 200;
+    car.degrees = 0;
+  });
+  firstRaceCar.rpm = 2000;
+  secondRaceCar.rpm = 5000;
+  finalRaceCar.rpm = 8000;
   $(".continue-game-button").css("display", "none");
-  enemyCars.array[enemyCars.index].rpm = rpm;
   car.style.transition = "0";
   car.style.rotate = "0deg";
   car.style.marginTop = 0;
+  car.style.boxShadow = "unset";
   hasChanged = undefined;
   action = 0;
   raceBackgroundPositionX = 0;
