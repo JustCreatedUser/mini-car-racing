@@ -12,80 +12,60 @@
   transform: rotate(0deg);
 }
 .speed0 {
-  margin-top: 18.0555555556vh;
   margin-left: 3.5185185185vh;
-}
-.speed1 {
-  margin-top: 16.3888888889vh;
-  margin-left: 2.1296296296vh;
+  margin-top: 17.1296296296vh;
 }
 .speed2 {
-  margin-top: 14.9074074074vh;
   margin-left: 1.2962962963vh;
-}
-.speed3 {
-  margin-top: 13.2407407407vh;
-  margin-left: 0.7407407407vh;
+  margin-top: 14.0740740741vh;
 }
 .speed4 {
-  margin-top: 11.5740740741vh;
-  margin-left: 0.3703703704vh;
-}
-.speed5 {
-  margin-top: 9.7222222222vh;
-  margin-left: 0.3703703704vh;
+  margin-left: 0.5555555556vh;
+  margin-top: 11.0185185185vh;
 }
 .speed6 {
-  margin-top: 7.8703703704vh;
-  margin-left: 0.6481481481vh;
-}
-.speed7 {
-  margin-top: 6.2037037037vh;
-  margin-left: 1.2962962963vh;
+  margin-left: 0.8333333333vh;
+  margin-top: 7.7777777778vh;
 }
 .speed8 {
-  margin-top: 4.4444444444vh;
-  margin-left: 2.2222222222vh;
-}
-.speed9 {
-  margin-top: 3.1481481481vh;
-  margin-left: 3.3333333333vh;
+  margin-left: 2.1296296296vh;
+  margin-top: 4.9074074074vh;
 }
 .speed10 {
-  margin-top: 1.9444444444vh;
-  margin-left: 4.537037037vh;
+  margin-left: 4.2592592593vh;
+  margin-top: 2.4074074074vh;
 }
 .speed12 {
-  margin-top: 0.462962963vh;
-  margin-left: 7.7777777778vh;
+  margin-left: 7.1296296296vh;
+  margin-top: 0.6481481481vh;
 }
 .speed14 {
-  margin-top: 0.0925925926vh;
-  margin-left: 11.3888888889vh;
+  margin-left: 10.7407407407vh;
+  margin-top: 0.2777777778vh;
 }
 .speed16 {
-  margin-top: 1.0185185185vh;
-  margin-left: 14.8148148148vh;
+  margin-left: 13.8888888889vh;
+  margin-top: 1.3888888889vh;
 }
 .speed18 {
-  margin-top: 3.0555555556vh;
-  margin-left: 17.7777777778vh;
+  margin-left: 16.4814814815vh;
+  margin-top: 3.5185185185vh;
 }
 .speed20 {
+  margin-left: 17.5925925926vh;
   margin-top: 6.2037037037vh;
-  margin-left: 19.9074074074vh;
 }
 .speed22 {
-  margin-top: 9.7222222222vh;
-  margin-left: 20.9259259259vh;
+  margin-left: 18.4259259259vh;
+  margin-top: 9.2592592593vh;
 }
 .speed24 {
-  margin-top: 13.2407407407vh;
-  margin-left: 20.5555555556vh;
+  margin-left: 18.1481481481vh;
+  margin-top: 12.5925925926vh;
 }
 .speed26 {
-  margin-top: 16.6666666667vh;
-  margin-left: 18.9814814815vh;
+  margin-left: 16.8518518519vh;
+  margin-top: 15.3703703704vh;
 }
 
 .numbers {
@@ -93,12 +73,15 @@
   position: absolute;
 }
 .numbers p {
+  font-family: "Orbitron", sans-serif;
+  font-optical-sizing: auto;
   overflow: visible;
   color: white;
   position: absolute;
 }
 .numbers p[class*=speed] {
-  font-size: 0.8333333333vh;
+  font-size: 1.5vh;
+  font-weight: 500;
 }
 .numbers p[class*=rpm] {
   font-size: 2.1296296296vh;
@@ -125,12 +108,12 @@
   border-bottom-left-radius: 4.6296296296vh;
   height: 0.462962963vh;
   transform: translate(-5.462962963vh);
-  background-color: white;
+  background-color: yellow;
   position: absolute;
 }
 .car-counter_center {
   height: 4.6296296296vh;
-  border: 0.1851851852vh solid white;
+  border: 0.1851851852vh solid yellow;
   aspect-ratio: 1/1;
   border-radius: 50%;
 }
@@ -183,23 +166,23 @@
   margin-top: 4.4444444444vh;
 }
 .rpm8 {
-  margin-left: 20.8333333333vh;
+  margin-left: 20.3703703704vh;
   margin-top: 8.3333333333vh;
 }
 .rpm9 {
-  margin-left: 20.3703703704vh;
-  margin-top: 12.962962963vh;
+  margin-left: 19.9074074074vh;
+  margin-top: 12.6851851852vh;
 }
 .rpm10 {
-  margin-left: 17.1296296296vh;
-  margin-top: 17.037037037vh;
+  margin-left: 16.8518518519vh;
+  margin-top: 16.7592592593vh;
 }
 
 .footer-el {
-  border-top: 0.3703703704vh dashed white;
-  border-left: 0.1851851852vh dashed white;
-  border-right: 0.1851851852vh dashed white;
-  border-bottom: 0.1851851852vh solid black;
+  border-top: 0.5555555556vh dashed white;
+  border-left: 0.2777777778vh dashed white;
+  border-right: 0.2777777778vh dashed white;
+  border-bottom: 0.2777777778vh solid black;
   border-radius: 50%;
   background-color: black;
   height: 22.962962963vh;
@@ -213,6 +196,8 @@
   position: absolute;
   color: white;
   font-weight: bold;
+  top: 45%;
+  align-self: center;
   font-size: 2.7777777778vh;
 }
 
@@ -524,11 +509,6 @@ html {
   align-items: center;
   justify-content: unset;
   display: none;
-}
-
-.gear-counter {
-  margin-left: 10.462962963vh;
-  margin-top: 9.7222222222vh;
 }
 
 .spd-counter {
