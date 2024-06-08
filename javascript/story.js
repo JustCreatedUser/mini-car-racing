@@ -277,6 +277,7 @@ class Race extends Story {
   }
   comingToFinish() {
     announceFn("Фінішна пряма", () => {
+      car.style.boxShadow = "-10px 10px 50px 10px yellow ";
       setTimeout(() => {
         announcement.style.opacity = 1;
         announcement.style.zIndex = 10;
@@ -314,7 +315,7 @@ class Race extends Story {
                   clearInterval(intervals.finishing);
                   return;
                 case 1:
-                  $(".tunnel").css({ right: 0 });
+                  $(".tunnel").css({ right: "40%" });
                   break;
               }
               if (!entry) {
@@ -377,7 +378,7 @@ class Race extends Story {
         case secondRace:
         case firstRace:
           this.changes.startRace = false;
-          $(".tunnel").css("right", "-65%");
+          $(".tunnel").css("right", "-75%");
           $(".gameplay-pause").css("display", "flex");
           guideBlock.style.opacity = "0";
           guideBlockText.innerText = "Mini-car racing";
@@ -417,7 +418,7 @@ class Race extends Story {
     $(".turn-speed").text(`${turns.array[turns.index].maxSpeed}km/h`);
     changes.movingPause = false;
     race.style.opacity = 0.7;
-    let distance = turns.array[turns.index].distanceToIt * -40;
+    let distance = turns.array[turns.index].distanceToIt * distanceRatio;
     let position = backgroundPositionX + distance;
     music.changeVolume(1);
     intervals.turnComing = setInterval(() => {
@@ -437,7 +438,7 @@ class Race extends Story {
           $(".turn-speed").css("background", "linear-gradient(red,white)");
         }
         $(".turn-distance").text(
-          Math.round((position - backgroundPositionX) / -40) + "m"
+          Math.round((position - backgroundPositionX) / distanceRatio) + "m"
         );
       }
     }, 100);
