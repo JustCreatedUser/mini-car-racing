@@ -2,7 +2,7 @@
 "use strict";
 import { myCar } from "./cars.js";
 import { music } from "../otherJs/music.js";
-import { chapters, finalRace, firstRace } from "../story.js";
+import { chapters, finalRace } from "../story.js";
 import { gameOver, announceFn } from "../otherJs/secondary.js";
 const turns = {
   randomize: () => {
@@ -75,41 +75,57 @@ const turns = {
     $(".turn-speed").text(`${turns.array[turns.index].maxSpeed}km/h`);
   },
   start: () => {
-    if (myCar.spd <= turns.array[turns.index].maxSpeed) {
+    let { maxSpeed, distanceOfTurning, type, direction } =
+      turns.array[turns.index];
+    if (myCar.spd <= maxSpeed) {
       turns.isRightNow = true;
       music.changeVolume(1);
       car.style.transition = "2s linear";
-      let turnValue = 20;
-      let roadTranslateValue = 13;
-      switch (turns.array[turns.index].type) {
+
+      turnValue = 10;
+      let number = 0;
+      moveEnemyPosSign = 16 - window.innerWidth / 125;
+      switch (type) {
         case "Різкий":
-          turnValue = 20;
+          turnValue = 10;
+          number = -16;
+          additionalMarginForTurn = window.innerWidth / 6.4;
           break;
         case "Середній":
-          turnValue = 15;
+          turnValue = 7;
+          number = -10;
+          additionalMarginForTurn = window.innerWidth / 9.6;
           break;
         case "Плавний":
-          turnValue = 10;
+          turnValue = 4;
+          number = -4;
+          additionalMarginForTurn = window.innerWidth / 19.2;
           break;
       }
-      switch (turns.array[turns.index].direction) {
+      switch (direction) {
         case "right":
           turnValue *= -1;
-          roadTranslateValue *= -1;
-          car.style.marginLeft = document.body.offsetWidth / 4 + "px";
+          number *= -1;
+          additionalMarginForTurn *= -1;
           break;
       }
+      moveEnemyPosSign = number - moveEnemyPosSign;
+
+      realRoadWidth = window.innerWidth / Math.cos((turnValue * Math.PI) / 180);
       $(".background").css({
-        translate: `${roadTranslateValue}%`,
-        transform: `rotateY(${turnValue}deg) rotateX(-4deg)  rotate(1deg)`,
+        transform: `rotateY(${turnValue}deg) rotate(1deg)`,
       });
       turns.endPosition =
-        backgroundPositionX + turns.array[turns.index].distanceOfTurning * -40;
+        backgroundPositionX + distanceOfTurning * distanceRatio;
     } else {
       gameOver("Ти не маєш розганятись в повороті!");
     }
   },
   end: () => {
+    additionalMarginForTurn = 0;
+    turnValue = 0;
+    realRoadWidth = window.innerWidth;
+    moveEnemyPosSign = 0;
     turns.isRightNow = false;
     turns.index++;
     guideBlockText.textContent = "ЖЕНИ ДАЛІ!";
@@ -120,7 +136,8 @@ const turns = {
     });
     if (turns.index !== turns.array.length && turns.array.length != 0) {
       turns.startPosition =
-        backgroundPositionX + turns.array[turns.index].distanceAfterTurn * -40;
+        backgroundPositionX +
+        turns.array[turns.index].distanceAfterTurn * distanceRatio;
     }
   },
   announce: () => {
