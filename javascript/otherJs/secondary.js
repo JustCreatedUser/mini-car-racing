@@ -17,12 +17,12 @@ function actionLevelChange() {
 function pause() {
   if (!isGamePaused && permissions.toPause) {
     $(".menu").css("display", "flex");
-    $(".pause img").attr("src", "");
+    $(".pause img").css("visibility", "hidden");
     $(".pause").append("<p>&cross;</p>");
     isGamePaused = true;
   } else {
     $(".menu").css("display", "none");
-    $(".pause img").attr("src", "./icons-and-images/pause.svg");
+    $(".pause img").css("visibility", "visible");
     $(".pause p").remove();
     isGamePaused = false;
     $("select").val("Обери пояснення");
