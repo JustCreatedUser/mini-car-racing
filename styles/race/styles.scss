@@ -215,6 +215,7 @@ body,
 }
 .menu {
   @include addFlex(space-evenly, center, column);
+  padding-top: 50px;
   display: none;
   position: fixed;
   font-size: 20px;
@@ -328,7 +329,7 @@ header {
   line-height: 70px;
   font-size: 80px;
   color: white;
-  top: setSizeWithMath(60, 1080, 100vh);
+  top: 60px;
   z-index: 11;
   right: 3vw;
   img {
