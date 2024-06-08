@@ -94,12 +94,6 @@ html {
   @include addFlex(unset, center, column);
   display: none;
 }
-.gear-counter {
-  @include setMargin(
-    setSizeWithMath(113, 1080, 100vh),
-    setSizeWithMath(105, 1080, 100vh)
-  );
-}
 .spd-counter {
   @include addFlex(center, center);
 }
