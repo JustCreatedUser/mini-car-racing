@@ -14,92 +14,103 @@
     }
   }
   &0 {
-    margin-top: setSizeWithMath(195, 1080, 100vh);
-    margin-left: setSizeWithMath(38, 1080, 100vh);
-  }
-  &1 {
-    margin-top: setSizeWithMath(177, 1080, 100vh);
-    margin-left: setSizeWithMath(23, 1080, 100vh);
+    @include setMargin(
+      setSizeWithMath(38, 1080, 100vh),
+      setSizeWithMath(185, 1080, 100vh)
+    );
   }
   &2 {
-    margin-top: setSizeWithMath(161, 1080, 100vh);
-    margin-left: setSizeWithMath(14, 1080, 100vh);
-  }
-  &3 {
-    margin-top: setSizeWithMath(143, 1080, 100vh);
-    margin-left: setSizeWithMath(8, 1080, 100vh);
+    @include setMargin(
+      setSizeWithMath(14, 1080, 100vh),
+      setSizeWithMath(152, 1080, 100vh)
+    );
   }
   &4 {
-    margin-top: setSizeWithMath(125, 1080, 100vh);
-    margin-left: setSizeWithMath(4, 1080, 100vh);
-  }
-  &5 {
-    margin-top: setSizeWithMath(105, 1080, 100vh);
-    margin-left: setSizeWithMath(4, 1080, 100vh);
+    @include setMargin(
+      setSizeWithMath(6, 1080, 100vh),
+      setSizeWithMath(119, 1080, 100vh)
+    );
   }
   &6 {
-    margin-top: setSizeWithMath(85, 1080, 100vh);
-    margin-left: setSizeWithMath(7, 1080, 100vh);
-  }
-  &7 {
-    margin-top: setSizeWithMath(67, 1080, 100vh);
-    margin-left: setSizeWithMath(14, 1080, 100vh);
+    @include setMargin(
+      setSizeWithMath(9, 1080, 100vh),
+      setSizeWithMath(84, 1080, 100vh)
+    );
   }
   &8 {
-    margin-top: setSizeWithMath(48, 1080, 100vh);
-    margin-left: setSizeWithMath(24, 1080, 100vh);
-  }
-  &9 {
-    margin-top: setSizeWithMath(34, 1080, 100vh);
-    margin-left: setSizeWithMath(36, 1080, 100vh);
+    @include setMargin(
+      setSizeWithMath(23, 1080, 100vh),
+      setSizeWithMath(53, 1080, 100vh)
+    );
   }
   &10 {
-    margin-top: setSizeWithMath(21, 1080, 100vh);
-    margin-left: setSizeWithMath(49, 1080, 100vh);
+    @include setMargin(
+      setSizeWithMath(46, 1080, 100vh),
+      setSizeWithMath(26, 1080, 100vh)
+    );
   }
   &12 {
-    margin-top: setSizeWithMath(5, 1080, 100vh);
-    margin-left: setSizeWithMath(84, 1080, 100vh);
+    @include setMargin(
+      setSizeWithMath(77, 1080, 100vh),
+      setSizeWithMath(7, 1080, 100vh)
+    );
   }
   &14 {
-    margin-top: setSizeWithMath(1, 1080, 100vh);
-    margin-left: setSizeWithMath(123, 1080, 100vh);
+    @include setMargin(
+      setSizeWithMath(116, 1080, 100vh),
+      setSizeWithMath(3, 1080, 100vh)
+    );
   }
   &16 {
-    margin-top: setSizeWithMath(11, 1080, 100vh);
-    margin-left: setSizeWithMath(160, 1080, 100vh);
+    @include setMargin(
+      setSizeWithMath(150, 1080, 100vh),
+      setSizeWithMath(15, 1080, 100vh)
+    );
   }
   &18 {
-    margin-top: setSizeWithMath(33, 1080, 100vh);
-    margin-left: setSizeWithMath(192, 1080, 100vh);
+    @include setMargin(
+      setSizeWithMath(178, 1080, 100vh),
+      setSizeWithMath(38, 1080, 100vh)
+    );
   }
   &20 {
-    margin-top: setSizeWithMath(67, 1080, 100vh);
-    margin-left: setSizeWithMath(215, 1080, 100vh);
+    @include setMargin(
+      setSizeWithMath(190, 1080, 100vh),
+      setSizeWithMath(67, 1080, 100vh)
+    );
   }
   &22 {
-    margin-top: setSizeWithMath(105, 1080, 100vh);
-    margin-left: setSizeWithMath(226, 1080, 100vh);
+    @include setMargin(
+      setSizeWithMath(199, 1080, 100vh),
+      setSizeWithMath(100, 1080, 100vh)
+    );
   }
   &24 {
-    margin-top: setSizeWithMath(143, 1080, 100vh);
-    margin-left: setSizeWithMath(222, 1080, 100vh);
+    @include setMargin(
+      setSizeWithMath(196, 1080, 100vh),
+      setSizeWithMath(136, 1080, 100vh)
+    );
   }
   &26 {
-    margin-top: setSizeWithMath(180, 1080, 100vh);
-    margin-left: setSizeWithMath(205, 1080, 100vh);
+    @include setMargin(
+      setSizeWithMath(182, 1080, 100vh),
+      setSizeWithMath(166, 1080, 100vh)
+    );
   }
 }
 .numbers {
   overflow: visible;
   position: absolute;
   p {
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
     overflow: visible;
     color: white;
     position: absolute;
   }
   p[class*="speed"] {
-    font-size: setSizeWithMath(9, 1080, 100vh);
+    font-size: 1.5vh;
+    font-weight: 500;
   }
   p[class*="rpm"] {
     font-size: setSizeWithMath(23, 1080, 100vh);
@@ -126,12 +137,12 @@
     border-bottom#{$rad}: setSizeWithMath(50, 1080, 100vh);
     height: setSizeWithMath(5, 1080, 100vh);
     transform: translate(setSizeWithMath(-59, 1080, 100vh));
-    background-color: white;
+    background-color: yellow;
     position: absolute;
   }
   &_center {
     height: setSizeWithMath(50, 1080, 100vh);
-    border: setSizeWithMath(2, 1080, 100vh) solid white;
+    border: setSizeWithMath(2, 1080, 100vh) solid yellow;
     aspect-ratio: 1/1;
     border-radius: 50%;
   }
@@ -197,27 +208,27 @@
   }
   &8 {
     @include setMargin(
-      setSizeWithMath(225, 1080, 100vh),
+      setSizeWithMath(220, 1080, 100vh),
       setSizeWithMath(90, 1080, 100vh)
     );
   }
   &9 {
     @include setMargin(
-      setSizeWithMath(220, 1080, 100vh),
-      setSizeWithMath(140, 1080, 100vh)
+      setSizeWithMath(215, 1080, 100vh),
+      setSizeWithMath(137, 1080, 100vh)
     );
   }
   &10 {
     @include setMargin(
-      setSizeWithMath(185, 1080, 100vh),
-      setSizeWithMath(184, 1080, 100vh)
+      setSizeWithMath(182, 1080, 100vh),
+      setSizeWithMath(181, 1080, 100vh)
     );
   }
 }
 .footer-el {
-  $usual-border: setSizeWithMath(2, 1080, 100vh);
+  $usual-border: setSizeWithMath(3, 1080, 100vh);
   $usual-color: dashed white;
-  border-top: setSizeWithMath(4, 1080, 100vh) $usual-color;
+  border-top: setSizeWithMath(6, 1080, 100vh) $usual-color;
   border-left: $usual-border $usual-color;
   border-right: $usual-border $usual-color;
   border-bottom: $usual-border solid black;
@@ -233,5 +244,7 @@
   position: absolute;
   color: white;
   font-weight: bold;
+  top: 45%;
+  align-self: center;
   font-size: setSizeWithMath(30, 1080, 100vh);
 }

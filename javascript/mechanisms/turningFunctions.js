@@ -83,37 +83,29 @@ const turns = {
       car.style.transition = "2s linear";
 
       turnValue = 10;
-      let number = 0;
-      moveEnemyPosSign = 16 - window.innerWidth / 125;
       switch (type) {
         case "Різкий":
-          turnValue = 10;
-          number = -16;
+          turnValue = 15;
           additionalMarginForTurn = window.innerWidth / 6.4;
           break;
         case "Середній":
-          turnValue = 7;
-          number = -10;
+          turnValue = 11;
           additionalMarginForTurn = window.innerWidth / 9.6;
           break;
         case "Плавний":
-          turnValue = 4;
-          number = -4;
+          turnValue = 7;
           additionalMarginForTurn = window.innerWidth / 19.2;
           break;
       }
       switch (direction) {
         case "right":
           turnValue *= -1;
-          number *= -1;
           additionalMarginForTurn *= -1;
           break;
       }
-      moveEnemyPosSign = number - moveEnemyPosSign;
-
       realRoadWidth = window.innerWidth / Math.cos((turnValue * Math.PI) / 180);
       $(".background").css({
-        transform: `rotateY(${turnValue}deg) rotate(1deg)`,
+        transform: `rotateY(${turnValue}deg) `,
       });
       turns.endPosition =
         backgroundPositionX + distanceOfTurning * distanceRatio;
@@ -125,7 +117,6 @@ const turns = {
     additionalMarginForTurn = 0;
     turnValue = 0;
     realRoadWidth = window.innerWidth;
-    moveEnemyPosSign = 0;
     turns.isRightNow = false;
     turns.index++;
     guideBlockText.textContent = "ЖЕНИ ДАЛІ!";
