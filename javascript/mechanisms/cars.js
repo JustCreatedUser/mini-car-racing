@@ -105,43 +105,43 @@ class EnemyCar extends Car {
           enemyCars.array[enemyCars.index].acceleration = true;
           enemyCars.array[enemyCars.index].decceleration = false;
         }
+        let distanceRatio = window.innerHeight / -27;
         let marginLeft;
         if ($(this.className).css("marginLeft") != undefined) {
           marginLeft = Math.round(
             Number(
               $(this.className)
-                .css("marginLeft")
-                .slice(0, $(this.className).css("marginLeft").length - 2)
+                .css("margin-left")
+                .slice(0, $(this.className).css("margin-left").length - 2)
             )
           );
         }
-
-        if (marginLeft / -40 > 5) {
-          if (
-            turns.isRightNow == true &&
-            turns.array[turns.index].direction == "right"
-          ) {
-            $(".enemy-position").css({
-              left: "20%",
-              right: 0,
-            });
-          } else {
-            $(".enemy-position").css({ left: "10%", right: 0 });
-          }
+        if (marginLeft / distanceRatio > 5) {
+          $(".enemy-position").css({ left: 0, right: 0 });
           $(".enemy-position").css({
             display: "flex",
             background: "linear-gradient(green, white)",
           });
-          $(".enemy-position").text(`!${Math.round(marginLeft / -40)}m`);
-        } else if (marginLeft > document.body.offsetWidth - 50) {
+          $(".enemy-position").text(
+            `!${Math.round(marginLeft / distanceRatio)}m`
+          );
+        } else if (marginLeft > realRoadWidth) {
+          realRoadWidth =
+            window.innerWidth / Math.cos((turnValue * Math.PI) / 180);
+          let width = $(".background").css("width"),
+            theRIGHT =
+              Number(width.slice(0, width.length - 2)) -
+              (turns.isRightNow === true ? realRoadWidth : window.innerWidth) -
+              additionalMarginForTurn +
+              "px";
           if (turns.isRightNow == true) {
             $(".enemy-position").css({
-              right: "20%",
+              right: theRIGHT,
               left: "unset",
             });
           } else {
             $(".enemy-position").css({
-              right: "10%",
+              right: theRIGHT,
               left: "unset",
             });
           }
@@ -285,8 +285,9 @@ function set240msInterval() {
       if (!finish) {
         backgroundPositionX -=
           device == "computer"
-            ? myCar.spd / (window.innerHeight / 540)
-            : myCar.spd / (window.innerHeight / 540) / 1.54;
+            ? myCar.spd * (window.innerHeight / 540)
+            : (myCar.spd * (window.innerHeight / 540)) / 1.54;
+
         raceBackgroundPositionX -=
           device == "computer"
             ? myCar.spd / (window.innerHeight / 135)
