@@ -9,6 +9,7 @@ export const music = {
     "https://ia601400.us.archive.org/27/items/need-for-speed-underground-soundtrack-2003-gamerip/02.%20The%20Crystal%20Method%20-%20Born%20Too%20Slow%20%28NFS%20Underground%20Edition%29.mp3",
     "https://ia800503.us.archive.org/15/items/RunningInThe90s_201608/Running_in_the_90s.mp3",
     "https://ia801400.us.archive.org/27/items/need-for-speed-underground-soundtrack-2003-gamerip/06.%20Static-X%20-%20The%20Only%20%28NFS%20Underground%20Edition%29.mp3",
+    "https://ia801400.us.archive.org/27/items/need-for-speed-underground-soundtrack-2003-gamerip/03.%20Rancid%20-%20Out%20of%20Control%20%28NFS%20Underground%20Edition%29.mp3",
   ],
   listenedCycle: [],
   song: undefined,
