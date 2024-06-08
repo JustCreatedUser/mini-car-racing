@@ -120,9 +120,10 @@
     align-self: center;
   }
   &_stick {
+    $rad: -left-radius;
     width: setSizeWithMath(70, 1080, 100vh);
-    border-top-left-radius: setSizeWithMath(50, 1080, 100vh);
-    border-bottom-left-radius: setSizeWithMath(50, 1080, 100vh);
+    border-top#{$rad}: setSizeWithMath(50, 1080, 100vh);
+    border-bottom#{$rad}: setSizeWithMath(50, 1080, 100vh);
     height: setSizeWithMath(5, 1080, 100vh);
     transform: translate(setSizeWithMath(-59, 1080, 100vh));
     background-color: white;
@@ -214,10 +215,12 @@
   }
 }
 .footer-el {
-  border-top: setSizeWithMath(4, 1080, 100vh) dashed white;
-  border-left: setSizeWithMath(2, 1080, 100vh) dashed white;
-  border-right: setSizeWithMath(2, 1080, 100vh) dashed white;
-  border-bottom: setSizeWithMath(2, 1080, 100vh) solid black;
+  $usual-border: setSizeWithMath(2, 1080, 100vh);
+  $usual-color: dashed white;
+  border-top: setSizeWithMath(4, 1080, 100vh) $usual-color;
+  border-left: $usual-border $usual-color;
+  border-right: $usual-border $usual-color;
+  border-bottom: $usual-border solid black;
   border-radius: 50%;
   background-color: black;
   height: setSizeWithMath(248, 1080, 100vh);
