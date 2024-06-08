@@ -302,8 +302,8 @@ function set240msInterval() {
       } else {
         myCarPosition +=
           device == "computer"
-            ? myCar.spd / (window.innerHeight / 540)
-            : myCar.spd / (window.innerHeight / 540) / 1.54;
+            ? myCar.spd * (window.innerHeight / 540)
+            : (myCar.spd * (window.innerHeight / 540)) / 1.54;
         $(myCar.className).css({
           transition: "240ms linear",
           "margin-left": `${myCarPosition}px`,
@@ -326,4 +326,4 @@ function set60msInterval() {
     }
   }, 60);
 }
-export { myCar, firstRaceCar, secondRaceCar, finalRaceCar, enemyCars };
+export { myCar, firstRaceCar, secondRaceCar, finalRaceCar, enemyCars };  
