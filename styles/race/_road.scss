@@ -8,7 +8,7 @@
   top: setSizeWithMath(130, 1080, 100vh);
   z-index: 3;
   width: setSizeWithMath(150, 1080, 100vh);
-  left: 11%;
+  left: 5vw;
 }
 .enemy {
   &-car {
@@ -22,7 +22,7 @@
     font-size: setSizeWithMath(50, 1080, 100vh);
     position: absolute;
     margin-top: setSizeWithMath(30, 1080, 100vh);
-    left: 10%;
+    left: 3%;
     z-index: 12;
   }
 }
@@ -52,7 +52,9 @@
   height: 50%;
 }
 .background {
-  width: 120%;
+  transform-origin: left;
+  left: 0;
+  width: 200vw;
   bottom: 30vh;
 }
 .turn-position {
@@ -60,7 +62,8 @@
   font-size: setSizeWithMath(40, 1080, 100vh);
   color: white;
   position: absolute;
-  right: 10%;
+  left: 100vw;
+  translate: -105%;
   z-index: 12;
   margin-top: 13vh;
 }

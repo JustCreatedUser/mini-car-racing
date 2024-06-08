@@ -1,3 +1,4 @@
+@import "../mixins";
 .gameplay-pause {
   z-index: 1;
   top: 0;
@@ -93,5 +94,5 @@
   cursor: pointer;
 }
 .gameplay-headline {
-  font-size: 50px;
+  font-size: setSizeWithMath(60, 1080, 100vh);
 }

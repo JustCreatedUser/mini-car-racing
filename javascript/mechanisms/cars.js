@@ -32,8 +32,10 @@ let carStats = {
     fns: {
       overtakeFunction: (enemyCar = enemyCars.array[enemyCars.index]) => {
         let move = Math.round(enemyCar.spd - myCar.spd);
-
-        enemyCar.position += move * (window.innerHeight / 540);
+        enemyCar.position +=
+          device == "computer"
+            ? move * (window.innerHeight / 540)
+            : move * (window.innerHeight / 540) * 1.54;
         $(enemyCar.className).css("margin-left", `${enemyCar.position}px`);
       },
       start: (car = enemyCars.array[enemyCars.index]) => {
@@ -56,7 +58,7 @@ class Car {
   wheelsRotation() {
     if (this.gear !== 0) {
       this.spd = this.rpm * this.gearMultiplier;
-      this.rotation = Math.sqrt(this.spd) * (window.innerHeight / 21.6);
+      this.rotation = Math.sqrt(this.spd) * 50;
     }
   }
 }
@@ -103,43 +105,43 @@ class EnemyCar extends Car {
           enemyCars.array[enemyCars.index].acceleration = true;
           enemyCars.array[enemyCars.index].decceleration = false;
         }
+        let distanceRatio = window.innerHeight / -27;
         let marginLeft;
         if ($(this.className).css("marginLeft") != undefined) {
           marginLeft = Math.round(
             Number(
               $(this.className)
-                .css("marginLeft")
-                .slice(0, $(this.className).css("marginLeft").length - 2)
+                .css("margin-left")
+                .slice(0, $(this.className).css("margin-left").length - 2)
             )
           );
         }
-
-        if (marginLeft / -40 > 5) {
-          if (
-            turns.isRightNow == true &&
-            turns.array[turns.index].direction == "right"
-          ) {
-            $(".enemy-position").css({
-              left: "20%",
-              right: 0,
-            });
-          } else {
-            $(".enemy-position").css({ left: "10%", right: 0 });
-          }
+        if (marginLeft / distanceRatio > 5) {
+          $(".enemy-position").css({ left: 0, right: 0 });
           $(".enemy-position").css({
             display: "flex",
             background: "linear-gradient(green, white)",
           });
-          $(".enemy-position").text(`!${Math.round(marginLeft / -40)}m`);
-        } else if (marginLeft > document.body.offsetWidth - 50) {
+          $(".enemy-position").text(
+            `!${Math.round(marginLeft / distanceRatio)}m`
+          );
+        } else if (marginLeft > realRoadWidth) {
+          realRoadWidth =
+            window.innerWidth / Math.cos((turnValue * Math.PI) / 180);
+          let width = $(".background").css("width"),
+            theRIGHT =
+              Number(width.slice(0, width.length - 2)) -
+              (turns.isRightNow === true ? realRoadWidth : window.innerWidth) -
+              additionalMarginForTurn +
+              "px";
           if (turns.isRightNow == true) {
             $(".enemy-position").css({
-              right: "20%",
+              right: theRIGHT,
               left: "unset",
             });
           } else {
             $(".enemy-position").css({
-              right: "10%",
+              right: theRIGHT,
               left: "unset",
             });
           }
@@ -276,20 +278,20 @@ function set240msInterval() {
   let car = myCar;
   intervals.universalMoving = setInterval(() => {
     if (!changes.movingPause && !isGamePaused) {
-      if (
-        changes.introduction.startRace ||
-        changes.firstRace.startRace ||
-        changes.secondRace.startRace ||
-        changes.finalRace.startRace
-      ) {
-      }
       if (myCar.gear != 0) {
         car.degrees += car.rotation;
         $(car.wheel).css("transform", `rotate(${car.degrees}deg)`);
       }
       if (!finish) {
-        backgroundPositionX -= myCar.spd * (window.innerHeight / 540);
-        raceBackgroundPositionX -= myCar.spd / (window.innerHeight / 135);
+        backgroundPositionX -=
+          device == "computer"
+            ? myCar.spd * (window.innerHeight / 540)
+            : (myCar.spd * (window.innerHeight / 540)) / 1.54;
+
+        raceBackgroundPositionX -=
+          device == "computer"
+            ? myCar.spd / (window.innerHeight / 135)
+            : myCar.spd / (window.innerHeight / 135) / 1.54;
         race.style.backgroundPositionX = raceBackgroundPositionX + "px";
         road.style.backgroundPositionX = backgroundPositionX + "px";
         switch (progress) {
@@ -298,17 +300,16 @@ function set240msInterval() {
             break;
         }
       } else {
-        myCarPosition += myCar.spd * (window.innerHeight / 540);
+        myCarPosition +=
+          device == "computer"
+            ? myCar.spd / (window.innerHeight / 540)
+            : myCar.spd / (window.innerHeight / 540) / 1.54;
         $(myCar.className).css({
           transition: "240ms linear",
           "margin-left": `${myCarPosition}px`,
         });
       }
-      if (
-        changes.firstRace.startRace ||
-        changes.secondRace.startRace ||
-        changes.finalRace.startRace
-      ) {
+      if (chapters[progress].changes.startRace && progress != "introduction") {
         let enemycar = enemyCars.array[enemyCars.index];
         enemycar.degrees += enemycar.rotation;
         $(enemycar.wheel).css("transform", `rotate(${enemycar.degrees}deg)`);
@@ -320,11 +321,7 @@ function set240msInterval() {
 function set60msInterval() {
   intervals.everyCarMove = setInterval(() => {
     rpmFunctions.handleAllMoves(myCar);
-    if (
-      (changes.firstRace.startRace && progress == "firstRace") ||
-      (changes.secondRace.startRace && progress == "secondRace") ||
-      (changes.finalRace.startRace && progress == "finalRace")
-    ) {
+    if (chapters[progress].changes.startRace && progress != "introduction") {
       rpmFunctions.handleAllMoves(enemyCars.array[enemyCars.index]);
     }
   }, 60);
