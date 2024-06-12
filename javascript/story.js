@@ -1,6 +1,6 @@
 //Сюжет гонки
-import { turns, announceFn } from "./mechanisms/turningFunctions.js";
-import { gameOver } from "./otherJs/secondary.js";
+import { turns } from "./mechanisms/turningFunctions.js";
+import { secondaryFunctions } from "./otherJs/secondary.js";
 import { music } from "./otherJs/music.js";
 import { myCar, enemyCars } from "./mechanisms/cars.js";
 import { keyboard } from "./otherJs/keyboard.js";
@@ -23,14 +23,19 @@ class Story {
         break;
     }
   }
-  tip(guideInfo = "") {
+  tip(guideInfo = "", elementToPutAShadow = undefined) {
     music.changeVolume(0.5);
     race.style.opacity = ".5";
     guideBlockText.innerText = guideInfo;
     if (this != introduction) {
       changes.movingPause = true;
     }
-
+    if (elementToPutAShadow) {
+      $(elementToPutAShadow).css({
+        boxShadow: "0 0 100vh 100vw black, inset 0 0 15vh 15vh black",
+        zIndex: "100",
+      });
+    }
     action++;
   }
 }
@@ -83,18 +88,29 @@ class Intro extends Story {
                   transform: "scale(1)",
                   marginLeft: "0",
                 });
-                $("footer").css({ display: "flex" });
+                $("footer").css({
+                  display: device == "computer" ? "flex" : "grid",
+                });
                 setTimeout(() => {
                   guideBlock.style.opacity = "1";
-                  $("footer").css({ opacity: "1", transition: "1s" });
+                  $("footer").css({
+                    opacity: "1",
+                    transition: "1s",
+                  });
 
                   setTimeout(() => {
                     permissions.toPause = true;
                     $(".pause").css("display", "flex");
                     guideBlock.style.transition =
                       "1s cubic-bezier(0.65, 0.05, 0.36, 1)";
-                    introduction.tip(`Зараз треба спішити, бо треба доїхати до зустрічі гонщиків.
-                      Спершу - запуск двигуна. Нажми "${keyboard.engine}" щоб це зробити`);
+                    introduction.tip(
+                      `Зараз треба спішити, бо треба доїхати до зустрічі гонщиків.
+                      Спершу - запуск двигуна.` +
+                        (device == "computer"
+                          ? ` Нажми "${keyboard.engine}" щоб це зробити`
+                          : " Всі потрібні кнопки будуть виділятись за потреби, як і ця - нажми на неї."),
+                      "#useTheEngine"
+                    );
                   }, 2000);
                   action = 0;
                   race.style.transition = "240ms linear";
@@ -184,7 +200,10 @@ class Race extends Story {
     $(".enemy-position").css("visibility", "hidden");
     $(".turn-position").css("display", "0");
     changes.movingPause = true;
-    $("footer").css({ opacity: 0, display: "flex" });
+    $("footer").css({
+      opacity: 0,
+      display: device == "phone" ? "grid" : "flex",
+    });
     guideBlock.style.opacity = "0";
     car.style.marginLeft = roadBox.offsetWidth * 3 + "px";
     backgroundPositionX = roadBox.offsetWidth * 3;
@@ -209,7 +228,7 @@ class Race extends Story {
       road.style.backgroundPositionX = backgroundPositionX;
       permissions.forMoreRpm = true;
       permissions.setInertiaInterval = true;
-      $("footer").css("display", "flex");
+      $("footer").css("display", device == "commputer" ? "flex" : "grid");
       setTimeout(() => {
         car.style.transition = "unset";
         road.style.transition = "240ms linear";
@@ -276,7 +295,7 @@ class Race extends Story {
     }, 1000);
   }
   comingToFinish() {
-    announceFn("Фінішна пряма", () => {
+    secondaryFunctions.announceFn("Фінішна пряма", () => {
       car.style.boxShadow = "-10px 10px 50px 10px yellow ";
       setTimeout(() => {
         announcement.style.opacity = 1;
@@ -302,7 +321,7 @@ class Race extends Story {
                         )
                     )
                   ) {
-                    gameOver(
+                    secondaryFunctions.gameOver(
                       "Ти не приїхав перший. Почитай підсказки-пояснення в меню"
                     );
                   } else {
@@ -446,41 +465,52 @@ class Race extends Story {
 }
 introduction = new Intro(
   {
-    engine: () => {
+    engine() {
       if (action > 0) {
+        $("#useTheEngine").css({ boxShadow: "unset", zIndex: 0 });
         music.changeVolume(1);
         race.style.opacity = ".7";
         guideBlockText.innerText = "Добре!";
         setTimeout(() => {
           introduction.tip(
-            `Далі підніми обороти двигуна хоча б до 6200. Для цього зажми "${keyboard.accelerate}" на клавіатурі і тримай, а  графік оборотів є зліва знизу.`
+            `Далі підніми обороти двигуна хоча б до 6200. Для цього зажми ` +
+              (device == "computer"
+                ? `"${keyboard.accelerate}" на клавіатурі і тримай,`
+                : " виділену кнопку,") +
+              ` а  графік оборотів є зліва ` +
+              (device == "computer" ? `знизу.` : " по центру."),
+            "#accelerationPedal"
           );
           permissions.forMoreRpm = true;
           myCar.noClutchMode = true;
         }, 2000);
       }
     },
-    gearUpExplanation: () => {
+    gearUpExplanation() {
       if (action == 2 && changes.introduction.first == true) {
         myCar.noClutchMode = false;
         introduction.tip(
-          `Щоб рушити треба переключити передачу вгору, тому нажми "${keyboard.gearUp}".`
+          `Щоб рушити треба переключити передачу вгору, тому нажми ` +
+            (device == "computer" ? `"${keyboard.gearUp}".` : "стрілку вгору."),
+          "#gearUpButton"
         );
       }
     },
-    inMoreRpm: () => {
+    inMoreRpm() {
       if (myCar.rpm < 6000 && action === 2 && !changes.introduction.first) {
         changes.introduction.first = true;
         music.changeVolume(1);
         race.style.opacity = ".7";
+        $("#accelerationPedal").css({ boxShadow: "unset", zIndex: 0 });
       }
     },
-    inLessRpm: () => {
+    inLessRpm() {
       if (action === 4 && !changes.introduction.useBrakesAction) {
         changes.introduction.IntroDestionationPause = false;
         changes.introduction.useBrakesAction = true;
         changes.movingPause = false;
         race.style.opacity = ".7";
+        $("#deccelerationPedal").css({ boxShadow: "unset", zIndex: 0 });
         permissions.forInertia = true;
       } else if (action == 6) {
         changes.movingPause = false;
@@ -491,7 +521,12 @@ introduction = new Intro(
       if (myCar.rpm < 3000 && !changes.introduction.gearDownAction) {
         myCar.noClutchMode = false;
         introduction.tip(
-          `Останні штрихи: переключи передачу вниз клавішою "${keyboard.gearDown}". Увага: передачу вниз переключай, КОЛИ ОБОРОТИ МЕНШІ ЗА 6000`
+          `Останні штрихи: переключи передачу вниз ${
+            device == "computer"
+              ? `клавішою "${keyboard.gearDown}"`
+              : " цією стрілкою"
+          }. Увага: передачу вниз переключай, КОЛИ ОБОРОТИ МЕНШІ ЗА 6000`,
+          "#gearDownButton"
         );
         changes.introduction.gearDownAction = true;
         changes.movingPause = true;
@@ -499,17 +534,20 @@ introduction = new Intro(
         music.changeVolume(0.5);
       }
     },
-    reachTheTarget: () => {
+    reachTheTarget() {
       if (
         action === 3 &&
-        backgroundPositionX < -20000 &&
+        backgroundPositionX < (device == "phone" ? -20000 / 1.54 : -20000) &&
         !changes.reachIntroDestination
       ) {
         music.changeVolume(0.5);
         changes.introduction.reachIntroDestination = true;
         changes.movingPause = true;
         introduction.tip(
-          `Ти майже приїхав, пора тормозити! Зажми "${keyboard.deccelerate}".`
+          `Ти майже приїхав, пора тормозити! Зажми ${
+            device == "computer" ? `"${keyboard.deccelerate}"` : "тормоз"
+          }.`,
+          "#deccelerationPedal"
         );
         permissions.forInertia = false;
         permissions.forMoreRpm = false;
@@ -517,31 +555,48 @@ introduction = new Intro(
         clearTimeout(startInertiaMechanismTimeout);
       }
     },
-    accelerationExplanation: () => {
+    accelerationExplanation() {
       if (action == 3) {
         music.changeVolume(1);
         race.style.opacity = ".7";
-        guideBlockText.innerText = `Чудово! Тепер, щоб доїхати до першої гонки, піднімай обороти і переключай передачі за допомогою "${keyboard.accelerate}" і "${keyboard.gearUp}".`;
+        $("#gearUpButton").css({ boxShadow: "unset", zIndex: 0 });
+        guideBlockText.innerText = `Чудово! Тепер, щоб доїхати до першої гонки, піднімай обороти і переключай передачі за допомогою ${
+          device == "computer"
+            ? `"${keyboard.accelerate}" і "${keyboard.gearUp}"`
+            : "газу і стрілки вгору"
+        }.`;
       }
     },
-    deccelerationExplanation: () => {
+    deccelerationExplanation() {
       if (action == 5 && myCar.gear == 1) {
         music.changeVolume(0.5);
         introduction.tip(
-          `Зараз, коли передача є першою, а тобі треба зупинитись, притормози до меншої за 20 км/год швидкості кнопкою "${keyboard.deccelerate}" (більше не нагадуватиму), переключи передачу вниз, і тоді заглуши двигун з кнопкою "${keyboard.engine}", якщо не забув)`
+          `Зараз, коли передача є першою, а тобі треба зупинитись, притормози до меншої за 20 км/год швидкості ${
+            device == "computer"
+              ? `кнопкою "${keyboard.deccelerate}" (більше не нагадуватиму)`
+              : ""
+          }, переключи передачу вниз і тоді заглуши двигун${
+            device == "computer"
+              ? ` з кнопкою "${keyboard.engine}", якщо не забув).`
+              : "."
+          }`
         );
         changes.movingPause = true;
         permissions.forInertia = false;
         permissions.toOff_engine = true;
       }
     },
-    gearDownExplanation: () => {
+    gearDownExplanation() {
       music.changeVolume(1);
       if (changes.movingPause) {
         changes.movingPause = false;
         race.style.opacity = ".7";
-        guideBlockText.innerText =
-          "Як ти вже побачив - коробка передач - справа, тому, з огляду на неї, переключи передачі вниз аж до першої.";
+        guideBlockText.innerText = `Як ти вже побачив - коробка передач - ${
+          device == "computer"
+            ? `справа в центрі спідометру`
+            : "зліва від тахометра (обороти)"
+        }, тому, з огляду на неї, переключи передачі вниз аж до першої.`;
+        $("#gearDownButton").css({ boxShadow: "unset", zIndex: 0 });
       }
     },
   },
@@ -549,7 +604,7 @@ introduction = new Intro(
 );
 firstRace = new Race(
   {
-    engine: () => {
+    engine() {
       race.style.opacity = 0.7;
       music.changeVolume(1);
       guideBlockText.textContent =
@@ -557,7 +612,7 @@ firstRace = new Race(
       $(".continue-game-button").css("display", "flex");
       changes.movingPause = false;
     },
-    continueTurnExplanation: () => {
+    continueTurnExplanation() {
       $(".continue-game-button").text("Готовий?");
       firstRace.tip(
         `Справа на дорозі буде показник дистанції, через яку буде поворот, і швидкість, до якої треба затормозити. Якщо ти не відтормозишся достатньо або розженешся під часу повороту  - тебе винесе з дороги і ти програєш. Натискай на кнопку і їдь!`
@@ -568,7 +623,7 @@ firstRace = new Race(
 );
 secondRace = new Race(
   {
-    engine: () => {
+    engine() {
       $(".continue-game-button").css("display", "flex");
       race.style.opacity = 1;
       permissions.forMoreRpm = true;
@@ -580,7 +635,7 @@ secondRace = new Race(
 );
 finalRace = new Race(
   {
-    engine: () => {
+    engine() {
       $(".continue-game-button").css("display", "flex");
       race.style.opacity = 1;
       permissions.forMoreRpm = true;
