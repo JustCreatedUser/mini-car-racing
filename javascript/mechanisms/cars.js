@@ -30,7 +30,7 @@ let carStats = {
     position: 0,
     rpm: 2000,
     fns: {
-      overtakeFunction: (enemyCar = enemyCars.array[enemyCars.index]) => {
+      overtakeFunction(enemyCar = enemyCars.array[enemyCars.index]) {
         let move = Math.round(enemyCar.spd - myCar.spd);
         enemyCar.position +=
           device == "computer"
@@ -38,7 +38,7 @@ let carStats = {
             : move * (window.innerHeight / 540) * 1.54;
         $(enemyCar.className).css("margin-left", `${enemyCar.position}px`);
       },
-      start: (car = enemyCars.array[enemyCars.index]) => {
+      start(car = enemyCars.array[enemyCars.index]) {
         gearFunctions.up.mechanism(car);
       },
     },
@@ -117,7 +117,7 @@ class EnemyCar extends Car {
           );
         }
         if (marginLeft / distanceRatio > 5) {
-          $(".enemy-position").css({ left: 0, right: 0 });
+          $(".enemy-position").css({ left: 0, right: "unset" });
           $(".enemy-position").css({
             display: "flex",
             background: "linear-gradient(green, white)",
@@ -125,30 +125,18 @@ class EnemyCar extends Car {
           $(".enemy-position").text(
             `!${Math.round(marginLeft / distanceRatio)}m`
           );
-        } else if (marginLeft > realRoadWidth) {
-          realRoadWidth =
-            window.innerWidth / Math.cos((turnValue * Math.PI) / 180);
-          let width = $(".background").css("width"),
-            theRIGHT =
-              Number(width.slice(0, width.length - 2)) -
-              (turns.isRightNow === true ? realRoadWidth : window.innerWidth) -
-              additionalMarginForTurn +
-              "px";
-          if (turns.isRightNow == true) {
-            $(".enemy-position").css({
-              right: theRIGHT,
-              left: "unset",
-            });
-          } else {
-            $(".enemy-position").css({
-              right: theRIGHT,
-              left: "unset",
-            });
-          }
-          $(".enemy-position").css({
+        } else if (marginLeft > window.innerWidth) {
+          let style = {
+            right: "unset",
+            left:
+              window.innerWidth -
+              $(".enemy-position")[0].offsetWidth -
+              (turns.isRightNow == true ? 200 : 0) +
+              "px",
             display: "flex",
             background: "linear-gradient(red, white)",
-          });
+          };
+          $(".enemy-position").css(style);
           $(".enemy-position").text(`${Math.round(marginLeft / 40)}m!`);
         } else {
           $(".enemy-position").css({
@@ -167,8 +155,11 @@ const myCar = new MyCar({
     gearShift: undefined,
     noClutchMode: false,
     fns: {
-      useTheEngine: (isForced = undefined) => {
+      useTheEngine(isForced = undefined) {
         if (isForced) {
+          if (device != "computer") {
+            $("#useTheEngine").css("background-color", "red");
+          }
           isEngineWorking = false;
           gearFunctions.color = "white";
           $(".rpm-counter_center").css("background-color", gearFunctions.color);
@@ -185,11 +176,15 @@ const myCar = new MyCar({
           clearInterval(intervals.everyCarMove);
           return;
         }
+        console.log("зайшло");
         if (!isEngineWorking && action > 0 && !isGamePaused) {
           myCar.gear > 0
             ? alert("Запуск можливий тільки при нейтральнй передачі")
             : "";
           if (myCar.gear === 0) {
+            if (device != "computer") {
+              $("#useTheEngine").css("background-color", "green");
+            }
             gearFunctions.color = "blue";
             $(".rpm-counter_center").css(
               "background-color",
@@ -227,6 +222,9 @@ const myCar = new MyCar({
           }
         } else if (!isGamePaused && permissions.toOff_engine) {
           if (myCar.gear === 0) {
+            if (device != "computer") {
+              $("#useTheEngine").css("background-color", "red");
+            }
             isEngineWorking = false;
             gearFunctions.color = "white";
             myCar.rpm = 0;
@@ -249,7 +247,7 @@ const myCar = new MyCar({
           }
         }
       },
-      setHtmlCounters: () => {
+      setHtmlCounters() {
         myCar.spd = Math.round(myCar.spd);
         $(".rpm-counter-number").html(`${myCar.rpm}RPM`);
         $(".speed-counter-number").html(`${myCar.spd}KM/H`);
@@ -283,15 +281,8 @@ function set240msInterval() {
         $(car.wheel).css("transform", `rotate(${car.degrees}deg)`);
       }
       if (!finish) {
-        backgroundPositionX -=
-          device == "computer"
-            ? myCar.spd * (window.innerHeight / 540)
-            : (myCar.spd * (window.innerHeight / 540)) / 1.54;
-
-        raceBackgroundPositionX -=
-          device == "computer"
-            ? myCar.spd / (window.innerHeight / 135)
-            : myCar.spd / (window.innerHeight / 135) / 1.54;
+        backgroundPositionX -= myCar.spd * (window.innerHeight / 540);
+        raceBackgroundPositionX -= myCar.spd / (window.innerHeight / 135);
         race.style.backgroundPositionX = raceBackgroundPositionX + "px";
         road.style.backgroundPositionX = backgroundPositionX + "px";
         switch (progress) {
@@ -300,10 +291,7 @@ function set240msInterval() {
             break;
         }
       } else {
-        myCarPosition +=
-          device == "computer"
-            ? myCar.spd * (window.innerHeight / 540)
-            : (myCar.spd * (window.innerHeight / 540)) / 1.54;
+        myCarPosition += myCar.spd * (window.innerHeight / 540);
         $(myCar.className).css({
           transition: "240ms linear",
           "margin-left": `${myCarPosition}px`,
@@ -326,4 +314,4 @@ function set60msInterval() {
     }
   }, 60);
 }
-export { myCar, firstRaceCar, secondRaceCar, finalRaceCar, enemyCars };  
+export { myCar, firstRaceCar, secondRaceCar, finalRaceCar, enemyCars };
