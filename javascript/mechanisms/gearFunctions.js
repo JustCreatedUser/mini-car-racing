@@ -5,7 +5,7 @@ import { rpmFunctions } from "../mechanisms/rpmFunctions.js";
 import { chapters, introduction } from "../story.js";
 export const gearFunctions = {
   up: {
-    gearUp: (car = myCar) => {
+    gearUp(car = myCar) {
       let currentRpm = Math.round(car.spd / car.gearMultiplier);
       if (currentRpm > 800) {
         switch (car) {
@@ -55,7 +55,7 @@ export const gearFunctions = {
         car.noClutchMode = true;
       }
     },
-    startMoving: (car = myCar) => {
+    startMoving(car = myCar) {
       let currentRpm = car.rpm / 4 > 800 ? car.rpm / 4 : 800;
       switch (progress) {
         case "introduction":
@@ -107,7 +107,7 @@ export const gearFunctions = {
           break;
       }
     },
-    callOtherFunctions: (car = myCar) => {
+    callOtherFunctions(car = myCar) {
       if (car.gear !== 1) {
         gearFunctions.up.gearUp(car);
       } else {
@@ -122,7 +122,7 @@ export const gearFunctions = {
         }
       }
     },
-    mechanism: (car = myCar) => {
+    mechanism(car = myCar) {
       if (car.gear !== 5 && action > 2 && !isGamePaused) {
         if (
           progress != "introduction" &&
@@ -151,7 +151,7 @@ export const gearFunctions = {
     },
   },
   down: {
-    mechanism: (car = myCar) => {
+    mechanism(car = myCar) {
       if (action > 4 && !isGamePaused) {
         if (car == myCar) {
           clearInterval(intervals.rpmDecreaseAnimation);
@@ -171,7 +171,7 @@ export const gearFunctions = {
         }
       }
     },
-    callOtherFunctions: (car) => {
+    callOtherFunctions(car) {
       if (hasChanged) {
         gearFunctions.down.gearDown(car);
         switch (progress) {
@@ -191,7 +191,7 @@ export const gearFunctions = {
         car.noClutchMode = true;
       }
     },
-    endMoving: (car) => {
+    endMoving(car) {
       car.gear = 0;
       car.gearMultiplier = 0;
       car.spd = 0;
@@ -202,7 +202,7 @@ export const gearFunctions = {
           break;
       }
     },
-    gearDown: (car) => {
+    gearDown(car) {
       let currentRpm = Math.round(car.spd / car.gearMultiplier);
       if (currentRpm < car.maxRpm) {
         let averageRpmIncrease = Math.round((currentRpm - car.rpm) / 10);
@@ -254,7 +254,7 @@ export const gearFunctions = {
       }
     },
   },
-  gearMultiplierSetting: (direction, car = myCar) => {
+  gearMultiplierSetting(direction, car = myCar) {
     switch (direction) {
       case 1:
         if (car.gear > 1) {
