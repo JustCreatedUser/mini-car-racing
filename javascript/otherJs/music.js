@@ -24,7 +24,7 @@ export const music = {
   isPlaying: false,
   checkMusicDurationInterval: undefined,
   isAllowedToPlay: false,
-  checkListenedSongs: (direction) => {
+  checkListenedSongs(direction) {
     let count = 0;
     switch (direction) {
       case "localStorage":
@@ -47,7 +47,7 @@ export const music = {
 
     localStorage.setItem("listenedCycle", JSON.stringify(music.listenedCycle));
   },
-  listenToMusic: () => {
+  listenToMusic() {
     if (!music.isAllowedToPlay) {
       music.isAllowedToPlay = true;
       $(".music-settings").text("Бажаєте вимкнути МУЗОН?");
@@ -110,7 +110,7 @@ export const music = {
       }
     }
   },
-  changeVolume: (musicVolume) => {
+  changeVolume(musicVolume) {
     if (music.finalSong != undefined) {
       music.finalSong.volume = musicVolume;
     }
