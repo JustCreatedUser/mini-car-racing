@@ -228,7 +228,7 @@ class Race extends Story {
       road.style.backgroundPositionX = backgroundPositionX;
       permissions.forMoreRpm = true;
       permissions.setInertiaInterval = true;
-      $("footer").css("display", device == "commputer" ? "flex" : "grid");
+      $("footer").css("display", device == "computer" ? "flex" : "grid");
       setTimeout(() => {
         car.style.transition = "unset";
         road.style.transition = "240ms linear";
