@@ -640,7 +640,7 @@ const secondaryFunctions = {
         alert("Екран варто тримати лише в горизонтальному положенні!");
         device = $("#choose-device").val();
         if(device!='computer'){
-          secondaryFunctions.setStyleForPhone()
+          secondaryFunctions.setStylesForPhone()
         }
         $(".device-changing-popup button").off("click");
         $(".device-changing-popup").remove();
