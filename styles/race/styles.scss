@@ -319,6 +319,7 @@ header {
   @include setAnimations(0.4s, $pos: absolute);
   display: flex;
   -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text !important;
   background-clip: text !important;
   background: linear-gradient(red, white);
   text-align: center;
@@ -350,4 +351,3 @@ header {
 .enemy-car {
   @include setAnimations(0.5s linear, $pos: absolute);
 }
-//
