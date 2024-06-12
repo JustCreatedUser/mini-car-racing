@@ -6,7 +6,7 @@ import { gearFunctions } from "./gearFunctions.js";
 import { enemyCars, secondRaceCar } from "./cars.js";
 import { turns } from "./turningFunctions.js";
 export const rpmFunctions = {
-  moreRpmCounting: (car = myCar) => {
+  moreRpmCounting(car = myCar) {
     let previous_gearMultiplier;
     switch (car.gear) {
       case 2:
@@ -35,7 +35,7 @@ export const rpmFunctions = {
       introduction.everyTip.gearUpExplanation();
     }
   },
-  conditions: (car = myCar, direction) => {
+  conditions(car = myCar, direction) {
     switch (direction) {
       case "more":
         car.rpm > car.maxRpm ? (car.rpm = car.maxRpm) : "";
@@ -48,7 +48,7 @@ export const rpmFunctions = {
         break;
     }
   },
-  handleRpm: (car = myCar) => {
+  handleRpm(car = myCar) {
     if (
       !isGamePaused &&
       car.noClutchMode &&
@@ -148,7 +148,7 @@ export const rpmFunctions = {
       }
     }
   },
-  handleAllMoves: (car = myCar) => {
+  handleAllMoves(car = myCar) {
     rpmFunctions.handleRpm(car);
     if (myCar.moveDirection == "decceleration" && progress == "introduction") {
       introduction.everyTip.inLessRpm();
@@ -162,7 +162,7 @@ export const rpmFunctions = {
     }
     turns.manage();
   },
-  inertiaMechanism: () => {
+  inertiaMechanism() {
     if (permissions.setInertiaInterval) {
       permissions.setInertiaInterval = false;
       intervals.inertia = setInterval(() => {
@@ -194,10 +194,9 @@ export const rpmFunctions = {
       clearTimeout(flame);
     }
   },
-  setHtmlColor: (direction) => {
+  setHtmlColor(direction) {
     let currentRpm =
       direction == 1 ? myCar.rpm : Math.round(myCar.spd / myCar.gearMultiplier);
-
     if (currentRpm < 6000 && gearFunctions.color != "blue") {
       gearFunctions.color = "blue";
       $(".rpm-counter_center").css("background-color", gearFunctions.color);
