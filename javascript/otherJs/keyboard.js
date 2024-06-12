@@ -4,7 +4,7 @@ import { music } from "./music.js";
 import { myCar } from "../mechanisms/cars.js";
 import { gearFunctions } from "../mechanisms/gearFunctions.js";
 import { rpmFunctions } from "../mechanisms/rpmFunctions.js";
-import { pause } from "./secondary.js";
+import { secondaryFunctions } from "./secondary.js";
 export const keyboard = {
   accelerate: "arrowup",
   deccelerate: "arrowdown",
@@ -106,7 +106,7 @@ function keyDown(e) {
         }
         break;
       case keyboard.goToMenu:
-        pause();
+        secondaryFunctions.pause();
         break;
       case keyboard.listenMusic:
         music.listenToMusic();
