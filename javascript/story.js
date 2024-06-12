@@ -202,7 +202,7 @@ class Race extends Story {
     changes.movingPause = true;
     $("footer").css({
       opacity: 0,
-      display: device == "phone" ? "grid" : "flex",
+      display: device == "computer" ? "flex" : "grid",
     });
     guideBlock.style.opacity = "0";
     car.style.marginLeft = roadBox.offsetWidth * 3 + "px";
