@@ -388,6 +388,7 @@ footer {
   -webkit-text-fill-color: transparent;
   background-clip: text !important;
   background: linear-gradient(red, white);
+  -webkit-background-clip: text !important;
 }
 
 .device-changing-popup {
@@ -438,7 +439,8 @@ footer {
   padding: 20px;
   background: linear-gradient(black, red);
   -webkit-text-fill-color: transparent;
-  background-clip: text;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
 }
 
 * {
@@ -832,6 +834,7 @@ header {
   position: absolute;
   display: flex;
   -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text !important;
   background-clip: text !important;
   background: linear-gradient(red, white);
   text-align: center;
