@@ -1,8 +1,11 @@
 .computer-counters {
+  padding: 0 5%;
+}
+
+footer {
   bottom: 0;
   width: 100%;
   height: 30vh;
-  padding: 0 5%;
 }
 
 .speed-counter {
@@ -120,8 +123,6 @@
 
 .rpm {
   background-color: black;
-  height: 30vh;
-  aspect-ratio: 1/1;
 }
 .rpm_scale {
   margin-left: 9.64444vh;
@@ -389,6 +390,57 @@
   background: linear-gradient(red, white);
 }
 
+.device-changing-popup {
+  position: absolute;
+  top: 0;
+  z-index: 100;
+  background: linear-gradient(black 0%, white 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100vw;
+}
+.device-changing-popup p {
+  font-size: 50px;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  color: white;
+}
+.device-changing-popup-inner {
+  border-radius: 10%;
+  height: 70vh;
+  width: 70%;
+  background: linear-gradient(white 0%, black 100%);
+  color: black;
+  font-weight: bold;
+  font-size: 3.125vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3%;
+  justify-content: space-around;
+}
+.device-changing-popup-inner button {
+  font-size: 100%;
+  padding: 5%;
+  background: transparent;
+  border-radius: 30%;
+  color: white;
+}
+
+#choose-device {
+  border: 3px black solid;
+  font-size: 3vw;
+  text-align: center;
+  border-radius: 20px;
+  padding: 20px;
+  background: linear-gradient(black, red);
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -405,6 +457,17 @@ body {
 
 html {
   scroll-behavior: smooth;
+}
+
+.above-action-input {
+  width: 130px;
+  height: 20px;
+  cursor: pointer;
+  position: absolute;
+  background-color: transparent;
+  margin-top: -23px;
+  margin-left: 164px;
+  z-index: 1;
 }
 
 .action-level-input {
@@ -519,14 +582,17 @@ html {
 }
 
 .computer-counters {
-  transition: 0.5s;
-  opacity: 0;
-  position: absolute;
   display: flex;
   flex-direction: unset;
   align-items: center;
   justify-content: space-between;
   display: none;
+}
+
+footer {
+  transition: 0.5s;
+  opacity: 0;
+  position: absolute;
 }
 
 .car-counter {
@@ -779,12 +845,11 @@ header {
   transition: 1s;
   opacity: 1;
   position: fixed;
-  height: 70px;
-  width: 70px;
+  height: 6.4814814815vh;
+  width: 6.4814814815vh;
   display: flex;
   cursor: pointer;
-  line-height: 70px;
-  font-size: 80px;
+  line-height: 4.6296296296vh;
   color: white;
   top: 60px;
   z-index: 11;
@@ -792,7 +857,10 @@ header {
 }
 .pause img {
   position: absolute;
-  height: 50px;
+  height: 4.6296296296vh;
+}
+.pause p {
+  font-size: 7.4074074074vh;
 }
 
 .car,

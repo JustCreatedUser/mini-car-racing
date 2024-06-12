@@ -1,10 +1,12 @@
 @use "sass:math";
 @import "../mixins";
 .computer-counters {
+  padding: 0 5%;
+}
+footer {
   bottom: 0;
   width: 100%;
   height: 30vh;
-  padding: 0 5%;
 }
 .speed {
   &-counter {
@@ -149,8 +151,6 @@
 }
 .rpm {
   background-color: black;
-  height: 30vh;
-  aspect-ratio: 1/1;
   &_scale {
     @include setMargin(9.64444vh, 6.61vh);
     color: grey;
