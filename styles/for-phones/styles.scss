@@ -1,11 +1,99 @@
 $scale: 1.54;
 @import "../mixins";
+@mixin setPosForNumbers($left, $top) {
+  @include setMargin(
+    setSizeWithMath($left, 1080, 100vh) * $scale,
+    setSizeWithMath($top, 1080, 100vh) * $scale
+  );
+}
 div.keyboard {
   display: none;
 }
 div.background {
   bottom: unset;
   left: -3vh;
+}
+div.gear {
+  &s-block {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 66%;
+    width: 60%;
+    justify-self: baseline;
+    align-self: center;
+    grid-column: 2/3;
+    img {
+      cursor: pointer;
+      transition: 0.5s;
+      width: setSizeWithMath(100, 1080, 100vh);
+      &:active {
+        box-shadow: 0 0 10px black;
+      }
+    }
+  }
+  &-counter {
+    position: static;
+    border: setSizeWithMath(7, 1080, 100vh) double white;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: setSizeWithMath(30, 1080, 100vh);
+    color: white;
+    width: fit-content;
+    border-radius: 50%;
+    top: unset;
+    line-height: 0;
+    aspect-ratio: 1/1;
+    font-size: setSizeWithMath(60, 1080, 100vh);
+    font-family: "Orbitron", sans-serif;
+  }
+}
+.pedal {
+  width: 15vh;
+  cursor: pointer;
+  align-self: center;
+  justify-self: center;
+}
+#useTheEngine {
+  background-color: red;
+  color: white;
+  border: setSizeWithMath(5, 1080, 100vh) dashed white;
+  font-size: setSizeWithMath(20, 1080, 100vh);
+  cursor: pointer;
+  grid-column: 4/5;
+  height: 30%;
+  align-self: center;
+  justify-self: flex-end;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+}
+.counters {
+  height: 100%;
+  align-items: center;
+  display: flex;
+  align-self: center;
+  grid-column: 3 / 4;
+  justify-self: center;
+}
+footer {
+  height: 37vh;
+  grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
+}
+footer.phone-counters {
+  display: grid;
+}
+div.rpm,
+div.speed {
+  scale: $scale;
+}
+div.speed {
+  margin-left: 12.6vh;
+}
+.playing-btn {
+  transition: 0.5s;
 }
 div.road {
   height: 41.3vh * $scale;
@@ -114,4 +202,20 @@ img.flame {
     setSizeWithMath(-9, 1080, 100vh) * $scale,
     setSizeWithMath(30, 1080, 100vh) * $scale
   );
+}
+div.pause {
+  img {
+    height: setSizeWithMath(50, 1080, 100vh) * $scale;
+  }
+  p {
+    font-size: setSizeWithMath(50, 1080, 100vh) * $scale;
+  }
+}
+body header {
+  font-size: setSizeWithMath(20, 1080, 100vh) * $scale;
+  min-width: 20% * $scale;
+  min-height: 5vh * $scale;
+  padding: setSizeWithMath(30, 1080, 100vh) * $scale
+    setSizeWithMath(70, 1080, 100vh) * $scale;
+  border-radius: setSizeWithMath(15, 1080, 100vh) * $scale;
 }
