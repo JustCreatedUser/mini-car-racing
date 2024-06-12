@@ -270,7 +270,7 @@ const secondaryFunctions = {
       device = localStorage.getItem("device");
       startPermission = true;
     }
-    if (device != "computer") {
+    if (device != "computer" && device!=undefined) {
       secondaryFunctions.setStylesForPhone();
     }
     if (!navigator.cookieEnabled) {
@@ -639,6 +639,9 @@ const secondaryFunctions = {
       if (confirmation) {
         alert("Екран варто тримати лише в горизонтальному положенні!");
         device = $("#choose-device").val();
+        if(device!='computer'){
+          secondaryFunctions.setStyleForPhone()
+        }
         $(".device-changing-popup button").off("click");
         $(".device-changing-popup").remove();
         permission = true;
