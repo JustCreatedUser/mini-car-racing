@@ -46,5 +46,6 @@
   padding: 20px;
   background: linear-gradient(black, red);
   -webkit-text-fill-color: transparent;
-  background-clip: text;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
 }
