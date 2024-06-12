@@ -7,19 +7,7 @@ import {
   firstRaceCar,
   secondRaceCar,
 } from "./mechanisms/cars.js";
-import {
-  changeDevice,
-  selectInfoInMenu,
-  saveProgress,
-  actionLevelChange,
-  pause,
-  returnToMenu,
-  useGuideBlockButton,
-  useLocalStorageAndCookies,
-  chooseChapter,
-  fastest_speed_cheat,
-  restartTheGame,
-} from "./otherJs/secondary.js";
+import { secondaryFunctions } from "./otherJs/secondary.js";
 import { keyDown, keyUp } from "./otherJs/keyboard.js";
 window.document.onkeydown = keyDown;
 window.document.onkeyup = keyUp;
@@ -43,6 +31,8 @@ changes.rewriteEverything = () => {
     car.moveDirection = 0;
     car.rotation = 200;
     car.degrees = 0;
+    car.acceleration = false;
+    car.decceleration = false;
   });
   firstRaceCar.rpm = 2000;
   secondRaceCar.rpm = 5000;
@@ -73,15 +63,27 @@ changes.rewriteEverything = () => {
   }
   myCar.fns.useTheEngine(true);
 };
-$(".save-the-progress-button").click(saveProgress);
-$("select").on("input", selectInfoInMenu);
-$(".part").click(chooseChapter);
-$(".pause").click(pause);
-$(".back-to-menu-button").click(returnToMenu);
+$(".save-the-progress-button").click(secondaryFunctions.saveProgress);
+$("#choose-info").on("input", secondaryFunctions.selectInfoInMenu);
+$(".part").click(secondaryFunctions.chooseChapter);
+$(".pause").click(secondaryFunctions.pause);
+$(".back-to-menu-button").click(secondaryFunctions.returnToMenu);
 $(".music-settings").click(music.listenToMusic);
-$(".continue-game-button").click(useGuideBlockButton);
-$(".action-level-input").on("mousemove", actionLevelChange);
-$(".explanation-content").on("click", ".cheat-button", fastest_speed_cheat);
-$(".uncompleted-parts").on("click", "button", restartTheGame);
-$(".explanation-content").on("click", ".change-device", changeDevice);
-window.document.onload = useLocalStorageAndCookies();
+$(".continue-game-button").click(secondaryFunctions.useGuideBlockButton);
+$(".action-settings").on("click", secondaryFunctions.actionLevelChange);
+$(".explanation-content").on(
+  "click",
+  ".cheat-button",
+  secondaryFunctions.fastest_speed_cheat
+);
+$(".uncompleted-parts").on(
+  "click",
+  "button",
+  secondaryFunctions.restartTheGame
+);
+$(".explanation-content").on(
+  "click",
+  ".change-device",
+  secondaryFunctions.changeDevice
+);
+window.document.onload = secondaryFunctions.useLocalStorageAndCookies();
