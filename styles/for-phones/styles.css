@@ -7,6 +7,95 @@ div.background {
   left: -3vh;
 }
 
+div.gears-block {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 66%;
+  width: 60%;
+  justify-self: baseline;
+  align-self: center;
+  grid-column: 2/3;
+}
+div.gears-block img {
+  cursor: pointer;
+  transition: 0.5s;
+  width: 9.2592592593vh;
+}
+div.gears-block img:active {
+  box-shadow: 0 0 10px black;
+}
+div.gear-counter {
+  position: static;
+  border: 0.6481481481vh double white;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.7777777778vh;
+  color: white;
+  width: fit-content;
+  border-radius: 50%;
+  top: unset;
+  line-height: 0;
+  aspect-ratio: 1/1;
+  font-size: 5.5555555556vh;
+  font-family: "Orbitron", sans-serif;
+}
+
+.pedal {
+  width: 15vh;
+  cursor: pointer;
+  align-self: center;
+  justify-self: center;
+}
+
+#useTheEngine {
+  background-color: red;
+  color: white;
+  border: 0.462962963vh dashed white;
+  font-size: 1.8518518519vh;
+  cursor: pointer;
+  grid-column: 4/5;
+  height: 30%;
+  align-self: center;
+  justify-self: flex-end;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+}
+
+.counters {
+  height: 100%;
+  align-items: center;
+  display: flex;
+  align-self: center;
+  grid-column: 3/4;
+  justify-self: center;
+}
+
+footer {
+  height: 37vh;
+  grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
+}
+
+footer.phone-counters {
+  display: grid;
+}
+
+div.rpm,
+div.speed {
+  scale: 1.54;
+}
+
+div.speed {
+  margin-left: 12.6vh;
+}
+
+.playing-btn {
+  transition: 0.5s;
+}
+
 div.road {
   height: 63.602vh;
 }
@@ -100,6 +189,21 @@ div.car img.two {
 img.flame {
   margin-left: -1.2833333333vh;
   margin-top: 4.2777777778vh;
+}
+
+div.pause img {
+  height: 7.1296296296vh;
+}
+div.pause p {
+  font-size: 7.1296296296vh;
+}
+
+body header {
+  font-size: 2.8518518519vh;
+  min-width: 30.8%;
+  min-height: 7.7vh;
+  padding: 4.2777777778vh 9.9814814815vh;
+  border-radius: 2.1388888889vh;
 }
 
 /*# sourceMappingURL=styles.css.map */
