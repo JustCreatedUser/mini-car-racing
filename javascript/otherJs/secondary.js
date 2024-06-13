@@ -13,7 +13,8 @@ import { enemyCars, myCar } from "../mechanisms/cars.js";
 import { music } from "./music.js";
 import { turns } from "../mechanisms/turningFunctions.js";
 import { keyboard } from "./keyboard.js";
-const secondaryFunctions = {
+let devicePopupPositions = [[0, window.innerWidth, window.innerWidth * 2], 0];
+export const secondaryFunctions = {
   actionLevelChange() {
     alert("Ти ж розумієш, що перегони без екшену - не перегони!");
   },
@@ -264,71 +265,96 @@ const secondaryFunctions = {
   },
   useLocalStorageAndCookies() {
     let startPermission = false;
-    if (!localStorage.getItem("device")) {
-      this.createDeviceChangingPopup(startPermission);
-    } else {
-      device = localStorage.getItem("device");
-      startPermission = true;
-    }
-    if (device != "computer" && device!=undefined) {
-      secondaryFunctions.setStylesForPhone();
-    }
-    if (!navigator.cookieEnabled) {
-      alert(
-        "У вас відключено файли cookie. Тут вони використовуються для того, щоб запам'ятати те - хочете ви слухати музику, чи ні. Для кращих емоцій вам варто дозволити використання цих файлів"
-      );
-    } else if (localStorage.getItem("listenedCycle")) {
-      music.listenedCycle = JSON.parse(localStorage.getItem("listenedCycle"));
-      music.checkListenedSongs("localStorage");
-    }
-    if ($.cookie("cheatEffect") != undefined) {
-      permissions.toCheat = false;
-      music.cheaterSong = new Audio(
-        "https://ia600605.us.archive.org/8/items/NeverGonnaGiveYouUp/jocofullinterview41.mp3"
-      );
-      myCar.maxRpm = enemyCars.array[enemyCars.index].maxRpm;
-      let cheatEffectTime = Math.round(Number($.cookie("cheatEffect")));
-      $(".explanation-content").html(`
-      Це пранк, який зменшує обороти до ${myCar.maxRpm}. Цей ефект триватиме <span class="cheat-counter">${cheatEffectTime}</span> сек     ......(А НІЧОГО ВИКОРИСТОВУВАТИ ЧИТИ!!!)
-      `);
-      let cheatEffect = setInterval(() => {
-        cheatEffectTime--;
-        $(".explanation-content .cheat-counter").text(cheatEffectTime);
-        $.cookie("cheatEffect", cheatEffectTime, { expires: 0.127, path: "/" });
-        if (cheatEffectTime == 10) {
-          alert("Ще 10 секунд, і ефект від читів буде скинуто");
-        } else if (cheatEffectTime <= 0) {
-          alert(
-            "Все, ефект від читів пройшов і в тебе знову 10000 оборотів. Якщо хочеш, можеш знову написати цю команду і твоя машина нарешті отримає масимальну потужність."
-          );
-          $(".explanation-content").html(
-            `нажми <button class="cheat-button">Мене</button>, і все станеться`
-          );
-          myCar.maxRpm = 10000;
-          permissions.toCheat = true;
-          clearInterval(cheatEffect);
-          $.removeCookie("cheatEffect", { path: "/" });
+    function checkLocalStorageForIssues() {
+      let localStorageArray = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        let save = localStorage.getItem(localStorage.key(i));
+        if (save == "null") {
+          localStorageArray.push(localStorage.key(i));
         }
-      }, 1000);
+      }
+      localStorageArray.forEach((wrongSave) => {
+        localStorage.removeItem(wrongSave);
+      });
     }
-    if (localStorage.getItem("cheaterSongWasDiscovered")) {
-      music.hidden.cheaterSongWasDiscovered = true;
-    }
-    if (localStorage.getItem("finalSongWasDiscovered")) {
-      music.hidden.finalSongWasDiscovered = true;
-    }
-    if (
-      localStorage.getItem("mini-car-racing-keyboard") &&
-      device == "computer"
-    ) {
-      let savedKeyboard = JSON.parse(
-        localStorage.getItem("mini-car-racing-keyboard")
-      );
-      for (const key in keyboard) {
-        keyboard[key] = savedKeyboard[key];
-        $("." + key).text(keyboard[key]);
+    function checkDevice() {
+      if (!localStorage.getItem("device")) {
+        secondaryFunctions.createDeviceChangingPopup(startPermission);
+      } else {
+        device = localStorage.getItem("device");
+        startPermission = true;
+      }
+      if (device != "computer" && device != undefined) {
+        secondaryFunctions.setStylesForPhone();
       }
     }
+    function checkMusic() {
+      if (!navigator.cookieEnabled) {
+        alert(
+          "У вас відключено файли cookie. Тут вони використовуються для того, щоб запам'ятати те - хочете ви слухати музику, чи ні. Для кращих емоцій вам варто дозволити використання цих файлів"
+        );
+      } else if (localStorage.getItem("listenedCycle")) {
+        music.listenedCycle = JSON.parse(localStorage.getItem("listenedCycle"));
+        music.checkListenedSongs("localStorage");
+      }
+      if ($.cookie("cheatEffect") != undefined) {
+        permissions.toCheat = false;
+        music.cheaterSong = new Audio(
+          "https://ia600605.us.archive.org/8/items/NeverGonnaGiveYouUp/jocofullinterview41.mp3"
+        );
+        myCar.maxRpm = enemyCars.array[enemyCars.index].maxRpm;
+        let cheatEffectTime = Math.round(Number($.cookie("cheatEffect")));
+        $(".explanation-content").html(`
+      Це пранк, який зменшує обороти до ${myCar.maxRpm}. Цей ефект триватиме <span class="cheat-counter">${cheatEffectTime}</span> сек     ......(А НІЧОГО ВИКОРИСТОВУВАТИ ЧИТИ!!!)
+      `);
+        let cheatEffect = setInterval(() => {
+          cheatEffectTime--;
+          $(".explanation-content .cheat-counter").text(cheatEffectTime);
+          $.cookie("cheatEffect", cheatEffectTime, {
+            expires: 0.127,
+            path: "/",
+          });
+          if (cheatEffectTime == 10) {
+            alert("Ще 10 секунд, і ефект від читів буде скинуто");
+          } else if (cheatEffectTime <= 0) {
+            alert(
+              "Все, ефект від читів пройшов і в тебе знову 10000 оборотів. Якщо хочеш, можеш знову написати цю команду і твоя машина нарешті отримає масимальну потужність."
+            );
+            $(".explanation-content").html(
+              `нажми <button class="cheat-button">Мене</button>, і все станеться`
+            );
+            myCar.maxRpm = 10000;
+            permissions.toCheat = true;
+            clearInterval(cheatEffect);
+            $.removeCookie("cheatEffect", { path: "/" });
+          }
+        }, 1000);
+      }
+      if (localStorage.getItem("cheaterSongWasDiscovered")) {
+        music.hidden.cheaterSongWasDiscovered = true;
+      }
+      if (localStorage.getItem("finalSongWasDiscovered")) {
+        music.hidden.finalSongWasDiscovered = true;
+      }
+    }
+    function checkKeyboard() {
+      if (
+        localStorage.getItem("mini-car-racing-keyboard") &&
+        device == "computer"
+      ) {
+        let savedKeyboard = JSON.parse(
+          localStorage.getItem("mini-car-racing-keyboard")
+        );
+        for (const key in keyboard) {
+          keyboard[key] = savedKeyboard[key];
+          $("." + key).text(keyboard[key]);
+        }
+      }
+    }
+    checkLocalStorageForIssues();
+    checkDevice();
+    checkMusic();
+    checkKeyboard();
     this.begin(startPermission);
   },
   begin(permission) {
@@ -611,48 +637,73 @@ const secondaryFunctions = {
     changeSelectValue = false,
     restart = false
   ) {
-    $(document.body).prepend(`<div class="device-changing-popup">
-      ${device != undefined ? "<p>✗</p>" : ""}
-      <div class="device-changing-popup-inner">
+    $(document.body).prepend(`<div  class="device-changing-popup">
+      <p moveAttr="left" class="go-arrow"><</p>
+      <p moveAttr="right" class="go-arrow">></p>
+      ${device != undefined ? "<p class='just-exit'>✗</p>" : ""}
+      <div class="screen-width">
         <h2>Привіт! Обери управління</h2>
+        </div>
+        <div class="screen-width">
         <select id="choose-device">
           <option selected disabled value="undefined">Не обрано</option>
           <option value="computer">Клавіатура</option>
           <option value="mouse">Комп'ютерна мишка</option>
           <option value="phone">Екран телефона</option>
         </select>
+        </div>
+        <div class="screen-width">
         <button>Підтвердити</button>
-      </div>
+        </div>
       </div>`);
     if (changeSelectValue) {
       $("#choose-device").val(device);
     }
-    $(".device-changing-popup p").on("click", function () {
+    $(".go-arrow").click(function () {
+      devicePopupPositions[0] = [0, window.innerWidth, window.innerWidth * 2];
+      switch ($(this).attr("moveAttr")) {
+        case "left":
+          if (devicePopupPositions[1] != 0) {
+            devicePopupPositions[1]--;
+          }
+          break;
+        default:
+          if (devicePopupPositions[1] != 2) {
+            devicePopupPositions[1]++;
+          }
+          break;
+      }
+      $(".device-changing-popup")[0].scrollLeft =
+        devicePopupPositions[0][devicePopupPositions[1]];
+    });
+    $(".just-exit").on("click", function () {
       $(".device-changing-popup button").off("click");
-      $(".device-changing-popup p").off("click");
+      $(".just-exit").off("click");
       $(".device-changing-popup").remove();
     });
     $(".device-changing-popup button").on("click", function () {
-      let confirmation = confirm(
-        "Ви впевнені? Управління потім можна буде змінити в меню паузи"
-      );
-      if (confirmation) {
-        alert("Екран варто тримати лише в горизонтальному положенні!");
-        device = $("#choose-device").val();
-        if(device!='computer'){
-          secondaryFunctions.setStylesForPhone()
+      if ($("#choose-device").val()) {
+        let confirmation = confirm(
+          "Ви впевнені? Управління потім можна буде змінити в меню паузи"
+        );
+        if (confirmation) {
+          alert("Екран варто тримати лише в горизонтальному положенні!");
+          device = $("#choose-device").val();
+          $(".device-changing-popup button").off("click");
+          $(".device-changing-popup").remove();
+          permission = true;
+          if (device != "computer") {
+            secondaryFunctions.setStylesForPhone();
+          }
+          secondaryFunctions.begin(permission);
+          localStorage.setItem("device", device);
         }
-        $(".device-changing-popup button").off("click");
-        $(".device-changing-popup").remove();
-        permission = true;
-        secondaryFunctions.begin(permission);
-        localStorage.setItem("device", device);
-      }
-      if (restart) {
-        location.reload();
+        if (restart) {
+          location.reload();
+        }
+      } else {
+        alert("Управління НЕ ОБРАНЕ");
       }
     });
   },
 };
-
-export { secondaryFunctions };
