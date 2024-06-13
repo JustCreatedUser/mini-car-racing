@@ -407,10 +407,14 @@ footer {
 }
 .device-changing-popup > .just-exit {
   font-size: 50px;
-  position: absolute;
+  position: fixed;
   top: 10px;
   right: 20px;
-  color: white;
+  background: linear-gradient(black, red);
+  -webkit-text-fill-color: transparent;
+  cursor: pointer;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
 }
 .device-changing-popup h2 {
   font-size: 5.8823529412vw;
