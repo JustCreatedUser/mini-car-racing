@@ -35,7 +35,7 @@ let carStats = {
         enemyCar.position +=
           device == "computer"
             ? move * (window.innerHeight / 540)
-            : move * (window.innerHeight / 540) / 1.54;
+            : (move * (window.innerHeight / 540)) / 1.54;
         $(enemyCar.className).css("margin-left", `${enemyCar.position}px`);
       },
       start(car = enemyCars.array[enemyCars.index]) {
