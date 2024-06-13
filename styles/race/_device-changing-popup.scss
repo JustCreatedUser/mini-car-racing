@@ -1,41 +1,26 @@
 @import "../mixins";
 .device-changing-popup {
+  box-shadow: inset 0 0 20vw white;
+  scroll-behavior: smooth;
   position: absolute;
   top: 0;
+  overflow-y: hidden;
+  overflow-x: hidden;
   z-index: 100;
   background: linear-gradient(black 0%, white 100%);
   display: flex;
   align-items: center;
-  justify-content: center;
   min-height: 100vh;
   width: 100vw;
-  p {
+  > .just-exit {
     font-size: 50px;
     position: absolute;
     top: 10px;
     right: 20px;
     color: white;
   }
-  &-inner {
-    border-radius: 10%;
-    height: 70vh;
-    width: 70%;
-    background: linear-gradient(white 0%, black 100%);
-    color: black;
-    font-weight: bold;
-    font-size: 3.125vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3%;
-    justify-content: space-around;
-    button {
-      font-size: 100%;
-      padding: 5%;
-      background: transparent;
-      border-radius: 30%;
-      color: white;
-    }
+  h2 {
+    font-size: setSizeWithMath(60, 1020, 100vw);
   }
 }
 #choose-device {
@@ -44,8 +29,38 @@
   text-align: center;
   border-radius: 20px;
   padding: 20px;
+}
+.screen-width {
+  min-width: 100vw;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  select {
+    cursor: pointer;
+    background-color: transparent;
+  }
+  button {
+    cursor: pointer;
+    border: setSizeWithMath(7, 1020, 100vw) solid black;
+    font-size: setSizeWithMath(60, 1020, 100vw);
+    padding: 5%;
+    background: transparent;
+    border-radius: 30px;
+  }
+}
+
+.go-arrow {
+  position: fixed;
+  font-size: setSizeWithMath(60, 1020, 100vw);
   background: linear-gradient(black, red);
   -webkit-text-fill-color: transparent;
+  cursor: pointer;
   background-clip: text !important;
   -webkit-background-clip: text !important;
+}
+p[moveAttr="left"] {
+  left: 30px;
+}
+p[moveAttr="right"] {
+  right: 30px;
 }
