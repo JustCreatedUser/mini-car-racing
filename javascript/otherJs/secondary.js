@@ -680,6 +680,7 @@ export const secondaryFunctions = {
       $(".device-changing-popup button").off("click");
       $(".just-exit").off("click");
       $(".device-changing-popup").remove();
+      devicePopupPositions[1] = 0;
     });
     $(".device-changing-popup button").on("click", function () {
       if ($("#choose-device").val()) {
@@ -692,6 +693,7 @@ export const secondaryFunctions = {
           $(".device-changing-popup button").off("click");
           $(".device-changing-popup").remove();
           permission = true;
+          devicePopupPositions[1] = 0;
           if (device != "computer") {
             secondaryFunctions.setStylesForPhone();
           }
