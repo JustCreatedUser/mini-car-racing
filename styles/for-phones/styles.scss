@@ -6,8 +6,16 @@ $scale: 1.54;
     setSizeWithMath($top, 1080, 100vh) * $scale
   );
 }
-div.keyboard {
-  display: none;
+div.menu-content {
+  flex-direction: column;
+}
+.changeScreen button {
+  background-color: white;
+  font-size: 20px;
+  margin-bottom: 30px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: black;
 }
 div.background {
   bottom: unset;
@@ -219,3 +227,4 @@ body header {
     setSizeWithMath(70, 1080, 100vh) * $scale;
   border-radius: setSizeWithMath(15, 1080, 100vh) * $scale;
 }
+//
