@@ -20,11 +20,19 @@ export const secondaryFunctions = {
   },
   pause() {
     if (!isGamePaused && permissions.toPause) {
+      currentWindows += "-menu";
       $(".menu").css("display", "flex");
       $(".pause img").css("visibility", "hidden");
       $(".pause").append("<p>&cross;</p>");
       isGamePaused = true;
+      document.body.style.overflowY = "hidden";
     } else {
+      if (currentWindows.includes("gmpause")) {
+        document.body.style.overflowY = "scroll";
+      }
+      let arr = currentWindows.split("-");
+      arr.pop();
+      currentWindows = arr.join("-");
       $(".menu").css("display", "none");
       $(".pause img").css("visibility", "visible");
       $(".pause p").remove();
@@ -281,6 +289,7 @@ export const secondaryFunctions = {
       if (!localStorage.getItem("device")) {
         secondaryFunctions.createDeviceChangingPopup(startPermission);
       } else {
+        currentWindows = "race";
         device = localStorage.getItem("device");
         startPermission = true;
       }
@@ -363,6 +372,7 @@ export const secondaryFunctions = {
         localStorage.getItem("mini-car-racing-progress") &&
         localStorage.getItem("mini-car-racing-progress") != "introduction"
       ) {
+        currentWindows = "race-gmpause";
         totalProgress = localStorage.getItem("mini-car-racing-progress");
         switch (totalProgress) {
           case "Everything":
@@ -637,6 +647,12 @@ export const secondaryFunctions = {
     changeSelectValue = false,
     restart = false
   ) {
+    if (device == undefined) {
+      currentWindows = "race-device";
+    } else {
+      currentWindows += "-device";
+    }
+    document.body.style.overflowY = "hidden";
     $(document.body).prepend(`<div  class="device-changing-popup">
       <p moveAttr="left" class="go-arrow"><</p>
       <p moveAttr="right" class="go-arrow">></p>
@@ -677,6 +693,9 @@ export const secondaryFunctions = {
         devicePopupPositions[0][devicePopupPositions[1]];
     });
     $(".just-exit").on("click", function () {
+      let arr = currentWindows.split("-");
+      arr.pop();
+      currentWindows = arr.join("-");
       $(".device-changing-popup button").off("click");
       $(".just-exit").off("click");
       $(".device-changing-popup").remove();
@@ -688,6 +707,11 @@ export const secondaryFunctions = {
           "Ви впевнені? Управління потім можна буде змінити в меню паузи"
         );
         if (confirmation) {
+          let arr = currentWindows.split("-");
+          arr.pop();
+          currentWindows = arr.join("-");
+          if (currentWindows == "race") {
+          }
           alert("Екран варто тримати лише в горизонтальному положенні!");
           device = $("#choose-device").val();
           $(".device-changing-popup button").off("click");
