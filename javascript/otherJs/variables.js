@@ -73,6 +73,7 @@ let guideBlockText = document.querySelector(".logo"),
   backgroundPositionX = 0,
   flame,
   isGamePaused = false,
+  currentWindows,
   progress = "introduction",
   permissions = {
     forLessRpm: false,
