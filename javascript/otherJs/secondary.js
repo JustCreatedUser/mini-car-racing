@@ -65,7 +65,7 @@ export const secondaryFunctions = {
   },
   returnToMenu() {
     if ($(".gameplay-pause").css("display") == "none" && permissions.toPause) {
-       if (device != "computer") {
+      if (device != "computer") {
         $(".playing-btn").css({ boxShadow: "unset", zIndex: 0 });
       }
       turns.array = [];
@@ -235,13 +235,14 @@ export const secondaryFunctions = {
         gearFunctions.up.mechanism();
       }
     });
-    $("#gearDownButton").on(functions[1], () => {
+    $("#gearDownButton").on(functions[0], () => {
       if (isEngineWorking && myCar.gear != 0) {
         gearFunctions.down.mechanism();
       }
     });
     $("#deccelerationPedal").on(functions[0], () => {
       if (isEngineWorking && !myCar.decceleration && !myCar.acceleration) {
+        deccelerationPedal.style.transform = "rotateX(1deg)";
         if (
           myCar.moveDirection != "decceleration" &&
           isEngineWorking &&
@@ -254,6 +255,7 @@ export const secondaryFunctions = {
     });
     $("#deccelerationPedal").on(functions[1], () => {
       if (myCar.decceleration) {
+        deccelerationPedal.style.transform = "rotateX(0deg)";
         myCar.decceleration = false;
         if (myCar.moveDirection !== 0) {
           myCar.moveDirection = 0;
@@ -263,6 +265,7 @@ export const secondaryFunctions = {
     });
     accelerationPedal.addEventListener(functions[1], () => {
       if (action > 1 && myCar.acceleration) {
+        accelerationPedal.style.transform = "rotateX(0deg)";
         myCar.acceleration = false;
         rpmFunctions.inertiaMechanism();
         myCar.exhaust();
@@ -275,6 +278,7 @@ export const secondaryFunctions = {
     accelerationPedal.addEventListener(functions[0], () => {
       if (!myCar.acceleration && !myCar.decceleration) {
         myCar.acceleration = true;
+        accelerationPedal.style.transform = "rotateX(1deg)";
         if (
           myCar.moveDirection != "acceleration" &&
           !isGamePaused &&
@@ -292,7 +296,6 @@ export const secondaryFunctions = {
     let buttons = document.querySelectorAll(".playing-btn");
     buttons.forEach((btn) => {
       btn.addEventListener(`contextmenu`, (e) => {
-        console.log();
         e.preventDefault();
       });
     });
@@ -764,3 +767,4 @@ export const secondaryFunctions = {
   },
 };
 //
+
