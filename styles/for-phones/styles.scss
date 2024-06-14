@@ -6,6 +6,10 @@ $scale: 1.54;
     setSizeWithMath($top, 1080, 100vh) * $scale
   );
 }
+.phone-counters {
+  perspective: 200px;
+  transform-style: preserve-3d;
+}
 div.menu-content {
   flex-direction: column;
 }
