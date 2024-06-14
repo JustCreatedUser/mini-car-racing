@@ -175,7 +175,7 @@ export const secondaryFunctions = {
     <link rel="stylesheet" href="./styles/for-phones/styles.css" />
     `);
     $(".keyboard").html(`
-      <button>Зайти в повноекранний режим?</button>
+      <button>Зайти в повний екран?</button>
       `);
     $(".keyboard")[0].className = "changeScreen";
     $(".changeScreen button").click(function () {
@@ -187,10 +187,12 @@ export const secondaryFunctions = {
         } else if (element.mozRequestFullscreen) {
           element.mozRequestFullScreen();
         }
+        $(".changeScreen button").text("Вийти з повного екрану?");
       }
       if (document.fullscreenEnabled) {
         if (document.fullscreenElement) {
           document.exitFullscreen();
+          $(".changeScreen button").text("Зайти в повний екран?");
         } else {
           fullScreen(document.documentElement);
         }
