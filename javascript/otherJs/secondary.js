@@ -174,6 +174,30 @@ export const secondaryFunctions = {
     $("head").append(`
     <link rel="stylesheet" href="./styles/for-phones/styles.css" />
     `);
+    $(".keyboard").html(`
+      <button>Зайти в повноекранний режим?</button>
+      `);
+    $(".keyboard")[0].className = "changeScreen";
+    $(".changeScreen button").click(function () {
+      function fullScreen(element) {
+        if (element.requestFullscreen) {
+          element.requestFullscreen();
+        } else if (element.webkitrequestFullscreen) {
+          element.webkitRequestFullscreen();
+        } else if (element.mozRequestFullscreen) {
+          element.mozRequestFullScreen();
+        }
+      }
+      if (document.fullscreenEnabled) {
+        if (document.fullscreenElement) {
+          document.exitFullscreen();
+        } else {
+          fullScreen(document.documentElement);
+        }
+      } else {
+        alert("Браузер не підтримує цю функцію");
+      }
+    });
     $(".computer-counters").attr("class", "phone-counters");
     $(".phone-counters").prepend(`<div class="counters"></div>`);
     $(".counters").append($(".rpm"));
@@ -733,3 +757,4 @@ export const secondaryFunctions = {
     });
   },
 };
+//
