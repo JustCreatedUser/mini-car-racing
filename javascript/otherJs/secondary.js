@@ -449,6 +449,7 @@ export const secondaryFunctions = {
     }
   },
   gameOver(reason) {
+    $(".back-to-menu-button").css("visibility", "hidden");
     turns.array = [];
     music.changeVolume(0.5);
     permissions.toPause = false;
