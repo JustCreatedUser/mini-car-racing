@@ -394,7 +394,7 @@ footer {
 .device-changing-popup {
   box-shadow: inset 0 0 20vw white;
   scroll-behavior: smooth;
-  position: absolute;
+  position: fixed;
   top: 0;
   overflow-y: hidden;
   overflow-x: hidden;
