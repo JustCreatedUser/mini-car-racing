@@ -65,6 +65,9 @@ export const secondaryFunctions = {
   },
   returnToMenu() {
     if ($(".gameplay-pause").css("display") == "none" && permissions.toPause) {
+       if (device != "computer") {
+        $(".playing-btn").css({ boxShadow: "unset", zIndex: 0 });
+      }
       turns.array = [];
       $(".enemy-car").remove();
       myCar.noClutchMode = false;
