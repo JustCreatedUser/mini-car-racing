@@ -1,5 +1,14 @@
-div.keyboard {
-  display: none;
+div.menu-content {
+  flex-direction: column;
+}
+
+.changeScreen button {
+  background-color: white;
+  font-size: 20px;
+  margin-bottom: 30px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: black;
 }
 
 div.background {
@@ -207,3 +216,4 @@ body header {
 }
 
 /*# sourceMappingURL=styles.css.map */
+
