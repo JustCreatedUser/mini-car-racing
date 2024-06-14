@@ -10,7 +10,10 @@ div.menu-content {
   border-radius: 5px;
   color: black;
 }
-
+.phone-counters {
+  perspective: 200px;
+  transform-style: preserve-3d;
+}
 div.background {
   bottom: unset;
   left: -3vh;
