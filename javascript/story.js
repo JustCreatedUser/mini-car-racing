@@ -296,6 +296,7 @@ class Race extends Story {
   }
   comingToFinish() {
     secondaryFunctions.announceFn("Фінішна пряма", () => {
+      device != "computer" ? $(".phone-counters").css({ zIndex: 11 }) : "";
       car.style.boxShadow = "-10px 10px 50px 10px yellow ";
       setTimeout(() => {
         announcement.style.opacity = 1;
@@ -328,13 +329,18 @@ class Race extends Story {
                     this.ending();
                     finish = true;
                   }
+                  device != "computer"
+                    ? $(".phone-counters").css({ zIndex: 0 })
+                    : "";
                   permissions.toPause = true;
                   $(".pause").css("display", "flex");
                   $(".enemy-position").css("visibility", "hidden");
                   clearInterval(intervals.finishing);
                   return;
                 case 1:
-                  $(".tunnel").css({ right: "40%" });
+                  $(".tunnel").css({
+                    left: "30%",
+                  });
                   break;
               }
               if (!entry) {
@@ -397,7 +403,7 @@ class Race extends Story {
         case secondRace:
         case firstRace:
           this.changes.startRace = false;
-          $(".tunnel").css("right", "-75%");
+          $(".tunnel").css("left", "100%");
           $(".gameplay-pause").css("display", "flex");
           guideBlock.style.opacity = "0";
           guideBlockText.innerText = "Mini-car racing";
@@ -456,9 +462,11 @@ class Race extends Story {
         } else {
           $(".turn-speed").css("background", "linear-gradient(red,white)");
         }
-        $(".turn-distance").text(
-          Math.round((position - backgroundPositionX) / distanceRatio) + "m"
-        );
+        if (changes.firstRace.continueFirstTurnExplanation) {
+          $(".turn-distance").text(
+            Math.round((position - backgroundPositionX) / distanceRatio) + "m"
+          );
+        }
       }
     }, 100);
   }
