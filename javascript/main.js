@@ -9,6 +9,7 @@ import {
 } from "./mechanisms/cars.js";
 import { secondaryFunctions } from "./otherJs/secondary.js";
 import { keyDown, keyUp } from "./otherJs/keyboard.js";
+import { firstRace } from "./story.js";
 window.document.onkeydown = keyDown;
 window.document.onkeyup = keyUp;
 changes.rewriteEverything = () => {
