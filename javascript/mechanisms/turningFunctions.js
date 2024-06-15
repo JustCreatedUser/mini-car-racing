@@ -136,6 +136,10 @@ const turns = {
       secondaryFunctions.announceFn(
         turns.array[turns.index].type.toUpperCase() + " ПОВОРОТ",
         () => {
+          let allowedToTurn = false;
+          if (changes.firstRace.firstTurnExplanation) {
+            allowedToTurn = true;
+          }
           turns.isRightNow = "almost";
           changes.movingPause = true;
           $(".turn-position").css("display", "flex");
@@ -151,7 +155,7 @@ const turns = {
               announcement.style.zIndex = 0;
               setTimeout(() => {
                 announcement.remove();
-                if (changes.firstRace.firstTurnExplanation) {
+                if (allowedToTurn) {
                   changes.movingPause = false;
                   chapters[progress].startTurning();
                 }
