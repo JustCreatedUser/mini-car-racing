@@ -793,7 +793,7 @@ nav button:hover {
   transition: 1s;
   opacity: unset;
   position: absolute;
-  right: -65%;
+  left: 100%;
   display: flex;
   top: 4.2592592593vh;
 }
