@@ -78,7 +78,6 @@ export const secondaryFunctions = {
       $(".turn-position").css("display", "0");
       race.style.opacity = 0;
       setTimeout(() => {
-        myCar.fns.useTheEngine(true);
         changes.rewriteEverything();
         document.body.style.overflowY = "scroll";
       }, 2000);
@@ -455,6 +454,10 @@ export const secondaryFunctions = {
     }
   },
   gameOver(reason) {
+    if (progress == "firstRace") {
+      changes.firstRace.firstTurnExplanation = false;
+      changes.firstRace.continueFirstTurnExplanation = false;
+    }
     $(".back-to-menu-button").css("visibility", "hidden");
     turns.array = [];
     music.changeVolume(0.5);
@@ -463,7 +466,7 @@ export const secondaryFunctions = {
     $(".pause").css("opacity", "0");
     $(".enemy-position").css("visibility", "hidden");
     $(".turn-position").css("display", "0");
-    $(".tunnel").css("right", "-75%");
+    $(".tunnel").css("left", "100%");
     race.style.opacity = 0.5;
     setTimeout(() => {
       changes.movingPause = true;
@@ -480,7 +483,6 @@ export const secondaryFunctions = {
           permissions.toPause = true;
           changes.movingPause = false;
           $(".enemy-car").remove();
-          myCar.fns.useTheEngine(true);
           turns.isRightNow = false;
           $(".background").css({
             translate: "0",
@@ -661,7 +663,7 @@ export const secondaryFunctions = {
     $(".pause").css("display", "none");
     announcement = document.createElement("div");
     announcement.className = "announcement";
-    document.body.append(announcement);
+    race.append(announcement);
     announcementText = document.createElement("h1");
     announcementText.className = "veryLargeText";
     announcementText.innerText = text;
@@ -740,6 +742,9 @@ export const secondaryFunctions = {
           "Ви впевнені? Управління потім можна буде змінити в меню паузи"
         );
         if (confirmation) {
+          if (device == undefined && $("#choose-device").val() != "computer") {
+            secondaryFunctions.setStylesForPhone();
+          }
           let arr = currentWindows.split("-");
           arr.pop();
           currentWindows = arr.join("-");
@@ -751,9 +756,7 @@ export const secondaryFunctions = {
           $(".device-changing-popup").remove();
           permission = true;
           devicePopupPositions[1] = 0;
-          if (device != "computer") {
-            secondaryFunctions.setStylesForPhone();
-          }
+
           secondaryFunctions.begin(permission);
           localStorage.setItem("device", device);
         }
@@ -766,5 +769,3 @@ export const secondaryFunctions = {
     });
   },
 };
-//
-
