@@ -2,6 +2,11 @@ div.menu-content {
   flex-direction: column;
 }
 
+.phone-counters {
+  perspective: 200px;
+  transform-style: preserve-3d;
+}
+
 .changeScreen button {
   background-color: white;
   font-size: 20px;
@@ -10,10 +15,7 @@ div.menu-content {
   border-radius: 5px;
   color: black;
 }
-.phone-counters {
-  perspective: 200px;
-  transform-style: preserve-3d;
-}
+
 div.background {
   bottom: unset;
   left: -3vh;
@@ -218,5 +220,12 @@ body header {
   border-radius: 2.1388888889vh;
 }
 
-/*# sourceMappingURL=styles.css.map */
+.tunnel img {
+  height: 52.4740740741vh;
+}
 
+.tunnel {
+  top: 9.5vh;
+}
+
+/*# sourceMappingURL=styles.css.map */
