@@ -268,7 +268,7 @@ nav {
 .tunnel {
   height: setSizeWithMath(417, 1080, 100vh);
   @include setAnimations(1s, $pos: absolute);
-  right: -65%;
+  left: 100%;
   display: flex;
   top: setSizeWithMath(46, 1080, 100vh);
   :last-child {
