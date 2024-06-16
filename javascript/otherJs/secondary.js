@@ -219,7 +219,7 @@ export const secondaryFunctions = {
       '<button id="useTheEngine" class=" playing-btn">ДВИГУН</button>'
     );
     function setImg(param, pos) {
-      return `<img id="${param}ccelerationPedal" style="grid-column:${pos};" class="playing-btn pedal" src="./icons-and-images/pedals/${param}cceleration.png">`;
+      return `<img id="${param}ccelerationPedal" draggable="false" style="grid-column:${pos};" class="playing-btn pedal" src="./icons-and-images/pedals/${param}cceleration.png">`;
     }
     $(".phone-counters").append(setImg("a", "5/6"));
     $(".phone-counters").prepend(setImg("de", "1/2"));
