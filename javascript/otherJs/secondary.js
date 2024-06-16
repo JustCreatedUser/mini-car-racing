@@ -710,8 +710,8 @@ export const secondaryFunctions = {
       </div>`);
     $('#choose-device')[0].addEventListener('touchstart',function(){
       areTouchEventsSupported = true
-      localStorage.touchEvents = true
     },false)
+      localStorage.touchEvents = areTouchEventsSupported
     if (changeSelectValue) {
       $("#choose-device").val(device);
     }
