@@ -224,9 +224,9 @@ export const secondaryFunctions = {
     $(".phone-counters").append(setImg("a", "5/6"));
     $(".phone-counters").prepend(setImg("de", "1/2"));
     let functions;
-    if (device == "phone") {
+    if (device != "computer" && areTouchEventsSupported) {
       functions = ["touchstart", "touchend"];
-    } else {
+    } else if(device!='computer'){
       functions = ["mousedown", "mouseup"];
     }
     $("#gearUpButton").on(functions[0], () => {
@@ -317,9 +317,10 @@ export const secondaryFunctions = {
       });
     }
     function checkDevice() {
-      if (!localStorage.getItem("device")) {
+      if (!localStorage.getItem("device") && !localStorage.touchEvents) {
         secondaryFunctions.createDeviceChangingPopup(startPermission);
       } else {
+        areTouchEventsSupported = localStorage.touchEvents
         currentWindows = "race";
         device = localStorage.getItem("device");
         startPermission = true;
@@ -707,6 +708,10 @@ export const secondaryFunctions = {
         <button>Підтвердити</button>
         </div>
       </div>`);
+    $('#choose-device')[0].addEventListener('touchstart',function(){
+      areTouchEventsSupported = true
+    },false)
+      localStorage.touchEvents = areTouchEventsSupported
     if (changeSelectValue) {
       $("#choose-device").val(device);
     }
