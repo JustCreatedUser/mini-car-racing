@@ -329,8 +329,7 @@ export const secondaryFunctions = {
       let localStorageArray = [];
       for (let i = 0; i < localStorage.length; i++) {
         let save = localStorage.getItem(localStorage.key(i));
-        console.log(save);
-        if (save == "null") {
+        if (save == "null" || save == "undefined") {
           localStorageArray.push(localStorage.key(i));
         }
       }
