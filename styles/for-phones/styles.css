@@ -69,7 +69,7 @@ div.gear-counter {
 }
 .pedal div {
   position: absolute;
-  height: inherit;
+  height: 100%;
   width: inherit;
 }
 
