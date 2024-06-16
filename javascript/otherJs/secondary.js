@@ -267,41 +267,57 @@ export const secondaryFunctions = {
         }
       }
     });
-    accelerationPedal.addEventListener(functions[1], () => {
-      if (action > 1 && myCar.acceleration) {
-        accelerationPedal.style.transform = "rotateX(0deg)";
-        myCar.acceleration = false;
-        rpmFunctions.inertiaMechanism();
-        myCar.exhaust();
-        if (myCar.moveDirection !== 0) {
-          myCar.moveDirection = 0;
-          $(".car .vehicle").css("transform", "rotate(0)");
+    accelerationPedal.addEventListener(
+      functions[1],
+      () => {
+        if (action > 1 && myCar.acceleration) {
+          accelerationPedal.style.transform = "rotateX(0deg)";
+          myCar.acceleration = false;
+          rpmFunctions.inertiaMechanism();
+          myCar.exhaust();
+          if (myCar.moveDirection !== 0) {
+            myCar.moveDirection = 0;
+            $(".car .vehicle").css("transform", "rotate(0)");
+          }
         }
-      }
-    });
-    accelerationPedal.addEventListener(functions[0], () => {
-      if (!myCar.acceleration && !myCar.decceleration) {
-        myCar.acceleration = true;
-        accelerationPedal.style.transform = "rotateX(1deg)";
-        if (
-          myCar.moveDirection != "acceleration" &&
-          !isGamePaused &&
-          isEngineWorking &&
-          permissions.forMoreRpm
-        ) {
-          myCar.moveDirection = `acceleration`;
+      },
+      false
+    );
+    accelerationPedal.addEventListener(
+      functions[0],
+      () => {
+        if (!myCar.acceleration && !myCar.decceleration) {
+          myCar.acceleration = true;
+          accelerationPedal.style.transform = "rotateX(1deg)";
+          if (
+            myCar.moveDirection != "acceleration" &&
+            !isGamePaused &&
+            isEngineWorking &&
+            permissions.forMoreRpm
+          ) {
+            myCar.moveDirection = `acceleration`;
+          }
         }
-      }
-    });
-    useTheEngine.addEventListener(functions[0], () => {
-      myCar.fns.useTheEngine();
-    });
+      },
+      false
+    );
+    useTheEngine.addEventListener(
+      functions[0],
+      () => {
+        myCar.fns.useTheEngine();
+      },
+      false
+    );
 
     let buttons = document.querySelectorAll(".playing-btn");
     buttons.forEach((btn) => {
-      btn.addEventListener(`contextmenu`, (e) => {
-        e.preventDefault();
-      });
+      btn.addEventListener(
+        `contextmenu`,
+        (e) => {
+          e.preventDefault();
+        },
+        false
+      );
     });
   },
   changeDevice() {
