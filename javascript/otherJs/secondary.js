@@ -317,17 +317,15 @@ export const secondaryFunctions = {
       });
     }
     function checkDevice() {
-      if (!localStorage.getItem("device")) {
+      if (!localStorage.getItem("device") && !localStorage.touchEvents) {
         secondaryFunctions.createDeviceChangingPopup(startPermission);
       } else {
+        areTouchEventsSupported = localStorage.touchEvents
         currentWindows = "race";
         device = localStorage.getItem("device");
         startPermission = true;
       }
       if (device != "computer" && device != undefined) {
-        if(localStorage.touchEvents){
-          areTouchEventsSupported = true
-        }
         secondaryFunctions.setStylesForPhone();
       }
     }
