@@ -325,7 +325,7 @@ export const secondaryFunctions = {
       if (!localStorage.getItem("device") && !localStorage.touchEvents) {
         secondaryFunctions.createDeviceChangingPopup(startPermission);
       } else {
-        areTouchEventsSupported = localStorage.touchEvents;
+        areTouchEventsSupported = JSON.parse(localStorage.touchEvents);
         currentWindows = "race";
         device = localStorage.getItem("device");
         startPermission = true;
