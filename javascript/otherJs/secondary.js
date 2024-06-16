@@ -325,6 +325,9 @@ export const secondaryFunctions = {
         startPermission = true;
       }
       if (device != "computer" && device != undefined) {
+        if(localStorage.touchEvents){
+          areTouchEventsSupported = true
+        }
         secondaryFunctions.setStylesForPhone();
       }
     }
@@ -709,6 +712,7 @@ export const secondaryFunctions = {
       </div>`);
     $('#choose-device')[0].addEventListener('touchstart',function(){
       areTouchEventsSupported = true
+      localStorage.touchEvents = true
     },false)
     if (changeSelectValue) {
       $("#choose-device").val(device);
