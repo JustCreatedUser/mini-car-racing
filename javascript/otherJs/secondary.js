@@ -203,9 +203,11 @@ export const secondaryFunctions = {
       }
     });
     $(".computer-counters").attr("class", "phone-counters");
+
     $(".phone-counters").prepend(`<div class="counters"></div>`);
     $(".counters").append($(".rpm"));
     $(".counters").append($(".speed"));
+
     $(".phone-counters").prepend('<div class="gears-block"></div>');
     $(".gears-block").append($(".gear-counter"));
     let arrow = '<img src="./useless-images/arrow.png"';
@@ -215,18 +217,21 @@ export const secondaryFunctions = {
     $(".gears-block").append(
       arrow + 'style="rotate:180deg" id="gearDownButton" class="playing-btn"/>'
     );
+
     $(".counters").after(
       '<button id="useTheEngine" class=" playing-btn">ДВИГУН</button>'
     );
+
     function setImg(param, pos) {
-      return `<img id="${param}ccelerationPedal" draggable="false" style="grid-column:${pos};" class="playing-btn pedal" src="./icons-and-images/pedals/${param}cceleration.png">`;
+      return `<div id="${param}ccelerationPedal" class="playing-btn pedal" style="grid-column:${pos};"><div style="z-index:1;"></div><img draggable="false" src="./icons-and-images/pedals/${param}cceleration.png"></div>`;
     }
     $(".phone-counters").append(setImg("a", "5/6"));
     $(".phone-counters").prepend(setImg("de", "1/2"));
+
     let functions;
     if (device != "computer" && areTouchEventsSupported) {
       functions = ["touchstart", "touchend"];
-    } else if(device!='computer'){
+    } else if (device != "computer") {
       functions = ["mousedown", "mouseup"];
     }
     $("#gearUpButton").on(functions[0], () => {
@@ -320,7 +325,7 @@ export const secondaryFunctions = {
       if (!localStorage.getItem("device") && !localStorage.touchEvents) {
         secondaryFunctions.createDeviceChangingPopup(startPermission);
       } else {
-        areTouchEventsSupported = localStorage.touchEvents
+        areTouchEventsSupported = localStorage.touchEvents;
         currentWindows = "race";
         device = localStorage.getItem("device");
         startPermission = true;
@@ -689,7 +694,7 @@ export const secondaryFunctions = {
       currentWindows += "-device";
     }
     document.body.style.overflowY = "hidden";
-    $(document.body).prepend(`<div  class="device-changing-popup">
+    $(document.body).prepend(`<div class="device-changing-popup">
       <p moveAttr="left" class="go-arrow"><</p>
       <p moveAttr="right" class="go-arrow">></p>
       ${device != undefined ? "<p class='just-exit'>✗</p>" : ""}
@@ -708,10 +713,14 @@ export const secondaryFunctions = {
         <button>Підтвердити</button>
         </div>
       </div>`);
-    $('#choose-device')[0].addEventListener('touchstart',function(){
-      areTouchEventsSupported = true
-    },false)
-      localStorage.touchEvents = areTouchEventsSupported
+    $("#choose-device")[0].addEventListener(
+      "touchstart",
+      function () {
+        areTouchEventsSupported = true;
+      },
+      false
+    );
+    localStorage.touchEvents = areTouchEventsSupported;
     if (changeSelectValue) {
       $("#choose-device").val(device);
     }
