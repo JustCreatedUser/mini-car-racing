@@ -313,6 +313,7 @@ export const secondaryFunctions = {
       let localStorageArray = [];
       for (let i = 0; i < localStorage.length; i++) {
         let save = localStorage.getItem(localStorage.key(i));
+        console.log(save);
         if (save == "null") {
           localStorageArray.push(localStorage.key(i));
         }
@@ -322,9 +323,9 @@ export const secondaryFunctions = {
       });
     }
     function checkDevice() {
-      if (!localStorage.getItem("device") && !localStorage.touchEvents) {
+      if (!localStorage.getItem("device") || !localStorage.touchEvents) {
         secondaryFunctions.createDeviceChangingPopup(startPermission);
-      } else {
+      } else if (localStorage.getItem("device")) {
         areTouchEventsSupported = JSON.parse(localStorage.touchEvents);
         currentWindows = "race";
         device = localStorage.getItem("device");
