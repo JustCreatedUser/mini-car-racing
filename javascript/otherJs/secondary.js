@@ -224,9 +224,9 @@ export const secondaryFunctions = {
     $(".phone-counters").append(setImg("a", "5/6"));
     $(".phone-counters").prepend(setImg("de", "1/2"));
     let functions;
-    if (device == "phone") {
+    if (device != "computer" && areTouchEventsSupported) {
       functions = ["touchstart", "touchend"];
-    } else {
+    } else if(device!='computer'){
       functions = ["mousedown", "mouseup"];
     }
     $("#gearUpButton").on(functions[0], () => {
@@ -707,6 +707,9 @@ export const secondaryFunctions = {
         <button>Підтвердити</button>
         </div>
       </div>`);
+    $('#choose-device')[0].addEventListener('touchstart',function(){
+      areTouchEventsSupported = true
+    },false)
     if (changeSelectValue) {
       $("#choose-device").val(device);
     }
