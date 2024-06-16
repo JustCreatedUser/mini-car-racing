@@ -64,6 +64,14 @@ div.gear-counter {
   align-self: center;
   justify-self: center;
 }
+.pedal img {
+  width: 100%;
+}
+.pedal div {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
 
 #useTheEngine {
   background-color: red;
@@ -220,12 +228,11 @@ body header {
   border-radius: 2.1388888889vh;
 }
 
-.tunnel img {
-  height: 52.4740740741vh;
-}
-
 .tunnel {
   top: 9.5vh;
+}
+.tunnel img {
+  height: 52.4740740741vh;
 }
 
 /*# sourceMappingURL=styles.css.map */
