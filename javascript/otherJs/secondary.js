@@ -227,9 +227,9 @@ export const secondaryFunctions = {
     $(".phone-counters").prepend(setImg("de", "1/2"));
 
     let functions;
-    if (device != "computer" && areTouchEventsSupported) {
+    if (device != "computer") {
       functions = ["touchstart", "touchend"];
-    } else if (device != "computer") {
+    } else {
       functions = ["mousedown", "mouseup"];
     }
     $("#gearUpButton").on(functions[0], () => {
@@ -322,12 +322,12 @@ export const secondaryFunctions = {
       wrongArray.forEach((wrongSave) => {
         localStorage.removeItem(wrongSave[0]);
       });
+      localStorage.removeItem("touchEvents");
     }
     function checkDevice() {
-      if (!localStorage.getItem("device") || !localStorage.touchEvents) {
+      if (!localStorage.getItem("device")) {
         secondaryFunctions.createDeviceChangingPopup(startPermission);
       } else if (localStorage.getItem("device")) {
-        areTouchEventsSupported = JSON.parse(localStorage.touchEvents);
         currentWindows = "race";
         device = localStorage.getItem("device");
         startPermission = true;
@@ -715,10 +715,7 @@ export const secondaryFunctions = {
         <button>Підтвердити</button>
         </div>
       </div>`);
-    $("#choose-device").on("touchstart", () => {
-      areTouchEventsSupported = true;
-    });
-    localStorage.touchEvents = areTouchEventsSupported;
+
     if (changeSelectValue) {
       $("#choose-device").val(device);
     }
@@ -742,7 +739,6 @@ export const secondaryFunctions = {
     $(".just-exit").on("click", function () {
       let arr = currentWindows.split("-");
       arr.pop();
-      $("#choose-device").off("touchstart");
       currentWindows = arr.join("-");
       $(".device-changing-popup button").off("click");
       $(".just-exit").off("click");
@@ -755,10 +751,9 @@ export const secondaryFunctions = {
           "Ви впевнені? Управління потім можна буде змінити в меню паузи"
         );
         if (confirmation) {
-          if (device == undefined && $("#choose-device").val() != "computer") {
+          if (device == undefined) {
             secondaryFunctions.setStylesForPhone();
           }
-          $("#choose-device").off("touchstart");
           let arr = currentWindows.split("-");
           arr.pop();
           currentWindows = arr.join("-");
@@ -783,4 +778,3 @@ export const secondaryFunctions = {
     });
   },
 };
-//
