@@ -227,12 +227,11 @@ export const secondaryFunctions = {
     $(".phone-counters").prepend(setImg("de", "1/2"));
 
     let functions;
-    if (device == "mouse") {
+    if (device != "mouse") {
       functions = ["touchstart", "touchend"];
     } else {
       functions = ["mousedown", "mouseup"];
     }
-    console.log(functions);
     $("#gearUpButton").on(functions[0], () => {
       if (isEngineWorking) {
         gearFunctions.up.mechanism();
@@ -779,4 +778,3 @@ export const secondaryFunctions = {
     });
   },
 };
-
