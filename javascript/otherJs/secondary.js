@@ -203,11 +203,9 @@ export const secondaryFunctions = {
       }
     });
     $(".computer-counters").attr("class", "phone-counters");
-
     $(".phone-counters").prepend(`<div class="counters"></div>`);
     $(".counters").append($(".rpm"));
     $(".counters").append($(".speed"));
-
     $(".phone-counters").prepend('<div class="gears-block"></div>');
     $(".gears-block").append($(".gear-counter"));
     let arrow = '<img src="./useless-images/arrow.png"';
@@ -267,40 +265,32 @@ export const secondaryFunctions = {
         }
       }
     });
-    accelerationPedal.addEventListener(
-      functions[1],
-      () => {
-        if (action > 1 && myCar.acceleration) {
-          accelerationPedal.style.transform = "rotateX(0deg)";
-          myCar.acceleration = false;
-          rpmFunctions.inertiaMechanism();
-          myCar.exhaust();
-          if (myCar.moveDirection !== 0) {
-            myCar.moveDirection = 0;
-            $(".car .vehicle").css("transform", "rotate(0)");
-          }
+    $("#accelerationPedal").on(functions[0], () => {
+      if (!myCar.acceleration && !myCar.decceleration) {
+        myCar.acceleration = true;
+        accelerationPedal.style.transform = "rotateX(1deg)";
+        if (
+          myCar.moveDirection != "acceleration" &&
+          !isGamePaused &&
+          isEngineWorking &&
+          permissions.forMoreRpm
+        ) {
+          myCar.moveDirection = `acceleration`;
         }
-      },
-      false
-    );
-    accelerationPedal.addEventListener(
-      functions[0],
-      () => {
-        if (!myCar.acceleration && !myCar.decceleration) {
-          myCar.acceleration = true;
-          accelerationPedal.style.transform = "rotateX(1deg)";
-          if (
-            myCar.moveDirection != "acceleration" &&
-            !isGamePaused &&
-            isEngineWorking &&
-            permissions.forMoreRpm
-          ) {
-            myCar.moveDirection = `acceleration`;
-          }
+      }
+    });
+    $("#accelerationPedal").on(functions[1], () => {
+      if (action > 1 && myCar.acceleration) {
+        accelerationPedal.style.transform = "rotateX(0deg)";
+        myCar.acceleration = false;
+        rpmFunctions.inertiaMechanism();
+        myCar.exhaust();
+        if (myCar.moveDirection !== 0) {
+          myCar.moveDirection = 0;
+          $(".car .vehicle").css("transform", "rotate(0)");
         }
-      },
-      false
-    );
+      }
+    });
     useTheEngine.addEventListener(
       functions[0],
       () => {
@@ -326,15 +316,11 @@ export const secondaryFunctions = {
   useLocalStorageAndCookies() {
     let startPermission = false;
     function checkLocalStorageForIssues() {
-      let localStorageArray = [];
-      for (let i = 0; i < localStorage.length; i++) {
-        let save = localStorage.getItem(localStorage.key(i));
-        if (save == "null" || save == "undefined") {
-          localStorageArray.push(localStorage.key(i));
-        }
-      }
-      localStorageArray.forEach((wrongSave) => {
-        localStorage.removeItem(wrongSave);
+      let wrongArray = Object.entries(localStorage).filter(
+        (save) => save[1] == "undefined" || save == "null"
+      );
+      wrongArray.forEach((wrongSave) => {
+        localStorage.removeItem(wrongSave[0]);
       });
     }
     function checkDevice() {
@@ -729,13 +715,9 @@ export const secondaryFunctions = {
         <button>Підтвердити</button>
         </div>
       </div>`);
-    $("#choose-device")[0].addEventListener(
-      "touchstart",
-      function () {
-        areTouchEventsSupported = true;
-      },
-      false
-    );
+    $("#choose-device").on("touchstart", () => {
+      areTouchEventsSupported = true;
+    });
     localStorage.touchEvents = areTouchEventsSupported;
     if (changeSelectValue) {
       $("#choose-device").val(device);
@@ -760,6 +742,7 @@ export const secondaryFunctions = {
     $(".just-exit").on("click", function () {
       let arr = currentWindows.split("-");
       arr.pop();
+      $("#choose-device").off("touchstart");
       currentWindows = arr.join("-");
       $(".device-changing-popup button").off("click");
       $(".just-exit").off("click");
@@ -775,6 +758,7 @@ export const secondaryFunctions = {
           if (device == undefined && $("#choose-device").val() != "computer") {
             secondaryFunctions.setStylesForPhone();
           }
+          $("#choose-device").off("touchstart");
           let arr = currentWindows.split("-");
           arr.pop();
           currentWindows = arr.join("-");
@@ -799,3 +783,4 @@ export const secondaryFunctions = {
     });
   },
 };
+//
