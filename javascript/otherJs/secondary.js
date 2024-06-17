@@ -601,6 +601,7 @@ export const secondaryFunctions = {
         break;
     }
     if (continuing) {
+      document.body.scrollTop = 0;
       music.changeVolume(1);
       $("#race").css({
         opacity: 0,
