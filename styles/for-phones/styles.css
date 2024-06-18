@@ -12,8 +12,10 @@ div.menu-content {
   font-size: 20px;
   margin-bottom: 30px;
   padding: 5px 10px;
-  border-radius: 5px;
   color: black;
+  width: 341px;
+  border-radius: 20px;
+  padding: 10px;
 }
 
 div.background {
