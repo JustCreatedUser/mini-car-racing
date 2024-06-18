@@ -19,7 +19,6 @@
     right: 20px;
     background: linear-gradient(black, red);
     -webkit-text-fill-color: transparent;
-    cursor: pointer;
     background-clip: text !important;
     -webkit-background-clip: text !important;
   }
@@ -40,11 +39,9 @@
   display: flex;
   align-items: center;
   select {
-    cursor: pointer;
     background-color: transparent;
   }
   button {
-    cursor: pointer;
     border: setSizeWithMath(7, 1020, 100vw) solid black;
     font-size: setSizeWithMath(60, 1020, 100vw);
     padding: 5%;
@@ -57,7 +54,6 @@
   font-size: setSizeWithMath(60, 1020, 100vw);
   background: linear-gradient(black, red);
   -webkit-text-fill-color: transparent;
-  cursor: pointer;
   background-clip: text !important;
   -webkit-background-clip: text !important;
 }
