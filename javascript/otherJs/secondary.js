@@ -202,6 +202,7 @@ export const secondaryFunctions = {
         alert("Браузер не підтримує цю функцію");
       }
     });
+    $("nav").after($(".handling-settings"));
     $(".computer-counters").attr("class", "phone-counters");
     $(".phone-counters").prepend(`<div class="counters"></div>`);
     $(".counters").append($(".rpm"));
@@ -226,6 +227,7 @@ export const secondaryFunctions = {
     $(".phone-counters").append(setImg("a", "5/6"));
     $(".phone-counters").prepend(setImg("de", "1/2"));
 
+    console.log(device);
     let functions;
     if (device == "phone") {
       functions = ["touchstart", "touchend"];
