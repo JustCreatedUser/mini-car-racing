@@ -22,7 +22,6 @@ html {
 .above-action-input {
   width: 130px;
   height: 20px;
-  cursor: pointer;
   position: absolute;
   background-color: transparent;
   margin-top: -23px;
@@ -30,7 +29,6 @@ html {
   z-index: 1;
 }
 .action-level-input {
-  cursor: pointer;
   filter: sepia(100%) saturate(500%);
 }
 .handling-settings {
@@ -72,7 +70,6 @@ html {
   border-radius: setSizeWithMath(5, 1080, 100vh);
   display: none;
   margin-left: setSizeWithMath(40, 1080, 100vh);
-  cursor: pointer;
   background-color: transparent;
 }
 .back-to-menu-button {
@@ -87,7 +84,6 @@ html {
   font-weight: 600;
   background-color: black;
   color: white;
-  cursor: pointer;
   border: 2px solid white;
   padding: 5px 10px;
   border-radius: 10px;
@@ -251,7 +247,6 @@ nav {
   padding: 5px 10px;
   button {
     @include setAnimations(1s);
-    cursor: pointer;
     font-size: 20px;
     border: 1px solid black;
     padding: 3px 10px;
@@ -335,7 +330,6 @@ header {
   height: setSizeWithMath(70, 1080, 100vh);
   width: setSizeWithMath(70, 1080, 100vh);
   display: flex;
-  cursor: pointer;
   line-height: setSizeWithMath(50, 1080, 100vh);
   color: white;
   top: 60px;
@@ -352,4 +346,21 @@ header {
 .car,
 .enemy-car {
   @include setAnimations(0.5s linear, $pos: absolute);
+}
+.just-exit,
+.screen-width button,
+.go-arrow,
+select,
+.part,
+.save-the-progress-button,
+.contact-link-button,
+.uncompleted-parts button,
+.above-action-input,
+.action-level-input,
+.continue-game-button,
+.cheat-button,
+.change-device,
+nav button,
+.pause {
+  cursor: pointer;
 }
