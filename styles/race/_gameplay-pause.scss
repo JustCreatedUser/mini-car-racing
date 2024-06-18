@@ -52,7 +52,6 @@
   font-weight: bolder;
   border-radius: 10px;
   background-size: cover;
-  cursor: pointer;
   box-shadow: 0 0 40px 3px black;
   border: 2px solid white;
   min-width: 400px;
@@ -91,7 +90,6 @@
   padding: 10px;
   border: none;
   border-bottom: 1px solid white;
-  cursor: pointer;
 }
 .gameplay-headline {
   font-size: setSizeWithMath(60, 1080, 100vh);
