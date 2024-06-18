@@ -227,7 +227,7 @@ export const secondaryFunctions = {
     $(".phone-counters").prepend(setImg("de", "1/2"));
 
     let functions;
-    if (device != "mouse") {
+    if (device == "phone") {
       functions = ["touchstart", "touchend"];
     } else {
       functions = ["mousedown", "mouseup"];
