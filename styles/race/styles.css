@@ -261,7 +261,6 @@ footer {
   font-weight: bolder;
   border-radius: 10px;
   background-size: cover;
-  cursor: pointer;
   box-shadow: 0 0 40px 3px black;
   border: 2px solid white;
   min-width: 400px;
@@ -301,7 +300,6 @@ footer {
   padding: 10px;
   border: none;
   border-bottom: 1px solid white;
-  cursor: pointer;
 }
 
 .gameplay-headline {
@@ -412,7 +410,6 @@ footer {
   right: 20px;
   background: linear-gradient(black, red);
   -webkit-text-fill-color: transparent;
-  cursor: pointer;
   background-clip: text !important;
   -webkit-background-clip: text !important;
 }
@@ -435,11 +432,9 @@ footer {
   align-items: center;
 }
 .screen-width select {
-  cursor: pointer;
   background-color: transparent;
 }
 .screen-width button {
-  cursor: pointer;
   border: 0.6862745098vw solid black;
   font-size: 5.8823529412vw;
   padding: 5%;
@@ -452,7 +447,6 @@ footer {
   font-size: 5.8823529412vw;
   background: linear-gradient(black, red);
   -webkit-text-fill-color: transparent;
-  cursor: pointer;
   background-clip: text !important;
   -webkit-background-clip: text !important;
 }
@@ -488,7 +482,6 @@ html {
 .above-action-input {
   width: 130px;
   height: 20px;
-  cursor: pointer;
   position: absolute;
   background-color: transparent;
   margin-top: -23px;
@@ -497,7 +490,6 @@ html {
 }
 
 .action-level-input {
-  cursor: pointer;
   filter: sepia(100%) saturate(500%);
 }
 
@@ -543,7 +535,6 @@ html {
   border-radius: 0.462962963vh;
   display: none;
   margin-left: 3.7037037037vh;
-  cursor: pointer;
   background-color: transparent;
 }
 
@@ -564,7 +555,6 @@ html {
   font-weight: 600;
   background-color: black;
   color: white;
-  cursor: pointer;
   border: 2px solid white;
   padding: 5px 10px;
   border-radius: 10px;
@@ -771,7 +761,6 @@ nav button {
   transition: 1s;
   opacity: unset;
   position: unset;
-  cursor: pointer;
   font-size: 20px;
   border: 1px solid black;
   padding: 3px 10px;
@@ -875,7 +864,6 @@ header {
   height: 6.4814814815vh;
   width: 6.4814814815vh;
   display: flex;
-  cursor: pointer;
   line-height: 4.6296296296vh;
   color: white;
   top: 60px;
@@ -895,6 +883,24 @@ header {
   transition: 0.5s linear;
   opacity: unset;
   position: absolute;
+}
+
+.just-exit,
+.screen-width button,
+.go-arrow,
+select,
+.part,
+.save-the-progress-button,
+.contact-link-button,
+.uncompleted-parts button,
+.above-action-input,
+.action-level-input,
+.continue-game-button,
+.cheat-button,
+.change-device,
+nav button,
+.pause {
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=styles.css.map */
