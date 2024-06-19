@@ -754,14 +754,12 @@ export const secondaryFunctions = {
           "Ви впевнені? Управління потім можна буде змінити в меню паузи"
         );
         if (confirmation) {
-          if (device == undefined) {
+          if ($("#choose-device").val() != "computer") {
             secondaryFunctions.setStylesForPhone();
           }
           let arr = currentWindows.split("-");
           arr.pop();
           currentWindows = arr.join("-");
-          if (currentWindows == "race") {
-          }
           alert("Екран варто тримати лише в горизонтальному положенні!");
           device = $("#choose-device").val();
           $(".device-changing-popup button").off("click");
