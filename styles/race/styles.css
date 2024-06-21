@@ -812,7 +812,7 @@ nav button:hover {
 header {
   transition: 2s;
   opacity: 0;
-  position: absolute;
+  position: fixed;
   top: 1.8518518519vh;
   z-index: 1;
   padding: 0 2.3148148148vh;
