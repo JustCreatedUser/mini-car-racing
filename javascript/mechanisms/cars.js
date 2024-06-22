@@ -10,45 +10,18 @@ import {
   chapters,
 } from "../story.js";
 import { turns } from "./turningFunctions.js";
-let carStats = {
-    rpm: 0,
-    gear: 0,
-    spd: 0,
-    gearMultiplier: 0,
-    noClutchMode: true,
-    degrees: 0,
-    rotation: 200,
-    moveDirection: 0,
-    acceleration: false,
-    decceleration: false,
-  },
-  enemyStats = {
-    itsFlame: ".enemy-flame",
-    wheel: ".enemy-wheel",
-    className: ".enemy-car",
-    maxRpm: 8000,
-    position: 0,
-    rpm: 2000,
-    fns: {
-      overtakeFunction(enemyCar = enemyCars.array[enemyCars.index]) {
-        let move = Math.round(enemyCar.spd - myCar.spd);
-        enemyCar.position +=
-          device == "computer"
-            ? move * (window.innerHeight / 540)
-            : (move * (window.innerHeight / 540)) / 1.54;
-        $(enemyCar.className).css("margin-left", `${enemyCar.position}px`);
-      },
-      start(car = enemyCars.array[enemyCars.index]) {
-        gearFunctions.up.mechanism(car);
-      },
-    },
-  };
 class Car {
-  constructor() {
-    for (const key in carStats) {
-      this[key] = carStats[key];
-    }
-  }
+  rpm = 0;
+  gear = 0;
+  spd = 0;
+  gearMultiplier = 0;
+  noClutchMode = true;
+  degrees = 0;
+  rotation = 200;
+  moveDirection = 0;
+  acceleration = false;
+  decceleration = false;
+  constructor() {}
   exhaust() {
     $(this.itsFlame).css("opacity", "1");
     flame = setTimeout(() => {
@@ -63,19 +36,136 @@ class Car {
   }
 }
 class MyCar extends Car {
-  constructor(otherStats) {
+  wheel = ".my-wheel";
+  itsFlame = ".my-flame";
+  className = `.car`;
+  maxRpm = 10000;
+  gearShift = undefined;
+  noClutchMode = false;
+  fns = {
+    useTheEngine(isForced = undefined) {
+      if (isForced) {
+        if (device != "computer") {
+          $("#useTheEngine").css("background-color", "red");
+        }
+        isEngineWorking = false;
+        gearFunctions.color = "white";
+        $(".rpm-counter_center").css("background-color", gearFunctions.color);
+        $(".rpm-counter").css({
+          transform: `rotate(-45deg)`,
+        });
+        $(".speed-counter").css({
+          transform: `rotate(-45deg)`,
+        });
+        $(".rpm-counter-number").html(``);
+        $(".speed-counter-number").html("");
+        $(".gear-counter").html("N");
+        clearInterval(intervals.universalMoving);
+        clearInterval(intervals.everyCarMove);
+        return;
+      }
+      if (!isEngineWorking && action > 0 && !isGamePaused) {
+        myCar.gear > 0
+          ? alert("Запуск можливий тільки при нейтральнй передачі")
+          : "";
+        if (myCar.gear === 0) {
+          if (device != "computer") {
+            $("#useTheEngine").css("background-color", "green");
+          }
+          gearFunctions.color = "blue";
+          $(".rpm-counter_center").css("background-color", gearFunctions.color);
+          myCar.rpm = 800;
+          myCar.gear = 0;
+          myCar.gearMultiplier = 0;
+          isEngineWorking = true;
+          $(".rpm-counter").css({
+            transform: `rotate(${myCar.rpm * 0.027 - 45}deg)`,
+          });
+          $(".rpm-counter-number").html(`${myCar.rpm}RPM`);
+          $(".speed-counter-number").html(`0KM/H`);
+
+          switch (progress) {
+            case "introduction":
+              introduction.everyTip.engine();
+              break;
+            case "firstRace":
+              firstRace.everyTip.engine();
+              permissions.forMoreRpm = true;
+              myCar.noClutchMode = true;
+              permissions.forLessRpm = true;
+              break;
+            case "secondRace":
+              secondRace.everyTip.engine();
+              break;
+            case "finalRace":
+              finalRace.everyTip.engine();
+              break;
+          }
+          set240msInterval();
+          set60msInterval();
+        }
+      } else if (!isGamePaused && permissions.toOff_engine) {
+        if (myCar.gear === 0) {
+          if (device != "computer") {
+            $("#useTheEngine").css("background-color", "red");
+          }
+          isEngineWorking = false;
+          gearFunctions.color = "white";
+          myCar.rpm = 0;
+          $(".rpm-counter_center").css("background-color", gearFunctions.color);
+          $(".rpm-counter").css({
+            transform: `rotate(-45deg)`,
+          });
+          $(".rpm-counter-number").html(``);
+          $(".speed-counter-number").html("");
+          if (action === 6) {
+            introduction.ending();
+          }
+          clearInterval(intervals.universalMoving);
+          clearInterval(intervals.everyCarMove);
+        } else {
+          alert("Двигун можна виключити тільки при нейтральній передачі");
+        }
+      }
+    },
+    setHtmlCounters() {
+      myCar.spd = Math.round(myCar.spd);
+      $(".rpm-counter-number").html(`${myCar.rpm}RPM`);
+      $(".speed-counter-number").html(`${myCar.spd}KM/H`);
+      $(".rpm-counter").css({
+        transform: `rotate(${myCar.rpm * 0.027 - 45}deg)`,
+      });
+      $(".speed-counter").css({
+        transform: `rotate(${myCar.spd - 45}deg)`,
+      });
+    },
+  };
+  constructor() {
     super();
-    for (const key in otherStats) {
-      this[key] = otherStats[key];
-    }
   }
 }
 class EnemyCar extends Car {
-  constructor(otherStats) {
+  itsFlame = ".enemy-flame";
+  wheel = ".enemy-wheel";
+  className = ".enemy-car";
+  position = 0;
+  fns = {
+    overtakeFunction(enemyCar = enemyCars.array[enemyCars.index]) {
+      let move = Math.round(enemyCar.spd - myCar.spd);
+      enemyCar.position +=
+        device == "computer"
+          ? move * (window.innerHeight / 540)
+          : (move * (window.innerHeight / 540)) / 1.54;
+      $(enemyCar.className).css("margin-left", `${enemyCar.position}px`);
+    },
+    start(car = enemyCars.array[enemyCars.index]) {
+      gearFunctions.up.mechanism(car);
+    },
+  };
+  constructor(rpm, maxRpm) {
     super();
-    for (const key in otherStats) {
-      this[key] = otherStats[key];
-    }
+    this.rpm = rpm;
+    this.maxRpm = maxRpm;
   }
   handleBehaviour() {
     if (turns.array.length != 0) {
@@ -131,7 +221,10 @@ class EnemyCar extends Car {
             left:
               window.innerWidth -
               $(".enemy-position")[0].offsetWidth -
-              (turns.isRightNow == true ? 200 : 0) +
+              (turns.isRightNow == true &&
+              turns.array[turns.index].direction == "right"
+                ? 300
+                : 0) +
               "px",
             display: "flex",
             background: "linear-gradient(red, white)",
@@ -147,126 +240,10 @@ class EnemyCar extends Car {
     }
   }
 }
-const myCar = new MyCar({
-    wheel: ".my-wheel",
-    itsFlame: ".my-flame",
-    className: `.car`,
-    maxRpm: 10000,
-    gearShift: undefined,
-    noClutchMode: false,
-    fns: {
-      useTheEngine(isForced = undefined) {
-        if (isForced) {
-          if (device != "computer") {
-            $("#useTheEngine").css("background-color", "red");
-          }
-          isEngineWorking = false;
-          gearFunctions.color = "white";
-          $(".rpm-counter_center").css("background-color", gearFunctions.color);
-          $(".rpm-counter").css({
-            transform: `rotate(-45deg)`,
-          });
-          $(".speed-counter").css({
-            transform: `rotate(-45deg)`,
-          });
-          $(".rpm-counter-number").html(``);
-          $(".speed-counter-number").html("");
-          $(".gear-counter").html("N");
-          clearInterval(intervals.universalMoving);
-          clearInterval(intervals.everyCarMove);
-          return;
-        }
-        console.log("зайшло");
-        if (!isEngineWorking && action > 0 && !isGamePaused) {
-          myCar.gear > 0
-            ? alert("Запуск можливий тільки при нейтральнй передачі")
-            : "";
-          if (myCar.gear === 0) {
-            if (device != "computer") {
-              $("#useTheEngine").css("background-color", "green");
-            }
-            gearFunctions.color = "blue";
-            $(".rpm-counter_center").css(
-              "background-color",
-              gearFunctions.color
-            );
-            myCar.rpm = 800;
-            myCar.gear = 0;
-            myCar.gearMultiplier = 0;
-            isEngineWorking = true;
-            $(".rpm-counter").css({
-              transform: `rotate(${myCar.rpm * 0.027 - 45}deg)`,
-            });
-            $(".rpm-counter-number").html(`${myCar.rpm}RPM`);
-            $(".speed-counter-number").html(`0KM/H`);
-
-            switch (progress) {
-              case "introduction":
-                introduction.everyTip.engine();
-                break;
-              case "firstRace":
-                firstRace.everyTip.engine();
-                permissions.forMoreRpm = true;
-                myCar.noClutchMode = true;
-                permissions.forLessRpm = true;
-                break;
-              case "secondRace":
-                secondRace.everyTip.engine();
-                break;
-              case "finalRace":
-                finalRace.everyTip.engine();
-                break;
-            }
-            set240msInterval();
-            set60msInterval();
-          }
-        } else if (!isGamePaused && permissions.toOff_engine) {
-          if (myCar.gear === 0) {
-            if (device != "computer") {
-              $("#useTheEngine").css("background-color", "red");
-            }
-            isEngineWorking = false;
-            gearFunctions.color = "white";
-            myCar.rpm = 0;
-            $(".rpm-counter_center").css(
-              "background-color",
-              gearFunctions.color
-            );
-            $(".rpm-counter").css({
-              transform: `rotate(-45deg)`,
-            });
-            $(".rpm-counter-number").html(``);
-            $(".speed-counter-number").html("");
-            if (action === 6) {
-              introduction.ending();
-            }
-            clearInterval(intervals.universalMoving);
-            clearInterval(intervals.everyCarMove);
-          } else {
-            alert("Двигун можна виключити тільки при нейтральній передачі");
-          }
-        }
-      },
-      setHtmlCounters() {
-        myCar.spd = Math.round(myCar.spd);
-        $(".rpm-counter-number").html(`${myCar.rpm}RPM`);
-        $(".speed-counter-number").html(`${myCar.spd}KM/H`);
-        $(".rpm-counter").css({
-          transform: `rotate(${myCar.rpm * 0.027 - 45}deg)`,
-        });
-        $(".speed-counter").css({
-          transform: `rotate(${myCar.spd - 45}deg)`,
-        });
-      },
-    },
-  }),
-  firstRaceCar = new EnemyCar(enemyStats);
-enemyStats.maxRpm = 9000;
-enemyStats.rpm = 4000;
-const secondRaceCar = new EnemyCar(enemyStats);
-enemyStats.maxRpm = 10000;
-enemyStats.rpm = 8000;
-const finalRaceCar = new EnemyCar(enemyStats);
+const myCar = new MyCar(),
+  firstRaceCar = new EnemyCar(2000, 8000);
+const secondRaceCar = new EnemyCar(4000, 9000);
+const finalRaceCar = new EnemyCar(8000, 10000);
 const enemyCars = {
   array: [firstRaceCar, secondRaceCar, finalRaceCar],
   index: 0,
@@ -315,3 +292,4 @@ function set60msInterval() {
   }, 60);
 }
 export { myCar, firstRaceCar, secondRaceCar, finalRaceCar, enemyCars };
+console.log(firstRaceCar);
