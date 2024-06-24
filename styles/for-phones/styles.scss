@@ -27,6 +27,12 @@ div.background {
   bottom: unset;
   left: -3vh;
 }
+div.gear img,
+.pedal,
+#useTheEngine,
+.changeScreen button {
+  cursor: pointer;
+}
 div.gear {
   &s-block {
     align-items: center;
@@ -39,7 +45,6 @@ div.gear {
     align-self: center;
     grid-column: 2/3;
     img {
-      cursor: pointer;
       transition: 0.5s;
       width: setSizeWithMath(100, 1080, 100vh);
       &:active {
@@ -67,7 +72,6 @@ div.gear {
 }
 .pedal {
   width: 15vh;
-  cursor: pointer;
   align-self: center;
   justify-self: center;
   img {
@@ -84,7 +88,6 @@ div.gear {
   color: white;
   border: setSizeWithMath(5, 1080, 100vh) dashed white;
   font-size: setSizeWithMath(20, 1080, 100vh);
-  cursor: pointer;
   grid-column: 4/5;
   height: 30%;
   align-self: center;

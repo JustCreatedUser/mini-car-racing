@@ -7,8 +7,12 @@ $windowSize: 640;
   padding: 0;
   box-sizing: border-box;
 }
-button[type="submit"] {
+button[type="submit"],
+.cover label,
+.page label {
   cursor: pointer;
+}
+button[type="submit"] {
   color: red;
   font-size: setSizeWithMath(25, $windowSize, 100vh);
   border: dashed 1px black;
@@ -59,7 +63,6 @@ $form-width: math.div($form-height, 9) * 7;
     position: absolute;
     display: block;
     align-self: end;
-    cursor: pointer;
     width: 100%;
     height: 100%;
   }
@@ -70,7 +73,6 @@ $form-width: math.div($form-height, 9) * 7;
     padding: setSizeWithMath(5, $windowSize, 100vh)
       setSizeWithMath(20, $windowSize, 100vh);
     position: absolute;
-    cursor: pointer;
   }
 }
 .back-cover {

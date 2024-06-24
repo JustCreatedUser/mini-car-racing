@@ -23,6 +23,13 @@ div.background {
   left: -3vh;
 }
 
+div.gear img,
+.pedal,
+#useTheEngine,
+.changeScreen button {
+  cursor: pointer;
+}
+
 div.gears-block {
   align-items: center;
   display: flex;
@@ -35,7 +42,6 @@ div.gears-block {
   grid-column: 2/3;
 }
 div.gears-block img {
-  cursor: pointer;
   transition: 0.5s;
   width: 9.2592592593vh;
 }
@@ -62,7 +68,6 @@ div.gear-counter {
 
 .pedal {
   width: 15vh;
-  cursor: pointer;
   align-self: center;
   justify-self: center;
 }
@@ -80,7 +85,6 @@ div.gear-counter {
   color: white;
   border: 0.462962963vh dashed white;
   font-size: 1.8518518519vh;
-  cursor: pointer;
   grid-column: 4/5;
   height: 30%;
   align-self: center;
