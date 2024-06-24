@@ -93,12 +93,16 @@ const music: Imusic = {
           music.cheaterSong,
           music.finalSong,
         ].reverse();
+
         music.songS?.forEach((sonG) => {
           if (sonG != undefined && sonG.currentTime == sonG.duration) {
             switch (sonG) {
               case music.finalSong:
               case music.cheaterSong:
-                sonG = undefined;
+                sonG == music.finalSong
+                  ? (music.finalSong = undefined)
+                  : (music.cheaterSong = undefined);
+
                 if (music.song) {
                   music.song.currentTime = 0;
                   music.song.play();
@@ -145,6 +149,6 @@ const music: Imusic = {
     });
   },
 };
-music.index = Math.round(Math.random() * music.songsList.length);
+music.index = Math.round(Math.random() * music.songsList.length - 1);
 music.songS = [music.song, music.cheaterSong, music.finalSong].reverse();
 export { music };
