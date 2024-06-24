@@ -239,9 +239,6 @@ export const secondaryFunctions = {
     } else {
       functions = ["mousedown", "mouseup"];
     }
-    let deccelerationPedal = document.getElementById("#deccelerationPedal");
-    let useTheEngine = document.getElementById("#useTheEngine");
-    let accelerationPedal = document.getElementById("#accelerationPedal");
     $("#gearUpButton").on(functions[0], () => {
       if (variables.isEngineWorking) {
         gearFunctions.up.mechanism();
@@ -258,7 +255,7 @@ export const secondaryFunctions = {
         !myCar.decceleration &&
         !myCar.acceleration
       ) {
-        (deccelerationPedal as HTMLElement).style.transform = "rotateX(1deg)";
+        $("#deccelerationPedal")[0].style.transform = "rotateX(1deg)";
         if (
           myCar.moveDirection != "decceleration" &&
           variables.isEngineWorking &&
@@ -271,7 +268,7 @@ export const secondaryFunctions = {
     });
     $("#deccelerationPedal").on(functions[1], () => {
       if (myCar.decceleration) {
-        (deccelerationPedal as HTMLElement).style.transform = "rotateX(0deg)";
+        $("#deccelerationPedal")[0].style.transform = "rotateX(0deg)";
         myCar.decceleration = false;
         if (myCar.moveDirection !== 0) {
           myCar.moveDirection = 0;
@@ -282,7 +279,7 @@ export const secondaryFunctions = {
     $("#accelerationPedal").on(functions[0], () => {
       if (!myCar.acceleration && !myCar.decceleration) {
         myCar.acceleration = true;
-        (accelerationPedal as HTMLElement).style.transform = "rotateX(1deg)";
+        $("#accelerationPedal")[0].style.transform = "rotateX(1deg)";
         if (
           myCar.moveDirection != "acceleration" &&
           !variables.isGamePaused &&
@@ -295,7 +292,7 @@ export const secondaryFunctions = {
     });
     $("#accelerationPedal").on(functions[1], () => {
       if (variables.action > 1 && myCar.acceleration) {
-        (accelerationPedal as HTMLElement).style.transform = "rotateX(0deg)";
+        $("#accelerationPedal")[0].style.transform = "rotateX(0deg)";
         myCar.acceleration = false;
         rpmFunctions.inertiaMechanism();
         myCar.exhaust();
@@ -306,7 +303,7 @@ export const secondaryFunctions = {
       }
     });
 
-    (useTheEngine as HTMLElement).addEventListener(
+    $("#useTheEngine")[0].addEventListener(
       functions[0],
       () => {
         myCar.fns.useTheEngine();
