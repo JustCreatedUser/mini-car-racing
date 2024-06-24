@@ -233,7 +233,7 @@ export const secondaryFunctions = {
     }
     $(".phone-counters").append(setImg("a", "5/6"));
     $(".phone-counters").prepend(setImg("de", "1/2"));
-    let functions;
+    let functions: Array<string>;
     if (variables.device == "phone") {
       functions = ["touchstart", "touchend"];
     } else {
@@ -767,7 +767,9 @@ export const secondaryFunctions = {
           "Ви впевнені? Управління потім можна буде змінити в меню паузи"
         );
         if (confirmation) {
-          if ($("#choose-device").val() != "computer") {
+          let currentOption: string | undefined = variables.device;
+
+          if (!currentOption && $("#choose-device").val() != "computer") {
             secondaryFunctions.setStylesForPhone();
           }
           let arr = variables.currentWindows.split("-");
@@ -779,10 +781,12 @@ export const secondaryFunctions = {
           $(".device-changing-popup").remove();
           permission = true;
           devicePopupPositions[1] = 0;
-
-          secondaryFunctions.begin(permission);
+          if (!currentOption) {
+            secondaryFunctions.begin(permission);
+          }
           localStorage.setItem("device", variables.device);
         }
+
         if (restart) {
           location.reload();
         }
