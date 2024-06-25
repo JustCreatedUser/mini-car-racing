@@ -1,14 +1,31 @@
 //Функції по створенню поворотів
 "use strict";
 import { myCar } from "./cars.js";
-import { music } from "../otherJs/music.js";
+import { music } from "../other/music.js";
 import { chapters, finalRace } from "../story.js";
-import { secondaryFunctions } from "../otherJs/secondary.js";
-const turns = {
+import { secondaryFunctions } from "../other/secondary.js";
+import { variables, changes, permissions } from "../other/variables.js";
+interface Iturn {
+  [key: string]: undefined | any;
+}
+interface Iturns {
+  readonly randomize: () => void;
+  readonly start: () => void;
+  readonly end: () => void;
+  readonly announce: () => void;
+  readonly manage: () => void;
+  array: Array<Iturn>;
+  index: number;
+  isRightNow: boolean | "almost";
+  endPosition: number | undefined;
+  startPosition: number | undefined;
+}
+
+const turns: Iturns = {
   randomize() {
     turns.array = [];
     let turnAmount;
-    switch (progress) {
+    switch (variables.progress) {
       case "secondRace":
         turnAmount = 4;
         break;
@@ -20,16 +37,16 @@ const turns = {
         break;
     }
     for (let i = 0; i < turnAmount; i++) {
-      let turn = {
-        type: undefined,
+      let turn: Iturn = {
+        type: false,
         maxSpeed: undefined,
         distanceToIt: undefined,
         distanceOfTurning: undefined,
         direction: undefined,
         distanceAfterTurn: undefined,
       };
-      let difficulty;
-      switch (progress) {
+      let difficulty: number = 0;
+      switch (variables.progress) {
         case "firstRace":
           difficulty = 0;
           break;
@@ -80,62 +97,63 @@ const turns = {
     if (myCar.spd <= maxSpeed) {
       turns.isRightNow = true;
       music.changeVolume(1);
-      car.style.transition = "2s linear";
+      variables.car.style.transition = "2s linear";
       switch (type) {
         case "Різкий":
-          turnValue = 15;
-          additionalMarginForTurn = window.innerWidth / 4.8;
+          variables.turnValue = 15;
+          variables.additionalMarginForTurn = window.innerWidth / 4.8;
           break;
         case "Середній":
-          turnValue = 11;
-          additionalMarginForTurn = window.innerWidth / 6.2;
+          variables.turnValue = 11;
+          variables.additionalMarginForTurn = window.innerWidth / 6.2;
           break;
         case "Плавний":
-          turnValue = 7;
-          additionalMarginForTurn = window.innerWidth / 18.9;
+          variables.turnValue = 7;
+          variables.additionalMarginForTurn = window.innerWidth / 18.9;
           break;
       }
       switch (direction) {
         case "right":
-          turnValue *= -1;
-          additionalMarginForTurn *= -1;
+          variables.turnValue *= -1;
+          variables.additionalMarginForTurn *= -1;
           break;
       }
       $(".background").css({
-        transform: `rotateY(${turnValue}deg) `,
+        transform: `rotateY(${variables.turnValue}deg) `,
       });
       turns.endPosition =
-        backgroundPositionX + distanceOfTurning * distanceRatio;
+        variables.backgroundPositionX +
+        distanceOfTurning * variables.distanceRatio;
     } else {
       secondaryFunctions.gameOver("Ти не маєш розганятись в повороті!");
     }
   },
   end() {
-    additionalMarginForTurn = 0;
-    turnValue = 0;
+    variables.additionalMarginForTurn = 0;
+    variables.turnValue = 0;
     turns.isRightNow = false;
     turns.index++;
-    guideBlockText.textContent = "ЖЕНИ ДАЛІ!";
-    car.style.marginLeft = 0;
+    variables.guideBlockText.textContent = "ЖЕНИ ДАЛІ!";
+    variables.car.style.marginLeft = "0";
     $(".background").css({
       translate: "0",
       transform: "rotateY(0) rotateX(0) rotate(0deg)",
     });
     if (turns.index !== turns.array.length && turns.array.length != 0) {
       turns.startPosition =
-        backgroundPositionX +
-        turns.array[turns.index].distanceAfterTurn * distanceRatio;
+        variables.backgroundPositionX +
+        turns.array[turns.index].distanceAfterTurn * variables.distanceRatio;
     }
   },
   announce() {
     if (
       turns.array.length != 0 &&
-      !finish &&
+      !variables.finish &&
       turns.index < turns.array.length
     ) {
       secondaryFunctions.announceFn(
         turns.array[turns.index].type.toUpperCase() + " ПОВОРОТ",
-        () => {
+        (): void => {
           let allowedToTurn = false;
           if (changes.firstRace.firstTurnExplanation) {
             allowedToTurn = true;
@@ -146,18 +164,18 @@ const turns = {
           $(".turn-speed").text(`${turns.array[turns.index].maxSpeed}km/h`);
           $(".turn-distance").text(`${turns.array[turns.index].distanceToIt}m`);
           setTimeout(() => {
-            announcement.style.opacity = 1;
-            announcement.style.zIndex = 10;
+            variables.$announcement.style.opacity = "1";
+            variables.$announcement.style.zIndex = "10";
             setTimeout(() => {
               $(".pause").css("display", "flex");
               permissions.toPause = true;
-              announcement.style.opacity = 0;
-              announcement.style.zIndex = 0;
+              variables.$announcement.style.opacity = "0";
+              variables.$announcement.style.zIndex = "0";
               setTimeout(() => {
-                announcement.remove();
+                variables.$announcement.remove();
                 if (allowedToTurn) {
                   changes.movingPause = false;
-                  chapters[progress].startTurning();
+                  (chapters as any)[variables.progress].startTurning();
                 }
               }, 1000);
             }, 2000);
@@ -169,33 +187,40 @@ const turns = {
   manage() {
     if (
       turns.array.length != 0 &&
+      turns.endPosition &&
       turns.isRightNow === true &&
       myCar.spd > turns.array[turns.index].maxSpeed &&
-      backgroundPositionX > turns.endPosition
+      variables.backgroundPositionX > turns.endPosition
     ) {
       myCar.spd = 0;
       secondaryFunctions.gameOver("Ти не маєш розганятись в повороті!");
     } else if (
+      turns.endPosition &&
       turns.isRightNow === true &&
-      backgroundPositionX <= turns.endPosition
+      variables.backgroundPositionX <= turns.endPosition
     ) {
       turns.end();
       turns.endPosition = undefined;
       if (turns.index == turns.array.length) {
-        chapters[progress].comingToFinish();
+        (chapters as any)[variables.progress].comingToFinish();
       }
     } else if (
       (turns.isRightNow === false &&
         turns.startPosition == undefined &&
-        !finish) ||
-      (turns.isRightNow === false && backgroundPositionX <= turns.startPosition)
+        !variables.finish) ||
+      (turns.isRightNow === false &&
+        turns.startPosition &&
+        variables.backgroundPositionX <= turns.startPosition)
     ) {
       if (
-        (progress == "finalRace" && finalRace.changes.allowedToTurn) ||
-        (progress == "secondRace" && changes.secondRace.allowedToTurn) ||
-        (changes.firstRace.firstTurnExplanation && progress == "firstRace")
+        (variables.progress == "finalRace" &&
+          finalRace.changes.allowedToTurn) ||
+        (variables.progress == "secondRace" &&
+          changes.secondRace.allowedToTurn) ||
+        (changes.firstRace.firstTurnExplanation &&
+          variables.progress == "firstRace")
       ) {
-        if (chapters[progress].changes.startRace) {
+        if ((chapters as any)[variables.progress].changes.startRace) {
           turns.startPosition = undefined;
           turns.announce();
         }
@@ -203,9 +228,9 @@ const turns = {
     }
   },
   array: [],
-  index: undefined,
+  index: 0,
   isRightNow: false,
-  endPosition: 0,
-  startPosition: 0,
+  endPosition: undefined,
+  startPosition: undefined,
 };
 export { turns };

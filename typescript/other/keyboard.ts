@@ -5,6 +5,7 @@ import { myCar } from "../mechanisms/cars.js";
 import { gearFunctions } from "../mechanisms/gearFunctions.js";
 import { rpmFunctions } from "../mechanisms/rpmFunctions.js";
 import { secondaryFunctions } from "./secondary.js";
+import { variables, permissions } from "./variables.js";
 export const keyboard = {
   accelerate: "arrowup",
   deccelerate: "arrowdown",
@@ -15,17 +16,18 @@ export const keyboard = {
   listenMusic: "m",
 };
 $(".keyName").click(function () {
-  if (!choosingKeysMode) {
-    choosingKeysMode = true;
-    keyToChoose = $(this)[0].classList[1];
+  if (!variables.choosingKeysMode) {
+    variables.choosingKeysMode = true;
+    variables.keyToChoose = $(this)[0].classList[1] as keyof typeof keyboard;
     $(this).text("Нажми кнопку");
-    keyboard[keyToChoose] = undefined;
+    keyboard[variables.keyToChoose as keyof typeof keyboard] = undefined;
   }
 });
 $(".reset-keyboard").click(function () {
   let response = confirm("Бажаєте скинути поточне управління до стандарту?");
   if (response) {
-    for (const key in keyboard) {
+    let key: keyof typeof keyboard;
+    for (key in keyboard) {
       let text;
       switch (key) {
         case "accelerate":
@@ -46,7 +48,7 @@ $(".reset-keyboard").click(function () {
         case "goToMenu":
           text = "escape";
           break;
-        case "music":
+        case "listenMusic":
           text = "m";
           break;
       }
@@ -56,8 +58,8 @@ $(".reset-keyboard").click(function () {
   }
   localStorage.setItem("mini-car-racing-keyboard", JSON.stringify(keyboard));
 });
-function keyDown(e) {
-  if (!choosingKeysMode && device == "computer") {
+function keyDown(e: KeyboardEvent) {
+  if (!variables.choosingKeysMode && variables.device == "computer") {
     let keyName;
     if (e.code.includes("Key")) {
       keyName = e.code.split("Key")[1].toLowerCase();
@@ -72,8 +74,8 @@ function keyDown(e) {
           myCar.acceleration = true;
           if (
             myCar.moveDirection != "acceleration" &&
-            !isGamePaused &&
-            isEngineWorking &&
+            !variables.isGamePaused &&
+            variables.isEngineWorking &&
             permissions.forMoreRpm
           ) {
             myCar.moveDirection = `acceleration`;
@@ -81,10 +83,14 @@ function keyDown(e) {
         }
         break;
       case keyboard.deccelerate:
-        if (isEngineWorking && !myCar.decceleration && !myCar.acceleration) {
+        if (
+          variables.isEngineWorking &&
+          !myCar.decceleration &&
+          !myCar.acceleration
+        ) {
           if (
             myCar.moveDirection != "decceleration" &&
-            isEngineWorking &&
+            variables.isEngineWorking &&
             permissions.forLessRpm
           ) {
             myCar.moveDirection = `decceleration`;
@@ -96,12 +102,12 @@ function keyDown(e) {
         myCar.fns.useTheEngine();
         break;
       case keyboard.gearUp:
-        if (isEngineWorking) {
+        if (variables.isEngineWorking) {
           gearFunctions.up.mechanism();
         }
         break;
       case keyboard.gearDown:
-        if (myCar.gear != 0 && isEngineWorking) {
+        if (myCar.gear != 0 && variables.isEngineWorking) {
           gearFunctions.down.mechanism();
         }
         break;
@@ -112,7 +118,7 @@ function keyDown(e) {
         music.listenToMusic();
         break;
     }
-  } else if (device == "computer") {
+  } else if (variables.device == "computer") {
     let keyExists = Object.values(keyboard).filter(
       (el) => el == e.key.toLowerCase()
     );
@@ -128,18 +134,22 @@ function keyDown(e) {
     } else {
       name = e.key;
     }
-    $("." + keyToChoose).text(name.toLowerCase());
-    keyboard[keyToChoose] = name.toLowerCase();
-    keyToChoose = undefined;
-    choosingKeysMode = false;
+    $("." + variables.keyToChoose).text(name.toLowerCase());
+    keyboard[variables.keyToChoose] = name.toLowerCase();
+    variables.keyToChoose = undefined;
+    variables.choosingKeysMode = false;
     localStorage.setItem("mini-car-racing-keyboard", JSON.stringify(keyboard));
   }
 }
-function keyUp(e) {
-  if (device == "computer") {
+function keyUp(e: KeyboardEvent) {
+  if (variables.device == "computer") {
     let keyName =
       e.code == "Space" ? e.code.toLowerCase() : e.key.toLowerCase();
-    if (keyName == keyboard.accelerate && action > 1 && myCar.acceleration) {
+    if (
+      keyName == keyboard.accelerate &&
+      variables.action > 1 &&
+      myCar.acceleration
+    ) {
       myCar.acceleration = false;
       rpmFunctions.inertiaMechanism();
       myCar.exhaust();

@@ -1,8 +1,9 @@
 //Функції по перемиканню передач авто
 "use strict";
-import { myCar } from "../mechanisms/cars.js";
-import { rpmFunctions } from "../mechanisms/rpmFunctions.js";
+import { myCar } from "./cars.js";
+import { rpmFunctions } from "./rpmFunctions.js";
 import { chapters, introduction } from "../story.js";
+import { variables, changes, intervals } from "../other/variables.js";
 export const gearFunctions = {
   up: {
     gearUp(car = myCar) {
@@ -31,7 +32,7 @@ export const gearFunctions = {
               }
               $(".rpm-counter").css("transition", "60ms");
             }, 500);
-            $(".gear-counter").html(myCar.gear);
+            $(".gear-counter").html(`${myCar.gear}`);
             rpmFunctions.setHtmlColor(2);
             break;
 
@@ -51,13 +52,13 @@ export const gearFunctions = {
         car.rpm = 800;
         car.spd = car.rpm * car.gearMultiplier;
         car.fns.setHtmlCounters();
-        $(".gear-counter").html(car.gear);
+        $(".gear-counter").html(`${car.gear}`);
         car.noClutchMode = true;
       }
     },
     startMoving(car = myCar) {
       let currentRpm = car.rpm / 4 > 800 ? car.rpm / 4 : 800;
-      switch (progress) {
+      switch (variables.progress) {
         case "introduction":
           changes.introduction.startRace = true;
           break;
@@ -92,7 +93,7 @@ export const gearFunctions = {
             }
           }, 500);
           rpmFunctions.setHtmlColor(2);
-          $(".gear-counter").html(myCar.gear);
+          $(".gear-counter").html(`${myCar.gear}`);
           break;
         default:
           car.rpm = currentRpm;
@@ -112,7 +113,7 @@ export const gearFunctions = {
         gearFunctions.up.gearUp(car);
       } else {
         gearFunctions.up.startMoving(car);
-        switch (progress) {
+        switch (variables.progress) {
           case "introduction":
             introduction.everyTip.accelerationExplanation();
             break;
@@ -122,11 +123,11 @@ export const gearFunctions = {
         }
       }
     },
-    mechanism(car = myCar) {
-      if (car.gear !== 5 && action > 2 && !isGamePaused) {
+    mechanism(car: any = myCar) {
+      if (car.gear !== 5 && variables.action > 2 && !variables.isGamePaused) {
         if (
-          progress != "introduction" &&
-          !chapters[progress].changes.startRace
+          variables.progress != "introduction" &&
+          !(chapters as any)[variables.progress].changes.startRace
         ) {
           return;
         }
@@ -152,7 +153,7 @@ export const gearFunctions = {
   },
   down: {
     mechanism(car = myCar) {
-      if (action > 4 && !isGamePaused) {
+      if (variables.action > 4 && !variables.isGamePaused) {
         if (car == myCar) {
           clearInterval(intervals.rpmDecreaseAnimation);
           clearInterval(intervals.rpmIncreaseAnimation);
@@ -164,17 +165,17 @@ export const gearFunctions = {
         car.exhaust();
         gearFunctions.gearMultiplierSetting(1, car);
         gearFunctions.down.callOtherFunctions(car);
-        switch (progress) {
+        switch (variables.progress) {
           case "introduction":
             introduction.everyTip.deccelerationExplanation();
             break;
         }
       }
     },
-    callOtherFunctions(car) {
-      if (hasChanged) {
+    callOtherFunctions(car: any) {
+      if (variables.hasChanged) {
         gearFunctions.down.gearDown(car);
-        switch (progress) {
+        switch (variables.progress) {
           case "introduction":
             introduction.everyTip.gearDownExplanation();
             break;
@@ -191,7 +192,7 @@ export const gearFunctions = {
         car.noClutchMode = true;
       }
     },
-    endMoving(car) {
+    endMoving(car: any) {
       car.gear = 0;
       car.gearMultiplier = 0;
       car.spd = 0;
@@ -202,7 +203,7 @@ export const gearFunctions = {
           break;
       }
     },
-    gearDown(car) {
+    gearDown(car: any) {
       let currentRpm = Math.round(car.spd / car.gearMultiplier);
       if (currentRpm < car.maxRpm) {
         let averageRpmIncrease = Math.round((currentRpm - car.rpm) / 10);
@@ -249,19 +250,19 @@ export const gearFunctions = {
       }
       switch (car) {
         case myCar:
-          $(".gear-counter").html(myCar.gear);
+          $(".gear-counter").html(`${myCar.gear}`);
           break;
       }
     },
   },
-  gearMultiplierSetting(direction, car = myCar) {
+  gearMultiplierSetting(direction: 1 | 2, car = myCar) {
     switch (direction) {
       case 1:
         if (car.gear > 1) {
           car.gear--;
-          hasChanged = true;
+          variables.hasChanged = true;
         } else {
-          hasChanged = false;
+          variables.hasChanged = false;
         }
         switch (car.gear) {
           case 1:
@@ -300,4 +301,5 @@ export const gearFunctions = {
         break;
     }
   },
+  color: `white`,
 };

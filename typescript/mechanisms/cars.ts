@@ -3,6 +3,12 @@
 import { gearFunctions } from "./gearFunctions.js";
 import { rpmFunctions } from "./rpmFunctions.js";
 import {
+  variables,
+  intervals,
+  permissions,
+  changes,
+} from "../other/variables.js";
+import {
   firstRace,
   finalRace,
   secondRace,
@@ -10,21 +16,24 @@ import {
   chapters,
 } from "../story.js";
 import { turns } from "./turningFunctions.js";
+type moveDirection = 0 | "acceleration" | "decceleration";
 class Car {
-  rpm = 0;
-  gear = 0;
-  spd = 0;
-  gearMultiplier = 0;
-  noClutchMode = true;
-  degrees = 0;
-  rotation = 200;
-  moveDirection = 0;
-  acceleration = false;
-  decceleration = false;
+  rpm: number = 0;
+  gear: number = 0;
+  spd: number = 0;
+  maxRpm?: number;
+  gearMultiplier: number = 0;
+  noClutchMode: boolean = true;
+  degrees: number = 0;
+  rotation: number = 200;
+  moveDirection: moveDirection = 0;
+  acceleration: boolean = false;
+  decceleration: boolean = false;
+  itsFlame?: any;
   constructor() {}
   exhaust() {
     $(this.itsFlame).css("opacity", "1");
-    flame = setTimeout(() => {
+    variables.flame = setTimeout(() => {
       $(this.itsFlame).css({ opacity: "0" });
     }, 500);
   }
@@ -36,19 +45,19 @@ class Car {
   }
 }
 class MyCar extends Car {
-  wheel = ".my-wheel";
-  itsFlame = ".my-flame";
-  className = `.car`;
-  maxRpm = 10000;
-  gearShift = undefined;
-  noClutchMode = false;
+  wheel: string = ".my-wheel";
+  itsFlame: string = ".my-flame";
+  className: string = `.car`;
+  maxRpm: number = 10000;
+  gearShift: undefined | number = undefined;
+  noClutchMode: boolean = false;
   fns = {
-    useTheEngine(isForced = undefined) {
+    useTheEngine(isForced: boolean | undefined = undefined): void {
       if (isForced) {
-        if (device != "computer") {
+        if (variables.device != "computer") {
           $("#useTheEngine").css("background-color", "red");
         }
-        isEngineWorking = false;
+        variables.isEngineWorking = false;
         gearFunctions.color = "white";
         $(".rpm-counter_center").css("background-color", gearFunctions.color);
         $(".rpm-counter").css({
@@ -64,12 +73,16 @@ class MyCar extends Car {
         clearInterval(intervals.everyCarMove);
         return;
       }
-      if (!isEngineWorking && action > 0 && !isGamePaused) {
+      if (
+        !variables.isEngineWorking &&
+        variables.action > 0 &&
+        !variables.isGamePaused
+      ) {
         myCar.gear > 0
           ? alert("Запуск можливий тільки при нейтральнй передачі")
           : "";
         if (myCar.gear === 0) {
-          if (device != "computer") {
+          if (variables.device != "computer") {
             $("#useTheEngine").css("background-color", "green");
           }
           gearFunctions.color = "blue";
@@ -77,14 +90,14 @@ class MyCar extends Car {
           myCar.rpm = 800;
           myCar.gear = 0;
           myCar.gearMultiplier = 0;
-          isEngineWorking = true;
+          variables.isEngineWorking = true;
           $(".rpm-counter").css({
             transform: `rotate(${myCar.rpm * 0.027 - 45}deg)`,
           });
           $(".rpm-counter-number").html(`${myCar.rpm}RPM`);
           $(".speed-counter-number").html(`0KM/H`);
 
-          switch (progress) {
+          switch (variables.progress) {
             case "introduction":
               introduction.everyTip.engine();
               break;
@@ -104,12 +117,12 @@ class MyCar extends Car {
           set240msInterval();
           set60msInterval();
         }
-      } else if (!isGamePaused && permissions.toOff_engine) {
+      } else if (!variables.isGamePaused && permissions.toOff_engine) {
         if (myCar.gear === 0) {
-          if (device != "computer") {
+          if (variables.device != "computer") {
             $("#useTheEngine").css("background-color", "red");
           }
-          isEngineWorking = false;
+          variables.isEngineWorking = false;
           gearFunctions.color = "white";
           myCar.rpm = 0;
           $(".rpm-counter_center").css("background-color", gearFunctions.color);
@@ -118,7 +131,7 @@ class MyCar extends Car {
           });
           $(".rpm-counter-number").html(``);
           $(".speed-counter-number").html("");
-          if (action === 6) {
+          if (variables.action === 6) {
             introduction.ending();
           }
           clearInterval(intervals.universalMoving);
@@ -128,7 +141,7 @@ class MyCar extends Car {
         }
       }
     },
-    setHtmlCounters() {
+    setHtmlCounters(): void {
       myCar.spd = Math.round(myCar.spd);
       $(".rpm-counter-number").html(`${myCar.rpm}RPM`);
       $(".speed-counter-number").html(`${myCar.spd}KM/H`);
@@ -153,7 +166,7 @@ class EnemyCar extends Car {
     overtakeFunction(enemyCar = enemyCars.array[enemyCars.index]) {
       let move = Math.round(enemyCar.spd - myCar.spd);
       enemyCar.position +=
-        device == "computer"
+        variables.device == "computer"
           ? move * (window.innerHeight / 540)
           : (move * (window.innerHeight / 540)) / 1.54;
       $(enemyCar.className).css("margin-left", `${enemyCar.position}px`);
@@ -162,14 +175,17 @@ class EnemyCar extends Car {
       gearFunctions.up.mechanism(car);
     },
   };
-  constructor(rpm, maxRpm) {
+  constructor(rpm: number, maxRpm: number) {
     super();
     this.rpm = rpm;
     this.maxRpm = maxRpm;
   }
   handleBehaviour() {
     if (turns.array.length != 0) {
-      if (progress != "introduction" && chapters[progress].changes.startRace) {
+      if (
+        variables.progress != "introduction" &&
+        (chapters as any)[variables.progress].changes.startRace
+      ) {
         if (
           turns.isRightNow != false &&
           this.spd < turns.array[turns.index].maxSpeed &&
@@ -251,18 +267,21 @@ const enemyCars = {
 function set240msInterval() {
   let myCarPosition = 0;
   let car = myCar;
-  intervals.universalMoving = setInterval(() => {
-    if (!changes.movingPause && !isGamePaused) {
+  intervals.universalMoving = setInterval((): void => {
+    if (!changes.movingPause && !variables.isGamePaused) {
       if (myCar.gear != 0) {
         car.degrees += car.rotation;
         $(car.wheel).css("transform", `rotate(${car.degrees}deg)`);
       }
-      if (!finish) {
-        backgroundPositionX -= myCar.spd * (window.innerHeight / 540);
-        raceBackgroundPositionX -= myCar.spd / (window.innerHeight / 135);
-        race.style.backgroundPositionX = raceBackgroundPositionX + "px";
-        road.style.backgroundPositionX = backgroundPositionX + "px";
-        switch (progress) {
+      if (!variables.finish) {
+        variables.backgroundPositionX -= myCar.spd * (window.innerHeight / 540);
+        variables.raceBackgroundPositionX -=
+          myCar.spd / (window.innerHeight / 135);
+        variables.race.style.backgroundPositionX =
+          variables.raceBackgroundPositionX + "px";
+        variables.road.style.backgroundPositionX =
+          variables.backgroundPositionX + "px";
+        switch (variables.progress) {
           case "introduction":
             introduction.everyTip.reachTheTarget();
             break;
@@ -274,7 +293,10 @@ function set240msInterval() {
           "margin-left": `${myCarPosition}px`,
         });
       }
-      if (chapters[progress].changes.startRace && progress != "introduction") {
+      if (
+        (chapters as any)[variables.progress].changes.startRace &&
+        variables.progress != "introduction"
+      ) {
         let enemycar = enemyCars.array[enemyCars.index];
         enemycar.degrees += enemycar.rotation;
         $(enemycar.wheel).css("transform", `rotate(${enemycar.degrees}deg)`);
@@ -286,10 +308,12 @@ function set240msInterval() {
 function set60msInterval() {
   intervals.everyCarMove = setInterval(() => {
     rpmFunctions.handleAllMoves(myCar);
-    if (chapters[progress].changes.startRace && progress != "introduction") {
+    if (
+      (chapters as any)[variables.progress].changes.startRace &&
+      variables.progress != "introduction"
+    ) {
       rpmFunctions.handleAllMoves(enemyCars.array[enemyCars.index]);
     }
   }, 60);
 }
 export { myCar, firstRaceCar, secondRaceCar, finalRaceCar, enemyCars };
-console.log(firstRaceCar);

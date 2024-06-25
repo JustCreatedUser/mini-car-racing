@@ -1,5 +1,5 @@
 "use strict";
-import { music } from "./otherJs/music.js";
+import { music } from "./other/music.js";
 import {
   enemyCars,
   myCar,
@@ -7,9 +7,14 @@ import {
   firstRaceCar,
   secondRaceCar,
 } from "./mechanisms/cars.js";
-import { secondaryFunctions } from "./otherJs/secondary.js";
-import { keyDown, keyUp } from "./otherJs/keyboard.js";
-import { firstRace } from "./story.js";
+import { secondaryFunctions } from "./other/secondary.js";
+import { keyDown, keyUp } from "./other/keyboard.js";
+import {
+  changes,
+  variables,
+  intervals,
+  permissions,
+} from "./other/variables.js";
 window.document.onkeydown = keyDown;
 window.document.onkeyup = keyUp;
 changes.rewriteEverything = () => {
@@ -39,18 +44,20 @@ changes.rewriteEverything = () => {
   secondRaceCar.rpm = 5000;
   finalRaceCar.rpm = 8000;
   $(".continue-game-button").css("display", "none");
-  car.style.transition = "0";
-  car.style.rotate = "0deg";
-  car.style.marginTop = 0;
-  car.style.boxShadow = "unset";
-  hasChanged = undefined;
-  action = 0;
-  raceBackgroundPositionX = 0;
-  backgroundPositionX = 0;
+  variables.car.style.transition = "0";
+  variables.car.style.rotate = "0deg";
+  variables.car.style.marginTop = "0";
+  variables.car.style.boxShadow = "unset";
+  variables.hasChanged = undefined;
+  variables.action = 0;
+  variables.raceBackgroundPositionX = 0;
+  variables.backgroundPositionX = 0;
   $(".turn-position").css("display", "none");
   $(".my-wheel").css("transform", `rotate(0deg)`);
-  race.style.backgroundPositionX = raceBackgroundPositionX + "px";
-  road.style.backgroundPositionX = backgroundPositionX + "px";
+  variables.race.style.backgroundPositionX =
+    variables.raceBackgroundPositionX + "px";
+  variables.road.style.backgroundPositionX =
+    variables.backgroundPositionX + "px";
   $(".enemy-wheel").css("transform", `rotate(0deg)`);
   myCar.acceleration = false;
   myCar.decceleration = false;
@@ -87,4 +94,4 @@ $(".explanation-content").on(
   ".change-device",
   secondaryFunctions.changeDevice
 );
-window.document.onload = secondaryFunctions.useLocalStorageAndCookies();
+window.onload = secondaryFunctions.useLocalStorageAndCookies;

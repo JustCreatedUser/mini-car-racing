@@ -13,36 +13,40 @@ import { enemyCars, myCar } from "../mechanisms/cars.js";
 import { music } from "./music.js";
 import { turns } from "../mechanisms/turningFunctions.js";
 import { keyboard } from "./keyboard.js";
-let devicePopupPositions = [[0, window.innerWidth, window.innerWidth * 2], 0];
+import { variables, permissions, changes, TotalProgress } from "./variables.js";
+let devicePopupPositions: [Array<number>, number] = [
+  [0, window.innerWidth, window.innerWidth * 2],
+  0,
+];
 export const secondaryFunctions = {
   actionLevelChange() {
     alert("Ти ж розумієш, що перегони без екшену - не перегони!");
   },
   pause() {
-    if (!isGamePaused && permissions.toPause) {
-      currentWindows += "-menu";
+    if (!variables.isGamePaused && permissions.toPause) {
+      variables.currentWindows += "-menu";
       $(".menu").css("display", "flex");
       $(".pause img").css("visibility", "hidden");
       $(".pause").append("<p>&cross;</p>");
-      isGamePaused = true;
+      variables.isGamePaused = true;
       document.body.style.overflowY = "hidden";
     } else {
-      if (currentWindows.includes("gmpause")) {
+      if (variables.currentWindows.includes("gmpause")) {
         document.body.style.overflowY = "scroll";
       }
-      let arr = currentWindows.split("-");
+      let arr = variables.currentWindows.split("-");
       arr.pop();
-      currentWindows = arr.join("-");
+      variables.currentWindows = arr.join("-");
       $(".menu").css("display", "none");
       $(".pause img").css("visibility", "visible");
       $(".pause p").remove();
-      isGamePaused = false;
+      variables.isGamePaused = false;
       $("#choose-info").val("Обери пояснення");
       $(".explanation-content").text("поки нічого");
     }
   },
   useGuideBlockButton() {
-    if (!changes.firstRace.startRace && progress == "firstRace") {
+    if (!changes.firstRace.startRace && variables.progress == "firstRace") {
       music.changeVolume(1);
       firstRace.startRace();
     } else if (!changes.firstRace.continueFirstTurnExplanation) {
@@ -52,20 +56,20 @@ export const secondaryFunctions = {
       changes.firstRace.startRace &&
       changes.firstRace.continueFirstTurnExplanation
     ) {
-      chapters[progress].startTurning();
+      (chapters as any)[variables.progress].startTurning();
       music.changeVolume(1);
       changes.firstRace.firstTurnExplanation = true;
     } else if (
-      (!changes.secondRace.startRace && progress == "secondRace") ||
-      (!changes.finalRace.startRace && progress == "finalRace")
+      (!changes.secondRace.startRace && variables.progress == "secondRace") ||
+      (!changes.finalRace.startRace && variables.progress == "finalRace")
     ) {
       music.changeVolume(1);
-      chapters[progress].startRace();
+      (chapters as any)[variables.progress].startRace();
     }
   },
   returnToMenu() {
     if ($(".gameplay-pause").css("display") == "none" && permissions.toPause) {
-      if (device != "computer") {
+      if (variables.device != "computer") {
         $(".playing-btn").css({ boxShadow: "unset", zIndex: 0 });
       }
       turns.array = [];
@@ -73,12 +77,15 @@ export const secondaryFunctions = {
       myCar.noClutchMode = false;
       $(".gameplay-pause").css({ display: "flex", opacity: 1 });
       $(this).css("visibility", "hidden");
-      guideBlock.style.opacity = "0";
+      variables.guideBlock.style.opacity = "0";
       $(".enemy-position").css("visibility", "hidden");
       $(".turn-position").css("display", "0");
-      race.style.opacity = 0;
+      variables.race.style.opacity = "0";
       setTimeout(() => {
-        changes.rewriteEverything();
+        if (changes.rewriteEverything) {
+          changes.rewriteEverything();
+        }
+
         document.body.style.overflowY = "scroll";
       }, 2000);
       document.body.style.overflowY = "scroll";
@@ -98,22 +105,22 @@ export const secondaryFunctions = {
         borderBottom: "2px solid black",
       });
       $(this).text("Прогрес збережено");
-      switch (totalProgress) {
+      switch (variables.totalProgress) {
         case "firstRace":
-          totalProgress = "secondRace";
+          variables.totalProgress = "secondRace";
           break;
 
         case "introduction":
-          totalProgress = "firstRace";
+          variables.totalProgress = "firstRace";
           break;
         case "secondRace":
-          totalProgress = "finalRace";
+          variables.totalProgress = "finalRace";
           break;
         case "finalRace":
-          totalProgress = "Everything";
+          variables.totalProgress = "Everything";
           break;
       }
-      localStorage.setItem("mini-car-racing-progress", totalProgress);
+      localStorage.setItem("mini-car-racing-progress", variables.totalProgress);
     }
   },
   fastest_speed_cheat() {
@@ -136,7 +143,7 @@ export const secondaryFunctions = {
       if (music.isAllowedToPlay) {
         music.cheaterSong.play();
       }
-      myCar.maxRpm = enemyCars.array[enemyCars.index].maxRpm;
+      myCar.maxRpm = enemyCars.array[enemyCars.index].maxRpm as number;
       alert(
         `ТЕБЕ ЗАРІКРОЛИЛИ! В Тебе тепер ще менше оборотів - ${
           enemyCars.array[enemyCars.index].maxRpm
@@ -181,7 +188,7 @@ export const secondaryFunctions = {
       `);
     $(".keyboard")[0].className = "changeScreen";
     $(".changeScreen button").click(function () {
-      function fullScreen(element) {
+      function fullScreen(element: any) {
         if (element.requestFullscreen) {
           element.requestFullscreen();
         } else if (element.webkitrequestFullscreen) {
@@ -221,35 +228,37 @@ export const secondaryFunctions = {
       '<button id="useTheEngine" class=" playing-btn">ДВИГУН</button>'
     );
 
-    function setImg(param, pos) {
+    function setImg(param: string, pos: string) {
       return `<div id="${param}ccelerationPedal" class="playing-btn pedal" style="grid-column:${pos};"><div style="z-index:1;"></div><img draggable="false" src="./icons-and-images/pedals/${param}cceleration.png"></div>`;
     }
     $(".phone-counters").append(setImg("a", "5/6"));
     $(".phone-counters").prepend(setImg("de", "1/2"));
-
-    console.log(device);
-    let functions;
-    if (device == "phone") {
+    let functions: Array<string>;
+    if (variables.device == "phone") {
       functions = ["touchstart", "touchend"];
     } else {
       functions = ["mousedown", "mouseup"];
     }
     $("#gearUpButton").on(functions[0], () => {
-      if (isEngineWorking) {
+      if (variables.isEngineWorking) {
         gearFunctions.up.mechanism();
       }
     });
     $("#gearDownButton").on(functions[0], () => {
-      if (isEngineWorking && myCar.gear != 0) {
+      if (variables.isEngineWorking && myCar.gear != 0) {
         gearFunctions.down.mechanism();
       }
     });
     $("#deccelerationPedal").on(functions[0], () => {
-      if (isEngineWorking && !myCar.decceleration && !myCar.acceleration) {
-        deccelerationPedal.style.transform = "rotateX(1deg)";
+      if (
+        variables.isEngineWorking &&
+        !myCar.decceleration &&
+        !myCar.acceleration
+      ) {
+        $("#deccelerationPedal")[0].style.transform = "rotateX(1deg)";
         if (
           myCar.moveDirection != "decceleration" &&
-          isEngineWorking &&
+          variables.isEngineWorking &&
           permissions.forLessRpm
         ) {
           myCar.moveDirection = `decceleration`;
@@ -259,7 +268,7 @@ export const secondaryFunctions = {
     });
     $("#deccelerationPedal").on(functions[1], () => {
       if (myCar.decceleration) {
-        deccelerationPedal.style.transform = "rotateX(0deg)";
+        $("#deccelerationPedal")[0].style.transform = "rotateX(0deg)";
         myCar.decceleration = false;
         if (myCar.moveDirection !== 0) {
           myCar.moveDirection = 0;
@@ -270,11 +279,11 @@ export const secondaryFunctions = {
     $("#accelerationPedal").on(functions[0], () => {
       if (!myCar.acceleration && !myCar.decceleration) {
         myCar.acceleration = true;
-        accelerationPedal.style.transform = "rotateX(1deg)";
+        $("#accelerationPedal")[0].style.transform = "rotateX(1deg)";
         if (
           myCar.moveDirection != "acceleration" &&
-          !isGamePaused &&
-          isEngineWorking &&
+          !variables.isGamePaused &&
+          variables.isEngineWorking &&
           permissions.forMoreRpm
         ) {
           myCar.moveDirection = `acceleration`;
@@ -282,8 +291,8 @@ export const secondaryFunctions = {
       }
     });
     $("#accelerationPedal").on(functions[1], () => {
-      if (action > 1 && myCar.acceleration) {
-        accelerationPedal.style.transform = "rotateX(0deg)";
+      if (variables.action > 1 && myCar.acceleration) {
+        $("#accelerationPedal")[0].style.transform = "rotateX(0deg)";
         myCar.acceleration = false;
         rpmFunctions.inertiaMechanism();
         myCar.exhaust();
@@ -293,7 +302,8 @@ export const secondaryFunctions = {
         }
       }
     });
-    useTheEngine.addEventListener(
+
+    $("#useTheEngine")[0].addEventListener(
       functions[0],
       () => {
         myCar.fns.useTheEngine();
@@ -319,7 +329,7 @@ export const secondaryFunctions = {
     let startPermission = false;
     function checkLocalStorageForIssues() {
       let wrongArray = Object.entries(localStorage).filter(
-        (save) => save[1] == "undefined" || save == "null"
+        (save) => save[1] == "undefined" || save[1] == "null"
       );
       wrongArray.forEach((wrongSave) => {
         localStorage.removeItem(wrongSave[0]);
@@ -330,11 +340,11 @@ export const secondaryFunctions = {
       if (!localStorage.getItem("device")) {
         secondaryFunctions.createDeviceChangingPopup(startPermission);
       } else if (localStorage.getItem("device")) {
-        currentWindows = "race";
-        device = localStorage.getItem("device");
+        variables.currentWindows = "race";
+        variables.device = localStorage.getItem("device") as string;
         startPermission = true;
       }
-      if (device != "computer" && device != undefined) {
+      if (variables.device != "computer" && variables.device != undefined) {
         secondaryFunctions.setStylesForPhone();
       }
     }
@@ -344,7 +354,9 @@ export const secondaryFunctions = {
           "У вас відключено файли cookie. Тут вони використовуються для того, щоб запам'ятати те - хочете ви слухати музику, чи ні. Для кращих емоцій вам варто дозволити використання цих файлів"
         );
       } else if (localStorage.getItem("listenedCycle")) {
-        music.listenedCycle = JSON.parse(localStorage.getItem("listenedCycle"));
+        music.listenedCycle = JSON.parse(
+          localStorage.getItem("listenedCycle") as string
+        );
         music.checkListenedSongs("localStorage");
       }
       if ($.cookie("cheatEffect") != undefined) {
@@ -352,7 +364,7 @@ export const secondaryFunctions = {
         music.cheaterSong = new Audio(
           "https://ia600605.us.archive.org/8/items/NeverGonnaGiveYouUp/jocofullinterview41.mp3"
         );
-        myCar.maxRpm = enemyCars.array[enemyCars.index].maxRpm;
+        myCar.maxRpm = enemyCars.array[enemyCars.index].maxRpm as number;
         let cheatEffectTime = Math.round(Number($.cookie("cheatEffect")));
         $(".explanation-content").html(`
       Це пранк, який зменшує обороти до ${myCar.maxRpm}. Цей ефект триватиме <span class="cheat-counter">${cheatEffectTime}</span> сек     ......(А НІЧОГО ВИКОРИСТОВУВАТИ ЧИТИ!!!)
@@ -390,12 +402,13 @@ export const secondaryFunctions = {
     function checkKeyboard() {
       if (
         localStorage.getItem("mini-car-racing-keyboard") &&
-        device == "computer"
+        variables.device == "computer"
       ) {
         let savedKeyboard = JSON.parse(
-          localStorage.getItem("mini-car-racing-keyboard")
+          localStorage.getItem("mini-car-racing-keyboard") as string
         );
-        for (const key in keyboard) {
+        let key: keyof typeof keyboard;
+        for (key in keyboard) {
           keyboard[key] = savedKeyboard[key];
           $("." + key).text(keyboard[key]);
         }
@@ -405,17 +418,19 @@ export const secondaryFunctions = {
     checkDevice();
     checkMusic();
     checkKeyboard();
-    this.begin(startPermission);
+    secondaryFunctions.begin(startPermission);
   },
-  begin(permission) {
+  begin(permission: boolean) {
     if (permission) {
       if (
         localStorage.getItem("mini-car-racing-progress") &&
         localStorage.getItem("mini-car-racing-progress") != "introduction"
       ) {
-        currentWindows = "race-gmpause";
-        totalProgress = localStorage.getItem("mini-car-racing-progress");
-        switch (totalProgress) {
+        variables.currentWindows = "race-gmpause";
+        variables.totalProgress = localStorage.getItem(
+          "mini-car-racing-progress"
+        ) as TotalProgress;
+        switch (variables.totalProgress) {
           case "Everything":
           case "finalRace":
           case "secondRace":
@@ -424,7 +439,7 @@ export const secondaryFunctions = {
             $(".completed-parts .parts").append($(".firstRace-begin"));
             break;
         }
-        switch (totalProgress) {
+        switch (variables.totalProgress) {
           case "Everything":
           case "finalRace":
             $(".finalRace-begin img").remove();
@@ -435,7 +450,7 @@ export const secondaryFunctions = {
             );
             break;
         }
-        if (totalProgress == "Everything") {
+        if (variables.totalProgress == "Everything") {
           $(".completed-parts .parts").append($(".finalRace-begin"));
           $(".uncompleted-parts h3").text("Вже все пройдено...");
           $(".uncompleted-parts").append(
@@ -463,8 +478,8 @@ export const secondaryFunctions = {
       }
     }
   },
-  gameOver(reason) {
-    if (progress == "firstRace") {
+  gameOver(reason: string) {
+    if (variables.progress == "firstRace") {
       changes.firstRace.firstTurnExplanation = false;
       changes.firstRace.continueFirstTurnExplanation = false;
     }
@@ -472,22 +487,22 @@ export const secondaryFunctions = {
     turns.array = [];
     music.changeVolume(0.5);
     permissions.toPause = false;
-    guideBlock.style.opacity = "0";
+    variables.guideBlock.style.opacity = "0";
     $(".pause").css("opacity", "0");
     $(".enemy-position").css("visibility", "hidden");
     $(".turn-position").css("display", "0");
     $(".tunnel").css("left", "100%");
-    race.style.opacity = 0.5;
+    variables.race.style.opacity = "0.5";
     setTimeout(() => {
       changes.movingPause = true;
-      race.style.opacity = 0;
-      guideBlock.style.opacity = 0;
+      variables.race.style.opacity = "0";
+      variables.guideBlock.style.opacity = "0";
       let h1 = document.createElement("h1");
       h1.className = "veryLargeText";
       h1.textContent = "GAME OVER";
       document.body.append(h1);
       setTimeout(() => {
-        changes.rewriteEverything();
+        changes.rewriteEverything ? changes.rewriteEverything() : "";
         h1.textContent = reason;
         setTimeout(() => {
           permissions.toPause = true;
@@ -505,9 +520,9 @@ export const secondaryFunctions = {
         }, 3000);
       }, 2000);
     }, 3000);
-    car.style.transition = "3s";
-    car.style.rotate = "1080deg";
-    car.style.marginTop = document.body.offsetHeight / 2 + "px";
+    variables.car.style.transition = "3s";
+    variables.car.style.rotate = "1080deg";
+    variables.car.style.marginTop = document.body.offsetHeight / 2 + "px";
   },
   selectInfoInMenu() {
     let topic = $("#choose-info").val();
@@ -566,38 +581,41 @@ export const secondaryFunctions = {
     }
   },
   chooseChapter() {
-    let part = $(this)[0].classList[1],
-      continuing,
-      raceIndex;
+    let part: string = $(this)[0].classList[1],
+      continuing: boolean,
+      raceIndex: number;
     switch (part) {
       case "introduction-restart":
         continuing = confirm("Перезапустити вступ?");
         raceIndex = 1;
-        progress = "introduction";
+        variables.progress = "introduction";
         break;
       case "firstRace-begin":
         continuing = confirm("Почати першу гонку?");
         raceIndex = 2;
-        progress = "firstRace";
+        variables.progress = "firstRace";
         enemyCars.index = 0;
         break;
       case "secondRace-begin":
         if (
-          totalProgress == "secondRace" ||
-          totalProgress == "finalRace" ||
-          totalProgress == "Everything"
+          variables.totalProgress == "secondRace" ||
+          variables.totalProgress == "finalRace" ||
+          variables.totalProgress == "Everything"
         ) {
           continuing = confirm("Почати другу гонку?");
-          progress = "secondRace";
+          variables.progress = "secondRace";
           raceIndex = 3;
           enemyCars.index = 1;
         }
         break;
       case "finalRace-begin":
-        if (totalProgress == "finalRace" || totalProgress == "Everything") {
+        if (
+          variables.totalProgress == "finalRace" ||
+          variables.totalProgress == "Everything"
+        ) {
           continuing = confirm("Почати ОСТАННЮ гонку?");
           raceIndex = 4;
-          progress = "finalRace";
+          variables.progress = "finalRace";
           enemyCars.index = 2;
         }
         break;
@@ -614,7 +632,7 @@ export const secondaryFunctions = {
       $(".pause").css("display", "none");
       permissions.toPause = false;
       setTimeout(() => {
-        guideBlock.style.display = "flex";
+        variables.guideBlock.style.display = "flex";
         switch (raceIndex) {
           case 1:
             introduction.beginning();
@@ -623,28 +641,27 @@ export const secondaryFunctions = {
           case 2:
             $("#race").css({ transform: "scale(1.5)", marginLeft: "20vw" });
             firstRace.beginning(
-              firstRace.tip(
-                "Як Бачиш - пора змагатись! Якщо ти забув управління - зайди в меню паузи). Зараз заведи мотор"
-              ),
-              "<div class='enemy-car firstRace'><img src='./icons-and-images/wheel.png' alt='' class='wheel one enemy-wheel'><img src='./icons-and-images/flame.png' class='flame enemy-flame'><img src='./icons-and-images/wheel.png' alt='' class='wheel two enemy-wheel'/><img src='./icons-and-images/cars/firstRace.png' alt='car' class='vehicle enemy-vehicle' /></div>"
+              firstRace.tip,
+              "<div class='enemy-car firstRace'><img src='./icons-and-images/wheel.png' alt='' class='wheel one enemy-wheel'><img src='./icons-and-images/flame.png' class='flame enemy-flame'><img src='./icons-and-images/wheel.png' alt='' class='wheel two enemy-wheel'/><img src='./icons-and-images/cars/firstRace.png' alt='car' class='vehicle enemy-vehicle' /></div>",
+              "Як Бачиш - пора змагатись! Якщо ти забув управління - зайди в меню паузи). Зараз заведи мотор"
             );
             $(".gameplay-pause").css("display", "none");
             break;
           case 3:
             $("#race").css({ transform: "scale(1.5)", marginLeft: "20vw" });
             secondRace.beginning(
-              secondRace.tip(
-                `Хоч тобі і вдалось пройти першу гонку, але тепер противник швидший, а до поворотів треба швидше тормозити. \n все як минулого разу: двигун => обороти => кнопка => відлік => передача вгору`
-              ),
-              "<div class='enemy-car secondRace'><img src='./icons-and-images/wheel.png' alt='' class='wheel one enemy-wheel'><img src='./icons-and-images/flame.png' class='flame enemy-flame'><img src='./icons-and-images/wheel.png' alt='' class='wheel two enemy-wheel'/><img src='./icons-and-images/cars/secondRace.png' alt='car' class='vehicle enemy-vehicle' /></div>"
+              secondRace.tip,
+              "<div class='enemy-car secondRace'><img src='./icons-and-images/wheel.png' alt='' class='wheel one enemy-wheel'><img src='./icons-and-images/flame.png' class='flame enemy-flame'><img src='./icons-and-images/wheel.png' alt='' class='wheel two enemy-wheel'/><img src='./icons-and-images/cars/secondRace.png' alt='car' class='vehicle enemy-vehicle' /></div>",
+              `Хоч тобі і вдалось пройти першу гонку, але тепер противник швидший, а до поворотів треба швидше тормозити. \n все як минулого разу: двигун => обороти => кнопка => відлік => передача вгору`
             );
 
             break;
           case 4:
             $("#race").css({ transform: "scale(1.5)", marginLeft: "20vw" });
             finalRace.beginning(
-              secondRace.tip("Настав час... ...змагатись за першість..."),
-              "<div class='enemy-car finalRace'><img src='./icons-and-images/wheel.png' alt='' class='wheel one enemy-wheel'><img  src='./icons-and-images/flame.png' class='flame enemy-flame'><img src='./icons-and-images/wheel.png' alt='' class='wheel two enemy-wheel'/><img src='./icons-and-images/cars/finalRace.png' alt='car' class='vehicle enemy-vehicle' /></div>"
+              secondRace.tip,
+              "<div class='enemy-car finalRace'><img src='./icons-and-images/wheel.png' alt='' class='wheel one enemy-wheel'><img  src='./icons-and-images/flame.png' class='flame enemy-flame'><img src='./icons-and-images/wheel.png' alt='' class='wheel two enemy-wheel'/><img src='./icons-and-images/cars/finalRace.png' alt='car' class='vehicle enemy-vehicle' /></div>",
+              "Настав час... ...змагатись за першість..."
             );
             if (music.finalSong === undefined) {
               music.finalSong = new Audio(
@@ -657,7 +674,7 @@ export const secondaryFunctions = {
             if (music.isAllowedToPlay) {
               if (music.cheaterSong != undefined) {
                 music.cheaterSong.pause();
-              } else {
+              } else if (music.song) {
                 music.song.pause();
               }
               music.finalSong.play();
@@ -669,40 +686,36 @@ export const secondaryFunctions = {
       $(".back-to-menu-button").css("visibility", "visible");
     }
   },
-  announceFn(text, followingFunction) {
+  announceFn(text: string, followingFunction: () => void) {
     permissions.toPause = false;
     $(".pause").css("display", "none");
-    announcement = document.createElement("div");
-    announcement.className = "announcement";
-    race.append(announcement);
-    announcementText = document.createElement("h1");
-    announcementText.className = "veryLargeText";
-    announcementText.innerText = text;
-    announcement.append(announcementText);
+    variables.race.append(variables.$announcement);
+    variables.$announcementText.innerText = text;
+    variables.$announcement.append(variables.$announcementText);
     followingFunction();
   },
   restartTheGame() {
     localStorage.clear();
-    localStorage.setItem("device", device);
+    localStorage.setItem("device", variables.device as string);
     $.removeCookie("cheatEffect", { path: "/" });
     $.removeCookie("song", { path: "/" });
-    setTimeout(location.reload(), 500);
+    setTimeout(location.reload, 500);
   },
   createDeviceChangingPopup(
-    permission,
-    changeSelectValue = false,
-    restart = false
+    permission: boolean,
+    changeSelectValue: boolean = false,
+    restart: boolean = false
   ) {
-    if (device == undefined) {
-      currentWindows = "race-device";
+    if (variables.device == undefined) {
+      variables.currentWindows = "race-device";
     } else {
-      currentWindows += "-device";
+      variables.currentWindows += "-device";
     }
     document.body.style.overflowY = "hidden";
     $(document.body).prepend(`<div class="device-changing-popup">
       <p moveAttr="left" class="go-arrow"><</p>
       <p moveAttr="right" class="go-arrow">></p>
-      ${device != undefined ? "<p class='just-exit'>✗</p>" : ""}
+      ${variables.device != undefined ? "<p class='just-exit'>✗</p>" : ""}
       <div class="screen-width">
         <h2>Привіт! Обери управління</h2>
         </div>
@@ -720,7 +733,7 @@ export const secondaryFunctions = {
       </div>`);
 
     if (changeSelectValue) {
-      $("#choose-device").val(device);
+      $("#choose-device").val(variables.device as string);
     }
     $(".go-arrow").click(function () {
       devicePopupPositions[0] = [0, window.innerWidth, window.innerWidth * 2];
@@ -740,9 +753,9 @@ export const secondaryFunctions = {
         devicePopupPositions[0][devicePopupPositions[1]];
     });
     $(".just-exit").on("click", function () {
-      let arr = currentWindows.split("-");
+      let arr = variables.currentWindows.split("-");
       arr.pop();
-      currentWindows = arr.join("-");
+      variables.currentWindows = arr.join("-");
       $(".device-changing-popup button").off("click");
       $(".just-exit").off("click");
       $(".device-changing-popup").remove();
@@ -754,22 +767,26 @@ export const secondaryFunctions = {
           "Ви впевнені? Управління потім можна буде змінити в меню паузи"
         );
         if (confirmation) {
-          if ($("#choose-device").val() != "computer") {
+          let currentOption: string | undefined = variables.device;
+
+          if (!currentOption && $("#choose-device").val() != "computer") {
             secondaryFunctions.setStylesForPhone();
           }
-          let arr = currentWindows.split("-");
+          let arr = variables.currentWindows.split("-");
           arr.pop();
-          currentWindows = arr.join("-");
+          variables.currentWindows = arr.join("-");
           alert("Екран варто тримати лише в горизонтальному положенні!");
-          device = $("#choose-device").val();
+          variables.device = $("#choose-device").val() as string;
           $(".device-changing-popup button").off("click");
           $(".device-changing-popup").remove();
           permission = true;
           devicePopupPositions[1] = 0;
-
-          secondaryFunctions.begin(permission);
-          localStorage.setItem("device", device);
+          if (!currentOption) {
+            secondaryFunctions.begin(permission);
+          }
+          localStorage.setItem("device", variables.device);
         }
+
         if (restart) {
           location.reload();
         }

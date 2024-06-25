@@ -3,8 +3,14 @@
 import { myCar } from "./cars.js";
 import { introduction, firstRace, secondRace, chapters } from "../story.js";
 import { gearFunctions } from "./gearFunctions.js";
-import { enemyCars, secondRaceCar } from "./cars.js";
+import { enemyCars } from "./cars.js";
 import { turns } from "./turningFunctions.js";
+import {
+  variables,
+  changes,
+  permissions,
+  intervals,
+} from "../other/variables.js";
 export const rpmFunctions = {
   moreRpmCounting(car = myCar) {
     let previous_gearMultiplier;
@@ -35,7 +41,7 @@ export const rpmFunctions = {
       introduction.everyTip.gearUpExplanation();
     }
   },
-  conditions(car = myCar, direction) {
+  conditions(car = myCar, direction: "more" | "less") {
     switch (direction) {
       case "more":
         car.rpm > car.maxRpm ? (car.rpm = car.maxRpm) : "";
@@ -50,15 +56,15 @@ export const rpmFunctions = {
   },
   handleRpm(car = myCar) {
     if (
-      !isGamePaused &&
+      !variables.isGamePaused &&
       car.noClutchMode &&
-      isEngineWorking &&
+      variables.isEngineWorking &&
       !changes.movingPause
     ) {
       if (
         permissions.forMoreRpm &&
         car.rpm <= car.maxRpm &&
-        action > 1 &&
+        variables.action > 1 &&
         car.acceleration
       ) {
         if (
@@ -85,7 +91,7 @@ export const rpmFunctions = {
             if (car.rpm > car.maxRpm - 300) {
               if (car.gear == 3) {
                 if (
-                  progress == "firstRace" &&
+                  variables.progress == "firstRace" &&
                   !changes.firstRace.firstTurnExplanation
                 ) {
                   turns.announce();
@@ -93,11 +99,13 @@ export const rpmFunctions = {
                   $(".continue-game-button").text("Продовжити?");
                   firstRace.tip(`Тепер саме складне - повороти!`);
                 } else if (
-                  (progress == "secondRace" &&
+                  (variables.progress == "secondRace" &&
                     !changes.secondRace.allowedToTurn) ||
-                  (progress == "finalRace" && !changes.finalRace.allowedToTurn)
+                  (variables.progress == "finalRace" &&
+                    !changes.finalRace.allowedToTurn)
                 ) {
-                  chapters[progress].changes.allowedToTurn = true;
+                  (chapters as any)[variables.progress].changes.allowedToTurn =
+                    true;
                 }
               }
               gearFunctions.up.mechanism(car);
@@ -109,7 +117,7 @@ export const rpmFunctions = {
             $(`${car.className} .vehicle`).css("transform", `rotate(-1deg)`);
             break;
         }
-        switch (progress) {
+        switch (variables.progress) {
           case "introduction":
             introduction.everyTip.inMoreRpm();
             break;
@@ -118,7 +126,7 @@ export const rpmFunctions = {
             break;
         }
       } else if (
-        action > 3 &&
+        variables.action > 3 &&
         car.decceleration &&
         permissions.forLessRpm &&
         car.rpm > 800
@@ -148,14 +156,17 @@ export const rpmFunctions = {
       }
     }
   },
-  handleAllMoves(car = myCar) {
+  handleAllMoves(car: any = myCar) {
     rpmFunctions.handleRpm(car);
-    if (myCar.moveDirection == "decceleration" && progress == "introduction") {
+    if (
+      myCar.moveDirection == "decceleration" &&
+      variables.progress == "introduction"
+    ) {
       introduction.everyTip.inLessRpm();
     }
     if (
       car == enemyCars.array[enemyCars.index] &&
-      !isGamePaused &&
+      !variables.isGamePaused &&
       !changes.movingPause
     ) {
       car.handleBehaviour();
@@ -170,7 +181,7 @@ export const rpmFunctions = {
           permissions.forInertia &&
           myCar.noClutchMode &&
           myCar.rpm > 815 &&
-          !isGamePaused &&
+          !variables.isGamePaused &&
           !changes.movingPause
         ) {
           if (myCar.gear == 0 && myCar.rpm > 800) {
@@ -186,15 +197,15 @@ export const rpmFunctions = {
         }
       }, 100);
     }
-    startInertiaMechanismTimeout = setTimeout(() => {
+    variables.startInertiaMechanismTimeout = setTimeout(() => {
       permissions.forInertia = true;
     }, 200);
     if (!permissions.forMoreRpm) {
-      clearTimeout(startInertiaMechanismTimeout);
-      clearTimeout(flame);
+      clearTimeout(variables.startInertiaMechanismTimeout);
+      clearTimeout(variables.flame);
     }
   },
-  setHtmlColor(direction) {
+  setHtmlColor(direction: 1 | 2) {
     let currentRpm =
       direction == 1 ? myCar.rpm : Math.round(myCar.spd / myCar.gearMultiplier);
     if (currentRpm < 6000 && gearFunctions.color != "blue") {

@@ -1,12 +1,25 @@
 //Сюжет гонки
 import { turns } from "./mechanisms/turningFunctions.js";
-import { secondaryFunctions } from "./otherJs/secondary.js";
-import { music } from "./otherJs/music.js";
+import { secondaryFunctions } from "./other/secondary.js";
+import { music } from "./other/music.js";
 import { myCar, enemyCars } from "./mechanisms/cars.js";
-import { keyboard } from "./otherJs/keyboard.js";
-var introduction, firstRace, secondRace, finalRace, chapters;
+import { keyboard } from "./other/keyboard.js";
+import {
+  intervals,
+  variables,
+  changes,
+  StoryChanges,
+  permissions,
+} from "./other/variables.js";
+var introduction: Intro,
+  firstRace: Race,
+  secondRace: Race,
+  finalRace: Race,
+  chapters: object;
 class Story {
-  constructor(everyTip, name) {
+  changes: StoryChanges;
+  everyTip: any;
+  constructor(everyTip: any, name: "intro" | "first" | "second" | "final") {
     this.everyTip = everyTip;
     switch (name) {
       case "intro":
@@ -23,11 +36,14 @@ class Story {
         break;
     }
   }
-  tip(guideInfo = "", elementToPutAShadow = undefined) {
+  tip(
+    guideInfo: string = "",
+    elementToPutAShadow: string | undefined = undefined
+  ) {
     music.changeVolume(0.5);
-    race.style.opacity = ".5";
-    guideBlockText.innerText = guideInfo;
-    if (this != introduction) {
+    variables.race.style.opacity = ".5";
+    variables.guideBlockText.innerText = guideInfo;
+    if (this instanceof Race) {
       changes.movingPause = true;
     }
     if (elementToPutAShadow) {
@@ -36,21 +52,21 @@ class Story {
         zIndex: "100",
       });
     }
-    action++;
+    variables.action++;
   }
 }
 class Intro extends Story {
-  constructor(everyTip, name) {
+  constructor(everyTip: any, name: "intro" | "first" | "second" | "final") {
     super(everyTip, name);
   }
   beginning() {
-    console.clear();
-    for (const key in changes) {
+    let key: keyof typeof changes;
+    for (key in changes) {
       if (changes[key].constructor == StoryChanges) {
         if (changes[key] == changes.introduction) {
-          changes[key].getReady(true);
+          (changes[key] as StoryChanges).getReady(true);
         } else {
-          changes[key].getReady();
+          (changes[key] as StoryChanges).getReady();
         }
       }
     }
@@ -61,24 +77,24 @@ class Intro extends Story {
       transition: "3s cubic-bezier(0.65, 0.05, 0.36, 1)",
       marginLeft: "30vw",
     });
-    car.style.marginLeft = 0;
+    variables.car.style.marginLeft = "0";
     permissions.toPause = true;
     $("body").css("display", "flex");
-    guideBlock.style.opacity = 0;
+    variables.guideBlock.style.opacity = "0";
     const h1 = document.createElement("h1");
     h1.className = "intro-words";
     document.body.append(h1);
     h1.textContent = "Настав час...";
-    h1.style.opacity = 0;
+    h1.style.opacity = "0";
     setTimeout(() => {
-      h1.style.opacity = 1;
+      h1.style.opacity = "1";
       setTimeout(() => {
-        h1.style.opacity = 0;
+        h1.style.opacity = "0";
         setTimeout(() => {
           h1.textContent = "...змагатись за першість...";
-          h1.style.opacity = 1;
+          h1.style.opacity = "1";
           setTimeout(() => {
-            h1.style.opacity = 0;
+            h1.style.opacity = "0";
             setTimeout(() => {
               h1.remove();
               $("#race").css({ display: "flex" });
@@ -89,10 +105,10 @@ class Intro extends Story {
                   marginLeft: "0",
                 });
                 $("footer").css({
-                  display: device == "computer" ? "flex" : "grid",
+                  display: variables.device == "computer" ? "flex" : "grid",
                 });
                 setTimeout(() => {
-                  guideBlock.style.opacity = "1";
+                  variables.guideBlock.style.opacity = "1";
                   $("footer").css({
                     opacity: "1",
                     transition: "1s",
@@ -101,19 +117,19 @@ class Intro extends Story {
                   setTimeout(() => {
                     permissions.toPause = true;
                     $(".pause").css("display", "flex");
-                    guideBlock.style.transition =
+                    variables.guideBlock.style.transition =
                       "1s cubic-bezier(0.65, 0.05, 0.36, 1)";
                     introduction.tip(
                       `Зараз треба спішити, бо треба доїхати до зустрічі гонщиків.
                       Спершу - запуск двигуна.` +
-                        (device == "computer"
+                        (variables.device == "computer"
                           ? ` Нажми "${keyboard.engine}" щоб це зробити`
                           : " Всі потрібні кнопки будуть виділятись за потреби, як і ця - нажми на неї."),
                       "#useTheEngine"
                     );
                   }, 2000);
-                  action = 0;
-                  race.style.transition = "240ms linear";
+                  variables.action = 0;
+                  variables.race.style.transition = "240ms linear";
                 }, 3000);
               }, 1000);
             }, 2000);
@@ -124,14 +140,14 @@ class Intro extends Story {
   }
   ending() {
     console.clear();
-    introduction.startRace = false;
+    introduction.changes.startRace = false;
     $(".gameplay-pause").css("display", "flex");
-    guideBlock.style.opacity = "0";
-    guideBlockText.innerText = "Mini-car racing";
-    race.style.transition = "1s cubic-bezier(0.65, 0.05, 0.36, 1)";
-    race.style.opacity = "0";
+    variables.guideBlock.style.opacity = "0";
+    variables.guideBlockText.innerText = "Mini-car racing";
+    variables.race.style.transition = "1s cubic-bezier(0.65, 0.05, 0.36, 1)";
+    variables.race.style.opacity = "0";
     setTimeout(() => {
-      changes.rewriteEverything();
+      changes.rewriteEverything ? changes.rewriteEverything() : "";
       permissions.toSaveProgress = true;
       $(".gameplay-pause").css("opacity", "1");
       $("#race").css("display", "none");
@@ -141,23 +157,24 @@ class Intro extends Story {
   }
 }
 class Race extends Story {
-  constructor(everyTip, name) {
+  constructor(everyTip: any, name: "intro" | "first" | "second" | "final") {
     super(everyTip, name);
   }
-  beginning(someFn = () => {}, append) {
+  beginning(someFn: (param: string) => void, append: string, param: string) {
     $(".gameplay-pause").css("display", "none");
     console.clear();
     switch (this) {
       case firstRace:
-        for (const key in changes) {
+        let key: keyof typeof changes;
+        for (key in changes) {
           if (
             changes[key].constructor == StoryChanges &&
             key != "introduction"
           ) {
             if (changes[key] == changes.firstRace) {
-              changes[key].getReady(true);
+              (changes[key] as StoryChanges).getReady(true);
             } else {
-              changes[key].getReady();
+              (changes[key] as StoryChanges).getReady();
             }
           } else if (key == "introduction") {
             changes.introduction.first = true;
@@ -190,48 +207,52 @@ class Race extends Story {
         changes.introduction.useBrakesAction = true;
         changes.introduction.gearDownAction = true;
         changes.introduction.reachIntroDestination = true;
-        finish = false;
+        variables.finish = false;
         break;
     }
     $(".bottom-road-box").prepend(append);
     permissions.toPause = false;
     $(".pause").css("display", "none");
-    race.style.opacity = 1;
+    variables.race.style.opacity = "1";
     $(".enemy-position").css("visibility", "hidden");
     $(".turn-position").css("display", "0");
     changes.movingPause = true;
     $("footer").css({
       opacity: 0,
-      display: device == "computer" ? "flex" : "grid",
+      display: variables.device == "computer" ? "flex" : "grid",
     });
-    guideBlock.style.opacity = "0";
-    car.style.marginLeft = roadBox.offsetWidth * 3 + "px";
-    backgroundPositionX = roadBox.offsetWidth * 3;
-    road.style.backgroundPositionX = backgroundPositionX + "px";
-    road.style.transition = "unset";
-    car.style.transition = "unset";
+    variables.guideBlock.style.opacity = "0";
+    variables.car.style.marginLeft = variables.roadBox.offsetWidth * 3 + "px";
+    variables.backgroundPositionX = variables.roadBox.offsetWidth * 3;
+    variables.road.style.backgroundPositionX =
+      variables.backgroundPositionX + "px";
+    variables.road.style.transition = "unset";
+    variables.car.style.transition = "unset";
     setTimeout(() => {
       $(".enemy-wheel").css({
         transition: "4s ease-out",
         transform: "rotate(6000deg)",
       });
       $(".enemy-vehicle").css("transform", "rotate(1deg)");
-      race.style.transition = "4s ease-out";
-      race.style.opacity = ".5";
-      raceBackgroundPositionX = -300;
-      race.style.backgroundPositionX = "-300px";
-      guideBlock.style.opacity = "0";
-      car.style.transition = "4s ease-out";
-      car.style.marginLeft = 0;
-      backgroundPositionX = 0;
-      road.style.transition = "4s ease-out";
-      road.style.backgroundPositionX = backgroundPositionX;
+      variables.race.style.transition = "4s ease-out";
+      variables.race.style.opacity = ".5";
+      variables.raceBackgroundPositionX = -300;
+      variables.race.style.backgroundPositionX = "-300px";
+      variables.guideBlock.style.opacity = "0";
+      variables.car.style.transition = "4s ease-out";
+      variables.car.style.marginLeft = "0";
+      variables.backgroundPositionX = 0;
+      variables.road.style.transition = "4s ease-out";
+      variables.road.style.backgroundPositionX = `${variables.backgroundPositionX}`;
       permissions.forMoreRpm = true;
       permissions.setInertiaInterval = true;
-      $("footer").css("display", device == "computer" ? "flex" : "grid");
+      $("footer").css(
+        "display",
+        variables.device == "computer" ? "flex" : "grid"
+      );
       setTimeout(() => {
-        car.style.transition = "unset";
-        road.style.transition = "240ms linear";
+        variables.car.style.transition = "unset";
+        variables.road.style.transition = "240ms linear";
         $("#race").css({
           transform: "scale(1)",
           transition: "1s",
@@ -243,9 +264,9 @@ class Race extends Story {
           transform: "rotate(0deg)",
         });
         $("footer").css("opacity", 1);
-        guideBlock.style.opacity = 1;
-        someFn();
-        action = 10;
+        variables.guideBlock.style.opacity = "1";
+        someFn(param);
+        variables.action = 10;
         $(".enemy-wheel").css({
           transition: "4s ease-out",
           transform: "rotate(6000deg)",
@@ -257,7 +278,7 @@ class Race extends Story {
           });
           permissions.toPause = true;
           $(".pause").css("display", "flex");
-          race.style.transition = "240ms linear";
+          variables.race.style.transition = "240ms linear";
           changes.movingPause = false;
         }, 1000);
       }, 4000);
@@ -280,7 +301,7 @@ class Race extends Story {
       setTimeout(() => {
         text.textContent = "1";
         setTimeout(() => {
-          race.style.opacity = 0.7;
+          variables.race.style.opacity = "0.7";
           this.changes.startRace = true;
           music.changeVolume(1);
           enemyCars.array[enemyCars.index].fns.start();
@@ -296,21 +317,23 @@ class Race extends Story {
   }
   comingToFinish() {
     secondaryFunctions.announceFn("Фінішна пряма", () => {
-      device != "computer" ? $(".phone-counters").css({ zIndex: 11 }) : "";
-      car.style.boxShadow = "-10px 10px 50px 10px yellow ";
+      variables.device != "computer"
+        ? $(".phone-counters").css({ zIndex: 11 })
+        : "";
+      variables.car.style.boxShadow = "-10px 10px 50px 10px yellow ";
       setTimeout(() => {
-        announcement.style.opacity = 1;
-        announcement.style.zIndex = 10;
+        variables.$announcement.style.opacity = "1";
+        variables.$announcement.style.zIndex = "10";
         setTimeout(() => {
-          announcement.style.opacity = 0;
-          announcement.style.zIndex = 0;
-          let entry = false;
-          let count = 3;
+          variables.$announcement.style.opacity = "0";
+          variables.$announcement.style.zIndex = "0";
+          let entry = false,
+            count = 3;
           intervals.finishing = setInterval(() => {
-            if (!isGamePaused) {
+            if (!variables.isGamePaused) {
               switch (count) {
                 case 0:
-                  announcement.remove();
+                  variables.$announcement.remove();
                   if (
                     enemyCars.array[enemyCars.index].position >
                     Number(
@@ -327,9 +350,9 @@ class Race extends Story {
                     );
                   } else {
                     this.ending();
-                    finish = true;
+                    variables.finish = true;
                   }
-                  device != "computer"
+                  variables.device != "computer"
                     ? $(".phone-counters").css({ zIndex: 0 })
                     : "";
                   permissions.toPause = true;
@@ -344,12 +367,12 @@ class Race extends Story {
                   break;
               }
               if (!entry) {
-                announcementText.innerText = count;
-                announcement.style.opacity = 1;
-                announcement.style.zIndex = 10;
+                variables.$announcementText.innerText = `${count}`;
+                variables.$announcement.style.opacity = "1";
+                variables.$announcement.style.zIndex = "10";
               } else {
-                announcement.style.opacity = 0;
-                announcement.style.zIndex = 0;
+                variables.$announcement.style.opacity = "0";
+                variables.$announcement.style.zIndex = "0";
                 count--;
               }
               entry = !entry;
@@ -363,7 +386,10 @@ class Race extends Story {
     setTimeout(() => {
       switch (this) {
         case secondRace:
-          if (totalProgress != "finalRace" && totalProgress != "Everything") {
+          if (
+            variables.totalProgress != "finalRace" &&
+            variables.totalProgress != "Everything"
+          ) {
             $(".gameplay-headline").text(
               "Вітаю з другою перемогою! (гортай донизу)"
             );
@@ -375,9 +401,9 @@ class Race extends Story {
           break;
         case firstRace:
           if (
-            totalProgress != "finalRace" &&
-            totalProgress != "secondRace" &&
-            totalProgress != "Everything"
+            variables.totalProgress != "finalRace" &&
+            variables.totalProgress != "secondRace" &&
+            variables.totalProgress != "Everything"
           ) {
             $(".gameplay-headline").text(
               "Вітаю з першою перемогою! (гортай донизу)"
@@ -389,8 +415,8 @@ class Race extends Story {
 
           break;
         case finalRace:
-          guideBlock.style.opacity = "0";
-          guideBlockText.innerText = "Mini-car racing";
+          variables.guideBlock.style.opacity = "0";
+          variables.guideBlockText.innerText = "Mini-car racing";
           $("#race").css({ transition: "3s", opacity: 0 });
           setTimeout(() => {
             location.replace(
@@ -405,15 +431,17 @@ class Race extends Story {
           this.changes.startRace = false;
           $(".tunnel").css("left", "100%");
           $(".gameplay-pause").css("display", "flex");
-          guideBlock.style.opacity = "0";
-          guideBlockText.innerText = "Mini-car racing";
-          race.style.transition = "1s cubic-bezier(0.65, 0.05, 0.36, 1)";
-          race.style.opacity = "0";
+          variables.guideBlock.style.opacity = "0";
+          variables.guideBlockText.innerText = "Mini-car racing";
+          variables.race.style.transition =
+            "1s cubic-bezier(0.65, 0.05, 0.36, 1)";
+          variables.race.style.opacity = "0";
           setTimeout(() => {
-            changes.rewriteEverything();
+            changes.rewriteEverything ? changes.rewriteEverything() : "";
             if (
-              totalProgress != "Everything" &&
-              chapters[totalProgress] == this
+              variables.totalProgress != "Everything" &&
+              chapters &&
+              chapters[variables.totalProgress as keyof typeof chapters]
             ) {
               permissions.toSaveProgress = true;
               $(".save-the-progress-button").css({
@@ -423,7 +451,7 @@ class Race extends Story {
               });
               $(".save-the-progress-button").text("Зберегти прогрес?");
             }
-            finish = false;
+            variables.finish = false;
             $(".gameplay-pause").css("opacity", "1");
             $("#race").css("display", "none");
             document.body.style.overflowY = "scroll";
@@ -442,14 +470,18 @@ class Race extends Story {
     this.tip(`Тормози до ${turns.array[turns.index].maxSpeed}km/h!`);
     $(".turn-speed").text(`${turns.array[turns.index].maxSpeed}km/h`);
     changes.movingPause = false;
-    race.style.opacity = 0.7;
-    let distance = turns.array[turns.index].distanceToIt * distanceRatio;
-    let position = backgroundPositionX + distance;
+    variables.race.style.opacity = "0.7";
+    let distance =
+      turns.array[turns.index].distanceToIt * variables.distanceRatio;
+    let position = variables.backgroundPositionX + distance;
     music.changeVolume(1);
     intervals.turnComing = setInterval(() => {
       if (turns.array.length != 0) {
-        if (backgroundPositionX < position && turns.isRightNow == "almost") {
-          guideBlockText.innerText = `ЛІМІТ: ${
+        if (
+          variables.backgroundPositionX < position &&
+          turns.isRightNow == "almost"
+        ) {
+          variables.guideBlockText.innerText = `ЛІМІТ: ${
             turns.array[turns.index].maxSpeed
           } KM/H`;
           turns.start();
@@ -464,7 +496,10 @@ class Race extends Story {
         }
         if (changes.firstRace.continueFirstTurnExplanation) {
           $(".turn-distance").text(
-            Math.round((position - backgroundPositionX) / distanceRatio) + "m"
+            Math.round(
+              (position - variables.backgroundPositionX) /
+                variables.distanceRatio
+            ) + "m"
           );
         }
       }
@@ -474,19 +509,19 @@ class Race extends Story {
 introduction = new Intro(
   {
     engine() {
-      if (action > 0) {
+      if (variables.action > 0) {
         $("#useTheEngine").css({ boxShadow: "unset", zIndex: 0 });
         music.changeVolume(1);
-        race.style.opacity = ".7";
-        guideBlockText.innerText = "Добре!";
+        variables.race.style.opacity = ".7";
+        variables.guideBlockText.innerText = "Добре!";
         setTimeout(() => {
           introduction.tip(
             `Далі підніми обороти двигуна хоча б до 6200. Для цього зажми ` +
-              (device == "computer"
+              (variables.device == "computer"
                 ? `"${keyboard.accelerate}" на клавіатурі і тримай,`
                 : " виділену кнопку,") +
               ` а  графік оборотів є зліва ` +
-              (device == "computer" ? `знизу.` : " по центру."),
+              (variables.device == "computer" ? `знизу.` : " по центру."),
             "#accelerationPedal"
           );
           permissions.forMoreRpm = true;
@@ -495,42 +530,48 @@ introduction = new Intro(
       }
     },
     gearUpExplanation() {
-      if (action == 2 && changes.introduction.first == true) {
+      if (variables.action == 2 && changes.introduction.first == true) {
         myCar.noClutchMode = false;
         introduction.tip(
           `Щоб рушити треба переключити передачу вгору, тому нажми ` +
-            (device == "computer" ? `"${keyboard.gearUp}".` : "стрілку вгору."),
+            (variables.device == "computer"
+              ? `"${keyboard.gearUp}".`
+              : "стрілку вгору."),
           "#gearUpButton"
         );
       }
     },
     inMoreRpm() {
-      if (myCar.rpm < 6000 && action === 2 && !changes.introduction.first) {
+      if (
+        myCar.rpm < 6000 &&
+        variables.action === 2 &&
+        !changes.introduction.first
+      ) {
         changes.introduction.first = true;
         music.changeVolume(1);
-        race.style.opacity = ".7";
+        variables.race.style.opacity = ".7";
         $("#accelerationPedal").css({ boxShadow: "unset", zIndex: 0 });
       }
     },
     inLessRpm() {
-      if (action === 4 && !changes.introduction.useBrakesAction) {
+      if (variables.action === 4 && !changes.introduction.useBrakesAction) {
         changes.introduction.IntroDestionationPause = false;
         changes.introduction.useBrakesAction = true;
         changes.movingPause = false;
-        race.style.opacity = ".7";
+        variables.race.style.opacity = ".7";
         $("#deccelerationPedal").css({ boxShadow: "unset", zIndex: 0 });
         permissions.forInertia = true;
-      } else if (action == 6) {
+      } else if (variables.action == 6) {
         changes.movingPause = false;
         permissions.forInertia = true;
-        race.style.opacity = ".7";
+        variables.race.style.opacity = ".7";
       }
       music.changeVolume(1);
       if (myCar.rpm < 3000 && !changes.introduction.gearDownAction) {
         myCar.noClutchMode = false;
         introduction.tip(
           `Останні штрихи: переключи передачу вниз ${
-            device == "computer"
+            variables.device == "computer"
               ? `клавішою "${keyboard.gearDown}"`
               : " цією стрілкою"
           }. Увага: передачу вниз переключай, КОЛИ ОБОРОТИ МЕНШІ ЗА 6000`,
@@ -544,47 +585,50 @@ introduction = new Intro(
     },
     reachTheTarget() {
       if (
-        action === 3 &&
-        backgroundPositionX < (device == "phone" ? -20000 / 1.54 : -20000) &&
-        !changes.reachIntroDestination
+        variables.action === 3 &&
+        variables.backgroundPositionX <
+          (variables.device == "phone" ? -20000 / 1.54 : -20000) &&
+        !changes.introduction.reachIntroDestination
       ) {
         music.changeVolume(0.5);
         changes.introduction.reachIntroDestination = true;
         changes.movingPause = true;
         introduction.tip(
           `Ти майже приїхав, пора тормозити! Зажми ${
-            device == "computer" ? `"${keyboard.deccelerate}"` : "тормоз"
+            variables.device == "computer"
+              ? `"${keyboard.deccelerate}"`
+              : "тормоз"
           }.`,
           "#deccelerationPedal"
         );
         permissions.forInertia = false;
         permissions.forMoreRpm = false;
         permissions.forLessRpm = true;
-        clearTimeout(startInertiaMechanismTimeout);
+        clearTimeout(variables.startInertiaMechanismTimeout);
       }
     },
     accelerationExplanation() {
-      if (action == 3) {
+      if (variables.action == 3) {
         music.changeVolume(1);
-        race.style.opacity = ".7";
+        variables.race.style.opacity = ".7";
         $("#gearUpButton").css({ boxShadow: "unset", zIndex: 0 });
-        guideBlockText.innerText = `Чудово! Тепер, щоб доїхати до першої гонки, піднімай обороти і переключай передачі за допомогою ${
-          device == "computer"
+        variables.guideBlockText.innerText = `Чудово! Тепер, щоб доїхати до першої гонки, піднімай обороти і переключай передачі за допомогою ${
+          variables.device == "computer"
             ? `"${keyboard.accelerate}" і "${keyboard.gearUp}"`
             : "газу і стрілки вгору"
         }.`;
       }
     },
     deccelerationExplanation() {
-      if (action == 5 && myCar.gear == 1) {
+      if (variables.action == 5 && myCar.gear == 1) {
         music.changeVolume(0.5);
         introduction.tip(
           `Зараз, коли передача є першою, а тобі треба зупинитись, притормози до меншої за 20 км/год швидкості ${
-            device == "computer"
+            variables.device == "computer"
               ? `кнопкою "${keyboard.deccelerate}" (більше не нагадуватиму)`
               : ""
           }, переключи передачу вниз і тоді заглуши двигун${
-            device == "computer"
+            variables.device == "computer"
               ? ` з кнопкою "${keyboard.engine}", якщо не забув).`
               : "."
           }`
@@ -598,9 +642,9 @@ introduction = new Intro(
       music.changeVolume(1);
       if (changes.movingPause) {
         changes.movingPause = false;
-        race.style.opacity = ".7";
-        guideBlockText.innerText = `Як ти вже побачив - коробка передач - ${
-          device == "computer"
+        variables.race.style.opacity = ".7";
+        variables.guideBlockText.innerText = `Як ти вже побачив - коробка передач - ${
+          variables.device == "computer"
             ? `справа в центрі спідометру`
             : "зліва від тахометра (обороти)"
         }, тому, з огляду на неї, переключи передачі вниз аж до першої.`;
@@ -613,9 +657,9 @@ introduction = new Intro(
 firstRace = new Race(
   {
     engine() {
-      race.style.opacity = 0.7;
+      variables.race.style.opacity = "0.7";
       music.changeVolume(1);
-      guideBlockText.textContent =
+      variables.guideBlockText.textContent =
         "Готуйся! Набери обороти, а коли натиснеш на цю кнопку → , то запустиш відлік до початку гонки. Коли відлік закінчиться - ПЕРЕКЛЮЧАЙ ПЕРЕДАЧУ ВГОРУ І ЖЕНИ";
       $(".continue-game-button").css("display", "flex");
       changes.movingPause = false;
@@ -633,7 +677,7 @@ secondRace = new Race(
   {
     engine() {
       $(".continue-game-button").css("display", "flex");
-      race.style.opacity = 1;
+      variables.race.style.opacity = "1";
       permissions.forMoreRpm = true;
       permissions.forLessRpm = true;
       myCar.noClutchMode = true;
@@ -645,7 +689,7 @@ finalRace = new Race(
   {
     engine() {
       $(".continue-game-button").css("display", "flex");
-      race.style.opacity = 1;
+      variables.race.style.opacity = "1";
       permissions.forMoreRpm = true;
       permissions.forLessRpm = true;
       myCar.noClutchMode = true;

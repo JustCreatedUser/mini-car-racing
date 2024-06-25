@@ -1,6 +1,27 @@
 //Музичний супровід
 "use strict";
-export const music = {
+type CheckSongsUsage = "localStorage" | "restore default";
+interface Imusic {
+  songsList: Array<string>;
+  listenedCycle: Array<string>;
+  song: undefined | HTMLAudioElement;
+  cheaterSong: undefined | HTMLAudioElement;
+  finalSong: undefined | HTMLAudioElement;
+  hidden: {
+    cheaterSongWasDiscovered: boolean;
+    finalSongWasDiscovered: boolean;
+  };
+  songS?: Array<undefined | HTMLAudioElement>;
+  index: number;
+  hasBeenListened: boolean;
+  isPlaying: boolean;
+  checkMusicDurationInterval: undefined | number;
+  isAllowedToPlay: boolean;
+  checkListenedSongs: (direction: CheckSongsUsage) => void;
+  listenToMusic: () => void;
+  changeVolume: (musicVolume: number) => void;
+}
+const music: Imusic = {
   songsList: [
     "https://ia801400.us.archive.org/27/items/need-for-speed-underground-soundtrack-2003-gamerip/07.%20Element%20Eighty%20-%20Broken%20Promises%20%28NFS%20Underground%20Edition%29.mp3",
     "https://dn720306.ca.archive.org/0/items/gas-gas-gas/Gas%20Gas%20Gas.mp3",
@@ -19,7 +40,7 @@ export const music = {
     cheaterSongWasDiscovered: false,
     finalSongWasDiscovered: false,
   },
-  index: Math.round(Math.random() * 6),
+  index: 0,
   hasBeenListened: false,
   isPlaying: false,
   checkMusicDurationInterval: undefined,
@@ -52,13 +73,14 @@ export const music = {
       music.isAllowedToPlay = true;
       $(".music-settings").text("Бажаєте вимкнути МУЗОН?");
       if (!music.hasBeenListened) {
+        music.hasBeenListened = true;
         music.song = new Audio(music.songsList[music.index]);
       }
       if (music.finalSong != undefined) {
         music.finalSong.play();
       } else if (music.cheaterSong != undefined) {
         music.cheaterSong.play();
-      } else {
+      } else if (music.song != undefined) {
         music.song.play();
       }
       localStorage.setItem(
@@ -66,59 +88,67 @@ export const music = {
         JSON.stringify(music.listenedCycle)
       );
       music.checkMusicDurationInterval = setInterval(() => {
-        if (
-          music.finalSong != undefined &&
-          music.finalSong.currentTime == music.finalSong.duration
-        ) {
-          music.finalSong = undefined;
-          music.song.currentTime = 0;
-          music.song.play();
-        } else if (
-          music.cheaterSong != undefined &&
-          music.cheaterSong.currentTime == music.cheaterSong.duration
-        ) {
-          music.cheaterSong = undefined;
-          music.song.currentTime = 0;
-          music.song.play();
-        } else if (music.song.currentTime == music.song.duration) {
-          music.listenedCycle.push(music.songsList[music.index]);
-          music.songsList.splice(music.index, 1);
-          if (music.songsList.length == 0) {
-            music.checkListenedSongs("restore default");
+        music.songS = [
+          music.song,
+          music.cheaterSong,
+          music.finalSong,
+        ].reverse();
+
+        music.songS?.forEach((sonG) => {
+          if (sonG != undefined && sonG.currentTime == sonG.duration) {
+            switch (sonG) {
+              case music.finalSong:
+              case music.cheaterSong:
+                sonG == music.finalSong
+                  ? (music.finalSong = undefined)
+                  : (music.cheaterSong = undefined);
+
+                if (music.song) {
+                  music.song.currentTime = 0;
+                  music.song.play();
+                }
+                break;
+
+              case music.song:
+                music.listenedCycle.push(music.songsList[music.index]);
+                music.songsList.splice(music.index, 1);
+                if (music.songsList.length == 0) {
+                  music.checkListenedSongs("restore default");
+                }
+                music.index = Math.round(
+                  Math.random() * (music.songsList.length - 1)
+                );
+                localStorage.setItem(
+                  "listenedCycle",
+                  JSON.stringify(music.listenedCycle)
+                );
+                music.song = new Audio(music.songsList[music.index]);
+                music.song.play();
+                break;
+            }
           }
-          music.index = Math.round(
-            Math.random() * (music.songsList.length - 1)
-          );
-          localStorage.setItem(
-            "listenedCycle",
-            JSON.stringify(music.listenedCycle)
-          );
-          music.song = new Audio(music.songsList[music.index]);
-          music.song.play();
-        }
+        });
       }, 4000);
-      music.hasBeenListened = true;
     } else {
       music.isAllowedToPlay = false;
       $(".music-settings").text("Бажаєте ввімкнути МУЗОН?");
-      if (music.finalSong != undefined) {
-        music.finalSong.pause();
-      } else if (music.cheaterSong != undefined) {
-        music.cheaterSong.pause();
-      } else {
-        music.song.pause();
-      }
+
+      music.songS = [music.song, music.cheaterSong, music.finalSong].reverse();
+      music.songS?.forEach((sonG) => {
+        if (sonG != undefined) {
+          sonG.pause();
+        }
+      });
     }
   },
   changeVolume(musicVolume) {
-    if (music.finalSong != undefined) {
-      music.finalSong.volume = musicVolume;
-    }
-    if (music.cheaterSong != undefined) {
-      music.cheaterSong.volume = musicVolume;
-    }
-    if (music.song != undefined) {
-      music.song.volume = musicVolume;
-    }
+    music.songS?.forEach((sonG) => {
+      if (sonG != undefined) {
+        sonG.volume = musicVolume;
+      }
+    });
   },
 };
+music.index = Math.round(Math.random() * music.songsList.length - 1);
+music.songS = [music.song, music.cheaterSong, music.finalSong].reverse();
+export { music };
