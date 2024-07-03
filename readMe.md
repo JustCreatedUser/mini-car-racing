@@ -1,6 +1,7 @@
-# In general, **[Mini-car racing](https://mini-car-racing.netlify.app)** is an online game, created for an entertainment.
+# **[Mini-car racing](https://mini-car-racing.netlify.app)** 
+it is an online game, created for an entertainment.
 ## It's features are:
-
+- Two languages: ukrainian (native) and english;
 - flexibility which allows anyone play game either on computer or on phones. Also there are 3 types of handling for such devices;
 - somehow made car physics with velocity, "revolutions per minute (RPM)" and gears;
 - plain story, which is divided by 4 parts. In INTRO player completes a tutorial, while in RACES he competes againts bots;
