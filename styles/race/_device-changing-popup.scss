@@ -26,7 +26,8 @@
     font-size: setSizeWithMath(60, 1020, 100vw);
   }
 }
-#choose-device {
+#choose-device,
+#choose-language {
   border: 3px black solid;
   font-size: 3vw;
   text-align: center;
@@ -38,6 +39,11 @@
   justify-content: center;
   display: flex;
   align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  p {
+    font-size: 2vw;
+  }
   select {
     background-color: transparent;
   }

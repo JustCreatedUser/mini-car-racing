@@ -16,6 +16,7 @@ import {
   chapters,
 } from "../story.js";
 import { turns } from "./turningFunctions.js";
+
 type moveDirection = 0 | "acceleration" | "decceleration";
 class Car {
   rpm: number = 0;
@@ -79,7 +80,11 @@ class MyCar extends Car {
         !variables.isGamePaused
       ) {
         myCar.gear > 0
-          ? alert("Запуск можливий тільки при нейтральнй передачі")
+          ? alert(
+              variables.language != "english"
+                ? "Запуск можливий тільки при нейтральнй передачі"
+                : "You can switch on the engine ONLY while having neutral gear "
+            )
           : "";
         if (myCar.gear === 0) {
           if (variables.device != "computer") {
@@ -137,7 +142,11 @@ class MyCar extends Car {
           clearInterval(intervals.universalMoving);
           clearInterval(intervals.everyCarMove);
         } else {
-          alert("Двигун можна виключити тільки при нейтральній передачі");
+          alert(
+            variables.language != "english"
+              ? "Двигун можна виключити тільки при нейтральній передачі"
+              : "Engine can be switched off ONLY while having neutral gear"
+          );
         }
       }
     },

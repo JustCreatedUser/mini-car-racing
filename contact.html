@@ -105,6 +105,27 @@
       crossorigin="anonymous"
     ></script>
     <script>
+      function setLanguage() {
+        const lang = localStorage.getItem("language")
+          ? localStorage.getItem("language")
+          : "ukrainian";
+        if (lang == "english") {
+          document.querySelector("#cover .back-page").textContent =
+            "It will be sent to the author of game";
+          document.querySelector("#cover .front-page").textContent =
+            "Here you should complete an application form";
+          document.querySelector("#page1 .front-page span").textContent =
+            "Your email";
+          document.querySelector("#page1 .back-page span").textContent =
+            "Your rating out of 10";
+          document.querySelector("#page2 .front-page span").textContent =
+            "Your thoughts";
+          document.querySelector('button[type="submit"]').textContent = "Send";
+          document.querySelector("textarea").placeholder =
+            "Developer will pay close attention to it!";
+        }
+      }
+      setLanguage();
       function checkRating() {
         if (rating.value >= 8) {
           if (rating.value > 10) {
@@ -178,12 +199,9 @@
           page2.style.zIndex = 2;
         }, 300);
       }
-      $("input").on("input", changeBorder);
-      $("textarea").on("input", changeBorder);
-      email.oninput = changeBorder;
-      $("input").on("click", changeBorder);
-      $("textarea").on("click", changeBorder);
-      email.onclick = changeBorder;
+      $("input").on("input", changeBorder).on("click", changeBorder);
+      $("textarea").on("input", changeBorder).on("click", changeBorder);
+      $(email).on("input", changeBorder).on("click", changeBorder);
       let inputs = [email, rating, message];
       let labels = [checkboxCover, checkboxPage1, checkboxPage2];
       labels.forEach((element) => {

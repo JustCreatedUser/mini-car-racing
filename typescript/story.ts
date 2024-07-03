@@ -84,14 +84,18 @@ class Intro extends Story {
     const h1 = document.createElement("h1");
     h1.className = "intro-words";
     document.body.append(h1);
-    h1.textContent = "Настав час...";
+    h1.textContent =
+      variables.language != "english" ? "Настав час..." : "Time to race...";
     h1.style.opacity = "0";
     setTimeout(() => {
       h1.style.opacity = "1";
       setTimeout(() => {
         h1.style.opacity = "0";
         setTimeout(() => {
-          h1.textContent = "...змагатись за першість...";
+          h1.textContent =
+            variables.language != "english"
+              ? "...змагатись за першість..."
+              : "...for being first...";
           h1.style.opacity = "1";
           setTimeout(() => {
             h1.style.opacity = "0";
@@ -120,11 +124,18 @@ class Intro extends Story {
                     variables.guideBlock.style.transition =
                       "1s cubic-bezier(0.65, 0.05, 0.36, 1)";
                     introduction.tip(
-                      `Зараз треба спішити, бо треба доїхати до зустрічі гонщиків.
+                      variables.language != "english"
+                        ? `Зараз треба спішити, бо треба доїхати до зустрічі гонщиків.
                       Спершу - запуск двигуна.` +
-                        (variables.device == "computer"
-                          ? ` Нажми "${keyboard.engine}" щоб це зробити`
-                          : " Всі потрібні кнопки будуть виділятись за потреби, як і ця - нажми на неї."),
+                            (variables.device == "computer"
+                              ? ` Нажми "${keyboard.engine}" щоб це зробити`
+                              : " Всі потрібні кнопки будуть виділятись за потреби, як і ця - нажми на неї.")
+                        : `Need to hurry, 'cause it's time to meet racers.
+                        First - Switch on the engine with` +
+                            (variables.device == "computer"
+                              ? `"${keyboard.engine}"`
+                              : "a unique button"),
+
                       "#useTheEngine"
                     );
                   }, 2000);
@@ -144,8 +155,11 @@ class Intro extends Story {
     $(".gameplay-pause").css("display", "flex");
     variables.guideBlock.style.opacity = "0";
     variables.guideBlockText.innerText = "Mini-car racing";
-    variables.race.style.transition = "1s cubic-bezier(0.65, 0.05, 0.36, 1)";
-    variables.race.style.opacity = "0";
+    $(variables.race).css({
+      transition: "1s cubic-bezier(0.65, 0.05, 0.36, 1)",
+      opacity: "0",
+    });
+
     setTimeout(() => {
       changes.rewriteEverything ? changes.rewriteEverything() : "";
       permissions.toSaveProgress = true;
@@ -259,17 +273,13 @@ class Race extends Story {
           marginLeft: 0,
         });
         $(".enemy-vehicle").css("transform", "rotate(0deg)");
-        $(".enemy-wheel").css({
-          transition: "unset",
-          transform: "rotate(0deg)",
-        });
         $("footer").css("opacity", 1);
         variables.guideBlock.style.opacity = "1";
         someFn(param);
         variables.action = 10;
         $(".enemy-wheel").css({
-          transition: "4s ease-out",
-          transform: "rotate(6000deg)",
+          transition: "unset",
+          transform: "rotate(0deg)",
         });
         setTimeout(() => {
           $(".enemy-wheel").css({
@@ -346,7 +356,9 @@ class Race extends Story {
                     )
                   ) {
                     secondaryFunctions.gameOver(
-                      "Ти не приїхав перший. Почитай підсказки-пояснення в меню"
+                      variables.language != "english"
+                        ? "Ти не приїхав перший. Почитай підсказки-пояснення в меню"
+                        : "You finished being second. Read hints in menu!"
                     );
                   } else {
                     this.ending();
@@ -391,7 +403,9 @@ class Race extends Story {
             variables.totalProgress != "Everything"
           ) {
             $(".gameplay-headline").text(
-              "Вітаю з другою перемогою! (гортай донизу)"
+              variables.language != "english"
+                ? "Вітаю з другою перемогою! (гортай донизу)"
+                : "Congrats on winning the second race! (scrl down)"
             );
             $(".finalRace-begin img").remove();
             $(".finalRace-begin").css("color", "white");
@@ -406,7 +420,9 @@ class Race extends Story {
             variables.totalProgress != "Everything"
           ) {
             $(".gameplay-headline").text(
-              "Вітаю з першою перемогою! (гортай донизу)"
+              variables.language != "english"
+                ? "Вітаю з першою перемогою! (гортай донизу)"
+                : "Congrats on winning the first race! (scrl down)"
             );
             $(".secondRace-begin img").remove();
             $(".secondRace-begin").css("color", "white");
@@ -449,7 +465,11 @@ class Race extends Story {
                 color: "white",
                 borderBottom: "2px solid white",
               });
-              $(".save-the-progress-button").text("Зберегти прогрес?");
+              $(".save-the-progress-button").text(
+                variables.language != "english"
+                  ? "Зберегти прогрес?"
+                  : "Save progress?"
+              );
             }
             variables.finish = false;
             $(".gameplay-pause").css("opacity", "1");
@@ -481,27 +501,25 @@ class Race extends Story {
           variables.backgroundPositionX < position &&
           turns.isRightNow == "almost"
         ) {
-          variables.guideBlockText.innerText = `ЛІМІТ: ${
-            turns.array[turns.index].maxSpeed
-          } KM/H`;
+          variables.guideBlockText.innerText =
+            (variables.language != "english" ? "ЛІМІТ:" : "LIMIT:") +
+            turns.array[turns.index].maxSpeed +
+            "KM/H";
           turns.start();
           turns.isRightNow = true;
           $(".turn-position").css("display", "none");
           clearInterval(intervals.turnComing);
         }
-        if (myCar.spd < turns.array[turns.index].maxSpeed) {
-          $(".turn-speed").css("background", "linear-gradient(green,white)");
-        } else {
-          $(".turn-speed").css("background", "linear-gradient(red,white)");
-        }
-        if (changes.firstRace.continueFirstTurnExplanation) {
+        myCar.spd < turns.array[turns.index].maxSpeed
+          ? $(".turn-speed").css("background", "linear-gradient(green,white)")
+          : $(".turn-speed").css("background", "linear-gradient(red,white)");
+        if (changes.firstRace.continueFirstTurnExplanation)
           $(".turn-distance").text(
             Math.round(
               (position - variables.backgroundPositionX) /
                 variables.distanceRatio
             ) + "m"
           );
-        }
       }
     }, 100);
   }
@@ -513,15 +531,23 @@ introduction = new Intro(
         $("#useTheEngine").css({ boxShadow: "unset", zIndex: 0 });
         music.changeVolume(1);
         variables.race.style.opacity = ".7";
-        variables.guideBlockText.innerText = "Добре!";
+        variables.guideBlockText.innerText =
+          variables.language != "english" ? "Добре!" : "Good!";
         setTimeout(() => {
           introduction.tip(
-            `Далі підніми обороти двигуна хоча б до 6200. Для цього зажми ` +
-              (variables.device == "computer"
-                ? `"${keyboard.accelerate}" на клавіатурі і тримай,`
-                : " виділену кнопку,") +
-              ` а  графік оборотів є зліва ` +
-              (variables.device == "computer" ? `знизу.` : " по центру."),
+            variables.language == "ukrainian"
+              ? `Далі підніми обороти двигуна хоча б до 6200. Для цього зажми ` +
+                  (variables.device == "computer"
+                    ? `"${keyboard.accelerate}" на клавіатурі і тримай,`
+                    : " виділену кнопку,") +
+                  ` а  графік оборотів є зліва ` +
+                  (variables.device == "computer" ? `знизу.` : " по центру.")
+              : `Then raise engine's speed (RPM) at least to 6200. To do this hold ` +
+                  (variables.device == "computer"
+                    ? `"${keyboard.accelerate}" on your keyboard,`
+                    : " unique button,") +
+                  ` plus RPM are shown in the bottom ` +
+                  (variables.device == "computer" ? `left.` : "center."),
             "#accelerationPedal"
           );
           permissions.forMoreRpm = true;
@@ -533,10 +559,15 @@ introduction = new Intro(
       if (variables.action == 2 && changes.introduction.first == true) {
         myCar.noClutchMode = false;
         introduction.tip(
-          `Щоб рушити треба переключити передачу вгору, тому нажми ` +
-            (variables.device == "computer"
-              ? `"${keyboard.gearUp}".`
-              : "стрілку вгору."),
+          variables.language != "english"
+            ? `Щоб рушити треба переключити передачу вгору, тому нажми ` +
+                (variables.device == "computer"
+                  ? `"${keyboard.gearUp}".`
+                  : "стрілку вгору.")
+            : "To move you have to shift a gear, so tap " +
+                (variables.device == "computer"
+                  ? `"${keyboard.gearUp}".`
+                  : "Arrow up."),
           "#gearUpButton"
         );
       }
@@ -570,11 +601,17 @@ introduction = new Intro(
       if (myCar.rpm < 3000 && !changes.introduction.gearDownAction) {
         myCar.noClutchMode = false;
         introduction.tip(
-          `Останні штрихи: переключи передачу вниз ${
-            variables.device == "computer"
-              ? `клавішою "${keyboard.gearDown}"`
-              : " цією стрілкою"
-          }. Увага: передачу вниз переключай, КОЛИ ОБОРОТИ МЕНШІ ЗА 6000`,
+          variables.language != "english"
+            ? `Останні штрихи: переключи передачу вниз ${
+                variables.device == "computer"
+                  ? `клавішою "${keyboard.gearDown}"`
+                  : " цією стрілкою"
+              }. Увага: передачу вниз переключай, КОЛИ ОБОРОТИ МЕНШІ ЗА 6000`
+            : `Finally, shift gear down ${
+                variables.device == "computer"
+                  ? `with "${keyboard.gearDown}"`
+                  : "with an Arrow down"
+              }`,
           "#gearDownButton"
         );
         changes.introduction.gearDownAction = true;
@@ -594,11 +631,16 @@ introduction = new Intro(
         changes.introduction.reachIntroDestination = true;
         changes.movingPause = true;
         introduction.tip(
-          `Ти майже приїхав, пора тормозити! Зажми ${
-            variables.device == "computer"
-              ? `"${keyboard.deccelerate}"`
-              : "тормоз"
-          }.`,
+          variables.language != "english"
+            ? `Ти майже приїхав, пора тормозити! Зажми ${
+                variables.device == "computer"
+                  ? `"${keyboard.deccelerate}"`
+                  : "тормоз"
+              }.`
+            : "You're almost there! Hold " +
+                (variables.device == "computer"
+                  ? `"${keyboard.deccelerate}"`
+                  : "brakes!"),
           "#deccelerationPedal"
         );
         permissions.forInertia = false;
@@ -612,26 +654,41 @@ introduction = new Intro(
         music.changeVolume(1);
         variables.race.style.opacity = ".7";
         $("#gearUpButton").css({ boxShadow: "unset", zIndex: 0 });
-        variables.guideBlockText.innerText = `Чудово! Тепер, щоб доїхати до першої гонки, піднімай обороти і переключай передачі за допомогою ${
-          variables.device == "computer"
-            ? `"${keyboard.accelerate}" і "${keyboard.gearUp}"`
-            : "газу і стрілки вгору"
-        }.`;
+        variables.guideBlockText.innerText =
+          variables.language != "english"
+            ? `Чудово! Тепер, щоб доїхати до першої гонки, піднімай обороти і переключай передачі за допомогою ${
+                variables.device == "computer"
+                  ? `"${keyboard.accelerate}" і "${keyboard.gearUp}"`
+                  : "газу і стрілки вгору"
+              }.`
+            : "Great! In order to get to the destination - first race, raise engine RPM and shift gears up with " +
+              (variables.device == "computer"
+                ? `"${keyboard.accelerate}" and "${keyboard.gearUp}"`
+                : "Gas and arrow up");
       }
     },
     deccelerationExplanation() {
       if (variables.action == 5 && myCar.gear == 1) {
         music.changeVolume(0.5);
         introduction.tip(
-          `Зараз, коли передача є першою, а тобі треба зупинитись, притормози до меншої за 20 км/год швидкості ${
-            variables.device == "computer"
-              ? `кнопкою "${keyboard.deccelerate}" (більше не нагадуватиму)`
-              : ""
-          }, переключи передачу вниз і тоді заглуши двигун${
-            variables.device == "computer"
-              ? ` з кнопкою "${keyboard.engine}", якщо не забув).`
-              : "."
-          }`
+          variables.language != "english"
+            ? `Зараз, коли передача є першою, а тобі треба зупинитись, притормози до меншої за 20 км/год швидкості ${
+                variables.device == "computer"
+                  ? `кнопкою "${keyboard.deccelerate}" (більше не нагадуватиму)`
+                  : ""
+              }, переключи передачу вниз і тоді заглуши двигун${
+                variables.device == "computer"
+                  ? ` з кнопкою "${keyboard.engine}", якщо не забув).`
+                  : "."
+              }`
+            : "Now, when the gear is first, brake to smallest possible speed" +
+                (variables.device == "computer"
+                  ? ` with key "${keyboard.deccelerate}",`
+                  : ",") +
+                `shift gear down and switch the engine off` +
+                (variables.device == "computer"
+                  ? ` with button "${keyboard.engine}", in case you forgot).`
+                  : ".")
         );
         changes.movingPause = true;
         permissions.forInertia = false;
@@ -643,11 +700,19 @@ introduction = new Intro(
       if (changes.movingPause) {
         changes.movingPause = false;
         variables.race.style.opacity = ".7";
-        variables.guideBlockText.innerText = `Як ти вже побачив - коробка передач - ${
-          variables.device == "computer"
-            ? `справа в центрі спідометру`
-            : "зліва від тахометра (обороти)"
-        }, тому, з огляду на неї, переключи передачі вниз аж до першої.`;
+        variables.guideBlockText.innerText =
+          variables.language != "english"
+            ? `Як ти вже побачив - коробка передач - ${
+                variables.device == "computer"
+                  ? `справа в центрі спідометру`
+                  : "зліва від тахометра (обороти)"
+              }, тому, з огляду на неї, переключи передачі вниз аж до першої.`
+            : `According to the gear index (which is ${
+                variables.device == "computer"
+                  ? `in the right center of speedometer`
+                  : "on the left forom the tachometer (RPM)"
+              }), shift gear down right to the first one`;
+
         $("#gearDownButton").css({ boxShadow: "unset", zIndex: 0 });
       }
     },
@@ -660,14 +725,20 @@ firstRace = new Race(
       variables.race.style.opacity = "0.7";
       music.changeVolume(1);
       variables.guideBlockText.textContent =
-        "Готуйся! Набери обороти, а коли натиснеш на цю кнопку → , то запустиш відлік до початку гонки. Коли відлік закінчиться - ПЕРЕКЛЮЧАЙ ПЕРЕДАЧУ ВГОРУ І ЖЕНИ";
+        variables.language != "english"
+          ? "Готуйся! Набери обороти, а коли натиснеш на цю кнопку → , то запустиш відлік до початку гонки. Коли відлік закінчиться - ПЕРЕКЛЮЧАЙ ПЕРЕДАЧУ ВГОРУ І ЖЕНИ"
+          : "Get ready! Raise your engine speed (RPM), tap that button →, wait till the end of counting, shift gear up AND RACE!";
       $(".continue-game-button").css("display", "flex");
       changes.movingPause = false;
     },
     continueTurnExplanation() {
-      $(".continue-game-button").text("Готовий?");
+      $(".continue-game-button").text(
+        variables.language != "english" ? "Готовий?" : "Ready?"
+      );
       firstRace.tip(
-        `Справа на дорозі буде показник дистанції, через яку буде поворот, і швидкість, до якої треба затормозити. Якщо ти не відтормозишся достатньо або розженешся під часу повороту  - тебе винесе з дороги і ти програєш. Натискай на кнопку і їдь!`
+        variables.language != "english"
+          ? `Справа на дорозі буде показник дистанції, через яку буде поворот, і швидкість, до якої треба затормозити. Якщо ти не відтормозишся достатньо або розженешся під часу повороту  - тебе винесе з дороги і ти програєш. Натискай на кнопку і їдь!`
+          : "On the right side of the road appears one sign, which indicates distance TO turn and max speed OF TURNING. If you exceed this limit - you lose!"
       );
     },
   },

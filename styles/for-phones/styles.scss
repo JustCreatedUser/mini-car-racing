@@ -12,6 +12,7 @@ div.menu-content {
 .phone-counters {
   perspective: 200px;
   transform-style: preserve-3d;
+  display: grid;
 }
 .changeScreen button {
   background-color: white;
@@ -106,9 +107,6 @@ div.gear {
 footer {
   height: 37vh;
   grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
-}
-footer.phone-counters {
-  display: grid;
 }
 div.rpm,
 div.speed {
