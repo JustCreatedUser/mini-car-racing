@@ -187,7 +187,11 @@ export const gearFunctions = {
         if (car == myCar && myCar.spd < 20) {
           gearFunctions.down.endMoving(car);
         } else if (car == myCar) {
-          alert("Нейтральна передача вмикається тільки на швидкості <20 px/s");
+          alert(
+            variables.language != "english"
+              ? "Нейтральна передача вмикається тільки на швидкості < 20 km/h"
+              : "LESS SPEED!!!"
+          );
         }
         car.noClutchMode = true;
       }

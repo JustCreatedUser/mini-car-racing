@@ -69,13 +69,13 @@ const turns: Iturns = {
       turn.distanceAfterTurn = minDistanceAfterTurning + 50 * turn.type;
       switch (turn.type) {
         case 0:
-          turn.type = "Різкий";
+          turn.type = variables.language != "english" ? "Різкий" : "Sharp";
           break;
         case 1:
-          turn.type = "Середній";
+          turn.type = variables.language != "english" ? "Середній" : "Middle";
           break;
         case 2:
-          turn.type = "Плавний";
+          turn.type = variables.language != "english" ? "Плавний" : "Smooth";
           break;
       }
       switch (turn.direction) {
@@ -100,14 +100,17 @@ const turns: Iturns = {
       variables.car.style.transition = "2s linear";
       switch (type) {
         case "Різкий":
+        case "Sharp":
           variables.turnValue = 15;
           variables.additionalMarginForTurn = window.innerWidth / 4.8;
           break;
         case "Середній":
+        case "Middle":
           variables.turnValue = 11;
           variables.additionalMarginForTurn = window.innerWidth / 6.2;
           break;
         case "Плавний":
+        case "Sharp":
           variables.turnValue = 7;
           variables.additionalMarginForTurn = window.innerWidth / 18.9;
           break;
@@ -125,7 +128,11 @@ const turns: Iturns = {
         variables.backgroundPositionX +
         distanceOfTurning * variables.distanceRatio;
     } else {
-      secondaryFunctions.gameOver("Ти не маєш розганятись в повороті!");
+      secondaryFunctions.gameOver(
+        variables.language != "english"
+          ? "Не перевищуй ліміт швидкості в повороті!"
+          : "Don't exceed speed limit while turning!"
+      );
     }
   },
   end() {
@@ -152,7 +159,8 @@ const turns: Iturns = {
       turns.index < turns.array.length
     ) {
       secondaryFunctions.announceFn(
-        turns.array[turns.index].type.toUpperCase() + " ПОВОРОТ",
+        turns.array[turns.index].type.toUpperCase() +
+          (variables.language != "english" ? " ПОВОРОТ" : " TURN"),
         (): void => {
           let allowedToTurn = false;
           if (changes.firstRace.firstTurnExplanation) {
@@ -193,7 +201,11 @@ const turns: Iturns = {
       variables.backgroundPositionX > turns.endPosition
     ) {
       myCar.spd = 0;
-      secondaryFunctions.gameOver("Ти не маєш розганятись в повороті!");
+      secondaryFunctions.gameOver(
+        variables.language != "english"
+          ? "Не перевищуй ліміт швидкості в повороті!"
+          : "Don't exceed speed limit while turning!"
+      );
     } else if (
       turns.endPosition &&
       turns.isRightNow === true &&

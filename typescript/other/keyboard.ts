@@ -15,16 +15,22 @@ export const keyboard = {
   goToMenu: "escape",
   listenMusic: "m",
 };
-$(".keyName").click(function () {
+$(".keyName").on("click", function () {
   if (!variables.choosingKeysMode) {
     variables.choosingKeysMode = true;
     variables.keyToChoose = $(this)[0].classList[1] as keyof typeof keyboard;
-    $(this).text("Нажми кнопку");
+    $(this).text(
+      variables.language != "english" ? "Нажми кнопку" : "Tap button"
+    );
     keyboard[variables.keyToChoose as keyof typeof keyboard] = undefined;
   }
 });
-$(".reset-keyboard").click(function () {
-  let response = confirm("Бажаєте скинути поточне управління до стандарту?");
+$(".reset-keyboard").on("click", function () {
+  let response = confirm(
+    variables.language != "english"
+      ? "Бажаєте скинути поточне управління до стандарту?"
+      : "Do you want to reset hanling to defaults?"
+  );
   if (response) {
     let key: keyof typeof keyboard;
     for (key in keyboard) {
@@ -123,7 +129,11 @@ function keyDown(e: KeyboardEvent) {
       (el) => el == e.key.toLowerCase()
     );
     if (keyExists.length != 0) {
-      alert("Ця кнопка вже використана");
+      alert(
+        variables.language != "english"
+          ? "Ця кнопка вже використана"
+          : "This key is already used!"
+      );
       return;
     }
     let name;

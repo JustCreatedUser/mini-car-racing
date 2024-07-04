@@ -97,7 +97,11 @@ export const rpmFunctions = {
                   turns.announce();
                   $(".continue-game-button").css("display", "flex");
                   $(".continue-game-button").text("Продовжити?");
-                  firstRace.tip(`Тепер саме складне - повороти!`);
+                  firstRace.tip(
+                    variables.language != "english"
+                      ? `Тепер саме складне - повороти!`
+                      : "Let's...  TURN"
+                  );
                 } else if (
                   (variables.progress == "secondRace" &&
                     !changes.secondRace.allowedToTurn) ||

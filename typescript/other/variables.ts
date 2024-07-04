@@ -1,4 +1,4 @@
-//Оголошення всіх змінних, щоб не вистрілювали ерори
+//Оголошення всіх змінних, щоб не вистрілювали ерори!
 "use strict";
 interface IstoryChanges {
   [key: string]: Function | boolean;
@@ -109,8 +109,10 @@ interface Ivariables {
   isGamePaused: boolean;
   currentWindows: string;
   progress: "firstRace" | "introduction" | "secondRace" | "finalRace";
+  language: "ukrainian" | "english" | undefined;
 }
 export var variables: Ivariables = {
+    language: undefined,
     guideBlockText: document.querySelector(".logo"),
     guideBlock: document.querySelector("header"),
     road: document.querySelector(".road"),

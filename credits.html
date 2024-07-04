@@ -1,4 +1,73 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Document</title><link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"integrity="sha512-1cK78a1o+ht2JcaW6g8OXYwqpev9+6GqOkz9xmBN9iUUhIndKtxwILGWYOSibOKjLsEdjyjZvYDq/cZwNeak0w=="crossorigin="anonymous"/><link rel="stylesheet" href="./styles/credits/styles.css" /></head><body><section id="credits" class="credits"><h1 data-aos-duration="1000"id="h1"data-aos="flip-down"style="grid-column: 2/4; grid-row: 1/2">Дякую за гру!</h1><img alt="двигун"loading="lazy"data-aos-duration="1000"style="grid-column: 1/2; grid-row: 2/3"data-aos="flip-right"src="./icons-and-images/engine2.png"/><p data-aos-duration="1000"style="grid-column: 2/4; grid-row: 2/3"data-aos="flip-down">Головний розробник - Дириль Даніель</p><img alt="дорога"loading="lazy"data-aos-duration="1000"style="grid-column: 4/5; grid-row: 3/4"data-aos="flip-left"src="./icons-and-images/roads/day.png"/><img alt="просто машина"loading="lazy"data-aos-duration="1000"style="grid-column: 1/2; grid-row: 4/5"data-aos="flip-right"src="./icons-and-images/cars/sedan.png"/><p data-aos-duration="1000"style="grid-column: 2/4; grid-row: 3/4"data-aos="flip-down">Головні дизайнери - Creator IT </p><p data-aos-duration="1000"style="grid-column: 2/4; grid-row: 4/5"data-aos="flip-down">Другорядний дизайнер - Дириль Даніель</p><img alt="нічна дорога"
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+      integrity="sha512-1cK78a1o+ht2JcaW6g8OXYwqpev9+6GqOkz9xmBN9iUUhIndKtxwILGWYOSibOKjLsEdjyjZvYDq/cZwNeak0w=="
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./styles/credits/styles.css" />
+  </head>
+  <body>
+    <section id="credits" class="credits">
+      <h1
+        data-aos-duration="1000"
+        id="h1"
+        data-aos="flip-down"
+        style="grid-column: 2/4; grid-row: 1/2"
+      >
+        Дякую за гру!
+      </h1>
+      <img
+        alt="двигун"
+        loading="lazy"
+        data-aos-duration="1000"
+        style="grid-column: 1/2; grid-row: 2/3"
+        data-aos="flip-right"
+        src="./icons-and-images/engine2.png"
+      />
+      <p
+        data-aos-duration="1000"
+        style="grid-column: 2/4; grid-row: 2/3"
+        data-aos="flip-down"
+      >
+        Головний розробник - Дириль Даніель
+      </p>
+      <img
+        alt="дорога"
+        loading="lazy"
+        data-aos-duration="1000"
+        style="grid-column: 4/5; grid-row: 3/4"
+        data-aos="flip-left"
+        src="./icons-and-images/roads/day.png"
+      /><img
+        alt="просто машина"
+        loading="lazy"
+        data-aos-duration="1000"
+        style="grid-column: 1/2; grid-row: 4/5"
+        data-aos="flip-right"
+        src="./icons-and-images/cars/sedan.png"
+      />
+      <p
+        data-aos-duration="1000"
+        style="grid-column: 2/4; grid-row: 3/4"
+        data-aos="flip-down"
+      >
+        Головні дизайнери - Creator IT
+      </p>
+      <p
+        data-aos-duration="1000"
+        style="grid-column: 2/4; grid-row: 4/5"
+        data-aos="flip-down"
+      >
+        Другорядний дизайнер - Дириль Даніель
+      </p>
+      <img
+        alt="нічна дорога"
         loading="lazy"
         data-aos-duration="1000"
         style="grid-column: 4/5; grid-row: 5/6"
@@ -100,6 +169,29 @@
       crossorigin="anonymous"
     ></script>
     <script>
+      function setLanguage() {
+        const lang = localStorage.getItem("language")
+          ? localStorage.getItem("language")
+          : "ukrainian";
+        if (lang == "english") {
+          let el = "h1";
+          function setTxt(txt) {
+            document.querySelector(el).textContent = txt;
+            el += "~p";
+          }
+          setTxt("Thanks for playing!");
+          setTxt("The only developer - Daniel Diril");
+          setTxt("Main designers - Creator IT Academy");
+          setTxt("Secondary designer - Daniel Diril");
+          setTxt("The only scriptwriter - Daniel Diril");
+          setTxt("Main test engineer - Daniel Diril");
+          setTxt("Secondary test engineer - Stanislav Romanovskij");
+          setTxt("Special thanks to Maksym Severyn");
+          document.querySelector(".close-credits").textContent =
+            "Close credits";
+        }
+      }
+      setLanguage();
       AOS.init();
       function scrollPage() {
         setTimeout(() => {
@@ -122,11 +214,12 @@
           }, 10);
         }, 2000);
       }
-      document.onload = scrollPage();
+
       let closeCredits = document.querySelector(".close-credits");
       closeCredits.onclick = function () {
         location.replace("https://mini-car-racing.netlify.app/index.html");
       };
+      document.onload = scrollPage();
     </script>
   </body>
 </html>

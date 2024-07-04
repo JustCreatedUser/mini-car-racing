@@ -1,5 +1,8 @@
-//Музичний супровід
+//Музичний супровід!
 "use strict";
+
+import { variables } from "./variables.js";
+
 type CheckSongsUsage = "localStorage" | "restore default";
 interface Imusic {
   songsList: Array<string>;
@@ -71,7 +74,11 @@ const music: Imusic = {
   listenToMusic() {
     if (!music.isAllowedToPlay) {
       music.isAllowedToPlay = true;
-      $(".music-settings").text("Бажаєте вимкнути МУЗОН?");
+      $(".music-settings").text(
+        variables.language != "english"
+          ? "Бажаєте вимкнути МУЗОН?"
+          : "Switch off music?"
+      );
       if (!music.hasBeenListened) {
         music.hasBeenListened = true;
         music.song = new Audio(music.songsList[music.index]);
@@ -131,7 +138,11 @@ const music: Imusic = {
       }, 4000);
     } else {
       music.isAllowedToPlay = false;
-      $(".music-settings").text("Бажаєте ввімкнути МУЗОН?");
+      $(".music-settings").text(
+        variables.language != "english"
+          ? "Бажаєте ввімкнути МУЗОН?"
+          : "Switch on music?"
+      );
 
       music.songS = [music.song, music.cheaterSong, music.finalSong].reverse();
       music.songS?.forEach((sonG) => {

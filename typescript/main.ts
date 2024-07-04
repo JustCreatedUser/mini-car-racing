@@ -44,10 +44,12 @@ changes.rewriteEverything = () => {
   secondRaceCar.rpm = 5000;
   finalRaceCar.rpm = 8000;
   $(".continue-game-button").css("display", "none");
-  variables.car.style.transition = "0";
-  variables.car.style.rotate = "0deg";
-  variables.car.style.marginTop = "0";
-  variables.car.style.boxShadow = "unset";
+  $(".car").css({
+    transition: "0",
+    marginTop: "0",
+    rotate: "0deg",
+    boxShadow: "unset",
+  });
   variables.hasChanged = undefined;
   variables.action = 0;
   variables.raceBackgroundPositionX = 0;
@@ -71,13 +73,13 @@ changes.rewriteEverything = () => {
   }
   myCar.fns.useTheEngine(true);
 };
-$(".save-the-progress-button").click(secondaryFunctions.saveProgress);
+$(".save-the-progress-button").on("click", secondaryFunctions.saveProgress);
 $("#choose-info").on("input", secondaryFunctions.selectInfoInMenu);
-$(".part").click(secondaryFunctions.chooseChapter);
-$(".pause").click(secondaryFunctions.pause);
-$(".back-to-menu-button").click(secondaryFunctions.returnToMenu);
-$(".music-settings").click(music.listenToMusic);
-$(".continue-game-button").click(secondaryFunctions.useGuideBlockButton);
+$(".part").on("click", secondaryFunctions.chooseChapter);
+$(".pause").on("click", secondaryFunctions.pause);
+$(".back-to-menu-button").on("click", secondaryFunctions.returnToMenu);
+$(".music-settings").on("click", music.listenToMusic);
+$(".continue-game-button").on("click", secondaryFunctions.useGuideBlockButton);
 $(".action-settings").on("click", secondaryFunctions.actionLevelChange);
 $(".explanation-content").on(
   "click",
