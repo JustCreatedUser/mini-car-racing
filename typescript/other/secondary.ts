@@ -24,7 +24,7 @@ export const secondaryFunctions = {
     alert(
       variables.language != "english"
         ? "Ти ж розумієш, що перегони без екшену - не перегони!"
-        : "It`s a joke! Racing without action - not a racing!"
+        : "This is a joke! A race without action is not a race!"
     );
   },
   pause() {
@@ -114,7 +114,9 @@ export const secondaryFunctions = {
         borderBottom: "2px solid black",
       });
       $(this).text(
-        variables.language != "english" ? "Прогрес збережено" : "Progress saved"
+        variables.language != "english"
+          ? "Прогрес збережено"
+          : "Progress is saved"
       );
       switch (variables.totalProgress) {
         case "firstRace":
@@ -151,7 +153,7 @@ export const secondaryFunctions = {
             ? `
     Це пранк, який зменшує обороти до ${myCar.maxRpm}. Цей ефект триватиме <span class="cheat-counter">60</span> сек     ......(А НІЧОГО ВИКОРИСТОВУВАТИ ЧИТИ!!!)`
             : `
-    This is a prank, which decrements your car's stats to ${myCar.maxRpm}. Is will affect your game for <span class="cheat-counter">60</span> seconds     ......(You should play fairly!!!)`
+    This is a prank, which decrements your car's stats to ${myCar.maxRpm}. It will affect your game for <span class="cheat-counter">60</span> seconds     ......(You should play fair!!!)`
         );
 
       if (music.isAllowedToPlay) music.cheaterSong.play();
@@ -401,7 +403,7 @@ export const secondaryFunctions = {
             ? `
       Це пранк, який зменшує обороти до ${myCar.maxRpm}. Цей ефект триватиме <span class="cheat-counter">${cheatEffectTime}</span> сек     ......(А НІЧОГО ВИКОРИСТОВУВАТИ ЧИТИ!!!)`
             : `
-      This is a prank, which decrements your car's stats to ${myCar.maxRpm}. Is will affect your game for <span class="cheat-counter">${cheatEffectTime}</span> seconds     ......(You should play fairly!!!)`
+      This is a prank, which decrements your car's stats to ${myCar.maxRpm}. It will affect your game for <span class="cheat-counter">${cheatEffectTime}</span> seconds     ......(You should play fair!!!)`
         );
         let cheatEffect = setInterval(() => {
           cheatEffectTime--;
@@ -490,7 +492,7 @@ export const secondaryFunctions = {
             $(".gameplay-headline").text(
               variables.language != "english"
                 ? "Як швидко минає час... Нижче можна скинути прогрес."
-                : "The time passed so quickly... lower you can reset progress"
+                : "The time elapsed so quickly... you can reset your progress lower."
             );
             break;
         }
@@ -499,7 +501,7 @@ export const secondaryFunctions = {
           $(".uncompleted-parts h3").text(
             variables.language != "english"
               ? "Вже все пройдено..."
-              : "Nothing left to pass"
+              : "There is nothing left to pass."
           );
           $(".uncompleted-parts").append(
             `<button>${
@@ -531,7 +533,7 @@ export const secondaryFunctions = {
         $(".save-the-progress-button").text(
           variables.language != "english"
             ? "Прогрес збережено"
-            : "Progress saved"
+            : "Progress is saved"
         );
       } else {
         introduction.beginning();
@@ -591,14 +593,14 @@ export const secondaryFunctions = {
         $(".explanation-content").html(
           variables.language != "english"
             ? "Для Ефективного набирання швидкості треба розганяти обороти до всіх 10000RPM та переключати передачі вгору в самий останній момент"
-            : "In order to efficiently accelerate you need to raise max 10000RPM and shift gear in the last moment"
+            : "To accelerate efficiently you need to rev up 10000RPM and change gear at the last moment."
         );
         break;
       case "turn":
         $(".explanation-content").html(
           variables.language != "english"
             ? `Ти повинен бути готовим, що справа на дорозі буде написано: Через "дистанція до поворота" m, "допустима швидкість" km/h. Як тільки це з'явилось - тормози до допустимої швидкості І НЕ РОЗГАНЯЙСЯ, доки не минеш поворот`
-            : `Before a turn on the right side of the road appears this: "After "distance to the turn" m, "max speed" km/h". `
+            : `Before a bend on the right-hand side of the road, the following appears: "After "distance to bend" m, "maximum speed" km/h".`
         );
         break;
       case "speedCheat":
@@ -608,7 +610,7 @@ export const secondaryFunctions = {
               ? `
       Це пранк, який зменшує обороти до ${myCar.maxRpm}. Цей ефект триватиме <span class="cheat-counter">60</span> сек     ......(А НІЧОГО ВИКОРИСТОВУВАТИ ЧИТИ!!!)`
               : `
-      This is a prank, which decrements your car's stats to ${myCar.maxRpm}. Is will affect your game for <span class="cheat-counter">60</span> seconds     ......(You should play fairly!!!)`
+      This is a prank, which decrements your car's stats to ${myCar.maxRpm}. It will affect your game for <span class="cheat-counter">60</span> seconds     ......(You should play fair!!!)`
           );
         } else {
           $(".explanation-content").html(
@@ -624,7 +626,7 @@ export const secondaryFunctions = {
       <span class='undiscovered-music-left'>${
         variables.language != "english"
           ? "Назви решти творів ти отримаєш при проходженні гри"
-          : "Names of other songs will be revealed while playing game"
+          : "The names of the other songs will be revealed as you play."
       }</span>
         `);
         let number = music.listenedCycle.length + music.songsList.length,
@@ -654,8 +656,8 @@ export const secondaryFunctions = {
       case "device":
         $(".explanation-content").html(
           variables.language != "english"
-            ? "Якщо хочеш змінити управління на інший девайс або мову, то нажми на "
-            : 'If you wanna change handling or language, then tap <button class="change-device">ME</button>'
+            ? "Якщо хочеш змінити управління на інший девайс або мову, то нажми на <button class='change-device'>МЕНЕ</button>"
+            : 'To change the interface or language, tap <button class="change-device">ME</button>'
         );
         break;
     }
@@ -669,7 +671,7 @@ export const secondaryFunctions = {
         continuing = confirm(
           variables.language != "english"
             ? "Перезапустити вступ?"
-            : "Restart INTRO?"
+            : "Restart the INTRO?"
         );
         raceIndex = 1;
         variables.progress = "introduction";
@@ -678,7 +680,7 @@ export const secondaryFunctions = {
         continuing = confirm(
           variables.language != "english"
             ? "Почати першу гонку?"
-            : "Start First race?"
+            : "Start the First race?"
         );
         raceIndex = 2;
         variables.progress = "firstRace";
@@ -693,7 +695,7 @@ export const secondaryFunctions = {
           continuing = confirm(
             variables.language != "english"
               ? "Почати Другу гонку?"
-              : "Start Second race?"
+              : "Start the Second race?"
           );
           variables.progress = "secondRace";
           raceIndex = 3;
@@ -745,7 +747,7 @@ export const secondaryFunctions = {
                       ? "Якщо ти забув управління - зайди в меню паузи). Зараз заведи мотор"
                       : ""
                   } `
-                : `As you see, it's time to compete! ${
+                : `As you can see, it's time to compete! ${
                     variables.device == "computer"
                       ? "Tips about handling are in menu (just pause the game)"
                       : ""
@@ -760,7 +762,7 @@ export const secondaryFunctions = {
               "<div class='enemy-car secondRace'><img src='./icons-and-images/wheel.png' alt='' class='wheel one enemy-wheel'><img src='./icons-and-images/flame.png' class='flame enemy-flame'><img src='./icons-and-images/wheel.png' alt='' class='wheel two enemy-wheel'/><img src='./icons-and-images/cars/secondRace.png' alt='car' class='vehicle enemy-vehicle' /></div>",
               variables.language != "english"
                 ? `Хоч тобі і вдалось пройти першу гонку, але тепер противник швидший, а до поворотів треба швидше тормозити. \n все як минулого разу: двигун => обороти => кнопка => відлік => передача вгору`
-                : `Despite your first victory, don't relax! Your rival is faster and turns are sharper!!!\n However beginning is the same: engine => RPM => guide-button => counting => gear up`
+                : `Despite your first victory, don't relax! Your rival is faster and the corners are sharper!!! However the start is the same: engine => RPM => guide button => count => gear up`
             );
 
             break;
@@ -771,7 +773,7 @@ export const secondaryFunctions = {
               "<div class='enemy-car finalRace'><img src='./icons-and-images/wheel.png' alt='' class='wheel one enemy-wheel'><img  src='./icons-and-images/flame.png' class='flame enemy-flame'><img src='./icons-and-images/wheel.png' alt='' class='wheel two enemy-wheel'/><img src='./icons-and-images/cars/finalRace.png' alt='car' class='vehicle enemy-vehicle' /></div>",
               variables.language != "english"
                 ? "Настав час... ...змагатись за першість..."
-                : "Time to fight... ...for being first..."
+                : "Time to fight... ...to be first..."
             );
             if (music.finalSong === undefined)
               music.finalSong = new Audio(
@@ -887,7 +889,7 @@ export const secondaryFunctions = {
         let confirmation = confirm(
           $("#choose-language").val() == "ukrainian"
             ? "Ви впевнені? Все потім можна буде змінити в меню паузи"
-            : "Are you sure? You can still change it while game is paused"
+            : "Are you sure? You can still change it while the game is paused."
         );
         if (confirmation) {
           let { device, language } = variables;
@@ -907,7 +909,7 @@ export const secondaryFunctions = {
           alert(
             variables.language == "ukrainian"
               ? "Екран варто тримати лише в горизонтальному положенні!"
-              : "Please, have your device horizontally."
+              : "Please, hold your device horizontally."
           );
           $(".device-changing-popup button").off("click");
           $(".device-changing-popup").remove();
@@ -970,7 +972,7 @@ export const secondaryFunctions = {
       $(".finalRace-begin").text("Final race");
       $(".contact-link-button").text("Contact me");
       $(".back-to-menu-button").text("Back to menu?");
-      $(".music-settings").text("Switch on music?");
+      $(".music-settings").text("Turn on music?");
       $(".continue-game-button").text("Ready?");
       $(".explanation-content").text("nothing so far");
       $(".save-the-progress-button").text("Save progress?");

@@ -15,7 +15,7 @@ export const secondaryFunctions = {
     actionLevelChange() {
         alert(variables.language != "english"
             ? "Ти ж розумієш, що перегони без екшену - не перегони!"
-            : "It`s a joke! Racing without action - not a racing!");
+            : "This is a joke! A race without action is not a race!");
     },
     pause() {
         if (!variables.isGamePaused && permissions.toPause) {
@@ -98,7 +98,9 @@ export const secondaryFunctions = {
                 color: "black",
                 borderBottom: "2px solid black",
             });
-            $(this).text(variables.language != "english" ? "Прогрес збережено" : "Progress saved");
+            $(this).text(variables.language != "english"
+                ? "Прогрес збережено"
+                : "Progress is saved");
             switch (variables.totalProgress) {
                 case "firstRace":
                     variables.totalProgress = "secondRace";
@@ -400,14 +402,14 @@ export const secondaryFunctions = {
                         $(".completed-parts .parts").append($(".secondRace-begin"));
                         $(".gameplay-headline").text(variables.language != "english"
                             ? "Як швидко минає час... Нижче можна скинути прогрес."
-                            : "The time passed so quickly... lower you can reset progress");
+                            : "The time elapsed so quickly... you can reset your progress lower.");
                         break;
                 }
                 if (variables.totalProgress == "Everything") {
                     $(".completed-parts .parts").append($(".finalRace-begin"));
                     $(".uncompleted-parts h3").text(variables.language != "english"
                         ? "Вже все пройдено..."
-                        : "Nothing left to pass");
+                        : "There is nothing left to pass.");
                     $(".uncompleted-parts").append(`<button>${variables.language != "english"
                         ? "Скинути прогрес і перезавантажитись?"
                         : "Reset progress and reload page?"}</button>`);
@@ -431,7 +433,7 @@ export const secondaryFunctions = {
                 });
                 $(".save-the-progress-button").text(variables.language != "english"
                     ? "Прогрес збережено"
-                    : "Progress saved");
+                    : "Progress is saved");
             }
             else {
                 introduction.beginning();
@@ -490,12 +492,12 @@ export const secondaryFunctions = {
             case "acceleration":
                 $(".explanation-content").html(variables.language != "english"
                     ? "Для Ефективного набирання швидкості треба розганяти обороти до всіх 10000RPM та переключати передачі вгору в самий останній момент"
-                    : "In order to efficiently accelerate you need to raise max 10000RPM and shift gear in the last moment");
+                    : "To accelerate efficiently you need to rev up 10000RPM and change gear at the last moment.");
                 break;
             case "turn":
                 $(".explanation-content").html(variables.language != "english"
                     ? `Ти повинен бути готовим, що справа на дорозі буде написано: Через "дистанція до поворота" m, "допустима швидкість" km/h. Як тільки це з'явилось - тормози до допустимої швидкості І НЕ РОЗГАНЯЙСЯ, доки не минеш поворот`
-                    : `Before a turn on the right side of the road appears this: "After "distance to the turn" m, "max speed" km/h". `);
+                    : `Before a bend on the right-hand side of the road, the following appears: "After "distance to bend" m, "maximum speed" km/h".`);
                 break;
             case "speedCheat":
                 if (!permissions.toCheat) {
@@ -503,7 +505,7 @@ export const secondaryFunctions = {
                         ? `
       Це пранк, який зменшує обороти до ${myCar.maxRpm}. Цей ефект триватиме <span class="cheat-counter">60</span> сек     ......(А НІЧОГО ВИКОРИСТОВУВАТИ ЧИТИ!!!)`
                         : `
-      This is a prank, which decrements your car's stats to ${myCar.maxRpm}. Is will affect your game for <span class="cheat-counter">60</span> seconds     ......(You should play fairly!!!)`);
+      This is a prank, which decrements your car's stats to ${myCar.maxRpm}. It will affect your game for <span class="cheat-counter">60</span> seconds     ......(You should play fair!!!)`);
                 }
                 else {
                     $(".explanation-content").html(variables.language != "english"
@@ -516,7 +518,7 @@ export const secondaryFunctions = {
                     .html(`1) running in the 90s - Max Coveri; 2) Deja vu - Dave Rodgers; 3) Gas Gas Gas - Manuel; 4) Styles of Beyond - Nine Thou (Superstars Remix); 5) Born too slow - The Crystal Method; 6)The only - StaticX; 7) Broken Promises - Element Eighty; 8) Out of Control - Rancid; 
       <span class='undiscovered-music-left'>${variables.language != "english"
                     ? "Назви решти творів ти отримаєш при проходженні гри"
-                    : "Names of other songs will be revealed while playing game"}</span>
+                    : "The names of the other songs will be revealed as you play."}</span>
         `);
                 let number = music.listenedCycle.length + music.songsList.length, numberArray = Object.values(music.hidden).filter((item) => item == true);
                 if (music.hidden.cheaterSongWasDiscovered) {
@@ -535,8 +537,8 @@ export const secondaryFunctions = {
                 break;
             case "device":
                 $(".explanation-content").html(variables.language != "english"
-                    ? "Якщо хочеш змінити управління на інший девайс або мову, то нажми на "
-                    : 'If you wanna change handling or language, then tap <button class="change-device">ME</button>');
+                    ? "Якщо хочеш змінити управління на інший девайс або мову, то нажми на <button class='change-device'>МЕНЕ</button>"
+                    : 'To change the interface or language, tap <button class="change-device">ME</button>');
                 break;
         }
     },
@@ -546,14 +548,14 @@ export const secondaryFunctions = {
             case "introduction-restart":
                 continuing = confirm(variables.language != "english"
                     ? "Перезапустити вступ?"
-                    : "Restart INTRO?");
+                    : "Restart the INTRO?");
                 raceIndex = 1;
                 variables.progress = "introduction";
                 break;
             case "firstRace-begin":
                 continuing = confirm(variables.language != "english"
                     ? "Почати першу гонку?"
-                    : "Start First race?");
+                    : "Start the First race?");
                 raceIndex = 2;
                 variables.progress = "firstRace";
                 enemyCars.index = 0;
@@ -564,7 +566,7 @@ export const secondaryFunctions = {
                     variables.totalProgress == "Everything") {
                     continuing = confirm(variables.language != "english"
                         ? "Почати Другу гонку?"
-                        : "Start Second race?");
+                        : "Start the Second race?");
                     variables.progress = "secondRace";
                     raceIndex = 3;
                     enemyCars.index = 1;
@@ -606,7 +608,7 @@ export const secondaryFunctions = {
                             ? `Як Бачиш - пора змагатись! ${variables.device == "computer"
                                 ? "Якщо ти забув управління - зайди в меню паузи). Зараз заведи мотор"
                                 : ""} `
-                            : `As you see, it's time to compete! ${variables.device == "computer"
+                            : `As you can see, it's time to compete! ${variables.device == "computer"
                                 ? "Tips about handling are in menu (just pause the game)"
                                 : ""}`);
                         $(".gameplay-pause").css("display", "none");
@@ -615,13 +617,13 @@ export const secondaryFunctions = {
                         $("#race").css({ transform: "scale(1.5)", marginLeft: "20vw" });
                         secondRace.beginning(secondRace.tip, "<div class='enemy-car secondRace'><img src='./icons-and-images/wheel.png' alt='' class='wheel one enemy-wheel'><img src='./icons-and-images/flame.png' class='flame enemy-flame'><img src='./icons-and-images/wheel.png' alt='' class='wheel two enemy-wheel'/><img src='./icons-and-images/cars/secondRace.png' alt='car' class='vehicle enemy-vehicle' /></div>", variables.language != "english"
                             ? `Хоч тобі і вдалось пройти першу гонку, але тепер противник швидший, а до поворотів треба швидше тормозити. \n все як минулого разу: двигун => обороти => кнопка => відлік => передача вгору`
-                            : `Despite your first victory, don't relax! Your rival is faster and turns are sharper!!!\n However beginning is the same: engine => RPM => guide-button => counting => gear up`);
+                            : `Despite your first victory, don't relax! Your rival is faster and the corners are sharper!!! However the start is the same: engine => RPM => guide button => count => gear up`);
                         break;
                     case 4:
                         $("#race").css({ transform: "scale(1.5)", marginLeft: "20vw" });
                         finalRace.beginning(secondRace.tip, "<div class='enemy-car finalRace'><img src='./icons-and-images/wheel.png' alt='' class='wheel one enemy-wheel'><img  src='./icons-and-images/flame.png' class='flame enemy-flame'><img src='./icons-and-images/wheel.png' alt='' class='wheel two enemy-wheel'/><img src='./icons-and-images/cars/finalRace.png' alt='car' class='vehicle enemy-vehicle' /></div>", variables.language != "english"
                             ? "Настав час... ...змагатись за першість..."
-                            : "Time to fight... ...for being first...");
+                            : "Time to fight... ...to be first...");
                         if (music.finalSong === undefined)
                             music.finalSong = new Audio("https://mini-car-racing.netlify.app/additional-music/finalSong.mp3");
                         music.hidden.finalSongWasDiscovered = true;
@@ -729,7 +731,7 @@ export const secondaryFunctions = {
             if ($("#choose-device").val() && $("#choose-language").val()) {
                 let confirmation = confirm($("#choose-language").val() == "ukrainian"
                     ? "Ви впевнені? Все потім можна буде змінити в меню паузи"
-                    : "Are you sure? You can still change it while game is paused");
+                    : "Are you sure? You can still change it while the game is paused.");
                 if (confirmation) {
                     let { device, language } = variables;
                     if (!device && $("#choose-device").val() != "computer") {
@@ -742,7 +744,7 @@ export const secondaryFunctions = {
                     variables.language = $("#choose-language").val();
                     alert(variables.language == "ukrainian"
                         ? "Екран варто тримати лише в горизонтальному положенні!"
-                        : "Please, have your device horizontally.");
+                        : "Please, hold your device horizontally.");
                     $(".device-changing-popup button").off("click");
                     $(".device-changing-popup").remove();
                     permission = true;
@@ -801,7 +803,7 @@ export const secondaryFunctions = {
             $(".finalRace-begin").text("Final race");
             $(".contact-link-button").text("Contact me");
             $(".back-to-menu-button").text("Back to menu?");
-            $(".music-settings").text("Switch on music?");
+            $(".music-settings").text("Turn on music?");
             $(".continue-game-button").text("Ready?");
             $(".explanation-content").text("nothing so far");
             $(".save-the-progress-button").text("Save progress?");

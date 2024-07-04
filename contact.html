@@ -71,7 +71,6 @@
             required
             autocomplete="off"
             placeholder="10?"
-            oninput="checkRating()"
           />
         </div>
       </label>
@@ -89,7 +88,7 @@
           ></textarea>
         </div>
         <div class="back-page">
-          <button type="submit" onclick="clearInputs()">Надіслати</button>
+          <button type="submit" onclick="checkInputs()">Надіслати</button>
           <label
             for="checkboxPage2"
             style="justify-self: start; align-self: end"
@@ -105,10 +104,20 @@
       crossorigin="anonymous"
     ></script>
     <script>
+      const sessionStorageInputs = sessionStorage.contactInputs
+        ? JSON.parse(sessionStorage.contactInputs)
+        : {
+            email: "",
+            message: "",
+            rating: "",
+          };
+      for (const key in sessionStorageInputs) {
+        document.querySelector(`#${key}`).value = sessionStorageInputs[key];
+      }
+      const lang = localStorage.getItem("language")
+        ? localStorage.getItem("language")
+        : "ukrainian";
       function setLanguage() {
-        const lang = localStorage.getItem("language")
-          ? localStorage.getItem("language")
-          : "ukrainian";
         if (lang == "english") {
           document.querySelector("#cover .back-page").textContent =
             "It will be sent to the author of game";
@@ -128,80 +137,104 @@
       setLanguage();
       function checkRating() {
         if (rating.value >= 8) {
-          if (rating.value > 10) {
-            rating.value = 10;
-          }
+          if (rating.value > 10) rating.value = 10;
           rating.style.color = "green";
-        } else if (rating.value < 5) {
-          rating.style.color = "red";
-        } else {
-          rating.style.color = "black";
-        }
+        } else if (rating.value < 5) rating.style.color = "red";
+        else rating.style.color = "black";
         rating.value = rating.value.replace("+", "");
         rating.value = rating.value.replace("-", "");
       }
-      function changeBorder() {
-        if ($(this).val() == "") {
-          $(this).css("border", "2px solid red");
-        } else {
-          $(this).css("border", "2px solid green");
-        }
+      function changeBorder(e) {
+        e.target.style.border =
+          e.target.value == "" ? "2px solid red" : "2px solid green";
       }
-      function fixAnimation() {
-        let checked = $(this).is(":checked");
-        let el = $(
-          `#${$(this).attr("id").replace("checkbox", "").toLowerCase()}`
-        );
+      function fixAnimation(e) {
+        let checked = e.target.checked;
+        let el = `#${e.target.id.replace("checkbox", "").toLowerCase()}`;
         let neededPosition = (Number($(el).css("z-index")) - 4) * -1;
         setTimeout(() => {
-          if ($(this)[0] == checkboxCover) {
+          if (e.target == checkboxCover) {
             if (checked) {
-              $(".cover .back-page").css("backface-visibility", "visible");
-              $(".cover .front-page").css("visibility", "hidden");
+              document.querySelector(
+                ".cover .back-page"
+              ).style.backfaceVisibility = "visible";
+              document.querySelector(".cover .front-page").style.visibility =
+                "hidden";
             } else {
-              $(".cover .back-page").css("backface-visibility", "hidden");
-              $(".cover .front-page").css("visibility", "visible");
+              document.querySelector(
+                ".cover .back-page"
+              ).style.backfaceVisibility = "hidden";
+              document.querySelector(".cover .front-page").style.visibility =
+                "visible";
             }
           } else {
-            let it =
-              "#" + $(this).attr("id").replace("checkbox", "").toLowerCase();
             if (checked) {
-              $(it + ` .front-page`).css("visibility", "hidden");
-              $(it + ` .back-page`).css("visibility", "visible");
+              document.querySelector(el + ` .front-page`).style.visibility =
+                "hidden";
+              document.querySelector(el + ` .back-page`).style.visibility =
+                "visible";
             } else {
-              $(it + ` .back-page`).css("visibility", "hidden");
-              $(it + ` .front-page`).css("visibility", "visible");
+              document.querySelector(el + ` .front-page`).style.visibility =
+                "visible";
+              document.querySelector(el + ` .back-page`).style.visibility =
+                "hidden";
             }
           }
-          $(el).css("z-index", neededPosition);
+          document.querySelector(el).style.zIndex = `${neededPosition}`;
         }, 250);
       }
-      function clearInputs() {
+      function checkInputs() {
         let completedInputs = inputs.filter((element) => element.value != "");
+        sessionStorage.contactInputs = JSON.stringify({
+          email: email.value,
+          rating: rating.value,
+          message: message.value,
+        });
         if (
-          completedInputs.length == 0 ||
-          (!email.value.includes("@gmail.com") && completedInputs.length > 1)
-        ) {
-          return;
-        }
-        setTimeout(() => {
-          inputs.forEach((element) => {
-            element.value = "";
-            element.style.border = "1px dashed black";
-          });
-          labels.forEach((element) => {
-            element.checked = false;
-          });
-          $(".cover .back-page").css("backface-visibility", "hidden");
-          $(".cover .front-page").css("visibility", "visible");
-          cover.style.zIndex = 4;
-          page1.style.zIndex = 3;
-          page2.style.zIndex = 2;
-        }, 300);
+          email.value.replaceAll("@gmail.com", "") == "" ||
+          completedInputs.length != 3
+        )
+          alert(
+            lang == "ukrainian"
+              ? "Заповніть ПОТРІБНІ поля"
+              : "Fill ESSENTIAL inputs"
+          );
+
+        labels.forEach((element) => {
+          element.checked = false;
+        });
+        document.querySelector(".cover .back-page").style.backfaceVisibility =
+          "hidden";
+        document.querySelector(".cover .front-page").style.visibility =
+          "visible";
+        cover.style.zIndex = 4;
+        page1.style.zIndex = 3;
+        page2.style.zIndex = 2;
+        location.reload();
       }
-      $("input").on("input", changeBorder).on("click", changeBorder);
-      $("textarea").on("input", changeBorder).on("click", changeBorder);
-      $(email).on("input", changeBorder).on("click", changeBorder);
+      email.onblur = () => {
+        if (
+          !email.value.includes("@gmail.com") ||
+          email.value.replaceAll("@gmail.com", "") == ""
+        ) {
+          alert(lang == "ukrainian" ? "Неправильний email" : "Wrong email");
+          setTimeout(() => {
+            email.focus();
+          }, 100);
+        }
+      };
+      email.oninput = changeBorder;
+      rating.onclick = changeBorder;
+      rating.oninput = function (e) {
+        changeBorder(e);
+        checkRating();
+      };
+      email.onclick = changeBorder;
+      message.oninput = changeBorder;
+      message.onclick = changeBorder;
+      email.click();
+      rating.click();
+      message.click();
       let inputs = [email, rating, message];
       let labels = [checkboxCover, checkboxPage1, checkboxPage2];
       labels.forEach((element) => {

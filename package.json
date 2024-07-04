@@ -3,6 +3,32 @@
     "@types/jquery": "^3.5.30"
   },
   "dependencies": {
-    "@types/jquery.cookie": "^1.4.35"
-  }
+    "@types/jquery.cookie": "^1.4.35",
+    "jsmin": "^1.0.1"
+  },
+  "name": "mini-car-racing",
+  "version": "5.1.0",
+  "description": "It's an online game designed for phones and computers",
+  "main": "./javascript/main.js",
+  "scripts": {
+    "compileRaceScss": "sass ./styles/race/styles.scss ./styles/race/styles.css --style compressed",
+    "compileContactScss": "sass ./styles/contact/styles.scss ./styles/contact/styles.css --style compressed",
+    "compileCreditsScss": "sass ./styles/credits/styles.scss ./styles/credits/styles.css --style compressed",
+    "compileForPhonesScss": "sass ./styles/for-phones/styles.scss ./styles/for-phones/styles.css --style compressed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JustCreatedUser/mini-car-racing.git"
+  },
+  "keywords": [
+    "Mini-car-racing",
+    "netlify",
+    "game"
+  ],
+  "author": "Diril Daniel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JustCreatedUser/mini-car-racing/issues"
+  },
+  "homepage": "https://github.com/JustCreatedUser/mini-car-racing#readme"
 }

@@ -95,7 +95,7 @@ class Intro extends Story {
           h1.textContent =
             variables.language != "english"
               ? "...змагатись за першість..."
-              : "...for being first...";
+              : "...to be first...";
           h1.style.opacity = "1";
           setTimeout(() => {
             h1.style.opacity = "0";
@@ -130,8 +130,8 @@ class Intro extends Story {
                             (variables.device == "computer"
                               ? ` Нажми "${keyboard.engine}" щоб це зробити`
                               : " Всі потрібні кнопки будуть виділятись за потреби, як і ця - нажми на неї.")
-                        : `Need to hurry, 'cause it's time to meet racers.
-                        First - Switch on the engine with` +
+                        : `Hurry up, it's time to meet the racers!.
+                        First - start the engine with` +
                             (variables.device == "computer"
                               ? `"${keyboard.engine}"`
                               : "a unique button"),
@@ -300,7 +300,7 @@ class Race extends Story {
     turns.randomize();
     music.changeVolume(0.5);
     $(".continue-game-button").css("display", "none");
-    this.tip("ЖЕНИ!");
+    this.tip(variables.language != "english" ? "ЖЕНИ!" : "GO!!!");
     changes.movingPause = false;
     let text = document.createElement("h1");
     text.className = "race-counting";
@@ -326,73 +326,76 @@ class Race extends Story {
     }, 1000);
   }
   comingToFinish() {
-    secondaryFunctions.announceFn("Фінішна пряма", () => {
-      variables.device != "computer"
-        ? $(".phone-counters").css({ zIndex: 11 })
-        : "";
-      variables.car.style.boxShadow = "-10px 10px 50px 10px yellow ";
-      setTimeout(() => {
-        variables.$announcement.style.opacity = "1";
-        variables.$announcement.style.zIndex = "10";
+    secondaryFunctions.announceFn(
+      variables.language == "english" ? "Фінішна пряма" : "The finish line!",
+      () => {
+        variables.device != "computer"
+          ? $(".phone-counters").css({ zIndex: 11 })
+          : "";
+        variables.car.style.boxShadow = "-10px 10px 50px 10px yellow ";
         setTimeout(() => {
-          variables.$announcement.style.opacity = "0";
-          variables.$announcement.style.zIndex = "0";
-          let entry = false,
-            count = 3;
-          intervals.finishing = setInterval(() => {
-            if (!variables.isGamePaused) {
-              switch (count) {
-                case 0:
-                  variables.$announcement.remove();
-                  if (
-                    enemyCars.array[enemyCars.index].position >
-                    Number(
-                      $(myCar.className)
-                        .css("margin-left")
-                        .slice(
-                          0,
-                          $(myCar.className).css("margin-left").length - 2
-                        )
-                    )
-                  ) {
-                    secondaryFunctions.gameOver(
-                      variables.language != "english"
-                        ? "Ти не приїхав перший. Почитай підсказки-пояснення в меню"
-                        : "You finished being second. Read hints in menu!"
-                    );
-                  } else {
-                    this.ending();
-                    variables.finish = true;
-                  }
-                  variables.device != "computer"
-                    ? $(".phone-counters").css({ zIndex: 0 })
-                    : "";
-                  permissions.toPause = true;
-                  $(".pause").css("display", "flex");
-                  $(".enemy-position").css("visibility", "hidden");
-                  clearInterval(intervals.finishing);
-                  return;
-                case 1:
-                  $(".tunnel").css({
-                    left: "30%",
-                  });
-                  break;
+          variables.$announcement.style.opacity = "1";
+          variables.$announcement.style.zIndex = "10";
+          setTimeout(() => {
+            variables.$announcement.style.opacity = "0";
+            variables.$announcement.style.zIndex = "0";
+            let entry = false,
+              count = 3;
+            intervals.finishing = setInterval(() => {
+              if (!variables.isGamePaused) {
+                switch (count) {
+                  case 0:
+                    variables.$announcement.remove();
+                    if (
+                      enemyCars.array[enemyCars.index].position >
+                      Number(
+                        $(myCar.className)
+                          .css("margin-left")
+                          .slice(
+                            0,
+                            $(myCar.className).css("margin-left").length - 2
+                          )
+                      )
+                    ) {
+                      secondaryFunctions.gameOver(
+                        variables.language != "english"
+                          ? "Ти не приїхав перший. Почитай підсказки-пояснення в меню"
+                          : "You have finished being second. Read the hints in the menu!"
+                      );
+                    } else {
+                      this.ending();
+                      variables.finish = true;
+                    }
+                    variables.device != "computer"
+                      ? $(".phone-counters").css({ zIndex: 0 })
+                      : "";
+                    permissions.toPause = true;
+                    $(".pause").css("display", "flex");
+                    $(".enemy-position").css("visibility", "hidden");
+                    clearInterval(intervals.finishing);
+                    return;
+                  case 1:
+                    $(".tunnel").css({
+                      left: "30%",
+                    });
+                    break;
+                }
+                if (!entry) {
+                  variables.$announcementText.innerText = `${count}`;
+                  variables.$announcement.style.opacity = "1";
+                  variables.$announcement.style.zIndex = "10";
+                } else {
+                  variables.$announcement.style.opacity = "0";
+                  variables.$announcement.style.zIndex = "0";
+                  count--;
+                }
+                entry = !entry;
               }
-              if (!entry) {
-                variables.$announcementText.innerText = `${count}`;
-                variables.$announcement.style.opacity = "1";
-                variables.$announcement.style.zIndex = "10";
-              } else {
-                variables.$announcement.style.opacity = "0";
-                variables.$announcement.style.zIndex = "0";
-                count--;
-              }
-              entry = !entry;
-            }
-          }, 1000);
-        }, 2000);
-      }, 50);
-    });
+            }, 1000);
+          }, 2000);
+        }, 50);
+      }
+    );
   }
   ending() {
     setTimeout(() => {
@@ -487,7 +490,11 @@ class Race extends Story {
   startTurning() {
     myCar.acceleration = false;
     $(".continue-game-button").css("display", "none");
-    this.tip(`Тормози до ${turns.array[turns.index].maxSpeed}km/h!`);
+    this.tip(
+      variables.language != "english"
+        ? `Тормози до ${turns.array[turns.index].maxSpeed}km/h!`
+        : `Brake to ${turns.array[turns.index].maxSpeed}km/h!`
+    );
     $(".turn-speed").text(`${turns.array[turns.index].maxSpeed}km/h`);
     changes.movingPause = false;
     variables.race.style.opacity = "0.7";
@@ -542,7 +549,7 @@ introduction = new Intro(
                     : " виділену кнопку,") +
                   ` а  графік оборотів є зліва ` +
                   (variables.device == "computer" ? `знизу.` : " по центру.")
-              : `Then raise engine's speed (RPM) at least to 6200. To do this hold ` +
+              : `Then increase the engine speed (RPM) at least to 6200. To do this hold ` +
                   (variables.device == "computer"
                     ? `"${keyboard.accelerate}" on your keyboard,`
                     : " unique button,") +
@@ -564,7 +571,7 @@ introduction = new Intro(
                 (variables.device == "computer"
                   ? `"${keyboard.gearUp}".`
                   : "стрілку вгору.")
-            : "To move you have to shift a gear, so tap " +
+            : "To move you have to change a gear, so tap " +
                 (variables.device == "computer"
                   ? `"${keyboard.gearUp}".`
                   : "Arrow up."),
@@ -661,10 +668,10 @@ introduction = new Intro(
                   ? `"${keyboard.accelerate}" і "${keyboard.gearUp}"`
                   : "газу і стрілки вгору"
               }.`
-            : "Great! In order to get to the destination - first race, raise engine RPM and shift gears up with " +
+            : "Great! To reach the current goal - the first race - increase the engine revs and change gears with " +
               (variables.device == "computer"
                 ? `"${keyboard.accelerate}" and "${keyboard.gearUp}"`
-                : "Gas and arrow up");
+                : "the accelerator and arrow up");
       }
     },
     deccelerationExplanation() {
@@ -681,11 +688,11 @@ introduction = new Intro(
                   ? ` з кнопкою "${keyboard.engine}", якщо не забув).`
                   : "."
               }`
-            : "Now, when the gear is first, brake to smallest possible speed" +
+            : "When the first gear is engaged, brake to the lowest possible speed" +
                 (variables.device == "computer"
                   ? ` with key "${keyboard.deccelerate}",`
                   : ",") +
-                `shift gear down and switch the engine off` +
+                `shift gear down and switch off the engine` +
                 (variables.device == "computer"
                   ? ` with button "${keyboard.engine}", in case you forgot).`
                   : ".")
@@ -711,7 +718,7 @@ introduction = new Intro(
                 variables.device == "computer"
                   ? `in the right center of speedometer`
                   : "on the left forom the tachometer (RPM)"
-              }), shift gear down right to the first one`;
+              }), shift down to first gear`;
 
         $("#gearDownButton").css({ boxShadow: "unset", zIndex: 0 });
       }
@@ -727,7 +734,7 @@ firstRace = new Race(
       variables.guideBlockText.textContent =
         variables.language != "english"
           ? "Готуйся! Набери обороти, а коли натиснеш на цю кнопку → , то запустиш відлік до початку гонки. Коли відлік закінчиться - ПЕРЕКЛЮЧАЙ ПЕРЕДАЧУ ВГОРУ І ЖЕНИ"
-          : "Get ready! Raise your engine speed (RPM), tap that button →, wait till the end of counting, shift gear up AND RACE!";
+          : "Get ready! Increase your engine speed (RPM), tap this button →, wait for the count to end, shift up AND RACE!";
       $(".continue-game-button").css("display", "flex");
       changes.movingPause = false;
     },
@@ -738,7 +745,7 @@ firstRace = new Race(
       firstRace.tip(
         variables.language != "english"
           ? `Справа на дорозі буде показник дистанції, через яку буде поворот, і швидкість, до якої треба затормозити. Якщо ти не відтормозишся достатньо або розженешся під часу повороту  - тебе винесе з дороги і ти програєш. Натискай на кнопку і їдь!`
-          : "On the right side of the road appears one sign, which indicates distance TO turn and max speed OF TURNING. If you exceed this limit - you lose!"
+          : "On the right side of the road you will see a sign indicating DISTANCE TO TURN and the MAXIMUM TURN SPEED. If you exceed this limit - you lose!"
       );
     },
   },
