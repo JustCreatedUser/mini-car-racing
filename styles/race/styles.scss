@@ -111,7 +111,7 @@ html {
   display: none;
 }
 footer {
-  @include setAnimations(0.5s, 0, absolute);
+  @include setAnimations(0.5s, 0, fixed);
 }
 .car-counter {
   @include addFlex(center, center, column);
@@ -348,6 +348,7 @@ header {
   @include setAnimations(0.5s linear, $pos: absolute);
 }
 .just-exit,
+.playing-btn,
 .screen-width button,
 .go-arrow,
 select,
