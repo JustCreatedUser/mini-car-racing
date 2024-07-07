@@ -91,9 +91,5 @@ $(".uncompleted-parts").on(
   "button",
   secondaryFunctions.restartTheGame
 );
-$(".explanation-content").on(
-  "click",
-  ".change-device",
-  secondaryFunctions.changeDevice
-);
-window.onload = secondaryFunctions.useLocalStorageAndCookies;
+import { changeDevice } from "./start.js";
+$(".explanation-content").on("click", ".change-device", changeDevice);
