@@ -1,1 +1,282 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="author" content="Daniel Diril"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="description" content="Ганяй проти потужних суперників в сюжеті гри!"/><meta name="og:title" property="og:title" content="Mini-car racing"/><title>Mini-car racing</title><link rel="stylesheet" href="b88d04fba731603756b1.css"/><link rel="icon" href="aafe21aeabde7da40f57.webp"/><link rel="preconnect" href="https://fonts.googleapis.com" importance="low"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin importance="low"/><script defer="defer" src="main.js"></script></head><body><noscript>You have forbidden javascript. Change settings</noscript><section class="gameplay-pause"><div class="screen-div"><h1 class="gameplay-headline">Вітаю з проходженням вступу! (гортай донизу)</h1></div><div class="screen-div"><button class="save-the-progress-button">Зберегти прогрес?</button></div><div class="screen-div"><div class="parts-of-script completed-parts"><h3>Пройдені частини</h3><div class="parts"><div style="text-decoration:underline 1px white;background-color:#000" class="part introduction-restart">Вступ</div></div></div></div><div class="screen-div"><div class="parts-of-script uncompleted-parts"><h3>Залишилось пройти</h3><div class="parts"><div class="part firstRace-begin" style="background-image:url(./icons-and-images/parts-back-images/rain.webp);text-decoration:underline 1px white">Перша гонка</div><div class="part secondRace-begin" style="text-decoration:underline 1px white;background-image:url(./icons-and-images/parts-back-images/day.webp);color:red">Друга гонка<img src="0fa9861d55330153a1b9.webp" alt="locked" loading="lazy"/></div><div class="part finalRace-begin" style="background-image:url(./icons-and-images/parts-back-images/night.webp);color:red">Фінальна гонка<img src="0fa9861d55330153a1b9.webp" alt="locked" loading="lazy"/></div></div></div></div><div class="screen-div"><a style="text-decoration:none" href="./contact.html" target="_blank" class="contact-link-button">Сконтактуватись?</a></div></section><div class="pause"><img src="5621ac2a51f375c4f455.svg" alt="pause" loading="lazy"/></div><section class="menu"><nav><button class="back-to-menu-button">Назад до меню?</button><button class="music-settings">Бажаєте ввімкнути МУЗОН?</button></nav><div class="menu-content"><div class="handling-settings"><div class="keyboard"><h2>Управління (нажми, щоб змінити)</h2><div class="keyAction">Газ</div><div class="keyName accelerate">arrowup</div><div class="keyAction">Тормоз</div><div class="keyName deccelerate">arrowdown</div><div class="keyAction">Передача вгору</div><div class="keyName gearUp">shift</div><div class="keyAction">Передача вниз</div><div class="keyName gearDown">control</div><div class="keyAction">Мотор</div><div class="keyName engine">enter</div><div class="keyAction">Меню</div><div class="keyName goToMenu">escape</div><div class="keyAction">Музика</div><div class="keyName listenMusic">m</div><button class="reset-keyboard">Повернутись до стандарту?</button></div></div><div class="action-settings"><span>Рівень Екшену:</span><div class="above-action-input"></div><input disabled="disabled" class="action-level-input" type="range" step="100" value="100"/></div></div><div class="menu-content" style="flex-direction:column"><div class="explanation"><select id="choose-info"><option selected="selected" disabled="disabled">Обери щось</option><option value="acceleration">Ефективний розгін</option><option value="turn">Що за повороти?</option><option value="music">Яка музика використовується</option><option value="speedCheat">Хочеш почитерити?</option><option value="device">Змінити девайс чи мову</option></select><p class="explanation-content">поки нічого</p></div></div></section><header><div class="logo">Mini-car racing</div><button class="continue-game-button">Готовий?</button></header><main id="race"><div class="background"><div class="tunnel"><img src="dec9197dee6ce1ed10e7.webp" alt="left-tunnel" loading="lazy"/><img src="f0d542a592dbe197da70.webp" alt="right-tunnel" loading="lazy"/></div><div class="road"><div class="bottom-road-box"><div class="enemy-position"></div><div class="turn-position"><span class="turn-position_useless-span">Через</span> <span class="turn-distance"></span> ,<span class="turn-speed"></span></div><div class="car"><img src="e39a449d8f770a29c76f.png" class="flame my-flame" alt="СПАЛАХ" loading="lazy"/><img src="0769a0d6ee8d280fa703.webp" alt="колесо" class="wheel one my-wheel" loading="lazy"/><img src="0769a0d6ee8d280fa703.webp" alt="колесо" class="wheel two my-wheel" loading="lazy"/><img src="7fc5693493d047d6b3b4.webp" alt="машина" class="vehicle" loading="lazy"/></div></div></div></div><footer class="computer-counters"><div class="rpm footer-el"><div class="rpm_scale">X1000</div><div class="numbers"><p class="rpm1">1</p><p class="rpm2">2</p><p class="rpm3">3</p><p class="rpm4">4</p><p class="rpm5">5</p><p class="rpm6">6</p><p class="rpm7">7</p><p class="rpm8">8</p><p style="color:red" class="rpm9">9</p><p class="rpm10" style="color:red">10</p></div><div class="car-counter-number rpm-counter-number"></div><div class="car-counter rpm-counter"><div style="background-color:#fff" class="car-counter_center rpm-counter_center"></div><div class="car-counter_stick"></div></div></div><div class="speed footer-el"><div class="numbers"><p class="speed0">0</p><p class="speed2">20</p><p class="speed4">40</p><p class="speed6">60</p><p class="speed8">80</p><p class="speed10">100</p><p class="speed12">120</p><p class="speed14">140</p><p class="speed16">160</p><p class="speed18">180</p><p class="speed20">200</p><p class="speed22">220</p><p class="speed24">240</p><p class="speed26">260</p></div><div class="gear-counter">N</div><div class="car-counter-number speed-counter-number"></div><div class="car-counter speed-counter"><div class="car-counter_center speed-counter_center"></div><div class="car-counter_stick"></div></div></div></footer></main><script defer="defer" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous"></script><script defer="defer" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js" integrity="sha512-aUhL2xOCrpLEuGD5f6tgHbLYEXRpYZ8G5yD+WlFrXrPy2IrWBlu6bih5C9H6qGsgqnU6mgx6KtU8TreHpASprw==" crossorigin="anonymous"></script><script defer="defer" type="module" src="./javascript/main.js"></script><link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet"/></body></html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="author" content="Daniel Diril" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Ганяй проти потужних суперників в сюжеті гри!"
+    />
+    <meta name="og:title" property="og:title" content="Mini-car racing" />
+    <title>Mini-car racing</title>
+    <link rel="stylesheet" href="styles/race/styles.css" />
+    <link rel="icon" href="./icons-and-images/engine2.webp" />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+      importance="low"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+      importance="low"
+    />
+  </head>
+  <body>
+    <noscript>You have forbidden javascript. Change settings</noscript>
+    <section class="gameplay-pause">
+      <div class="screen-div">
+        <h1 class="gameplay-headline">
+          Вітаю з проходженням вступу! (гортай донизу)
+        </h1>
+      </div>
+      <div class="screen-div">
+        <button class="save-the-progress-button">Зберегти прогрес?</button>
+      </div>
+      <div class="screen-div">
+        <div class="parts-of-script completed-parts">
+          <h3>Пройдені частини</h3>
+          <div class="parts">
+            <div
+              style="
+                text-decoration: underline 1px white;
+                background-color: #000;
+              "
+              class="part introduction-restart"
+            >
+              Вступ
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="screen-div">
+        <div class="parts-of-script uncompleted-parts">
+          <h3>Залишилось пройти</h3>
+          <div class="parts">
+            <div
+              class="part firstRace-begin"
+              style="
+                background-image: url(./icons-and-images/parts-back-images/rain.webp);
+                text-decoration: underline 1px white;
+              "
+            >
+              Перша гонка
+            </div>
+            <div
+              class="part secondRace-begin"
+              style="
+                text-decoration: underline 1px white;
+                background-image: url(./icons-and-images/parts-back-images/day.webp);
+                color: red;
+              "
+            >
+              Друга гонка<img
+                src="./icons-and-images/disabled-race.webp"
+                alt="locked"
+                loading="lazy"
+              />
+            </div>
+            <div
+              class="part finalRace-begin"
+              style="
+                background-image: url(./icons-and-images/parts-back-images/night.webp);
+                color: red;
+              "
+            >
+              Фінальна гонка<img
+                src="./icons-and-images/disabled-race.webp"
+                alt="locked"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="screen-div">
+        <a
+          style="text-decoration: none"
+          href="./contact.html"
+          target="_blank"
+          class="contact-link-button"
+          >Сконтактуватись?</a
+        >
+      </div>
+    </section>
+    <div class="pause">
+      <img src="./icons-and-images/pause.svg" alt="pause" loading="lazy" />
+    </div>
+    <section class="menu">
+      <nav>
+        <button class="back-to-menu-button">Назад до меню?</button
+        ><button class="music-settings">Бажаєте ввімкнути МУЗОН?</button>
+      </nav>
+      <div class="menu-content">
+        <div class="handling-settings">
+          <div class="keyboard">
+            <h2>Управління (нажми, щоб змінити)</h2>
+            <div class="keyAction">Газ</div>
+            <div class="keyName accelerate">arrowup</div>
+            <div class="keyAction">Тормоз</div>
+            <div class="keyName deccelerate">arrowdown</div>
+            <div class="keyAction">Передача вгору</div>
+            <div class="keyName gearUp">shift</div>
+            <div class="keyAction">Передача вниз</div>
+            <div class="keyName gearDown">control</div>
+            <div class="keyAction">Мотор</div>
+            <div class="keyName engine">enter</div>
+            <div class="keyAction">Меню</div>
+            <div class="keyName goToMenu">escape</div>
+            <div class="keyAction">Музика</div>
+            <div class="keyName listenMusic">m</div>
+            <button class="reset-keyboard">Повернутись до стандарту?</button>
+          </div>
+        </div>
+        <div class="action-settings">
+          <span>Рівень Екшену:</span>
+          <div class="above-action-input"></div>
+          <input
+            disabled="disabled"
+            class="action-level-input"
+            type="range"
+            step="100"
+            value="100"
+          />
+        </div>
+      </div>
+      <div class="menu-content" style="flex-direction: column">
+        <div class="explanation">
+          <select id="choose-info">
+            <option selected="selected" disabled="disabled">Обери щось</option>
+            <option value="acceleration">Ефективний розгін</option>
+            <option value="turn">Що за повороти?</option>
+            <option value="music">Яка музика використовується</option>
+            <option value="speedCheat">Хочеш почитерити?</option>
+            <option value="device">Змінити девайс чи мову</option>
+          </select>
+          <p class="explanation-content">поки нічого</p>
+        </div>
+      </div>
+    </section>
+    <header>
+      <div class="logo">Mini-car racing</div>
+      <button class="continue-game-button">Готовий?</button>
+    </header>
+    <main id="race">
+      <div class="background">
+        <div class="tunnel">
+          <img
+            src="./icons-and-images/tunnel/left.webp"
+            alt="left-tunnel"
+            loading="lazy"
+          /><img
+            src="./icons-and-images/tunnel/right.webp"
+            alt="right-tunnel"
+            loading="lazy"
+          />
+        </div>
+        <div class="road">
+          <div class="bottom-road-box">
+            <div class="enemy-position"></div>
+            <div class="turn-position">
+              <span class="turn-position_useless-span">Через</span>
+              <span class="turn-distance"></span> ,<span
+                class="turn-speed"
+              ></span>
+            </div>
+            <div class="car">
+              <img
+                src="./icons-and-images/flame.png"
+                class="flame my-flame"
+                alt="СПАЛАХ"
+                loading="lazy"
+              /><img
+                src="./icons-and-images/wheel.webp"
+                alt="колесо"
+                class="wheel one my-wheel"
+                loading="lazy"
+              /><img
+                src="./icons-and-images/wheel.webp"
+                alt="колесо"
+                class="wheel two my-wheel"
+                loading="lazy"
+              /><img
+                src="./icons-and-images/cars/myCar-lightened.webp"
+                alt="машина"
+                class="vehicle"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="computer-counters">
+        <div class="rpm footer-el">
+          <div class="rpm_scale">X1000</div>
+          <div class="numbers">
+            <p class="rpm1">1</p>
+            <p class="rpm2">2</p>
+            <p class="rpm3">3</p>
+            <p class="rpm4">4</p>
+            <p class="rpm5">5</p>
+            <p class="rpm6">6</p>
+            <p class="rpm7">7</p>
+            <p class="rpm8">8</p>
+            <p style="color: red" class="rpm9">9</p>
+            <p class="rpm10" style="color: red">10</p>
+          </div>
+          <div class="car-counter-number rpm-counter-number"></div>
+          <div class="car-counter rpm-counter">
+            <div
+              style="background-color: #fff"
+              class="car-counter_center rpm-counter_center"
+            ></div>
+            <div class="car-counter_stick"></div>
+          </div>
+        </div>
+        <div class="speed footer-el">
+          <div class="numbers">
+            <p class="speed0">0</p>
+            <p class="speed2">20</p>
+            <p class="speed4">40</p>
+            <p class="speed6">60</p>
+            <p class="speed8">80</p>
+            <p class="speed10">100</p>
+            <p class="speed12">120</p>
+            <p class="speed14">140</p>
+            <p class="speed16">160</p>
+            <p class="speed18">180</p>
+            <p class="speed20">200</p>
+            <p class="speed22">220</p>
+            <p class="speed24">240</p>
+            <p class="speed26">260</p>
+          </div>
+          <div class="gear-counter">N</div>
+          <div class="car-counter-number speed-counter-number"></div>
+          <div class="car-counter speed-counter">
+            <div class="car-counter_center speed-counter_center"></div>
+            <div class="car-counter_stick"></div>
+          </div>
+        </div>
+      </footer>
+    </main>
+    <script
+      defer="defer"
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      defer="defer"
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"
+      integrity="sha512-aUhL2xOCrpLEuGD5f6tgHbLYEXRpYZ8G5yD+WlFrXrPy2IrWBlu6bih5C9H6qGsgqnU6mgx6KtU8TreHpASprw=="
+      crossorigin="anonymous"
+    ></script>
+    <script defer type="module" src="./javascript/main.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap"
+      rel="stylesheet"
+    />
+  </body>
+</html>
