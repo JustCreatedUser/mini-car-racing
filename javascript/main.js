@@ -72,6 +72,6 @@ $(".continue-game-button").on("click", secondaryFunctions.useGuideBlockButton);
 $(".action-settings").on("click", secondaryFunctions.actionLevelChange);
 $(".explanation-content").on("click", ".cheat-button", secondaryFunctions.fastest_speed_cheat);
 $(".uncompleted-parts").on("click", "button", secondaryFunctions.restartTheGame);
-$(".explanation-content").on("click", ".change-device", secondaryFunctions.changeDevice);
-window.onload = secondaryFunctions.useLocalStorageAndCookies;
+import { changeDevice } from "./start.js";
+$(".explanation-content").on("click", ".change-device", changeDevice);
 //# sourceMappingURL=main.js.map
