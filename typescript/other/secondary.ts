@@ -249,7 +249,7 @@ export const secondaryFunctions = {
     });
     $("nav").after($(".handling-settings"));
     function makeAButton(param: string, pos: string) {
-      return `<div id="${param}ccelerationPedal" class="playing-btn pedal" style="grid-column:${pos};"><div style="z-index:1;"></div><img draggable="false" src="./icons-and-images/pedals/${param}cceleration.png"></div>`;
+      return `<div id="${param}ccelerationPedal" class="playing-btn pedal" style="grid-column:${pos};"><div style="z-index:1;"></div><img draggable="false" src="./icons-and-images/pedals/${param}cceleration.webp"></div>`;
     }
     $(".computer-counters")
       .attr("class", "phone-counters")
@@ -740,7 +740,7 @@ export const secondaryFunctions = {
             $("#race").css({ transform: "scale(1.5)", marginLeft: "20vw" });
             firstRace.beginning(
               firstRace.tip,
-              "<div class='enemy-car firstRace'><img src='./icons-and-images/wheel.png' alt='' class='wheel one enemy-wheel'><img src='./icons-and-images/flame.png' class='flame enemy-flame'><img src='./icons-and-images/wheel.png' alt='' class='wheel two enemy-wheel'/><img src='./icons-and-images/cars/firstRace.png' alt='car' class='vehicle enemy-vehicle' /></div>",
+              "<div class='enemy-car firstRace'><img src='./icons-and-images/wheel.webp' alt='' class='wheel one enemy-wheel'><img src='./icons-and-images/flame.png' class='flame enemy-flame'><img src='./icons-and-images/wheel.webp' alt='' class='wheel two enemy-wheel'/><img src='./icons-and-images/cars/firstRace.webp' alt='car' class='vehicle enemy-vehicle' /></div>",
               variables.language == "ukrainian"
                 ? `Як Бачиш - пора змагатись! ${
                     variables.device == "computer"
@@ -759,7 +759,7 @@ export const secondaryFunctions = {
             $("#race").css({ transform: "scale(1.5)", marginLeft: "20vw" });
             secondRace.beginning(
               secondRace.tip,
-              "<div class='enemy-car secondRace'><img src='./icons-and-images/wheel.png' alt='' class='wheel one enemy-wheel'><img src='./icons-and-images/flame.png' class='flame enemy-flame'><img src='./icons-and-images/wheel.png' alt='' class='wheel two enemy-wheel'/><img src='./icons-and-images/cars/secondRace.png' alt='car' class='vehicle enemy-vehicle' /></div>",
+              "<div class='enemy-car secondRace'><img src='./icons-and-images/wheel.webp' alt='' class='wheel one enemy-wheel'><img src='./icons-and-images/flame.png' class='flame enemy-flame'><img src='./icons-and-images/wheel.webp' alt='' class='wheel two enemy-wheel'/><img src='./icons-and-images/cars/secondRace.webp' alt='car' class='vehicle enemy-vehicle' /></div>",
               variables.language != "english"
                 ? `Хоч тобі і вдалось пройти першу гонку, але тепер противник швидший, а до поворотів треба швидше тормозити. \n все як минулого разу: двигун => обороти => кнопка => відлік => передача вгору`
                 : `Despite your first victory, don't relax! Your rival is faster and the corners are sharper!!! However the start is the same: engine => RPM => guide button => count => gear up`
@@ -770,7 +770,7 @@ export const secondaryFunctions = {
             $("#race").css({ transform: "scale(1.5)", marginLeft: "20vw" });
             finalRace.beginning(
               secondRace.tip,
-              "<div class='enemy-car finalRace'><img src='./icons-and-images/wheel.png' alt='' class='wheel one enemy-wheel'><img  src='./icons-and-images/flame.png' class='flame enemy-flame'><img src='./icons-and-images/wheel.png' alt='' class='wheel two enemy-wheel'/><img src='./icons-and-images/cars/finalRace.png' alt='car' class='vehicle enemy-vehicle' /></div>",
+              "<div class='enemy-car finalRace'><img src='./icons-and-images/wheel.webp' alt='' class='wheel one enemy-wheel'><img  src='./icons-and-images/flame.png' class='flame enemy-flame'><img src='./icons-and-images/wheel.webp' alt='' class='wheel two enemy-wheel'/><img src='./icons-and-images/cars/finalRace.webp' alt='car' class='vehicle enemy-vehicle' /></div>",
               variables.language != "english"
                 ? "Настав час... ...змагатись за першість..."
                 : "Time to fight... ...to be first..."

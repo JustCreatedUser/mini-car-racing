@@ -3,8 +3,7 @@
     "@types/jquery": "^3.5.30"
   },
   "dependencies": {
-    "@types/jquery.cookie": "^1.4.35",
-    "jsmin": "^1.0.1"
+    "@types/jquery.cookie": "^1.4.35"
   },
   "name": "mini-car-racing",
   "version": "5.1.0",
