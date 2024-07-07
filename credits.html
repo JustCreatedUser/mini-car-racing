@@ -22,6 +22,11 @@
       integrity="sha512-1cK78a1o+ht2JcaW6g8OXYwqpev9+6GqOkz9xmBN9iUUhIndKtxwILGWYOSibOKjLsEdjyjZvYDq/cZwNeak0w=="
       crossorigin="anonymous"
     />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"
+      integrity="sha512-A7AYk1fGKX6S2SsHywmPkrnzTZHrgiVT7GcQkLGDe2ev0aWb8zejytzS8wjo7PGEXKqJOrjQ4oORtnimIRZBtw=="
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <section id="credits" class="credits">
@@ -175,12 +180,6 @@
       >
     </section>
 
-    <script
-      defer
-      src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"
-      integrity="sha512-A7AYk1fGKX6S2SsHywmPkrnzTZHrgiVT7GcQkLGDe2ev0aWb8zejytzS8wjo7PGEXKqJOrjQ4oORtnimIRZBtw=="
-      crossorigin="anonymous"
-    ></script>
     <script>
       function setLanguage() {
         const lang = localStorage.getItem("language")
@@ -205,7 +204,6 @@
         }
       }
       setLanguage();
-      AOS.init();
       function scrollPage() {
         setTimeout(() => {
           let page = window.document.documentElement,
@@ -227,12 +225,12 @@
           }, 10);
         }, 2000);
       }
-
       let closeCredits = document.querySelector(".close-credits");
       closeCredits.onclick = function () {
         location.replace("https://mini-car-racing.netlify.app/index.html");
       };
       document.onload = scrollPage();
+      AOS.init();
     </script>
   </body>
 </html>
