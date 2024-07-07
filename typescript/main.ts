@@ -1,5 +1,5 @@
 "use strict";
-import { music } from "./other/music.js";
+
 import {
   enemyCars,
   myCar,
@@ -7,16 +7,14 @@ import {
   firstRaceCar,
   secondRaceCar,
 } from "./mechanisms/cars.js";
-import { secondaryFunctions } from "./other/secondary.js";
-import { keyDown, keyUp } from "./other/keyboard.js";
+
 import {
   changes,
   variables,
   intervals,
   permissions,
 } from "./other/variables.js";
-window.document.onkeydown = keyDown;
-window.document.onkeyup = keyUp;
+
 changes.rewriteEverything = () => {
   myCar.rpm = 0;
   myCar.spd = 0;
@@ -73,12 +71,13 @@ changes.rewriteEverything = () => {
   }
   myCar.fns.useTheEngine(true);
 };
+import { secondaryFunctions } from "./other/secondary.js";
 $(".save-the-progress-button").on("click", secondaryFunctions.saveProgress);
 $("#choose-info").on("input", secondaryFunctions.selectInfoInMenu);
 $(".part").on("click", secondaryFunctions.chooseChapter);
 $(".pause").on("click", secondaryFunctions.pause);
 $(".back-to-menu-button").on("click", secondaryFunctions.returnToMenu);
-$(".music-settings").on("click", music.listenToMusic);
+
 $(".continue-game-button").on("click", secondaryFunctions.useGuideBlockButton);
 $(".action-settings").on("click", secondaryFunctions.actionLevelChange);
 $(".explanation-content").on(
@@ -91,5 +90,10 @@ $(".uncompleted-parts").on(
   "button",
   secondaryFunctions.restartTheGame
 );
+import { keyDown, keyUp } from "./other/keyboard.js";
+window.document.onkeydown = keyDown;
+window.document.onkeyup = keyUp;
 import { changeDevice } from "./start.js";
 $(".explanation-content").on("click", ".change-device", changeDevice);
+import { music } from "./other/music.js";
+$(".music-settings").on("click", music.listenToMusic);
