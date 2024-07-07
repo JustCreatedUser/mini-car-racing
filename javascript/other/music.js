@@ -51,7 +51,7 @@ const music = {
             music.isAllowedToPlay = true;
             $(".music-settings").text(variables.language != "english"
                 ? "Бажаєте вимкнути МУЗОН?"
-                : "Switch off music?");
+                : "Turn off music?");
             if (!music.hasBeenListened) {
                 music.hasBeenListened = true;
                 music.song = new Audio(music.songsList[music.index]);

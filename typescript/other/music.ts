@@ -77,7 +77,7 @@ const music: Imusic = {
       $(".music-settings").text(
         variables.language != "english"
           ? "Бажаєте вимкнути МУЗОН?"
-          : "Switch off music?"
+          : "Turn off music?"
       );
       if (!music.hasBeenListened) {
         music.hasBeenListened = true;

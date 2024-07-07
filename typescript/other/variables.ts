@@ -22,32 +22,32 @@ export class StoryChanges implements IstoryChanges {
         case changes.introduction:
         case changes.firstRace:
           variables.race.style.backgroundImage =
-            "url(./icons-and-images/background-images/rain.jpg)";
+            "url(./icons-and-images/background-images/rain.webp)";
           variables.road.style.backgroundImage =
-            "url(./icons-and-images/roads/rain.png)";
+            "url(./icons-and-images/roads/rain.webp)";
           $(".car .vehicle").attr(
             "src",
-            "./icons-and-images/cars/myCar-lightened.png"
+            "./icons-and-images/cars/myCar-lightened.webp"
           );
           break;
         case changes.secondRace:
           variables.race.style.backgroundImage =
-            "url(./icons-and-images/background-images/day.jpg)";
+            "url(./icons-and-images/background-images/day.webp)";
           variables.road.style.backgroundImage =
-            "url(./icons-and-images/roads/day.png)";
+            "url(./icons-and-images/roads/day.webp)";
           $(".car .vehicle").attr(
             "src",
-            "./icons-and-images/cars/myCarDay.png"
+            "./icons-and-images/cars/myCarDay.webp"
           );
           break;
         case changes.finalRace:
           variables.race.style.backgroundImage =
-            "url(./icons-and-images/background-images/night.jpg)";
+            "url(./icons-and-images/background-images/night.webp)";
           variables.road.style.backgroundImage =
-            "url(./icons-and-images/roads/night.png)";
+            "url(./icons-and-images/roads/night.webp)";
           $(".car .vehicle").attr(
             "src",
-            "./icons-and-images/cars/myCar-lightened.png"
+            "./icons-and-images/cars/myCar-lightened.webp"
           );
           break;
       }
