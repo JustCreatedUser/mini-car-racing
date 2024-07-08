@@ -156,7 +156,11 @@
       function fixAnimation(e) {
         let checked = e.target.checked;
         let el = `#${e.target.id.replace("checkbox", "").toLowerCase()}`;
-        let neededPosition = (Number($(el).css("z-index")) - 4) * -1;
+        let neededPosition =
+          (Number(getComputedStyle(document.querySelector(el))["z-index"]) -
+            4) *
+          -1;
+
         setTimeout(() => {
           if (e.target == checkboxCover) {
             if (checked) {
