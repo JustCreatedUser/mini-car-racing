@@ -1,0 +1,250 @@
+@use "sass:math";
+@import "../mixins";
+.computer-counters {
+  padding: 0 5%;
+}
+footer {
+  bottom: 0;
+  width: 100%;
+  height: 30vh;
+}
+.speed {
+  &-counter {
+    transition: 60ms;
+    &_center {
+      transform: rotate(0deg);
+    }
+  }
+  &0 {
+    @include setMargin(
+      setSizeWithMath(38, 1080, 100vh),
+      setSizeWithMath(185, 1080, 100vh)
+    );
+  }
+  &2 {
+    @include setMargin(
+      setSizeWithMath(14, 1080, 100vh),
+      setSizeWithMath(152, 1080, 100vh)
+    );
+  }
+  &4 {
+    @include setMargin(
+      setSizeWithMath(6, 1080, 100vh),
+      setSizeWithMath(119, 1080, 100vh)
+    );
+  }
+  &6 {
+    @include setMargin(
+      setSizeWithMath(9, 1080, 100vh),
+      setSizeWithMath(84, 1080, 100vh)
+    );
+  }
+  &8 {
+    @include setMargin(
+      setSizeWithMath(23, 1080, 100vh),
+      setSizeWithMath(53, 1080, 100vh)
+    );
+  }
+  &10 {
+    @include setMargin(
+      setSizeWithMath(46, 1080, 100vh),
+      setSizeWithMath(26, 1080, 100vh)
+    );
+  }
+  &12 {
+    @include setMargin(
+      setSizeWithMath(77, 1080, 100vh),
+      setSizeWithMath(7, 1080, 100vh)
+    );
+  }
+  &14 {
+    @include setMargin(
+      setSizeWithMath(116, 1080, 100vh),
+      setSizeWithMath(3, 1080, 100vh)
+    );
+  }
+  &16 {
+    @include setMargin(
+      setSizeWithMath(150, 1080, 100vh),
+      setSizeWithMath(15, 1080, 100vh)
+    );
+  }
+  &18 {
+    @include setMargin(
+      setSizeWithMath(178, 1080, 100vh),
+      setSizeWithMath(38, 1080, 100vh)
+    );
+  }
+  &20 {
+    @include setMargin(
+      setSizeWithMath(190, 1080, 100vh),
+      setSizeWithMath(67, 1080, 100vh)
+    );
+  }
+  &22 {
+    @include setMargin(
+      setSizeWithMath(199, 1080, 100vh),
+      setSizeWithMath(100, 1080, 100vh)
+    );
+  }
+  &24 {
+    @include setMargin(
+      setSizeWithMath(196, 1080, 100vh),
+      setSizeWithMath(136, 1080, 100vh)
+    );
+  }
+  &26 {
+    @include setMargin(
+      setSizeWithMath(182, 1080, 100vh),
+      setSizeWithMath(166, 1080, 100vh)
+    );
+  }
+}
+.numbers {
+  overflow: visible;
+  position: absolute;
+  p {
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    overflow: visible;
+    color: white;
+    position: absolute;
+  }
+  p[class*="speed"] {
+    font-size: 1.5vh;
+    font-weight: 500;
+  }
+  p[class*="rpm"] {
+    font-size: setSizeWithMath(23, 1080, 100vh);
+  }
+}
+.car-counter {
+  transform: rotate(-45deg);
+  width: 100%;
+  height: 100%;
+  &-number {
+    margin-top: setSizeWithMath(180, 1080, 100vh);
+    border-radius: setSizeWithMath(20, 1080, 100vh);
+    font-size: setSizeWithMath(20, 1080, 100vh);
+    overflow: visible;
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    align-self: center;
+  }
+  &_stick {
+    $rad: -left-radius;
+    width: setSizeWithMath(70, 1080, 100vh);
+    border-top#{$rad}: setSizeWithMath(50, 1080, 100vh);
+    border-bottom#{$rad}: setSizeWithMath(50, 1080, 100vh);
+    height: setSizeWithMath(5, 1080, 100vh);
+    transform: translate(setSizeWithMath(-59, 1080, 100vh));
+    background-color: yellow;
+    position: absolute;
+  }
+  &_center {
+    height: setSizeWithMath(50, 1080, 100vh);
+    border: setSizeWithMath(2, 1080, 100vh) solid yellow;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+  }
+}
+.rpm {
+  background-color: black;
+  &_scale {
+    @include setMargin(9.64444vh, 6.61vh);
+    color: grey;
+    font-weight: lighter;
+    position: absolute;
+    font-size: setSizeWithMath(13, 1080, 100vh);
+  }
+  &-counter {
+    transition: 60ms;
+    .car-counter_stick {
+      width: setSizeWithMath(64, 1080, 100vh);
+    }
+  }
+  &1 {
+    @include setMargin(
+      setSizeWithMath(11, 1080, 100vh),
+      setSizeWithMath(141, 1080, 100vh)
+    );
+  }
+  &2 {
+    @include setMargin(
+      setSizeWithMath(6, 1080, 100vh),
+      setSizeWithMath(90, 1080, 100vh)
+    );
+  }
+  &3 {
+    @include setMargin(
+      setSizeWithMath(27, 1080, 100vh),
+      setSizeWithMath(43, 1080, 100vh)
+    );
+  }
+  &4 {
+    @include setMargin(
+      setSizeWithMath(62, 1080, 100vh),
+      setSizeWithMath(11, 1080, 100vh)
+    );
+  }
+  &5 {
+    @include setMargin(
+      setSizeWithMath(116, 1080, 100vh),
+      setSizeWithMath(0, 1080, 100vh)
+    );
+  }
+  &6 {
+    @include setMargin(
+      setSizeWithMath(166, 1080, 100vh),
+      setSizeWithMath(13, 1080, 100vh)
+    );
+  }
+  &7 {
+    @include setMargin(
+      setSizeWithMath(204, 1080, 100vh),
+      setSizeWithMath(48, 1080, 100vh)
+    );
+  }
+  &8 {
+    @include setMargin(
+      setSizeWithMath(220, 1080, 100vh),
+      setSizeWithMath(90, 1080, 100vh)
+    );
+  }
+  &9 {
+    @include setMargin(
+      setSizeWithMath(215, 1080, 100vh),
+      setSizeWithMath(137, 1080, 100vh)
+    );
+  }
+  &10 {
+    @include setMargin(
+      setSizeWithMath(182, 1080, 100vh),
+      setSizeWithMath(181, 1080, 100vh)
+    );
+  }
+}
+.footer-el {
+  $usual-border: setSizeWithMath(3, 1080, 100vh);
+  $usual-color: dashed white;
+  border-top: setSizeWithMath(6, 1080, 100vh) $usual-color;
+  border-left: $usual-border $usual-color;
+  border-right: $usual-border $usual-color;
+  border-bottom: $usual-border solid black;
+  border-radius: 50%;
+  background-color: black;
+  height: setSizeWithMath(248, 1080, 100vh);
+  aspect-ratio: 1/1;
+  z-index: 12;
+  display: flex;
+  flex-direction: column;
+}
+.gear-counter {
+  position: absolute;
+  color: white;
+  font-weight: bold;
+  top: 45%;
+  align-self: center;
+  font-size: setSizeWithMath(30, 1080, 100vh);
+}

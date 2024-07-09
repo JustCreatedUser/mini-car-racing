@@ -1,0 +1,367 @@
+@use "sass:math";
+@import "./footer", "./gameplay-pause", "../mixins", "./road",
+  "./device-changing-popup";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: monospace;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+body {
+  min-height: 100vh;
+  overflow: hidden;
+  background-color: black;
+}
+html {
+  scroll-behavior: smooth;
+}
+.above-action-input {
+  width: 130px;
+  height: 20px;
+  position: absolute;
+  background-color: transparent;
+  margin-top: -23px;
+  margin-left: 164px;
+  z-index: 1;
+}
+.action-level-input {
+  filter: sepia(100%) saturate(500%);
+}
+.handling-settings {
+  text-align: center;
+}
+.race-counting {
+  position: absolute;
+  font-size: 30vh;
+  align-self: center;
+  justify-self: center;
+  color: white;
+}
+.explanation {
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  &-content {
+    max-width: 70%;
+    align-self: center;
+  }
+  select {
+    padding: 10px;
+    border-radius: 20px;
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    option {
+      margin: 10px;
+    }
+  }
+}
+.continue-game-button {
+  font-size: setSizeWithMath(20, 1080, 100vh);
+  border: setSizeWithMath(2, 1080, 100vh) solid grey;
+  padding: setSizeWithMath(5, 1080, 100vh);
+  color: white;
+  align-items: center;
+  border-radius: setSizeWithMath(5, 1080, 100vh);
+  display: none;
+  margin-left: setSizeWithMath(40, 1080, 100vh);
+  background-color: transparent;
+}
+.back-to-menu-button {
+  visibility: hidden;
+}
+.screen-div {
+  @include addFlex(center, center);
+}
+.cheat-button,
+.change-device {
+  font-size: 18px;
+  font-weight: 600;
+  background-color: black;
+  color: white;
+  border: 2px solid white;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+.part {
+  @include addFlex(center, center);
+  &s {
+    @include addFlex(center);
+    &-of-script {
+      @include addFlex(unset, center, column);
+    }
+  }
+}
+.gameplay-pause {
+  @include setAnimations(3s ease-in, 0, absolute);
+  @include addFlex(unset, center, column);
+  display: none;
+}
+.spd-counter {
+  @include addFlex(center, center);
+}
+.computer-counters {
+  @include addFlex(space-between, center);
+  display: none;
+}
+footer {
+  @include setAnimations(0.5s, 0, fixed);
+}
+.car-counter {
+  @include addFlex(center, center, column);
+}
+.background {
+  @include setAnimations(2s linear, $pos: absolute);
+}
+.road {
+  @include setAnimations(240ms linear, $pos: relative);
+}
+.vehicle {
+  @include setAnimations(0.5s, $pos: absolute);
+}
+.wheel {
+  @include setAnimations(240ms linear, $pos: absolute);
+}
+.car {
+  .one {
+    @include setMargin(
+      setSizeWithMath(117, 1080, 100vh),
+      setSizeWithMath(22, 1080, 100vh)
+    );
+  }
+  .two {
+    @include setMargin(
+      setSizeWithMath(22, 1080, 100vh),
+      setSizeWithMath(22, 1080, 100vh)
+    );
+  }
+}
+.firstRace {
+  .one {
+    @include setMargin(
+      setSizeWithMath(112, 1080, 100vh),
+      setSizeWithMath(36, 1080, 100vh)
+    );
+  }
+  .two {
+    @include setMargin(
+      setSizeWithMath(24, 1080, 100vh),
+      setSizeWithMath(36, 1080, 100vh)
+    );
+  }
+  .flame {
+    @include setMargin(0, setSizeWithMath(45, 1080, 100vh));
+  }
+}
+.secondRace {
+  .one {
+    @include setMargin(
+      setSizeWithMath(118, 1080, 100vh),
+      setSizeWithMath(36, 1080, 100vh)
+    );
+  }
+  .two {
+    @include setMargin(
+      setSizeWithMath(23, 1080, 100vh),
+      setSizeWithMath(36, 1080, 100vh)
+    );
+  }
+  .vehicle {
+    @include setMargin(unset, setSizeWithMath(13, 1080, 100vh));
+  }
+  .flame {
+    @include setMargin(
+      setSizeWithMath(-9, 1080, 100vh),
+      setSizeWithMath(43, 1080, 100vh)
+    );
+  }
+}
+.finalRace {
+  .one {
+    @include setMargin(
+      setSizeWithMath(25, 1080, 100vh),
+      setSizeWithMath(22, 1080, 100vh)
+    );
+  }
+  .two {
+    @include setMargin(
+      setSizeWithMath(115, 1080, 100vh),
+      setSizeWithMath(22, 1080, 100vh)
+    );
+  }
+  .flame {
+    @include setMargin(
+      setSizeWithMath(-7, 1080, 100vh),
+      setSizeWithMath(29, 1080, 100vh)
+    );
+  }
+}
+.flame {
+  @include setMargin(
+    setSizeWithMath(-9, 1080, 100vh),
+    setSizeWithMath(30, 1080, 100vh)
+  );
+  @include setAnimations($pos: absolute, $op: 0);
+}
+#race,
+.explanation {
+  @include addFlex(unset, center, column);
+}
+header,
+body,
+.announcement {
+  @include addFlex(center, center);
+}
+.menu {
+  @include addFlex(space-evenly, center, column);
+  padding-top: 50px;
+  display: none;
+  position: fixed;
+  font-size: 20px;
+  color: white;
+  z-index: 10;
+  overflow-y: scroll;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgb(0, 0, 0, 0.9);
+  &-content {
+    @include addFlex(space-evenly, center);
+    width: 100%;
+  }
+}
+nav {
+  @include addFlex(space-between);
+  position: fixed;
+  top: 0;
+  min-height: 50px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.937);
+  z-index: 11;
+  padding: 5px 10px;
+  button {
+    @include setAnimations(1s);
+    font-size: 20px;
+    border: 1px solid black;
+    padding: 3px 10px;
+    &:hover {
+      background-color: black;
+      border: 1px solid white;
+      color: white;
+    }
+  }
+}
+.intro-words {
+  @include setAnimations(2s, 0);
+  font-size: 10vh;
+  color: white;
+}
+.tunnel {
+  height: setSizeWithMath(417, 1080, 100vh);
+  @include setAnimations(1s, $pos: absolute);
+  left: 100%;
+  display: flex;
+  top: setSizeWithMath(46, 1080, 100vh);
+  :last-child {
+    z-index: 11;
+  }
+}
+#race {
+  @include setAnimations(3s cubic-bezier(0.65, 0.05, 0.36, 1), 0);
+  transform: scale(2);
+  margin-left: 30vw;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  height: 100vh;
+  width: 100%;
+  background-image: url("../../icons-and-images/background-images/rain.webp");
+  background-repeat: repeat-x;
+  overflow: hidden;
+  display: none;
+  background-size: cover;
+}
+header {
+  @include setAnimations(2s, 0, fixed);
+  top: setSizeWithMath(20, 1080, 100vh);
+  z-index: 1;
+  padding: 0 setSizeWithMath(25, 1080, 100vh);
+  border: setSizeWithMath(4, 1080, 100vh) white solid;
+  min-width: 20%;
+  min-height: 5vh;
+  padding: setSizeWithMath(30, 1080, 100vh) setSizeWithMath(70, 1080, 100vh);
+  text-align: center;
+  background-color: black;
+  color: white;
+  font-size: setSizeWithMath(20, 1080, 100vh);
+  border-radius: setSizeWithMath(15, 1080, 100vh);
+  max-width: 80%;
+}
+.announcement {
+  @include setAnimations(1s, 0, absolute);
+  font-style: italic;
+  z-index: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgb(0, 0, 0);
+  font-size: setSizeWithMath(100, 1080, 100vh);
+  text-align: center;
+}
+.veryLargeText {
+  @include setAnimations(0.4s, $pos: absolute);
+  display: flex;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  background: linear-gradient(red, white);
+  text-align: center;
+  font-size: setSizeWithMath(100, 1080, 100vh);
+  justify-self: center;
+  align-items: center;
+  z-index: 10;
+}
+.pause {
+  @include setAnimations(1s, 1, fixed);
+  height: setSizeWithMath(70, 1080, 100vh);
+  width: setSizeWithMath(70, 1080, 100vh);
+  display: flex;
+  line-height: setSizeWithMath(50, 1080, 100vh);
+  color: white;
+  top: 60px;
+  z-index: 11;
+  right: 3vw;
+  img {
+    position: absolute;
+    height: setSizeWithMath(50, 1080, 100vh);
+  }
+  p {
+    font-size: setSizeWithMath(80, 1080, 100vh);
+  }
+}
+.car,
+.enemy-car {
+  @include setAnimations(0.5s linear, $pos: absolute);
+}
+.just-exit,
+.playing-btn,
+.screen-width button,
+.go-arrow,
+select,
+.part,
+.save-the-progress-button,
+.contact-link-button,
+.uncompleted-parts button,
+.above-action-input,
+.action-level-input,
+.continue-game-button,
+.cheat-button,
+.change-device,
+nav button,
+.pause {
+  cursor: pointer;
+}

@@ -1,0 +1,19 @@
+@use "sass:math";
+@mixin addFlex($justify: unset, $align: unset, $dir: unset) {
+  display: flex;
+  flex-direction: $dir;
+  align-items: $align;
+  justify-content: $justify;
+}
+@mixin setAnimations($tr: unset, $op: unset, $pos: unset) {
+  transition: $tr;
+  opacity: $op;
+  position: $pos;
+}
+@mixin setMargin($ml: unset, $mt: unset) {
+  margin-left: $ml;
+  margin-top: $mt;
+}
+@function setSizeWithMath($content, $container: 1920, $value: 100vw) {
+  @return math.div($content, $container) * $value;
+}

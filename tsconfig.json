@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "target": "ES2022",
+    "outDir": "javascript",
+    "module": "ES2022",
+    "moduleResolution": "Node",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true
+  },
+  "files": [
+    "typescript/other/variables.ts",
+    "typescript/other/music.ts",
+    "typescript/other/keyboard.ts",
+    "typescript/other/secondary.ts",
+    "typescript/mechanisms/cars.ts",
+    "typescript/mechanisms/gearFunctions.ts",
+    "typescript/mechanisms/rpmFunctions.ts",
+    "typescript/mechanisms/turningFunctions.ts",
+    "typescript/main.ts",
+    "typescript/story.ts",
+    "typescript/start.ts"
+  ]
+}

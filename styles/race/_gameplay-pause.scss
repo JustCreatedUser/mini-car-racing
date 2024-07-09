@@ -1,0 +1,96 @@
+@import "../mixins";
+.gameplay-pause {
+  z-index: 1;
+  top: 0;
+  background: linear-gradient(black 0%, rgba(255, 0, 0, 0.5) 100%);
+  min-height: 100vh;
+  width: 100%;
+  color: white;
+}
+.screen-div {
+  text-align: center;
+  min-height: 100vh;
+  width: 100%;
+}
+.uncompleted-parts button {
+  width: 25vw;
+  min-width: 500px;
+}
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(9, 1fr);
+  width: 400px;
+  height: 300px;
+  color: white;
+  background-color: black;
+  * {
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid black;
+    font-size: 20px;
+  }
+  h2 {
+    grid-row-end: 3;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-column-start: 1;
+  }
+}
+.reset-keyboard {
+  grid-row: 10/11;
+  grid-column: 1/3;
+}
+.keyName {
+  cursor: cell;
+}
+.part {
+  color: white;
+  font-weight: bolder;
+  border-radius: 10px;
+  background-size: cover;
+  box-shadow: 0 0 40px 3px black;
+  border: 2px solid white;
+  min-width: 400px;
+  width: 25vw;
+  aspect-ratio: 2/1;
+  img {
+    height: 50px;
+  }
+  &s {
+    flex-wrap: wrap;
+    gap: 5vw;
+    &-of-script {
+      font-size: 30px;
+      h3 {
+        font-size: 40px;
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
+
+::-webkit-scrollbar {
+  background-color: red;
+  width: 10px;
+  &-thumb {
+    background-color: black;
+  }
+}
+.save-the-progress-button,
+.contact-link-button,
+.uncompleted-parts button {
+  font-size: 50px;
+  background: black;
+  color: white;
+  border-radius: 20px;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid white;
+}
+.gameplay-headline {
+  font-size: setSizeWithMath(60, 1080, 100vh);
+}

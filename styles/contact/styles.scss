@@ -1,0 +1,157 @@
+@use "sass:math";
+@import "../mixins";
+$windowSize: 640;
+* {
+  user-select: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+button[type="submit"],
+.cover label,
+.page label {
+  cursor: pointer;
+}
+button[type="submit"] {
+  color: red;
+  font-size: setSizeWithMath(25, $windowSize, 100vh);
+  border: dashed 1px black;
+  border-radius: setSizeWithMath(10, $windowSize, 100vh) 0
+    setSizeWithMath(10, $windowSize, 100vh) 0;
+  padding: setSizeWithMath(10, $windowSize, 100vh)
+    setSizeWithMath(15, $windowSize, 100vh);
+}
+
+body {
+  overflow: hidden;
+  background: linear-gradient(black 0%, white 100%);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+form {
+  font-weight: 900;
+  transition: transform 1s;
+  perspective: 1500px;
+  position: relative;
+
+  height: setSizeWithMath(450, $windowSize, 100vh);
+  aspect-ratio: 7/9;
+}
+$form-height: setSizeWithMath(450, $windowSize, 100vh);
+$form-width: math.div($form-height, 9) * 7;
+.cover,
+.back-cover {
+  background: linear-gradient(rgb(0, 220, 0) 0%, black 100%);
+  width: 100%;
+  height: 100%;
+  border-radius: 0 setSizeWithMath(15, $windowSize, 100vh)
+    setSizeWithMath(15, $windowSize, 100vh) 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 setSizeWithMath(15, $windowSize, 100vh) rgb(41, 41, 41);
+}
+.cover {
+  text-align: center;
+  transition: transform 1s;
+  transform-origin: center left;
+  position: absolute;
+  z-index: 4;
+  label {
+    position: absolute;
+    display: block;
+    align-self: end;
+    width: 100%;
+    height: 100%;
+  }
+}
+.page {
+  label {
+    font-size: setSizeWithMath(25, $windowSize, 100vh);
+    padding: setSizeWithMath(5, $windowSize, 100vh)
+      setSizeWithMath(20, $windowSize, 100vh);
+    position: absolute;
+  }
+}
+.back-cover {
+  position: relative;
+}
+.page {
+  transition: transform 1s;
+  transform: rotateY(0);
+  transform-origin: left;
+  transform-style: preserve-3d;
+  z-index: 1;
+  position: absolute;
+  background-color: white;
+  width: setSizeWithMath(330, $windowSize, 100vh);
+  height: setSizeWithMath(430, $windowSize, 100vh);
+  border-radius: 0 setSizeWithMath(15, $windowSize, 100vh)
+    setSizeWithMath(15, $windowSize, 100vh) 0;
+  margin-top: setSizeWithMath(10, $windowSize, 100vh);
+}
+#page {
+  &1 {
+    z-index: 3;
+  }
+  &2 {
+    z-index: 2;
+  }
+}
+input[type="checkbox"] {
+  display: none;
+}
+input[required],
+textarea {
+  border: 1px black;
+  border-style: dashed;
+  font-size: setSizeWithMath(20, $windowSize, 100vh);
+  color: black;
+  width: 100%;
+  min-height: setSizeWithMath(40, $windowSize, 100vh);
+  padding: setSizeWithMath(5, $windowSize, 100vh)
+    setSizeWithMath(10, $windowSize, 100vh);
+}
+input[required]:focus,
+textarea:focus {
+  outline: 0;
+  border: 2px solid green;
+}
+textarea {
+  height: 80%;
+}
+#checkboxCover:checked ~ form {
+  .cover {
+    perspective: 1500px;
+    transform: rotateY(-180deg);
+  }
+  transform: translateX(math.div($form-width, 2));
+}
+#checkboxCover:checked ~ form .page {
+  box-shadow: 0 0 3px 1px rgb(50, 50, 50);
+}
+#checkboxPage1:checked ~ form #page1 {
+  transform: rotateY(-180deg);
+}
+#checkboxPage2:checked ~ form #page2 {
+  transform: rotateY(-180deg);
+}
+.front-page,
+.back-page {
+  padding: setSizeWithMath(10, $windowSize, 100vh)
+    setSizeWithMath(15, $windowSize, 100vh);
+  font-size: setSizeWithMath(25, $windowSize, 100vh);
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-rows: 1fr 1fr;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+}
+.back-page {
+  transform: rotateY(180deg);
+}
