@@ -1,50 +1,41 @@
 "use strict";
 export class StoryChanges {
-  constructor(obj) {
-    for (const key in obj) {
-      this[key] = obj[key];
+    constructor(obj) {
+        for (const key in obj) {
+            this[key] = obj[key];
+        }
     }
-  }
-  getReady(changeWeather = false) {
-    for (const key in this) {
-      this[key] = false;
+    getReady(changeWeather = false) {
+        for (const key in this) {
+            this[key] = false;
+        }
+        if (changeWeather) {
+            switch (this) {
+                case changes.introduction:
+                case changes.firstRace:
+                    variables.race.style.backgroundImage =
+                        "url(./icons-and-images/background-images/rain.webp)";
+                    variables.road.style.backgroundImage =
+                        "url(./icons-and-images/roads/rain.webp)";
+                    $(".car .vehicle").attr("src", "./icons-and-images/cars/myCar-lightened.webp");
+                    break;
+                case changes.secondRace:
+                    variables.race.style.backgroundImage =
+                        "url(./icons-and-images/background-images/day.webp)";
+                    variables.road.style.backgroundImage =
+                        "url(./icons-and-images/roads/day.webp)";
+                    $(".car .vehicle").attr("src", "./icons-and-images/cars/myCarDay.webp");
+                    break;
+                case changes.finalRace:
+                    variables.race.style.backgroundImage =
+                        "url(./icons-and-images/background-images/night.webp)";
+                    variables.road.style.backgroundImage =
+                        "url(./icons-and-images/roads/night.webp)";
+                    $(".car .vehicle").attr("src", "./icons-and-images/cars/myCar-lightened.webp");
+                    break;
+            }
+        }
     }
-    if (changeWeather) {
-      switch (this) {
-        case changes.introduction:
-        case changes.firstRace:
-          variables.race.style.backgroundImage =
-            "url(./icons-and-images/background-images/rain.webp)";
-          variables.road.style.backgroundImage =
-            "url(./icons-and-images/roads/rain.webp)";
-          $(".car .vehicle").attr(
-            "src",
-            "./icons-and-images/cars/myCar-lightened.webp"
-          );
-          break;
-        case changes.secondRace:
-          variables.race.style.backgroundImage =
-            "url(./icons-and-images/background-images/day.webp)";
-          variables.road.style.backgroundImage =
-            "url(./icons-and-images/roads/day.webp)";
-          $(".car .vehicle").attr(
-            "src",
-            "./icons-and-images/cars/myCarDay.webp"
-          );
-          break;
-        case changes.finalRace:
-          variables.race.style.backgroundImage =
-            "url(./icons-and-images/background-images/night.webp)";
-          variables.road.style.backgroundImage =
-            "url(./icons-and-images/roads/night.webp)";
-          $(".car .vehicle").attr(
-            "src",
-            "./icons-and-images/cars/myCar-lightened.webp"
-          );
-          break;
-      }
-    }
-  }
 }
 export var variables = {
     language: undefined,
@@ -74,8 +65,7 @@ export var variables = {
     isGamePaused: false,
     currentWindows: "race",
     progress: "introduction",
-  },
-  permissions = {
+}, permissions = {
     forLessRpm: false,
     forMoreRpm: false,
     forInertia: false,
@@ -84,8 +74,7 @@ export var variables = {
     setInertiaInterval: true,
     toCheat: true,
     toPause: false,
-  },
-  intervals = {
+}, intervals = {
     turnComing: undefined,
     universalMoving: undefined,
     inertia: undefined,
@@ -93,29 +82,28 @@ export var variables = {
     rpmIncreaseAnimation: undefined,
     rpmDecreaseAnimation: undefined,
     finishing: undefined,
-  },
-  changes = {
+}, changes = {
     movingPause: false,
     introduction: new StoryChanges({
-      first: true,
-      startRace: false,
-      useBrakesAction: false,
-      IntroDestionationPause: false,
-      gearDownAction: false,
-      reachIntroDestination: false,
+        first: true,
+        startRace: false,
+        useBrakesAction: false,
+        IntroDestionationPause: false,
+        gearDownAction: false,
+        reachIntroDestination: false,
     }),
     firstRace: new StoryChanges({
-      startRace: false,
-      continueFirstTurnExplanation: false,
-      firstTurnExplanation: false,
+        startRace: false,
+        continueFirstTurnExplanation: false,
+        firstTurnExplanation: false,
     }),
     secondRace: new StoryChanges({
-      startRace: false,
-      allowedToTurn: false,
+        startRace: false,
+        allowedToTurn: false,
     }),
     finalRace: new StoryChanges({
-      startRace: false,
-      allowedToTurn: false,
+        startRace: false,
+        allowedToTurn: false,
     }),
-  };
+};
 //# sourceMappingURL=variables.js.map
