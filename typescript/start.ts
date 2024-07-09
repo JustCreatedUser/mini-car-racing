@@ -447,7 +447,7 @@ function setStylesForPhone(
     )
     .prepend(arrow + "id='gearUpButton' class='playing-btn'/>");
   let functions: Array<string> =
-    variables.device == "phone"
+    device == "phone"
       ? ["touchstart", "touchend"]
       : ["mousedown", "mouseup"];
 
