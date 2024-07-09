@@ -82,6 +82,7 @@ type Keys =
   | "goToMenu"
   | "listenMusic"
   | "engine";
+export type Device = undefined | "mouse" | "phone" | "computer";
 interface Ivariables {
   guideBlockText: HTMLElement;
   guideBlock: HTMLElement;
@@ -90,7 +91,7 @@ interface Ivariables {
   roadBox: HTMLElement;
   car: HTMLElement;
   finish: boolean;
-  device: undefined | string;
+  device: undefined | "mouse" | "phone" | "computer";
   distanceRatio: number;
   turnValue: number;
   additionalMarginForTurn: number;
