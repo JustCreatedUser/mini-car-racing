@@ -213,7 +213,7 @@ function createDeviceChangingPopup(
         if (!device && $("#choose-device").val() != "computer") {
           setStylesForPhone(
             $("#choose-language").val() as "english" | "ukrainian",
-            $("#choose-language").val() as "mouse" | "phone"
+            $("#choose-device").val() as "mouse" | "phone"
           );
         }
         let arr = variables.currentWindows.split("-");
