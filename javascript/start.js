@@ -368,7 +368,7 @@ function setStylesForPhone(lang, device) {
         .append($(".gear-counter").add(arrow +
         'style="rotate:180deg" id="gearDownButton" class="playing-btn"/>'))
         .prepend(arrow + "id='gearUpButton' class='playing-btn'/>");
-    let functions = variables.device == "phone"
+    let functions = device == "phone"
         ? ["touchstart", "touchend"]
         : ["mousedown", "mouseup"];
     $("#gearUpButton").on(functions[0], () => {
