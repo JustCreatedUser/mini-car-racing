@@ -1,4 +1,4 @@
-import { variables, permissions } from "./other/variables.js";
+import { variables, permissions, } from "./other/variables.js";
 import { music } from "./other/music.js";
 import { myCar, enemyCars } from "./mechanisms/cars.js";
 import { keyboard } from "./other/keyboard.js";
@@ -26,7 +26,7 @@ let devicePopupPositions = [
             setENLanguageForHtml();
             startPermission = true;
             if (variables.device != "computer") {
-                setStylesForPhone(variables.language);
+                setStylesForPhone(variables.language, variables.device);
             }
         }
     }
@@ -94,7 +94,7 @@ let devicePopupPositions = [
     }
     checkLocalStorageForIssues();
     checkDeviceAndLanguage();
-    checkMusic();
+    window.onload = checkMusic;
     checkKeyboard();
     begin(startPermission);
 })();
@@ -177,7 +177,7 @@ function createDeviceChangingPopup(permission, restart = false) {
             if (confirmation) {
                 let { device, language } = variables;
                 if (!device && $("#choose-device").val() != "computer") {
-                    setStylesForPhone($("#choose-language").val());
+                    setStylesForPhone($("#choose-language").val(), $("#choose-language").val());
                 }
                 let arr = variables.currentWindows.split("-");
                 arr.pop();
@@ -317,7 +317,7 @@ function begin(permission) {
 }
 import { gearFunctions } from "./mechanisms/gearFunctions.js";
 import { rpmFunctions } from "./mechanisms/rpmFunctions.js";
-function setStylesForPhone(lang) {
+function setStylesForPhone(lang, device) {
     $("head").append(`
     <link rel="stylesheet" href="./styles/for-phones/styles.css" />
     `);
