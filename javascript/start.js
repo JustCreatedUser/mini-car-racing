@@ -177,7 +177,7 @@ function createDeviceChangingPopup(permission, restart = false) {
             if (confirmation) {
                 let { device, language } = variables;
                 if (!device && $("#choose-device").val() != "computer") {
-                    setStylesForPhone($("#choose-language").val(), $("#choose-language").val());
+                    setStylesForPhone($("#choose-language").val(), $("#choose-device").val());
                 }
                 let arr = variables.currentWindows.split("-");
                 arr.pop();
