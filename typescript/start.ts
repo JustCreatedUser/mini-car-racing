@@ -1,4 +1,9 @@
-import { variables, permissions, TotalProgress } from "./other/variables.js";
+import {
+  variables,
+  permissions,
+  TotalProgress,
+  Device,
+} from "./other/variables.js";
 import { music } from "./other/music.js";
 import { myCar, enemyCars } from "./mechanisms/cars.js";
 import { keyboard } from "./other/keyboard.js";
@@ -25,12 +30,12 @@ let devicePopupPositions: [Array<number>, number] = [
       localStorage.getItem("language")
     ) {
       variables.currentWindows = "race";
-      variables.device = localStorage.getItem("device") as string;
+      variables.device = localStorage.getItem("device") as Device;
       variables.language = localStorage.language;
       setENLanguageForHtml();
       startPermission = true;
       if (variables.device != "computer") {
-        setStylesForPhone(variables.language);
+        setStylesForPhone(variables.language, variables.device);
       }
     }
   }
@@ -207,14 +212,15 @@ function createDeviceChangingPopup(
         let { device, language } = variables;
         if (!device && $("#choose-device").val() != "computer") {
           setStylesForPhone(
-            $("#choose-language").val() as "english" | "ukrainian"
+            $("#choose-language").val() as "english" | "ukrainian",
+            $("#choose-language").val() as "mouse" | "phone"
           );
         }
         let arr = variables.currentWindows.split("-");
         arr.pop();
         variables.currentWindows = arr.join("-");
 
-        variables.device = $("#choose-device").val() as string;
+        variables.device = $("#choose-device").val() as Device;
         variables.language = $("#choose-language").val() as
           | "ukrainian"
           | "english";
@@ -228,9 +234,7 @@ function createDeviceChangingPopup(
         permission = true;
         devicePopupPositions[1] = 0;
         if (!device || !language) begin(permission);
-
         if (variables.language == "english") setENLanguageForHtml();
-
         localStorage.setItem("device", variables.device);
         localStorage.language = variables.language;
       }
@@ -370,7 +374,10 @@ function begin(permission: boolean) {
 }
 import { gearFunctions } from "./mechanisms/gearFunctions.js";
 import { rpmFunctions } from "./mechanisms/rpmFunctions.js";
-function setStylesForPhone(lang: "english" | "ukrainian") {
+function setStylesForPhone(
+  lang: "english" | "ukrainian",
+  device: "mouse" | "phone"
+) {
   $("head").append(`
     <link rel="stylesheet" href="./styles/for-phones/styles.css" />
     `);
