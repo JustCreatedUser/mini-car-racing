@@ -87,7 +87,7 @@ export const variables = {
         first: true,
         startRace: false,
         useBrakesAction: false,
-        IntroDestionationPause: false,
+        IntroDestinationPause: false,
         gearDownAction: false,
         reachIntroDestination: false,
     }),

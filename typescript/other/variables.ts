@@ -1,4 +1,4 @@
-//Оголошення всіх змінних, щоб не вистрілювали ерори!
+//Оголошення всіх змінних, щоб не вистрілювали помилки!
 interface IstoryChanges {
   [key: string]: Function | boolean;
 }
@@ -111,7 +111,7 @@ export const variables: Ivariables = {
       first: true,
       startRace: false,
       useBrakesAction: false,
-      IntroDestionationPause: false,
+      IntroDestinationPause: false,
       gearDownAction: false,
       reachIntroDestination: false,
     }),
