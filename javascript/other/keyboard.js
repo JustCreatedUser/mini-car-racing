@@ -165,4 +165,6 @@ function keyUp(e) {
     }
 }
 export { keyDown, keyUp };
+window.document.onkeydown = keyDown;
+window.document.onkeyup = keyUp;
 //# sourceMappingURL=keyboard.js.map

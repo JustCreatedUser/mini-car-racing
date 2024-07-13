@@ -72,11 +72,7 @@
                 color: red;
               "
             >
-              Друга гонка<img
-                src="./icons-and-images/disabled-race.webp"
-                alt="locked"
-                loading="lazy"
-              />
+              Друга гонка
             </div>
             <div
               class="part finalRace-begin"
@@ -85,11 +81,7 @@
                 color: red;
               "
             >
-              Фінальна гонка<img
-                src="./icons-and-images/disabled-race.webp"
-                alt="locked"
-                loading="lazy"
-              />
+              Фінальна гонка
             </div>
           </div>
         </div>
@@ -105,7 +97,12 @@
       </div>
     </section>
     <div class="pause">
-      <img src="./icons-and-images/pause.svg" alt="pause" loading="lazy" />
+      <img
+        src="./icons-and-images/pause.svg"
+        alt="pause"
+        loading="lazy"
+        fetchpriority="low"
+      />
     </div>
     <section class="menu">
       <nav>
@@ -115,10 +112,10 @@
       <div class="menu-content">
         <div class="handling-settings">
           <div class="keyboard">
-            <h2>Управління (нажми, щоб змінити)</h2>
+            <h2>Управління (натисни, щоб змінити)</h2>
             <div class="keyAction">Газ</div>
             <div class="keyName accelerate">arrowup</div>
-            <div class="keyAction">Тормоз</div>
+            <div class="keyAction">Гальма</div>
             <div class="keyName deccelerate">arrowdown</div>
             <div class="keyAction">Передача вгору</div>
             <div class="keyName gearUp">shift</div>
@@ -168,10 +165,12 @@
       <div class="background">
         <div class="tunnel">
           <img
+            fetchpriority="low"
             src="./icons-and-images/tunnel/left.webp"
             alt="left-tunnel"
             loading="lazy"
           /><img
+            fetchpriority="low"
             src="./icons-and-images/tunnel/right.webp"
             alt="right-tunnel"
             loading="lazy"
@@ -188,21 +187,25 @@
             </div>
             <div class="car">
               <img
+                fetchpriority="low"
                 src="./icons-and-images/flame.png"
                 class="flame my-flame"
                 alt="СПАЛАХ"
                 loading="lazy"
               /><img
+                fetchpriority="low"
                 src="./icons-and-images/wheel.webp"
                 alt="колесо"
                 class="wheel one my-wheel"
                 loading="lazy"
               /><img
+                fetchpriority="low"
                 src="./icons-and-images/wheel.webp"
                 alt="колесо"
                 class="wheel two my-wheel"
                 loading="lazy"
               /><img
+                fetchpriority="low"
                 src="./icons-and-images/cars/myCar-lightened.webp"
                 alt="машина"
                 class="vehicle"
@@ -268,14 +271,7 @@
       integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
       crossorigin="anonymous"
     ></script>
-    <script
-      defer
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"
-      integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA=="
-      crossorigin="anonymous"
-    ></script>
     <script defer type="module" src="./javascript/start.js"></script>
-    <script defer type="module" src="./javascript/main.js"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap"
       rel="stylesheet"

@@ -1,4 +1,3 @@
-"use strict";
 export class StoryChanges {
     constructor(obj) {
         for (const key in obj) {
@@ -37,7 +36,7 @@ export class StoryChanges {
         }
     }
 }
-export var variables = {
+export const variables = {
     language: undefined,
     guideBlockText: document.querySelector(".logo"),
     guideBlock: document.querySelector("header"),
@@ -88,7 +87,7 @@ export var variables = {
         first: true,
         startRace: false,
         useBrakesAction: false,
-        IntroDestionationPause: false,
+        IntroDestinationPause: false,
         gearDownAction: false,
         reachIntroDestination: false,
     }),

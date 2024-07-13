@@ -1,9 +1,4 @@
 //Сюжет гонки
-import { turns } from "./mechanisms/turningFunctions.js";
-import { secondaryFunctions } from "./other/secondary.js";
-import { music } from "./other/music.js";
-import { myCar, enemyCars } from "./mechanisms/cars.js";
-import { keyboard } from "./other/keyboard.js";
 import {
   intervals,
   variables,
@@ -11,6 +6,11 @@ import {
   StoryChanges,
   permissions,
 } from "./other/variables.js";
+import { turns } from "./mechanisms/turningFunctions.js";
+import { secondaryFunctions } from "./other/secondary.js";
+import { music } from "./other/music.js";
+import { myCar, enemyCars } from "./mechanisms/cars.js";
+import { keyboard } from "./other/keyboard.js";
 var introduction: Intro,
   firstRace: Race,
   secondRace: Race,
@@ -128,8 +128,8 @@ class Intro extends Story {
                         ? `Зараз треба спішити, бо треба доїхати до зустрічі гонщиків.
                       Спершу - запуск двигуна.` +
                             (variables.device == "computer"
-                              ? ` Нажми "${keyboard.engine}" щоб це зробити`
-                              : " Всі потрібні кнопки будуть виділятись за потреби, як і ця - нажми на неї.")
+                              ? ` Натисни "${keyboard.engine}" щоб це зробити`
+                              : " Всі потрібні кнопки будуть виділятись за потреби, як і ця - натисни на неї.")
                         : `Hurry up, it's time to meet the racers!.
                         First - start the engine with` +
                             (variables.device == "computer"
@@ -359,7 +359,7 @@ class Race extends Story {
                     ) {
                       secondaryFunctions.gameOver(
                         variables.language != "english"
-                          ? "Ти не приїхав перший. Почитай підсказки-пояснення в меню"
+                          ? "Ти не приїхав перший. Почитай підказки-пояснення в меню"
                           : "You have finished being second. Read the hints in the menu!"
                       );
                     } else {
@@ -492,7 +492,7 @@ class Race extends Story {
     $(".continue-game-button").css("display", "none");
     this.tip(
       variables.language != "english"
-        ? `Тормози до ${turns.array[turns.index].maxSpeed}km/h!`
+        ? `Гальмуй до ${turns.array[turns.index].maxSpeed}km/h!`
         : `Brake to ${turns.array[turns.index].maxSpeed}km/h!`
     );
     $(".turn-speed").text(`${turns.array[turns.index].maxSpeed}km/h`);
@@ -543,7 +543,7 @@ introduction = new Intro(
         setTimeout(() => {
           introduction.tip(
             variables.language == "ukrainian"
-              ? `Далі підніми обороти двигуна хоча б до 6200. Для цього зажми ` +
+              ? `Далі підніми обороти двигуна хоча б до 6200. Для цього затисни ` +
                   (variables.device == "computer"
                     ? `"${keyboard.accelerate}" на клавіатурі і тримай,`
                     : " виділену кнопку,") +
@@ -567,7 +567,7 @@ introduction = new Intro(
         myCar.noClutchMode = false;
         introduction.tip(
           variables.language != "english"
-            ? `Щоб рушити треба переключити передачу вгору, тому нажми ` +
+            ? `Щоб рушити треба переключити передачу вгору, тому натисни ` +
                 (variables.device == "computer"
                   ? `"${keyboard.gearUp}".`
                   : "стрілку вгору.")
@@ -593,7 +593,7 @@ introduction = new Intro(
     },
     inLessRpm() {
       if (variables.action === 4 && !changes.introduction.useBrakesAction) {
-        changes.introduction.IntroDestionationPause = false;
+        changes.introduction.IntroDestinationPause = false;
         changes.introduction.useBrakesAction = true;
         changes.movingPause = false;
         variables.race.style.opacity = ".7";
@@ -611,7 +611,7 @@ introduction = new Intro(
           variables.language != "english"
             ? `Останні штрихи: переключи передачу вниз ${
                 variables.device == "computer"
-                  ? `клавішою "${keyboard.gearDown}"`
+                  ? `кнопкою "${keyboard.gearDown}"`
                   : " цією стрілкою"
               }. Увага: передачу вниз переключай, КОЛИ ОБОРОТИ МЕНШІ ЗА 6000`
             : `Finally, shift gear down ${
@@ -639,10 +639,10 @@ introduction = new Intro(
         changes.movingPause = true;
         introduction.tip(
           variables.language != "english"
-            ? `Ти майже приїхав, пора тормозити! Зажми ${
+            ? `Ти майже приїхав, пора гальмувати! Затисни ${
                 variables.device == "computer"
                   ? `"${keyboard.deccelerate}"`
-                  : "тормоз"
+                  : "гальма"
               }.`
             : "You're almost there! Hold " +
                 (variables.device == "computer"
@@ -679,7 +679,7 @@ introduction = new Intro(
         music.changeVolume(0.5);
         introduction.tip(
           variables.language != "english"
-            ? `Зараз, коли передача є першою, а тобі треба зупинитись, притормози до меншої за 20 км/год швидкості ${
+            ? `Зараз, коли передача є першою, а тобі треба зупинитись, уповільнись до меншої за 20 км/год швидкості ${
                 variables.device == "computer"
                   ? `кнопкою "${keyboard.deccelerate}" (більше не нагадуватиму)`
                   : ""
@@ -717,7 +717,7 @@ introduction = new Intro(
             : `According to the gear index (which is ${
                 variables.device == "computer"
                   ? `in the right center of speedometer`
-                  : "on the left forom the tachometer (RPM)"
+                  : "on the left from the tachometer (RPM)"
               }), shift down to first gear`;
 
         $("#gearDownButton").css({ boxShadow: "unset", zIndex: 0 });
@@ -744,7 +744,7 @@ firstRace = new Race(
       );
       firstRace.tip(
         variables.language != "english"
-          ? `Справа на дорозі буде показник дистанції, через яку буде поворот, і швидкість, до якої треба затормозити. Якщо ти не відтормозишся достатньо або розженешся під часу повороту  - тебе винесе з дороги і ти програєш. Натискай на кнопку і їдь!`
+          ? `Справа на дорозі буде показник дистанції, через яку буде поворот, і швидкість, до якої треба зупинитись. Якщо ти не спинишся достатньо або розженешся під часу повороту  - тебе винесе з дороги і ти програєш. Натискай на кнопку і їдь!`
           : "On the right side of the road you will see a sign indicating DISTANCE TO TURN and the MAXIMUM TURN SPEED. If you exceed this limit - you lose!"
       );
     },

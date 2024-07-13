@@ -100,6 +100,7 @@
       <img
         alt="Твоє авто"
         loading="lazy"
+        fetchpriority="low"
         data-aos-duration="1000"
         style="grid-column: 1/2; grid-row: 6/7"
         src="./useless-images/car1dark.webp"
@@ -115,6 +116,7 @@
       <img
         alt="Важливо!"
         loading="lazy"
+        fetchpriority="low"
         style="grid-column: 4/5; grid-row: 7/8"
         data-aos="flip-left"
         src="./icons-and-images/warning.webp"
@@ -127,7 +129,8 @@
         Другорядний тестувальник - Станіслав Романовський
       </p>
       <img
-        alt="нажаль більше не вчитель"
+        fetchpriority="low"
+        alt="на жаль, більше не вчитель"
         loading="lazy"
         data-aos-duration="1000"
         style="grid-column: 1/2; grid-row: 8/9"
@@ -160,7 +163,6 @@
         data-aos="flip-down"
         data-aos-duration="1000"
         target="_blank"
-        rel="noopener"
         href="https://github.com/JustCreatedUser/mini-car-racing"
         >https://github.com/JustCreatedUser/mini-car-racing</a
       >
@@ -229,7 +231,7 @@
       closeCredits.onclick = function () {
         location.replace("https://mini-car-racing.netlify.app/index.html");
       };
-      document.onload = scrollPage();
+      window.onload = scrollPage;
       AOS.init();
     </script>
   </body>

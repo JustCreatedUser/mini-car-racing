@@ -163,3 +163,4 @@ const music: Imusic = {
 music.index = Math.round(Math.random() * music.songsList.length - 1);
 music.songS = [music.song, music.cheaterSong, music.finalSong].reverse();
 export { music };
+$(".music-settings").on("click", music.listenToMusic);

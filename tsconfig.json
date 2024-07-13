@@ -19,7 +19,7 @@
     "typescript/mechanisms/gearFunctions.ts",
     "typescript/mechanisms/rpmFunctions.ts",
     "typescript/mechanisms/turningFunctions.ts",
-    "typescript/main.ts",
-    "typescript/story.ts"
+    "typescript/story.ts",
+    "typescript/start.ts"
   ]
 }

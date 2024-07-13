@@ -1,5 +1,4 @@
-//Оголошення всіх змінних, щоб не вистрілювали ерори!
-"use strict";
+//Оголошення всіх змінних, щоб не вистрілювали помилки!
 interface IstoryChanges {
   [key: string]: Function | boolean;
 }
@@ -54,65 +53,11 @@ export class StoryChanges implements IstoryChanges {
     }
   }
 }
+export type Device = undefined | "mouse" | "phone" | "computer";
 interface Intervals {
   [key: string]: undefined | number;
 }
-interface Ipermissions {
-  [key: string]: boolean;
-}
-interface Ichanges {
-  movingPause: boolean;
-  introduction: StoryChanges;
-  firstRace: StoryChanges;
-  secondRace: StoryChanges;
-  finalRace: StoryChanges;
-  rewriteEverything?: () => void;
-}
-export type TotalProgress =
-  | "firstRace"
-  | "introduction"
-  | "secondRace"
-  | "finalRace"
-  | "Everything";
-type Keys =
-  | "accelerate"
-  | "deccelerate"
-  | "gearUp"
-  | "gearDown"
-  | "goToMenu"
-  | "listenMusic"
-  | "engine";
-export type Device = undefined | "mouse" | "phone" | "computer";
-interface Ivariables {
-  guideBlockText: HTMLElement;
-  guideBlock: HTMLElement;
-  road: HTMLElement;
-  race: HTMLElement;
-  roadBox: HTMLElement;
-  car: HTMLElement;
-  finish: boolean;
-  device: undefined | "mouse" | "phone" | "computer";
-  distanceRatio: number;
-  turnValue: number;
-  additionalMarginForTurn: number;
-  choosingKeysMode: boolean;
-  keyToChoose: Keys | undefined;
-  $announcement: HTMLElement;
-  $announcementText: HTMLElement;
-  totalProgress: TotalProgress;
-  startInertiaMechanismTimeout: undefined | number;
-  hasChanged: undefined | boolean;
-  action: number;
-  isEngineWorking: boolean;
-  raceBackgroundPositionX: number;
-  backgroundPositionX: number;
-  flame: undefined | number;
-  isGamePaused: boolean;
-  currentWindows: string;
-  progress: "firstRace" | "introduction" | "secondRace" | "finalRace";
-  language: "ukrainian" | "english" | undefined;
-}
-export var variables: Ivariables = {
+export const variables: Ivariables = {
     language: undefined,
     guideBlockText: document.querySelector(".logo"),
     guideBlock: document.querySelector("header"),
@@ -166,7 +111,7 @@ export var variables: Ivariables = {
       first: true,
       startRace: false,
       useBrakesAction: false,
-      IntroDestionationPause: false,
+      IntroDestinationPause: false,
       gearDownAction: false,
       reachIntroDestination: false,
     }),
@@ -184,3 +129,58 @@ export var variables: Ivariables = {
       allowedToTurn: false,
     }),
   };
+interface Ipermissions {
+  [key: string]: boolean;
+}
+interface Ichanges {
+  movingPause: boolean;
+  introduction: StoryChanges;
+  firstRace: StoryChanges;
+  secondRace: StoryChanges;
+  finalRace: StoryChanges;
+  rewriteEverything?: () => void;
+}
+export type TotalProgress =
+  | "firstRace"
+  | "introduction"
+  | "secondRace"
+  | "finalRace"
+  | "Everything";
+type Keys =
+  | "accelerate"
+  | "deccelerate"
+  | "gearUp"
+  | "gearDown"
+  | "goToMenu"
+  | "listenMusic"
+  | "engine";
+
+interface Ivariables {
+  guideBlockText: HTMLElement;
+  guideBlock: HTMLElement;
+  road: HTMLElement;
+  race: HTMLElement;
+  roadBox: HTMLElement;
+  car: HTMLElement;
+  finish: boolean;
+  device: undefined | "mouse" | "phone" | "computer";
+  distanceRatio: number;
+  turnValue: number;
+  additionalMarginForTurn: number;
+  choosingKeysMode: boolean;
+  keyToChoose: Keys | undefined;
+  $announcement: HTMLElement;
+  $announcementText: HTMLElement;
+  totalProgress: TotalProgress;
+  startInertiaMechanismTimeout: undefined | number;
+  hasChanged: undefined | boolean;
+  action: number;
+  isEngineWorking: boolean;
+  raceBackgroundPositionX: number;
+  backgroundPositionX: number;
+  flame: undefined | number;
+  isGamePaused: boolean;
+  currentWindows: string;
+  progress: "firstRace" | "introduction" | "secondRace" | "finalRace";
+  language: "ukrainian" | "english" | undefined;
+}

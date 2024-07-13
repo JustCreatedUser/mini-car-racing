@@ -177,3 +177,5 @@ function keyUp(e: KeyboardEvent) {
   }
 }
 export { keyDown, keyUp };
+window.document.onkeydown = keyDown;
+window.document.onkeyup = keyUp;
