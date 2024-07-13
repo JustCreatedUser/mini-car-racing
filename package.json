@@ -8,7 +8,7 @@
   "name": "mini-car-racing",
   "version": "5.1.0",
   "description": "It's an online game designed for phones and computers",
-  "main": "./javascript/main.js",
+  "main": "./javascript/start.js",
   "scripts": {
     "compileRaceScss": "sass ./styles/race/styles.scss ./styles/race/styles.css --style compressed",
     "compileContactScss": "sass ./styles/contact/styles.scss ./styles/contact/styles.css --style compressed",

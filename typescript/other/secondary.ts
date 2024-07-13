@@ -170,14 +170,13 @@ export const secondaryFunctions = {
           : "This will last for a MINUTE"
       );
       let cheatEffectTime = 60;
-      $.removeCookie("cheatEffect", { path: "/" });
-      $.cookie("cheatEffect", cheatEffectTime, { expires: 0.127, path: "/" });
+      sessionStorage["cheatEffect"] = cheatEffectTime;
       localStorage.setItem("cheaterSongWasDiscovered", "true");
       music.hidden.cheaterSongWasDiscovered = true;
       let cheatEffect = setInterval(() => {
         cheatEffectTime--;
         $(".cheat-counter").text(cheatEffectTime);
-        $.cookie("cheatEffect", cheatEffectTime, { expires: 0.127, path: "/" });
+        sessionStorage["cheatEffect"] = cheatEffectTime;
         if (cheatEffectTime == 10)
           alert("Ще 10 секунд, і ефект від читів буде скинуто");
         else if (cheatEffectTime <= 0) {
@@ -196,7 +195,6 @@ export const secondaryFunctions = {
           permissions.toCheat = true;
           clearInterval(cheatEffect);
           myCar.maxRpm = 10000;
-          $.removeCookie("cheatEffect", { path: "/" });
         }
       }, 1000);
     }
@@ -465,8 +463,24 @@ export const secondaryFunctions = {
   restartTheGame() {
     localStorage.clear();
     localStorage.setItem("device", variables.device as string);
-    $.removeCookie("cheatEffect", { path: "/" });
-    $.removeCookie("song", { path: "/" });
     setTimeout(location.reload, 500);
   },
 };
+$(".save-the-progress-button").on("click", secondaryFunctions.saveProgress);
+$("#choose-info").on("input", secondaryFunctions.selectInfoInMenu);
+$(".part").on("click", secondaryFunctions.chooseChapter);
+$(".pause").on("click", secondaryFunctions.pause);
+$(".back-to-menu-button").on("click", secondaryFunctions.returnToMenu);
+
+$(".continue-game-button").on("click", secondaryFunctions.useGuideBlockButton);
+$(".action-settings").on("click", secondaryFunctions.actionLevelChange);
+$(".explanation-content").on(
+  "click",
+  ".cheat-button",
+  secondaryFunctions.fastest_speed_cheat
+);
+$(".uncompleted-parts").on(
+  "click",
+  "button",
+  secondaryFunctions.restartTheGame
+);

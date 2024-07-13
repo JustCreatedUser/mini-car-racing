@@ -1,9 +1,9 @@
+import { intervals, variables, changes, StoryChanges, permissions, } from "./other/variables.js";
 import { turns } from "./mechanisms/turningFunctions.js";
 import { secondaryFunctions } from "./other/secondary.js";
 import { music } from "./other/music.js";
 import { myCar, enemyCars } from "./mechanisms/cars.js";
 import { keyboard } from "./other/keyboard.js";
-import { intervals, variables, changes, StoryChanges, permissions, } from "./other/variables.js";
 var introduction, firstRace, secondRace, finalRace, chapters;
 class Story {
     changes;
