@@ -142,27 +142,28 @@ function createDeviceChangingPopup(permission, restart = false) {
     if (localStorage.getItem("language"))
         document.getElementById("choose-language").value =
             localStorage.getItem("language");
+    const Event = function (e) {
+        devicePopupPositions[0] = [
+            0,
+            window.innerWidth,
+            window.innerWidth * 2,
+            window.innerWidth * 3,
+        ];
+        switch (e.target.attributes["moveattr"].value) {
+            case "left":
+                if (devicePopupPositions[1] != 0)
+                    devicePopupPositions[1]--;
+                break;
+            default:
+                if (devicePopupPositions[1] != 3)
+                    devicePopupPositions[1]++;
+                break;
+        }
+        document.querySelector(".device-changing-popup").scrollLeft =
+            devicePopupPositions[0][devicePopupPositions[1]];
+    };
     for (const iterator of document.getElementsByClassName("go-arrow")) {
-        iterator.addEventListener("click", function (e) {
-            devicePopupPositions[0] = [
-                0,
-                window.innerWidth,
-                window.innerWidth * 2,
-                window.innerWidth * 3,
-            ];
-            switch (e.target.attributes["moveattr"].value) {
-                case "left":
-                    if (devicePopupPositions[1] != 0)
-                        devicePopupPositions[1]--;
-                    break;
-                default:
-                    if (devicePopupPositions[1] != 3)
-                        devicePopupPositions[1]++;
-                    break;
-            }
-            document.querySelector(".device-changing-popup").scrollLeft =
-                devicePopupPositions[0][devicePopupPositions[1]];
-        });
+        iterator.addEventListener("click", Event);
     }
     let exit = document.querySelector(".just-exit");
     exit
@@ -172,6 +173,9 @@ function createDeviceChangingPopup(permission, restart = false) {
             variables.currentWindows = arr.join("-");
             document.querySelector(".device-changing-popup").remove();
             devicePopupPositions[1] = 0;
+            for (const iterator of document.getElementsByClassName("go-arrow")) {
+                iterator.removeEventListener("click", Event);
+            }
         })
         : "";
     devChangePopup.children[devChangePopup.children.length - 1]
@@ -195,6 +199,9 @@ function createDeviceChangingPopup(permission, restart = false) {
                 alert(variables.language == "ukrainian"
                     ? "Екран варто тримати лише в горизонтальному положенні!"
                     : "Please, hold your device horizontally.");
+                for (const iterator of document.getElementsByClassName("go-arrow")) {
+                    iterator.removeEventListener("click", Event);
+                }
                 devChangePopup.remove();
                 permission = true;
                 devicePopupPositions[1] = 0;
