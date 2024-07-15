@@ -180,28 +180,28 @@ function createDeviceChangingPopup(
   if (localStorage.getItem("language"))
     (<HTMLInputElement>document.getElementById("choose-language")).value =
       localStorage.getItem("language");
+  const Event = function (e: any) {
+    devicePopupPositions[0] = [
+      0,
+      window.innerWidth,
+      window.innerWidth * 2,
+      window.innerWidth * 3,
+    ];
+    switch ((e.target as HTMLElement).attributes["moveattr" as any].value) {
+      case "left":
+        if (devicePopupPositions[1] != 0) devicePopupPositions[1]--;
 
+        break;
+      default:
+        if (devicePopupPositions[1] != 3) devicePopupPositions[1]++;
+
+        break;
+    }
+    document.querySelector(".device-changing-popup").scrollLeft =
+      devicePopupPositions[0][devicePopupPositions[1]];
+  };
   for (const iterator of document.getElementsByClassName("go-arrow")) {
-    iterator.addEventListener("click", function (e) {
-      devicePopupPositions[0] = [
-        0,
-        window.innerWidth,
-        window.innerWidth * 2,
-        window.innerWidth * 3,
-      ];
-      switch ((e.target as HTMLElement).attributes["moveattr" as any].value) {
-        case "left":
-          if (devicePopupPositions[1] != 0) devicePopupPositions[1]--;
-
-          break;
-        default:
-          if (devicePopupPositions[1] != 3) devicePopupPositions[1]++;
-
-          break;
-      }
-      document.querySelector(".device-changing-popup").scrollLeft =
-        devicePopupPositions[0][devicePopupPositions[1]];
-    });
+    iterator.addEventListener("click", Event);
   }
   let exit = document.querySelector(".just-exit") as HTMLElement;
   exit
@@ -211,6 +211,9 @@ function createDeviceChangingPopup(
         variables.currentWindows = arr.join("-");
         document.querySelector(".device-changing-popup").remove();
         devicePopupPositions[1] = 0;
+        for (const iterator of document.getElementsByClassName("go-arrow")) {
+          iterator.removeEventListener("click", Event);
+        }
       })
     : "";
   (
@@ -247,7 +250,9 @@ function createDeviceChangingPopup(
             ? "Екран варто тримати лише в горизонтальному положенні!"
             : "Please, hold your device horizontally."
         );
-
+        for (const iterator of document.getElementsByClassName("go-arrow")) {
+          iterator.removeEventListener("click", Event);
+        }
         devChangePopup.remove();
         permission = true;
         devicePopupPositions[1] = 0;
