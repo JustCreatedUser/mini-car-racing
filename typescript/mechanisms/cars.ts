@@ -306,10 +306,10 @@ function set240msInterval() {
         (chapters as any)[variables.progress].changes.startRace &&
         variables.progress != "introduction"
       ) {
-        let enemycar = enemyCars.array[enemyCars.index];
-        enemycar.degrees += enemycar.rotation;
-        $(enemycar.wheel).css("transform", `rotate(${enemycar.degrees}deg)`);
-        enemycar.fns.overtakeFunction();
+        let enemyCar = enemyCars.array[enemyCars.index];
+        enemyCar.degrees += enemyCar.rotation;
+        $(enemyCar.wheel).css("transform", `rotate(${enemyCar.degrees}deg)`);
+        enemyCar.fns.overtakeFunction();
       }
     }
   }, 240);
