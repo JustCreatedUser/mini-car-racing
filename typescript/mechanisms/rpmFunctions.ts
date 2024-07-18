@@ -131,7 +131,7 @@ export const rpmFunctions = {
         }
       } else if (
         variables.action > 3 &&
-        car.decceleration &&
+        car.deceleration &&
         permissions.forLessRpm &&
         car.rpm > 800
       ) {
@@ -152,7 +152,7 @@ export const rpmFunctions = {
           }
         }
         switch (car.moveDirection) {
-          case "decceleration":
+          case "deceleration":
             $(`${car.className} .vehicle`).css("transform", `rotate(1deg)`);
             break;
         }
@@ -163,7 +163,7 @@ export const rpmFunctions = {
   handleAllMoves(car: any = myCar) {
     rpmFunctions.handleRpm(car);
     if (
-      myCar.moveDirection == "decceleration" &&
+      myCar.moveDirection == "deceleration" &&
       variables.progress == "introduction"
     ) {
       introduction.everyTip.inLessRpm();

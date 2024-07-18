@@ -530,7 +530,7 @@ introduction = new Intro({
             changes.introduction.useBrakesAction = true;
             changes.movingPause = false;
             variables.race.style.opacity = ".7";
-            $("#deccelerationPedal").css({ boxShadow: "unset", zIndex: 0 });
+            $("#decelerationPedal").css({ boxShadow: "unset", zIndex: 0 });
             permissions.forInertia = true;
         }
         else if (variables.action == 6) {
@@ -564,12 +564,12 @@ introduction = new Intro({
             changes.movingPause = true;
             introduction.tip(variables.language != "english"
                 ? `Ти майже приїхав, пора гальмувати! Затисни ${variables.device == "computer"
-                    ? `"${keyboard.deccelerate}"`
+                    ? `"${keyboard.decelerate}"`
                     : "гальма"}.`
                 : "You're almost there! Hold " +
                     (variables.device == "computer"
-                        ? `"${keyboard.deccelerate}"`
-                        : "brakes!"), "#deccelerationPedal");
+                        ? `"${keyboard.decelerate}"`
+                        : "brakes!"), "#decelerationPedal");
             permissions.forInertia = false;
             permissions.forMoreRpm = false;
             permissions.forLessRpm = true;
@@ -592,18 +592,18 @@ introduction = new Intro({
                             : "the accelerator and arrow up");
         }
     },
-    deccelerationExplanation() {
+    decelerationExplanation() {
         if (variables.action == 5 && myCar.gear == 1) {
             music.changeVolume(0.5);
             introduction.tip(variables.language != "english"
                 ? `Зараз, коли передача є першою, а тобі треба зупинитись, уповільнись до меншої за 20 км/год швидкості ${variables.device == "computer"
-                    ? `кнопкою "${keyboard.deccelerate}" (більше не нагадуватиму)`
+                    ? `кнопкою "${keyboard.decelerate}" (більше не нагадуватиму)`
                     : ""}, переключи передачу вниз і тоді заглуши двигун${variables.device == "computer"
                     ? ` з кнопкою "${keyboard.engine}", якщо не забув).`
                     : "."}`
                 : "When the first gear is engaged, brake to the lowest possible speed" +
                     (variables.device == "computer"
-                        ? ` with key "${keyboard.deccelerate}",`
+                        ? ` with key "${keyboard.decelerate}",`
                         : ",") +
                     `shift gear down and switch off the engine` +
                     (variables.device == "computer"

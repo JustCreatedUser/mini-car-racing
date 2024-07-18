@@ -25,8 +25,8 @@ export const gearFunctions = {
                             if (myCar.acceleration) {
                                 myCar.moveDirection = "acceleration";
                             }
-                            else if (myCar.decceleration) {
-                                myCar.moveDirection = "decceleration";
+                            else if (myCar.deceleration) {
+                                myCar.moveDirection = "deceleration";
                             }
                             $(".rpm-counter").css("transition", "60ms");
                         }, 500);
@@ -40,8 +40,8 @@ export const gearFunctions = {
                             if (car.acceleration) {
                                 car.moveDirection = "acceleration";
                             }
-                            else if (car.decceleration) {
-                                car.moveDirection = "decceleration";
+                            else if (car.deceleration) {
+                                car.moveDirection = "deceleration";
                             }
                         }, 500);
                         break;
@@ -87,8 +87,8 @@ export const gearFunctions = {
                         if (car.acceleration) {
                             car.moveDirection = "acceleration";
                         }
-                        else if (car.decceleration) {
-                            car.moveDirection = "decceleration";
+                        else if (car.deceleration) {
+                            car.moveDirection = "deceleration";
                         }
                     }, 500);
                     rpmFunctions.setHtmlColor(2);
@@ -101,8 +101,8 @@ export const gearFunctions = {
                         if (car.acceleration) {
                             car.moveDirection = "acceleration";
                         }
-                        else if (car.decceleration) {
-                            car.moveDirection = "decceleration";
+                        else if (car.deceleration) {
+                            car.moveDirection = "deceleration";
                         }
                     }, 500);
                     break;
@@ -163,7 +163,7 @@ export const gearFunctions = {
                 gearFunctions.down.callOtherFunctions(car);
                 switch (variables.progress) {
                     case "introduction":
-                        introduction.everyTip.deccelerationExplanation();
+                        introduction.everyTip.decelerationExplanation();
                         break;
                 }
             }
@@ -226,8 +226,8 @@ export const gearFunctions = {
                             if (myCar.acceleration) {
                                 myCar.moveDirection = "acceleration";
                             }
-                            else if (myCar.decceleration) {
-                                myCar.moveDirection = "decceleration";
+                            else if (myCar.deceleration) {
+                                myCar.moveDirection = "deceleration";
                             }
                         }, 510);
                         break;
@@ -237,8 +237,8 @@ export const gearFunctions = {
                             if (car.acceleration) {
                                 car.moveDirection = "acceleration";
                             }
-                            else if (car.decceleration) {
-                                car.moveDirection = "decceleration";
+                            else if (car.deceleration) {
+                                car.moveDirection = "deceleration";
                             }
                         }, 510);
                         break;

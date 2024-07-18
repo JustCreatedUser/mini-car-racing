@@ -7,7 +7,7 @@ import { secondaryFunctions } from "./secondary.js";
 import { variables, permissions } from "./variables.js";
 export const keyboard = {
     accelerate: "arrowup",
-    deccelerate: "arrowdown",
+    decelerate: "arrowdown",
     engine: "enter",
     gearUp: "shift",
     gearDown: "control",
@@ -18,14 +18,14 @@ $(".keyName").on("click", function () {
     if (!variables.choosingKeysMode) {
         variables.choosingKeysMode = true;
         variables.keyToChoose = $(this)[0].classList[1];
-        $(this).text(variables.language != "english" ? "Нажми кнопку" : "Tap button");
+        $(this).text(variables.language != "english" ? "Натисни кнопку" : "Tap button");
         keyboard[variables.keyToChoose] = undefined;
     }
 });
 $(".reset-keyboard").on("click", function () {
     let response = confirm(variables.language != "english"
         ? "Бажаєте скинути поточне управління до стандарту?"
-        : "Do you want to reset hanling to defaults?");
+        : "Do you want to reset handling to defaults?");
     if (response) {
         let key;
         for (key in keyboard) {
@@ -34,7 +34,7 @@ $(".reset-keyboard").on("click", function () {
                 case "accelerate":
                     text = "arrowup";
                     break;
-                case "deccelerate":
+                case "decelerate":
                     text = "arrowdown";
                     break;
                 case "gearDown":
@@ -73,7 +73,7 @@ function keyDown(e) {
         }
         switch (keyName) {
             case keyboard.accelerate:
-                if (!myCar.acceleration && !myCar.decceleration) {
+                if (!myCar.acceleration && !myCar.deceleration) {
                     myCar.acceleration = true;
                     if (myCar.moveDirection != "acceleration" &&
                         !variables.isGamePaused &&
@@ -83,16 +83,16 @@ function keyDown(e) {
                     }
                 }
                 break;
-            case keyboard.deccelerate:
+            case keyboard.decelerate:
                 if (variables.isEngineWorking &&
-                    !myCar.decceleration &&
+                    !myCar.deceleration &&
                     !myCar.acceleration) {
-                    if (myCar.moveDirection != "decceleration" &&
+                    if (myCar.moveDirection != "deceleration" &&
                         variables.isEngineWorking &&
                         permissions.forLessRpm) {
-                        myCar.moveDirection = `decceleration`;
+                        myCar.moveDirection = `deceleration`;
                     }
-                    myCar.decceleration = true;
+                    myCar.deceleration = true;
                 }
                 break;
             case keyboard.engine:
@@ -155,8 +155,8 @@ function keyUp(e) {
                 $(".car .vehicle").css("transform", "rotate(0)");
             }
         }
-        else if (keyName == keyboard.deccelerate && myCar.decceleration) {
-            myCar.decceleration = false;
+        else if (keyName == keyboard.decelerate && myCar.deceleration) {
+            myCar.deceleration = false;
             if (myCar.moveDirection !== 0) {
                 myCar.moveDirection = 0;
                 $(".car .vehicle").css("transform", "rotate(0)");

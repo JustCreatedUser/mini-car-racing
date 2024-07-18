@@ -15,7 +15,7 @@ class Car {
     rotation = 200;
     moveDirection = 0;
     acceleration = false;
-    decceleration = false;
+    deceleration = false;
     itsFlame;
     constructor() { }
     exhaust() {
@@ -178,13 +178,13 @@ class EnemyCar extends Car {
                     this.spd < turns.array[turns.index].maxSpeed &&
                     this.spd > turns.array[turns.index].maxSpeed - 3) {
                     this.acceleration = false;
-                    this.decceleration = false;
+                    this.deceleration = false;
                     this.moveDirection = 0;
                     $(`${this.className} .vehicle`).css("transform", `rotate(0deg)`);
                 }
                 else if (turns.isRightNow != false &&
                     this.spd > turns.array[turns.index].maxSpeed - 3) {
-                    enemyCars.array[enemyCars.index].decceleration = true;
+                    enemyCars.array[enemyCars.index].deceleration = true;
                     enemyCars.array[enemyCars.index].acceleration = false;
                 }
                 else if ((turns.isRightNow == true &&
@@ -193,7 +193,7 @@ class EnemyCar extends Car {
                     (turns.isRightNow == "almost" &&
                         this.spd < turns.array[turns.index].maxSpeed - 3)) {
                     enemyCars.array[enemyCars.index].acceleration = true;
-                    enemyCars.array[enemyCars.index].decceleration = false;
+                    enemyCars.array[enemyCars.index].deceleration = false;
                 }
                 let distanceRatio = window.innerHeight / -27;
                 let marginLeft;

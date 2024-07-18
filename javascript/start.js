@@ -425,23 +425,23 @@ function setStylesForPhone(lang, device) {
         if (variables.isEngineWorking && myCar.gear != 0)
             gearFunctions.down.mechanism();
     });
-    const brakes = document.querySelector("#deccelerationPedal");
+    const brakes = document.querySelector("#decelerationPedal");
     brakes.addEventListener(functions[0], () => {
         if (variables.isEngineWorking &&
-            !myCar.decceleration &&
+            !myCar.deceleration &&
             !myCar.acceleration) {
-            $("#deccelerationPedal")[0].style.transform = "rotateX(1deg)";
-            if (myCar.moveDirection != "decceleration" &&
+            $("#decelerationPedal")[0].style.transform = "rotateX(1deg)";
+            if (myCar.moveDirection != "deceleration" &&
                 variables.isEngineWorking &&
                 permissions.forLessRpm)
-                myCar.moveDirection = `decceleration`;
-            myCar.decceleration = true;
+                myCar.moveDirection = `deceleration`;
+            myCar.deceleration = true;
         }
     });
     brakes.addEventListener(functions[1], () => {
-        if (myCar.decceleration) {
-            $("#deccelerationPedal")[0].style.transform = "rotateX(0deg)";
-            myCar.decceleration = false;
+        if (myCar.deceleration) {
+            $("#decelerationPedal")[0].style.transform = "rotateX(0deg)";
+            myCar.deceleration = false;
             if (myCar.moveDirection !== 0) {
                 myCar.moveDirection = 0;
                 $(".car .vehicle").css("transform", "rotate(0)");
@@ -450,7 +450,7 @@ function setStylesForPhone(lang, device) {
     });
     const accelerator = document.querySelector("#accelerationPedal");
     accelerator.addEventListener(functions[0], () => {
-        if (!myCar.acceleration && !myCar.decceleration) {
+        if (!myCar.acceleration && !myCar.deceleration) {
             myCar.acceleration = true;
             $("#accelerationPedal")[0].style.transform = "rotateX(1deg)";
             if (myCar.moveDirection != "acceleration" &&
@@ -483,7 +483,7 @@ changes.rewriteEverything = () => {
     myCar.rotation = 200;
     myCar.degrees = 0;
     myCar.acceleration = false;
-    myCar.decceleration = false;
+    myCar.deceleration = false;
     myCar.noClutchMode = true;
     myCar.moveDirection = 0;
     enemyCars.array.forEach((car) => {
@@ -496,7 +496,7 @@ changes.rewriteEverything = () => {
         car.rotation = 200;
         car.degrees = 0;
         car.acceleration = false;
-        car.decceleration = false;
+        car.deceleration = false;
     });
     firstRaceCar.rpm = 2000;
     secondRaceCar.rpm = 5000;
@@ -520,7 +520,7 @@ changes.rewriteEverything = () => {
         variables.backgroundPositionX + "px";
     $(".enemy-wheel").css("transform", `rotate(0deg)`);
     myCar.acceleration = false;
-    myCar.decceleration = false;
+    myCar.deceleration = false;
     for (let i in intervals) {
         clearInterval(intervals[i]);
     }

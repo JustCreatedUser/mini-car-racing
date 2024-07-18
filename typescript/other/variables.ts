@@ -148,7 +148,7 @@ export type TotalProgress =
   | "Everything";
 type Keys =
   | "accelerate"
-  | "deccelerate"
+  | "decelerate"
   | "gearUp"
   | "gearDown"
   | "goToMenu"
