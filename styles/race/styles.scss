@@ -16,6 +16,22 @@ body {
   overflow: hidden;
   background-color: black;
 }
+@media (orientation: portrait) {
+  dialog {
+    display: flex;
+    color: white;
+    font-size: 5vw;
+    font-weight: 900;
+    background-color: red;
+    inset: 50% 50%;
+    translate: -50% -50%;
+    width: 61vw;
+    text-align: center;
+  }
+  *:not(dialog, body, html) {
+    display: none !important;
+  }
+}
 html {
   scroll-behavior: smooth;
 }

@@ -21,7 +21,22 @@ button[type="submit"] {
   padding: setSizeWithMath(10, $windowSize, 100vh)
     setSizeWithMath(15, $windowSize, 100vh);
 }
-
+@media (orientation: portrait) {
+  dialog {
+    display: flex;
+    color: white;
+    font-size: 5vw;
+    font-weight: 900;
+    background-color: red;
+    inset: 50% 50%;
+    translate: -50% -50%;
+    width: 61vw;
+    text-align: center;
+  }
+  *:not(dialog, body, html) {
+    display: none !important;
+  }
+}
 body {
   overflow: hidden;
   background: linear-gradient(black 0%, white 100%);
