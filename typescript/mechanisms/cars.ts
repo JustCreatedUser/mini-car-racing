@@ -81,11 +81,11 @@ class MyCar extends Car {
         variables.action > 0 &&
         !variables.isGamePaused
       ) {
-        requestAnimationFrame(setUniversalInterval);
+        requestAnimationFrame(animateEverything);
         myCar.gear > 0
           ? alert(
               variables.language != "english"
-                ? "Запуск можливий тільки при нейтральнй передачі"
+                ? "Запуск можливий тільки при нейтральній передачі"
                 : "You can switch on the engine ONLY while having neutral gear "
             )
           : "";
@@ -331,8 +331,8 @@ function set60msInterval(currentEntry: number): void {
     rpmFunctions.handleAllMoves(enemyCars.array[enemyCars.index]);
   }
 }
-export function setUniversalInterval(currentEntry: number): void {
-  aniFrame = requestAnimationFrame(setUniversalInterval);
+export function animateEverything(currentEntry: number): void {
+  aniFrame = requestAnimationFrame(animateEverything);
   set60msInterval(currentEntry);
   if (permissions.toMove) {
     set240msInterval(currentEntry);

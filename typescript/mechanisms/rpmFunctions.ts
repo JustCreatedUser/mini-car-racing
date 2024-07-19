@@ -163,18 +163,18 @@ export const rpmFunctions = {
   handleAllMoves(car: any = myCar) {
     rpmFunctions.handleRpm(car);
     if (
-      myCar.moveDirection == "deceleration" &&
-      variables.progress == "introduction"
-    ) {
-      introduction.everyTip.inLessRpm();
-    }
-    if (
       car == enemyCars.array[enemyCars.index] &&
       !variables.isGamePaused &&
       !changes.movingPause
     ) {
       car.handleBehavior();
+    } else if (
+      myCar.moveDirection == "deceleration" &&
+      variables.progress == "introduction"
+    ) {
+      introduction.everyTip.inLessRpm();
     }
+
     turns.manage();
   },
   inertiaMechanism() {
