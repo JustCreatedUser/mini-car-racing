@@ -612,7 +612,8 @@ changes.rewriteEverything = () => {
   for (let i in intervals) {
     clearInterval(intervals[i]);
   }
-  for (let i in permissions) {
+  let i: keyof typeof permissions;
+  for (i in permissions) {
     if (i != "toCheat" && i != "toPause") {
       permissions[i] = false;
     }

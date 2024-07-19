@@ -173,7 +173,7 @@ export const rpmFunctions = {
       !variables.isGamePaused &&
       !changes.movingPause
     ) {
-      car.handleBehaviour();
+      car.handleBehavior();
     }
     turns.manage();
   },

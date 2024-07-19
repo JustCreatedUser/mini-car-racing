@@ -3,7 +3,12 @@
 import { myCar } from "./cars.js";
 import { rpmFunctions } from "./rpmFunctions.js";
 import { chapters, introduction } from "../story.js";
-import { variables, changes, intervals } from "../other/variables.js";
+import {
+  variables,
+  changes,
+  intervals,
+  permissions,
+} from "../other/variables.js";
 export const gearFunctions = {
   up: {
     gearUp(car = myCar) {
@@ -57,6 +62,7 @@ export const gearFunctions = {
       }
     },
     startMoving(car = myCar) {
+      permissions.toMove = true;
       let currentRpm = car.rpm / 4 > 800 ? car.rpm / 4 : 800;
       switch (variables.progress) {
         case "introduction":
@@ -197,6 +203,7 @@ export const gearFunctions = {
       }
     },
     endMoving(car: any) {
+      permissions.toMove = false;
       car.gear = 0;
       car.gearMultiplier = 0;
       car.spd = 0;

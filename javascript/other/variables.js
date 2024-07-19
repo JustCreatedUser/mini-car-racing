@@ -73,6 +73,7 @@ export const variables = {
     setInertiaInterval: true,
     toCheat: true,
     toPause: false,
+    toMove: false,
 }, intervals = {
     turnComing: undefined,
     universalMoving: undefined,

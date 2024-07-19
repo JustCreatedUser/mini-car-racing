@@ -524,7 +524,8 @@ changes.rewriteEverything = () => {
     for (let i in intervals) {
         clearInterval(intervals[i]);
     }
-    for (let i in permissions) {
+    let i;
+    for (i in permissions) {
         if (i != "toCheat" && i != "toPause") {
             permissions[i] = false;
         }

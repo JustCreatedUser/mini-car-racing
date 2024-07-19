@@ -16,7 +16,9 @@ import {
   chapters,
 } from "../story.js";
 import { turns } from "./turningFunctions.js";
-
+let entryFor60ms: number = 0,
+  entryFor240ms: number = 0;
+export let aniFrame: number;
 type moveDirection = 0 | "acceleration" | "deceleration";
 class Car {
   rpm: number = 0;
@@ -79,6 +81,7 @@ class MyCar extends Car {
         variables.action > 0 &&
         !variables.isGamePaused
       ) {
+        requestAnimationFrame(setUniversalInterval);
         myCar.gear > 0
           ? alert(
               variables.language != "english"
@@ -119,10 +122,9 @@ class MyCar extends Car {
               finalRace.everyTip.engine();
               break;
           }
-          set240msInterval();
-          set60msInterval();
         }
       } else if (!variables.isGamePaused && permissions.toOff_engine) {
+        cancelAnimationFrame(aniFrame);
         if (myCar.gear === 0) {
           if (variables.device != "computer") {
             $("#useTheEngine").css("background-color", "red");
@@ -189,7 +191,7 @@ class EnemyCar extends Car {
     this.rpm = rpm;
     this.maxRpm = maxRpm;
   }
-  handleBehaviour() {
+  handleBehavior() {
     if (turns.array.length != 0) {
       if (
         variables.progress != "introduction" &&
@@ -265,64 +267,74 @@ class EnemyCar extends Car {
     }
   }
 }
-const myCar = new MyCar(),
-  firstRaceCar = new EnemyCar(2000, 8000);
-const secondRaceCar = new EnemyCar(4000, 9000);
-const finalRaceCar = new EnemyCar(8000, 10000);
-const enemyCars = {
-  array: [firstRaceCar, secondRaceCar, finalRaceCar],
-  index: 0,
-};
-function set240msInterval() {
+export const myCar = new MyCar(),
+  firstRaceCar = new EnemyCar(2000, 8000),
+  secondRaceCar = new EnemyCar(4000, 9000),
+  finalRaceCar = new EnemyCar(8000, 10000),
+  enemyCars = {
+    array: [firstRaceCar, secondRaceCar, finalRaceCar],
+    index: 0,
+  };
+function set240msInterval(currentEntry: number): void {
   let myCarPosition = 0;
   let car = myCar;
-  intervals.universalMoving = setInterval((): void => {
-    if (!changes.movingPause && !variables.isGamePaused) {
-      if (myCar.gear != 0) {
-        car.degrees += car.rotation;
-        $(car.wheel).css("transform", `rotate(${car.degrees}deg)`);
-      }
-      if (!variables.finish) {
-        variables.backgroundPositionX -= myCar.spd * (window.innerHeight / 540);
-        variables.raceBackgroundPositionX -=
-          myCar.spd / (window.innerHeight / 135);
-        variables.race.style.backgroundPositionX =
-          variables.raceBackgroundPositionX + "px";
-        variables.road.style.backgroundPositionX =
-          variables.backgroundPositionX + "px";
-        switch (variables.progress) {
-          case "introduction":
-            introduction.everyTip.reachTheTarget();
-            break;
-        }
-      } else {
-        myCarPosition += myCar.spd * (window.innerHeight / 540);
-        $(myCar.className).css({
-          transition: "240ms linear",
-          "margin-left": `${myCarPosition}px`,
-        });
-      }
-      if (
-        (chapters as any)[variables.progress].changes.startRace &&
-        variables.progress != "introduction"
-      ) {
-        let enemyCar = enemyCars.array[enemyCars.index];
-        enemyCar.degrees += enemyCar.rotation;
-        $(enemyCar.wheel).css("transform", `rotate(${enemyCar.degrees}deg)`);
-        enemyCar.fns.overtakeFunction();
-      }
+  if (!changes.movingPause && !variables.isGamePaused) {
+    if (entryFor240ms == 0) {
+      entryFor240ms = currentEntry;
+    } else if (currentEntry - entryFor240ms < 240) return;
+    entryFor240ms = currentEntry;
+    if (myCar.gear != 0) {
+      car.degrees += car.rotation;
+      $(car.wheel).css("transform", `rotate(${car.degrees}deg)`);
     }
-  }, 240);
-}
-function set60msInterval() {
-  intervals.everyCarMove = setInterval(() => {
-    rpmFunctions.handleAllMoves(myCar);
+    if (!variables.finish) {
+      variables.backgroundPositionX -= myCar.spd * (window.innerHeight / 540);
+      variables.raceBackgroundPositionX -=
+        myCar.spd / (window.innerHeight / 135);
+      variables.race.style.backgroundPositionX =
+        variables.raceBackgroundPositionX + "px";
+      variables.road.style.backgroundPositionX =
+        variables.backgroundPositionX + "px";
+      switch (variables.progress) {
+        case "introduction":
+          introduction.everyTip.reachTheTarget();
+          break;
+      }
+    } else {
+      myCarPosition += myCar.spd * (window.innerHeight / 540);
+      $(myCar.className).css({
+        transition: "240ms linear",
+        translate: `${myCarPosition}px`,
+      });
+    }
     if (
       (chapters as any)[variables.progress].changes.startRace &&
       variables.progress != "introduction"
     ) {
-      rpmFunctions.handleAllMoves(enemyCars.array[enemyCars.index]);
+      let enemyCar = enemyCars.array[enemyCars.index];
+      enemyCar.degrees += enemyCar.rotation;
+      $(enemyCar.wheel).css("transform", `rotate(${enemyCar.degrees}deg)`);
+      enemyCar.fns.overtakeFunction();
     }
-  }, 60);
+  }
 }
-export { myCar, firstRaceCar, secondRaceCar, finalRaceCar, enemyCars };
+function set60msInterval(currentEntry: number): void {
+  if (entryFor60ms == 0) {
+    entryFor60ms = currentEntry;
+  } else if (currentEntry - entryFor60ms < 60) return;
+  entryFor60ms = currentEntry;
+  rpmFunctions.handleAllMoves(myCar);
+  if (
+    (chapters as any)[variables.progress].changes.startRace &&
+    variables.progress != "introduction"
+  ) {
+    rpmFunctions.handleAllMoves(enemyCars.array[enemyCars.index]);
+  }
+}
+export function setUniversalInterval(currentEntry: number): void {
+  aniFrame = requestAnimationFrame(setUniversalInterval);
+  set60msInterval(currentEntry);
+  if (permissions.toMove) {
+    set240msInterval(currentEntry);
+  }
+}

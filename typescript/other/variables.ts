@@ -95,6 +95,7 @@ export const variables: Ivariables = {
     setInertiaInterval: true,
     toCheat: true,
     toPause: false,
+    toMove: false,
   },
   intervals: Intervals = {
     turnComing: undefined,
@@ -130,7 +131,15 @@ export const variables: Ivariables = {
     }),
   };
 interface Ipermissions {
-  [key: string]: boolean;
+  forLessRpm: boolean;
+  forMoreRpm: boolean;
+  forInertia: boolean;
+  toOff_engine: boolean;
+  toSaveProgress: boolean;
+  setInertiaInterval: boolean;
+  toCheat: boolean;
+  toPause: boolean;
+  toMove: boolean;
 }
 interface Ichanges {
   movingPause: boolean;

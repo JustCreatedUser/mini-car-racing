@@ -327,7 +327,7 @@ class Race extends Story {
   }
   comingToFinish() {
     secondaryFunctions.announceFn(
-      variables.language == "english" ? "Фінішна пряма" : "The finish line!",
+      variables.language == "ukrainian" ? "Фінішна пряма" : "The finish line!",
       () => {
         variables.device != "computer"
           ? $(".phone-counters").css({ zIndex: 11 })
