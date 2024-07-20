@@ -322,6 +322,7 @@ function begin(permission) {
             }
             permissions.toSaveProgress = false;
             permissions.toPause = true;
+            document.querySelector(".gameplay-pause").style["opacity"] = "1";
             document.querySelector(".gameplay-pause").style.display =
                 "flex";
             document.body.style.overflowY = "scroll";
@@ -334,9 +335,6 @@ function begin(permission) {
                 variables.language != "english"
                     ? "Прогрес збережено"
                     : "Progress is saved";
-            setTimeout(() => {
-                document.querySelector(".gameplay-pause").style["opacity"] = "1";
-            }, 500);
         }
         else {
             introduction.beginning();

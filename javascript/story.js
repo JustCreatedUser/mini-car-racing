@@ -40,6 +40,11 @@ class Story {
         }
         variables.action++;
     }
+    static goToGamePlayPause() {
+        let arr = variables.currentWindows.split("-");
+        arr.splice(0, 0, "gmpause");
+        variables.currentWindows = arr.join("-");
+    }
 }
 class Intro extends Story {
     constructor(everyTip, name) {
@@ -132,6 +137,7 @@ class Intro extends Story {
         }, 1000);
     }
     ending() {
+        Story.goToGamePlayPause();
         console.clear();
         introduction.changes.startRace = false;
         $(".gameplay-pause").css("display", "flex");
@@ -410,6 +416,8 @@ class Race extends Story {
                     variables.race.style.transition =
                         "1s cubic-bezier(0.65, 0.05, 0.36, 1)";
                     variables.race.style.opacity = "0";
+                    music.changeVolume(0.5);
+                    Story.goToGamePlayPause();
                     setTimeout(() => {
                         changes.rewriteEverything ? changes.rewriteEverything() : "";
                         if (variables.totalProgress != "Everything" &&
@@ -430,7 +438,6 @@ class Race extends Story {
                         $("#race").css("display", "none");
                         document.body.style.overflowY = "scroll";
                     }, 2000);
-                    music.changeVolume(0.5);
                     break;
             }
         }, 1000);

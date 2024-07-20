@@ -382,7 +382,9 @@ function begin(permission: boolean) {
       }
       permissions.toSaveProgress = false;
       permissions.toPause = true;
-
+      (document.querySelector(".gameplay-pause") as HTMLElement).style[
+        "opacity"
+      ] = "1";
       (document.querySelector(".gameplay-pause") as HTMLElement).style.display =
         "flex";
 
@@ -399,11 +401,6 @@ function begin(permission: boolean) {
         variables.language != "english"
           ? "Прогрес збережено"
           : "Progress is saved";
-      setTimeout(() => {
-        (document.querySelector(".gameplay-pause") as HTMLElement).style[
-          "opacity"
-        ] = "1";
-      }, 500);
     } else {
       introduction.beginning();
     }

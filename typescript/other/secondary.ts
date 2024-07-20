@@ -8,12 +8,9 @@ import {
   finalRace,
   chapters,
 } from "../story.js";
-import { gearFunctions } from "../mechanisms/gearFunctions.js";
-import { rpmFunctions } from "../mechanisms/rpmFunctions.js";
 import { enemyCars, myCar } from "../mechanisms/cars.js";
 import { music } from "./music.js";
 import { turns } from "../mechanisms/turningFunctions.js";
-import { keyboard } from "./keyboard.js";
 import { variables, permissions, changes, TotalProgress } from "./variables.js";
 
 export const secondaryFunctions = {
@@ -384,6 +381,9 @@ export const secondaryFunctions = {
         opacity: 0,
         display: "flex",
       });
+      let arr = variables.currentWindows.split("-");
+      arr.splice(variables.currentWindows.split("-").indexOf("gmpause"), 1);
+      variables.currentWindows = arr.join("-");
       document.body.style.overflowY = "hidden";
       $(".gameplay-pause").css("opacity", "0");
       $(".pause").css("display", "none");
@@ -463,7 +463,8 @@ export const secondaryFunctions = {
   restartTheGame() {
     localStorage.clear();
     localStorage.setItem("device", variables.device as string);
-    setTimeout(location.reload, 500);
+    localStorage.setItem("language", variables.language as string);
+    location.reload();
   },
 };
 $(".save-the-progress-button").on("click", secondaryFunctions.saveProgress);

@@ -311,6 +311,9 @@ export const secondaryFunctions = {
                 opacity: 0,
                 display: "flex",
             });
+            let arr = variables.currentWindows.split("-");
+            arr.splice(variables.currentWindows.split("-").indexOf("gmpause"), 1);
+            variables.currentWindows = arr.join("-");
             document.body.style.overflowY = "hidden";
             $(".gameplay-pause").css("opacity", "0");
             $(".pause").css("display", "none");
@@ -372,7 +375,8 @@ export const secondaryFunctions = {
     restartTheGame() {
         localStorage.clear();
         localStorage.setItem("device", variables.device);
-        setTimeout(location.reload, 500);
+        localStorage.setItem("language", variables.language);
+        location.reload();
     },
 };
 $(".save-the-progress-button").on("click", secondaryFunctions.saveProgress);
