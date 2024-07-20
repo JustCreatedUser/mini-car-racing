@@ -28,7 +28,7 @@ let devicePopupPositions = [
             variables.currentWindows = "race";
             variables.device = localStorage.getItem("device");
             variables.language = localStorage.language;
-            setENLanguageForHtml();
+            setLanguageForHtml();
             startPermission = true;
             if (variables.device != "computer") {
                 setStylesForPhone(variables.language, variables.device);
@@ -208,7 +208,10 @@ function createDeviceChangingPopup(permission, restart = false) {
                 if (!device || !language)
                     begin(permission);
                 if (variables.language == "english")
-                    setENLanguageForHtml();
+                    setLanguageForHtml();
+                else
+                    document.querySelector("dialog").textContent =
+                        "Тримай свій гаджет в горизонтальному положенні.";
                 localStorage.setItem("device", variables.device);
                 localStorage.language = variables.language;
             }
@@ -220,7 +223,7 @@ function createDeviceChangingPopup(permission, restart = false) {
         }
     };
 }
-function setENLanguageForHtml() {
+function setLanguageForHtml() {
     if (variables.language == "english") {
         let info = document.getElementById("choose-info").children;
         function select(i, TXT) {
@@ -266,6 +269,9 @@ function setENLanguageForHtml() {
             "Save progress?";
         document.querySelector(".turn-position_useless-span").innerHTML = "After";
     }
+    else
+        document.querySelector("dialog").textContent =
+            "Тримай свій гаджет в горизонтальному положенні.";
 }
 $(".explanation-content").on("click", ".change-device", function () {
     createDeviceChangingPopup(false, true);
