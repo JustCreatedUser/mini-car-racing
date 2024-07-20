@@ -17,12 +17,7 @@
       href="https://fonts.googleapis.com"
       importance="low"
     />
-    <link
-      rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin
-      importance="low"
-    />
+
     <script
       defer
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
@@ -32,7 +27,7 @@
     <script defer type="module" src="./javascript/start.js"></script>
   </head>
   <body>
-    <dialog >Hold your device horizontally</dialog>
+    <dialog>Hold your device horizontally</dialog>
     <noscript>You have forbidden javascript. Change settings</noscript>
     <section class="gameplay-pause">
       <div class="screen-div">
@@ -105,12 +100,14 @@
       </div>
     </section>
     <div class="pause">
-      <img
+      <div data-pause-bar class="left-bar"></div>
+      <div data-pause-bar class="right-bar"></div>
+      <!--  <img
         src="./icons-and-images/pause.svg"
         alt="pause"
         loading="lazy"
         fetchpriority="low"
-      />
+      /> -->
     </div>
     <section class="menu">
       <nav>
@@ -273,7 +270,12 @@
         </div>
       </footer>
     </main>
-
+    <link
+      href="https://fonts.gstatic.com"
+      crossorigin
+      importance="low"
+      fetchpriority="low"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap"
       rel="stylesheet"

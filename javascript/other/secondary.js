@@ -14,7 +14,7 @@ export const secondaryFunctions = {
         if (!variables.isGamePaused && permissions.toPause) {
             variables.currentWindows += "-menu";
             $(".menu").css("display", "flex");
-            $(".pause img").css("visibility", "hidden");
+            $(".pause div").css("display", "none");
             $(".pause").append("<p>&cross;</p>");
             variables.isGamePaused = true;
             document.body.style.overflowY = "hidden";
@@ -27,7 +27,7 @@ export const secondaryFunctions = {
             arr.pop();
             variables.currentWindows = arr.join("-");
             $(".menu").css("display", "none");
-            $(".pause img").css("visibility", "visible");
+            $(".pause div").css("display", "block");
             $(".pause p").remove();
             variables.isGamePaused = false;
             $("#choose-info").val(variables.language != "english" ? "Обери щось" : "Choose smth");

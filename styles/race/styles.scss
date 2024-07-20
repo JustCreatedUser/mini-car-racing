@@ -32,6 +32,7 @@ body {
     display: none !important;
   }
 }
+
 html {
   scroll-behavior: smooth;
 }
@@ -351,12 +352,15 @@ header {
   top: 60px;
   z-index: 11;
   right: 3vw;
-  img {
-    position: absolute;
-    height: setSizeWithMath(50, 1080, 100vh);
-  }
-  p {
+  justify-content: space-between;
+  align-items: center;
+  > p {
     font-size: setSizeWithMath(80, 1080, 100vh);
+  }
+  > div {
+    height: 90%;
+    width: 36%;
+    background-color: white;
   }
 }
 .car,

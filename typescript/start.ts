@@ -410,7 +410,6 @@ function begin(permission: boolean) {
   }
 }
 import { gearFunctions } from "./mechanisms/gearFunctions.js";
-import { rpmFunctions } from "./mechanisms/rpmFunctions.js";
 function setStylesForPhone(
   lang: "english" | "ukrainian",
   device: "mouse" | "phone"
