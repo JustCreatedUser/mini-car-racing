@@ -481,12 +481,11 @@ function setStylesForPhone(
   const arrow = document.createElement("img");
   arrow.src = "./useless-images/arrow.png";
   arrow.className = "playing-btn";
-  const arrowDown = arrow;
+  const arrowDown = arrow.cloneNode(true) as HTMLImageElement;
   arrowDown.style.cssText = "rotate:180deg";
   arrowDown.id = "gearDownButton";
-  const arrowUp = arrow;
+  const arrowUp = arrow.cloneNode(true) as HTMLImageElement;
   arrowUp.id = "gearUpButton";
-
   gearsBlock.append(document.querySelector(".gear-counter"), arrowDown);
   gearsBlock.prepend(arrowUp);
   let functions: Array<string> =

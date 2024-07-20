@@ -405,10 +405,10 @@ function setStylesForPhone(lang, device) {
     const arrow = document.createElement("img");
     arrow.src = "./useless-images/arrow.png";
     arrow.className = "playing-btn";
-    const arrowDown = arrow;
+    const arrowDown = arrow.cloneNode(true);
     arrowDown.style.cssText = "rotate:180deg";
     arrowDown.id = "gearDownButton";
-    const arrowUp = arrow;
+    const arrowUp = arrow.cloneNode(true);
     arrowUp.id = "gearUpButton";
     gearsBlock.append(document.querySelector(".gear-counter"), arrowDown);
     gearsBlock.prepend(arrowUp);
