@@ -454,7 +454,7 @@ function setStylesForPhone(
     .after(document.querySelector(".handling-settings"));
   function makeAButton(param: string, pos: string): HTMLElement {
     const button = document.createElement("div");
-    button.id = `${param}ccelerationPedal`;
+    button.id = `${param}celerationPedal`;
     button.classList.add("playing-btn", "pedal");
     button.style.cssText = `grid-column:${pos};`;
     button.innerHTML = /*html*/ `<div style="z-index:1;"></div>
