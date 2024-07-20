@@ -4,7 +4,7 @@ import { introduction, firstRace, chapters } from "../story.js";
 import { gearFunctions } from "./gearFunctions.js";
 import { enemyCars } from "./cars.js";
 import { turns } from "./turningFunctions.js";
-import { variables, changes, permissions, intervals, } from "../other/variables.js";
+import { variables, changes, permissions, } from "../other/variables.js";
 export const rpmFunctions = {
     moreRpmCounting(car = myCar) {
         let previous_gearMultiplier;
@@ -151,38 +151,6 @@ export const rpmFunctions = {
             introduction.everyTip.inLessRpm();
         }
         turns.manage();
-    },
-    inertiaMechanism() {
-        if (permissions.setInertiaInterval) {
-            permissions.setInertiaInterval = false;
-            intervals.inertia = setInterval(() => {
-                if (permissions.forInertia &&
-                    myCar.noClutchMode &&
-                    myCar.rpm > 815 &&
-                    !variables.isGamePaused &&
-                    !changes.movingPause) {
-                    if (myCar.gear == 0 && myCar.rpm > 800) {
-                        myCar.rpm -= Math.round(4 * Math.sqrt(myCar.rpm - 750));
-                    }
-                    else if (myCar.rpm > 800) {
-                        myCar.rpm -= Math.round(1000 * myCar.spd ** -1);
-                        myCar.spd = Math.round(myCar.rpm * myCar.gearMultiplier);
-                    }
-                    else {
-                        myCar.rpm = 800;
-                    }
-                    myCar.fns.setHtmlCounters();
-                    rpmFunctions.setHtmlColor(1);
-                }
-            }, 100);
-        }
-        variables.startInertiaMechanismTimeout = setTimeout(() => {
-            permissions.forInertia = true;
-        }, 200);
-        if (!permissions.forMoreRpm) {
-            clearTimeout(variables.startInertiaMechanismTimeout);
-            clearTimeout(variables.flame);
-        }
     },
     setHtmlColor(direction) {
         let currentRpm = direction == 1 ? myCar.rpm : Math.round(myCar.spd / myCar.gearMultiplier);

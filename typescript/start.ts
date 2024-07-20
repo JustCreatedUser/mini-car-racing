@@ -550,8 +550,12 @@ function setStylesForPhone(
     if (variables.action > 1 && myCar.acceleration) {
       $("#accelerationPedal")[0].style.transform = "rotateX(0deg)";
       myCar.acceleration = false;
-      rpmFunctions.inertiaMechanism();
-      myCar.exhaust();
+      if (permissions.forMoreRpm) {
+        variables.startInertiaMechanismTimeout = setTimeout(() => {
+          permissions.forInertia = true;
+        }, 200);
+        myCar.exhaust();
+      }
       if (myCar.moveDirection !== 0) {
         myCar.moveDirection = 0;
         $(".car .vehicle").css("transform", "rotate(0)");

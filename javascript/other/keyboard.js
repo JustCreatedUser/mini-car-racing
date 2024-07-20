@@ -2,7 +2,6 @@
 import { music } from "./music.js";
 import { myCar } from "../mechanisms/cars.js";
 import { gearFunctions } from "../mechanisms/gearFunctions.js";
-import { rpmFunctions } from "../mechanisms/rpmFunctions.js";
 import { secondaryFunctions } from "./secondary.js";
 import { variables, permissions } from "./variables.js";
 export const keyboard = {
@@ -148,8 +147,12 @@ function keyUp(e) {
             variables.action > 1 &&
             myCar.acceleration) {
             myCar.acceleration = false;
-            rpmFunctions.inertiaMechanism();
-            myCar.exhaust();
+            if (permissions.forMoreRpm) {
+                variables.startInertiaMechanismTimeout = setTimeout(() => {
+                    permissions.forInertia = true;
+                }, 200);
+                myCar.exhaust();
+            }
             if (myCar.moveDirection !== 0) {
                 myCar.moveDirection = 0;
                 $(".car .vehicle").css("transform", "rotate(0)");

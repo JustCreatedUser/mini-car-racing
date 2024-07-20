@@ -344,7 +344,6 @@ function begin(permission) {
     }
 }
 import { gearFunctions } from "./mechanisms/gearFunctions.js";
-import { rpmFunctions } from "./mechanisms/rpmFunctions.js";
 function setStylesForPhone(lang, device) {
     let link = document.createElement("link");
     link.rel = "stylesheet";
@@ -464,8 +463,12 @@ function setStylesForPhone(lang, device) {
         if (variables.action > 1 && myCar.acceleration) {
             $("#accelerationPedal")[0].style.transform = "rotateX(0deg)";
             myCar.acceleration = false;
-            rpmFunctions.inertiaMechanism();
-            myCar.exhaust();
+            if (permissions.forMoreRpm) {
+                variables.startInertiaMechanismTimeout = setTimeout(() => {
+                    permissions.forInertia = true;
+                }, 200);
+                myCar.exhaust();
+            }
             if (myCar.moveDirection !== 0) {
                 myCar.moveDirection = 0;
                 $(".car .vehicle").css("transform", "rotate(0)");

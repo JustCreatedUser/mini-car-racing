@@ -161,8 +161,12 @@ function keyUp(e: KeyboardEvent) {
       myCar.acceleration
     ) {
       myCar.acceleration = false;
-      rpmFunctions.inertiaMechanism();
-      myCar.exhaust();
+      if (permissions.forMoreRpm) {
+        variables.startInertiaMechanismTimeout = setTimeout(() => {
+          permissions.forInertia = true;
+        }, 200);
+        myCar.exhaust();
+      }
       if (myCar.moveDirection !== 0) {
         myCar.moveDirection = 0;
         $(".car .vehicle").css("transform", "rotate(0)");

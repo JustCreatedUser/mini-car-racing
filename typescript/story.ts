@@ -653,7 +653,6 @@ introduction = new Intro(
         permissions.forInertia = false;
         permissions.forMoreRpm = false;
         permissions.forLessRpm = true;
-        clearTimeout(variables.startInertiaMechanismTimeout);
       }
     },
     accelerationExplanation() {

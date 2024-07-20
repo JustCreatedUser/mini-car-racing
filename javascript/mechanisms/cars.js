@@ -4,7 +4,7 @@ import { rpmFunctions } from "./rpmFunctions.js";
 import { variables, intervals, permissions, changes, } from "../other/variables.js";
 import { firstRace, finalRace, secondRace, introduction, chapters, } from "../story.js";
 import { turns } from "./turningFunctions.js";
-let entryFor60ms = 0, entryFor240ms = 0;
+let entryFor60ms = 0, entryFor240ms = 0, entryFor100ms = 0;
 export let aniFrame;
 class Car {
     rpm = 0;
@@ -143,6 +143,29 @@ class MyCar extends Car {
             $(".speed-counter").css({
                 transform: `rotate(${myCar.spd - 45}deg)`,
             });
+        },
+        inertiaMechanism(currentEntry) {
+            if (entryFor100ms == 0) {
+                entryFor100ms = currentEntry;
+            }
+            else if (currentEntry - entryFor100ms < 100)
+                return;
+            entryFor100ms = currentEntry;
+            if (myCar.noClutchMode &&
+                myCar.rpm > 815 &&
+                !variables.isGamePaused &&
+                !changes.movingPause) {
+                if (myCar.gear == 0 && myCar.rpm > 800)
+                    myCar.rpm -= Math.round(4 * Math.sqrt(myCar.rpm - 750));
+                else if (myCar.rpm > 800) {
+                    myCar.rpm -= Math.round(1000 * myCar.spd ** -1);
+                    myCar.spd = Math.round(myCar.rpm * myCar.gearMultiplier);
+                }
+                else
+                    myCar.rpm = 800;
+                myCar.fns.setHtmlCounters();
+                rpmFunctions.setHtmlColor(1);
+            }
         },
     };
     constructor() {
@@ -301,8 +324,9 @@ function set60msInterval(currentEntry) {
 export function animateEverything(currentEntry) {
     aniFrame = requestAnimationFrame(animateEverything);
     set60msInterval(currentEntry);
-    if (permissions.toMove) {
+    if (permissions.toMove)
         set240msInterval(currentEntry);
-    }
+    if (permissions.forInertia)
+        myCar.fns.inertiaMechanism(currentEntry);
 }
 //# sourceMappingURL=cars.js.map
