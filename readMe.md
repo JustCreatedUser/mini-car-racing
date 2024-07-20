@@ -18,6 +18,6 @@ It is an online game designed for entertainment.
 - HTML;
 - CSS / SCSS;
 - Javascript / Typescript;
-- Jquery, Jquery-cookie;
+- Jquery;
 - AOS (animate on scroll library);
 - Formspree;
