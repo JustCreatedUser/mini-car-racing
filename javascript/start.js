@@ -395,7 +395,7 @@ function setStylesForPhone(lang, device) {
     const counters = document.createElement("div");
     counters.className = "counters";
     footer.prepend(makeAButton("de", "1/2"), gearsBlock, counters);
-    footer.append(makeAButton("a", "5/6"));
+    footer.append(makeAButton("ac", "5/6"));
     counters.append(document.querySelector(".rpm"), document.querySelector(".speed"));
     const ENGINE = document.createElement("button");
     ENGINE.id = "useTheEngine";
