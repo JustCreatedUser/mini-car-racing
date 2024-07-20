@@ -458,7 +458,7 @@ function setStylesForPhone(
     button.classList.add("playing-btn", "pedal");
     button.style.cssText = `grid-column:${pos};`;
     button.innerHTML = /*html*/ `<div style="z-index:1;"></div>
-    <img draggable="false" src="./icons-and-images/pedals/${param}cceleration.webp">`;
+    <img draggable="false" src="./icons-and-images/pedals/${param}celeration.webp">`;
     return button;
   }
   const footer = document.querySelector(".computer-counters") as HTMLElement;
