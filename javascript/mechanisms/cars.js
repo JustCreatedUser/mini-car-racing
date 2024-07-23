@@ -46,6 +46,7 @@ class MyCar extends Car {
                 if (variables.device != "computer") {
                     $("#useTheEngine").css("background-color", "red");
                 }
+                document.querySelector("[data-performance-aid]").remove();
                 variables.isEngineWorking = false;
                 gearFunctions.color = "white";
                 $(".rpm-counter_center").css("background-color", gearFunctions.color);
@@ -65,6 +66,17 @@ class MyCar extends Car {
             if (!variables.isEngineWorking &&
                 variables.action > 0 &&
                 !variables.isGamePaused) {
+                let performanceAid = document.createElement("style");
+                performanceAid.dataset.performanceAid = "by css";
+                performanceAid.innerHTML = `
+        .road,#race{
+          will-change:background-position-x
+        }
+        .car-counter,.wheel{
+          will-change:transform
+        }
+        `;
+                document.querySelector("head").append(performanceAid);
                 requestAnimationFrame(animateEverything);
                 myCar.gear > 0
                     ? alert(variables.language != "english"
@@ -106,6 +118,7 @@ class MyCar extends Car {
                 }
             }
             else if (!variables.isGamePaused && permissions.toOff_engine) {
+                document.querySelector("[data-performance-aid]").remove();
                 cancelAnimationFrame(aniFrame);
                 if (myCar.gear === 0) {
                     if (variables.device != "computer") {
