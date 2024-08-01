@@ -1,9 +1,9 @@
 "use strict";
 import { introduction, firstRace, secondRace, finalRace, chapters, } from "../story.js";
 import { enemyCars, myCar } from "../mechanisms/cars.js";
-import { music } from "./music.js";
 import { turns } from "../mechanisms/turningFunctions.js";
 import { variables, permissions, changes } from "./variables.js";
+import { music } from "./music.js";
 export const secondaryFunctions = {
     actionLevelChange() {
         alert(variables.language != "english"
@@ -113,12 +113,18 @@ export const secondaryFunctions = {
     },
     fastest_speed_cheat() {
         if (permissions.toCheat) {
-            if (music.song !== undefined) {
+            if (music.finalSong !== undefined) {
+                music.finalSong.pause();
+                music.finalSong.currentTime = 0;
+            }
+            else if (music.song !== undefined) {
                 music.song.pause();
                 music.song.currentTime = 0;
             }
             if (music.cheaterSong == undefined)
                 music.cheaterSong = new Audio("https://ia600605.us.archive.org/8/items/NeverGonnaGiveYouUp/jocofullinterview41.mp3");
+            music.cheaterSong.dataset.name = "cheaterSong";
+            music.cheaterSong.addEventListener("ended", music.handleSilence);
             permissions.toCheat = false;
             if ($("#choose-info").val() == "speedCheat")
                 $(".explanation-content").html(variables.language != "english"
@@ -349,6 +355,8 @@ export const secondaryFunctions = {
                             : "Time to fight... ...to be first...");
                         if (music.finalSong === undefined)
                             music.finalSong = new Audio("https://mini-car-racing.netlify.app/additional-music/finalSong.mp3");
+                        music.finalSong.dataset.name = "finalSong";
+                        music.finalSong.addEventListener("ended", music.handleSilence);
                         music.hidden.finalSongWasDiscovered = true;
                         localStorage.setItem("finalSongWasDiscovered", "true");
                         if (music.isAllowedToPlay) {

@@ -64,7 +64,7 @@ let devicePopupPositions = [
                         ? "Все, ефект від читів пройшов і в тебе знову 10000 оборотів. Якщо хочеш, можеш знову натиснути кнопку і твоя машина нарешті отримає максимальну потужність."
                         : "Alright, now you got your 10000 rpm limit back. This time i won`t lie: tap button again and enjoy SUPER-POWER!");
                     $(".explanation-content").html(variables.language != "english"
-                        ? `нажми <button class="cheat-button">Мене</button>, і все станеться`
+                        ? `натисни <button class="cheat-button">Мене</button>, і все станеться`
                         : 'tap <button class="cheat-button">ME</button>, and get SUPER-POWER');
                     myCar.maxRpm = 10000;
                     permissions.toCheat = true;
@@ -72,12 +72,10 @@ let devicePopupPositions = [
                 }
             }, 1000);
         }
-        if (localStorage.getItem("cheaterSongWasDiscovered")) {
+        if (localStorage.getItem("cheaterSongWasDiscovered"))
             music.hidden.cheaterSongWasDiscovered = true;
-        }
-        if (localStorage.getItem("finalSongWasDiscovered")) {
+        if (localStorage.getItem("finalSongWasDiscovered"))
             music.hidden.finalSongWasDiscovered = true;
-        }
     }
     function checkKeyboard() {
         if (localStorage.getItem("mini-car-racing-keyboard") &&

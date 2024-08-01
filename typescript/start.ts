@@ -92,7 +92,7 @@ let devicePopupPositions: [Array<number>, number] = [
           );
           $(".explanation-content").html(
             variables.language != "english"
-              ? `нажми <button class="cheat-button">Мене</button>, і все станеться`
+              ? `натисни <button class="cheat-button">Мене</button>, і все станеться`
               : 'tap <button class="cheat-button">ME</button>, and get SUPER-POWER'
           );
           myCar.maxRpm = 10000;
@@ -101,12 +101,11 @@ let devicePopupPositions: [Array<number>, number] = [
         }
       }, 1000);
     }
-    if (localStorage.getItem("cheaterSongWasDiscovered")) {
+    if (localStorage.getItem("cheaterSongWasDiscovered"))
       music.hidden.cheaterSongWasDiscovered = true;
-    }
-    if (localStorage.getItem("finalSongWasDiscovered")) {
+
+    if (localStorage.getItem("finalSongWasDiscovered"))
       music.hidden.finalSongWasDiscovered = true;
-    }
   }
   function checkKeyboard() {
     if (

@@ -2,14 +2,10 @@
 "use strict";
 
 import { variables } from "./variables.js";
-
 type CheckSongsUsage = "localStorage" | "restore default";
 interface Imusic {
   songsList: Array<string>;
   listenedCycle: Array<string>;
-  song: undefined | HTMLAudioElement;
-  cheaterSong: undefined | HTMLAudioElement;
-  finalSong: undefined | HTMLAudioElement;
   hidden: {
     cheaterSongWasDiscovered: boolean;
     finalSongWasDiscovered: boolean;
@@ -18,13 +14,40 @@ interface Imusic {
   index: number;
   hasBeenListened: boolean;
   isPlaying: boolean;
-  checkMusicDurationInterval: undefined | number;
   isAllowedToPlay: boolean;
   checkListenedSongs: (direction: CheckSongsUsage) => void;
   listenToMusic: () => void;
   changeVolume: (musicVolume: number) => void;
+  handleSilence: (theEnd: Event) => void;
 }
-const music: Imusic = {
+interface ImusicV1 extends Imusic {
+  song: undefined;
+  cheaterSong: undefined;
+  finalSong: undefined;
+}
+interface ImusicV2 extends Imusic {
+  song: HTMLAudioElement;
+  cheaterSong: undefined;
+  finalSong: undefined;
+}
+interface ImusicV3 extends Imusic {
+  song: HTMLAudioElement;
+  cheaterSong: HTMLAudioElement;
+  finalSong: undefined;
+}
+interface ImusicV4 extends Imusic {
+  song: HTMLAudioElement;
+  cheaterSong: undefined;
+  finalSong: HTMLAudioElement;
+}
+interface ImusicV5 extends Imusic {
+  song: HTMLAudioElement;
+  cheaterSong: HTMLAudioElement;
+  finalSong: HTMLAudioElement;
+}
+type MusicType = ImusicV1 | ImusicV2 | ImusicV3 | ImusicV4 | ImusicV5;
+
+const music: MusicType = {
   songsList: [
     "https://ia801400.us.archive.org/27/items/need-for-speed-underground-soundtrack-2003-gamerip/07.%20Element%20Eighty%20-%20Broken%20Promises%20%28NFS%20Underground%20Edition%29.mp3",
     "https://dn720306.ca.archive.org/0/items/gas-gas-gas/Gas%20Gas%20Gas.mp3",
@@ -46,7 +69,6 @@ const music: Imusic = {
   index: 0,
   hasBeenListened: false,
   isPlaying: false,
-  checkMusicDurationInterval: undefined,
   isAllowedToPlay: false,
   checkListenedSongs(direction) {
     let count = 0;
@@ -82,60 +104,19 @@ const music: Imusic = {
       if (!music.hasBeenListened) {
         music.hasBeenListened = true;
         music.song = new Audio(music.songsList[music.index]);
+        music.song.dataset.name = "song";
+        music.song.addEventListener("ended", music.handleSilence);
       }
-      if (music.finalSong != undefined) {
-        music.finalSong.play();
-      } else if (music.cheaterSong != undefined) {
-        music.cheaterSong.play();
-      } else if (music.song != undefined) {
-        music.song.play();
-      }
+      if (music.finalSong != undefined)
+        music.finalSong.play().then(() => {
+          music.finalSong.currentTime = music.finalSong.duration - 10;
+        });
+      else if (music.cheaterSong != undefined) music.cheaterSong.play();
+      else if (music.song != undefined) music.song.play();
       localStorage.setItem(
         "listenedCycle",
         JSON.stringify(music.listenedCycle)
       );
-      music.checkMusicDurationInterval = setInterval(() => {
-        music.songS = [
-          music.song,
-          music.cheaterSong,
-          music.finalSong,
-        ].reverse();
-
-        music.songS?.forEach((sonG) => {
-          if (sonG != undefined && sonG.currentTime == sonG.duration) {
-            switch (sonG) {
-              case music.finalSong:
-              case music.cheaterSong:
-                sonG == music.finalSong
-                  ? (music.finalSong = undefined)
-                  : (music.cheaterSong = undefined);
-
-                if (music.song) {
-                  music.song.currentTime = 0;
-                  music.song.play();
-                }
-                break;
-
-              case music.song:
-                music.listenedCycle.push(music.songsList[music.index]);
-                music.songsList.splice(music.index, 1);
-                if (music.songsList.length == 0) {
-                  music.checkListenedSongs("restore default");
-                }
-                music.index = Math.round(
-                  Math.random() * (music.songsList.length - 1)
-                );
-                localStorage.setItem(
-                  "listenedCycle",
-                  JSON.stringify(music.listenedCycle)
-                );
-                music.song = new Audio(music.songsList[music.index]);
-                music.song.play();
-                break;
-            }
-          }
-        });
-      }, 4000);
     } else {
       music.isAllowedToPlay = false;
       $(".music-settings").text(
@@ -159,8 +140,46 @@ const music: Imusic = {
       }
     });
   },
+  handleSilence(theEnd) {
+    switch ((theEnd.target as HTMLAudioElement).dataset.name) {
+      case "song":
+        music.listenedCycle.push(music.songsList[music.index]);
+        music.songsList.splice(music.index, 1);
+        if (music.songsList.length == 0) {
+          music.checkListenedSongs("restore default");
+        }
+        music.index = Math.round(Math.random() * (music.songsList.length - 1));
+        localStorage.setItem(
+          "listenedCycle",
+          JSON.stringify(music.listenedCycle)
+        );
+        music.song = new Audio(music.songsList[music.index]);
+        music.song.addEventListener("ended", music.handleSilence);
+        music.song.dataset.name = "song";
+        music.song.play();
+        break;
+      case "cheaterSong":
+        music.cheaterSong = undefined;
+        if (music.finalSong) {
+          music.finalSong.play();
+        } else {
+          music.song.currentTime = 0;
+          music.song.play();
+        }
+        break;
+      case "finalSong":
+        music.finalSong = undefined;
+
+        if (music.cheaterSong) {
+          music.cheaterSong.play();
+        } else {
+          music.song.currentTime = 0;
+          music.song.play();
+        }
+    }
+  },
 };
-music.index = Math.round(Math.random() * music.songsList.length - 1);
+music.index = Math.round(Math.random() * (music.songsList.length - 1));
 music.songS = [music.song, music.cheaterSong, music.finalSong].reverse();
 export { music };
 $(".music-settings").on("click", music.listenToMusic);

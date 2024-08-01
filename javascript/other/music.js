@@ -22,7 +22,6 @@ const music = {
     index: 0,
     hasBeenListened: false,
     isPlaying: false,
-    checkMusicDurationInterval: undefined,
     isAllowedToPlay: false,
     checkListenedSongs(direction) {
         let count = 0;
@@ -55,51 +54,18 @@ const music = {
             if (!music.hasBeenListened) {
                 music.hasBeenListened = true;
                 music.song = new Audio(music.songsList[music.index]);
+                music.song.dataset.name = "song";
+                music.song.addEventListener("ended", music.handleSilence);
             }
-            if (music.finalSong != undefined) {
-                music.finalSong.play();
-            }
-            else if (music.cheaterSong != undefined) {
-                music.cheaterSong.play();
-            }
-            else if (music.song != undefined) {
-                music.song.play();
-            }
-            localStorage.setItem("listenedCycle", JSON.stringify(music.listenedCycle));
-            music.checkMusicDurationInterval = setInterval(() => {
-                music.songS = [
-                    music.song,
-                    music.cheaterSong,
-                    music.finalSong,
-                ].reverse();
-                music.songS?.forEach((sonG) => {
-                    if (sonG != undefined && sonG.currentTime == sonG.duration) {
-                        switch (sonG) {
-                            case music.finalSong:
-                            case music.cheaterSong:
-                                sonG == music.finalSong
-                                    ? (music.finalSong = undefined)
-                                    : (music.cheaterSong = undefined);
-                                if (music.song) {
-                                    music.song.currentTime = 0;
-                                    music.song.play();
-                                }
-                                break;
-                            case music.song:
-                                music.listenedCycle.push(music.songsList[music.index]);
-                                music.songsList.splice(music.index, 1);
-                                if (music.songsList.length == 0) {
-                                    music.checkListenedSongs("restore default");
-                                }
-                                music.index = Math.round(Math.random() * (music.songsList.length - 1));
-                                localStorage.setItem("listenedCycle", JSON.stringify(music.listenedCycle));
-                                music.song = new Audio(music.songsList[music.index]);
-                                music.song.play();
-                                break;
-                        }
-                    }
+            if (music.finalSong != undefined)
+                music.finalSong.play().then(() => {
+                    music.finalSong.currentTime = music.finalSong.duration - 10;
                 });
-            }, 4000);
+            else if (music.cheaterSong != undefined)
+                music.cheaterSong.play();
+            else if (music.song != undefined)
+                music.song.play();
+            localStorage.setItem("listenedCycle", JSON.stringify(music.listenedCycle));
         }
         else {
             music.isAllowedToPlay = false;
@@ -121,8 +87,44 @@ const music = {
             }
         });
     },
+    handleSilence(theEnd) {
+        switch (theEnd.target.dataset.name) {
+            case "song":
+                music.listenedCycle.push(music.songsList[music.index]);
+                music.songsList.splice(music.index, 1);
+                if (music.songsList.length == 0) {
+                    music.checkListenedSongs("restore default");
+                }
+                music.index = Math.round(Math.random() * (music.songsList.length - 1));
+                localStorage.setItem("listenedCycle", JSON.stringify(music.listenedCycle));
+                music.song = new Audio(music.songsList[music.index]);
+                music.song.addEventListener("ended", music.handleSilence);
+                music.song.dataset.name = "song";
+                music.song.play();
+                break;
+            case "cheaterSong":
+                music.cheaterSong = undefined;
+                if (music.finalSong) {
+                    music.finalSong.play();
+                }
+                else {
+                    music.song.currentTime = 0;
+                    music.song.play();
+                }
+                break;
+            case "finalSong":
+                music.finalSong = undefined;
+                if (music.cheaterSong) {
+                    music.cheaterSong.play();
+                }
+                else {
+                    music.song.currentTime = 0;
+                    music.song.play();
+                }
+        }
+    },
 };
-music.index = Math.round(Math.random() * music.songsList.length - 1);
+music.index = Math.round(Math.random() * (music.songsList.length - 1));
 music.songS = [music.song, music.cheaterSong, music.finalSong].reverse();
 export { music };
 $(".music-settings").on("click", music.listenToMusic);
