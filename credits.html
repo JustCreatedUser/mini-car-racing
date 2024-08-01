@@ -212,7 +212,6 @@
       });
 
       screen.orientation.addEventListener("change", (event) => {
-        console.log("change");
         document.querySelectorAll("[data-intersection]").forEach((el) => {
           visibilityObserver.unobserve(el);
         });
