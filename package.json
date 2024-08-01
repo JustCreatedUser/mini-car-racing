@@ -2,9 +2,6 @@
   "devDependencies": {
     "@types/jquery": "^3.5.30"
   },
-  "dependencies": {
-    "@types/jquery.cookie": "^1.4.35"
-  },
   "name": "mini-car-racing",
   "version": "5.2.0",
   "description": "It's an online game designed for phones and computers",
@@ -24,7 +21,7 @@
     "netlify",
     "game"
   ],
-  "author": "Diril Daniel",
+  "author": "Daniel Diril",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/JustCreatedUser/mini-car-racing/issues"
