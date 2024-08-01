@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @use "sass:math";
 @import "../mixins";
 $windowSize: 640;
@@ -47,7 +48,8 @@ body {
 }
 form {
   font-weight: 900;
-  transition: transform 1s;
+  transition-duration: 1s;
+  transition-property: transform;
   perspective: 1500px;
   position: relative;
 
@@ -70,7 +72,8 @@ $form-width: math.div($form-height, 9) * 7;
 }
 .cover {
   text-align: center;
-  transition: transform 1s;
+  transition-property: transform;
+  transition-duration: 1s;
   transform-origin: center left;
   position: absolute;
   z-index: 4;
@@ -94,7 +97,8 @@ $form-width: math.div($form-height, 9) * 7;
   position: relative;
 }
 .page {
-  transition: transform 1s;
+  transition-property: transform;
+  transition-duration: 1s;
   transform: rotateY(0);
   transform-origin: left;
   transform-style: preserve-3d;
@@ -128,11 +132,6 @@ textarea {
   min-height: setSizeWithMath(40, $windowSize, 100vh);
   padding: setSizeWithMath(5, $windowSize, 100vh)
     setSizeWithMath(10, $windowSize, 100vh);
-}
-input[required]:focus,
-textarea:focus {
-  outline: 0;
-  border: 2px solid green;
 }
 textarea {
   height: 80%;

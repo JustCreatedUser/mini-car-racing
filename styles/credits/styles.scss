@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @use "sass:math";
 @import "../mixins";
 * {
@@ -24,6 +25,7 @@ body {
   grid-template-rows: auto;
   row-gap: 3vw;
   * {
+    contain-intrinsic-size: auto 200px;
     align-self: center;
     justify-self: center;
   }
@@ -53,7 +55,28 @@ body {
 ::-webkit-scrollbar {
   background-color: red;
   width: 10px;
+  &-thumb {
+    background-color: black;
+  }
 }
-::-webkit-scrollbar-thumb {
-  background-color: black;
+[data-intersection="90deg"] {
+  transition: 1s transform;
+  &:not([style*="2/4"]) {
+    transform: rotateY(90deg);
+  }
+  &[style*="2/4"] {
+    transform: rotateX(90deg);
+  }
+}
+[data-intersection="-90deg"] {
+  transition: 1s transform;
+  &:not([style*="2/4"]) {
+    transform: rotateY(-90deg);
+  }
+  &[style*="2/4"] {
+    transform: rotateX(-90deg);
+  }
+}
+.animated[data-intersection] {
+  transform: unset;
 }
