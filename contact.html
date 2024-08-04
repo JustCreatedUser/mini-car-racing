@@ -15,7 +15,7 @@
     />
     <title>Mini-car racing ВРАЖЕННЯ</title>
     <link rel="stylesheet" href="./styles/contact/styles.css" />
-    <link rel="icon" href="./icons-and-images/engine2.webp" />
+    <link rel="icon" href="./icons-and-images/engine2.webp" alt="Icon" />
   </head>
   <body>
     <span
@@ -28,12 +28,12 @@
         right: 3vh;
       "
       onclick="window.close()"
-      >&Cross;</span
+      >&#x2715;</span
     >
     <noscript>
       У вас заборонений Javascript. Перевірте налаштування браузеру
     </noscript>
-    <dialog>Hold your device horizontally</dialog>
+    <div class="dialog">Hold your device horizontally</div>
     <input type="checkbox" id="checkboxCover" />
     <input type="checkbox" id="checkboxPage1" />
     <input type="checkbox" id="checkboxPage2" />
@@ -50,19 +50,22 @@
         </div>
         <label for="checkboxCover"></label>
       </div>
-      <label class="page" id="page1">
+      <div class="page" id="page1">
         <div class="front-page">
           <label for="checkboxPage1" style="justify-self: end; align-self: end"
             >&rarr;</label
           >
-          <span>Ваша електронна пошта</span>
+          <label for="email" aria-label="Email address"
+            >Ваша електронна пошта</label
+          >
           <input
+            aria-label="Email address"
+            aria-required="true"
             id="email"
             type="email"
             name="email"
             placeholder="me@gmail.com"
             required
-            autocomplete="off"
           />
         </div>
         <div class="back-page">
@@ -71,7 +74,7 @@
             for="checkboxPage1"
             >&larr;</label
           >
-          <span>Ваша оцінка з 10 балів</span>
+          <label for="rating">Ваша оцінка з 10 балів</label>
           <input
             type="number"
             name="rating"
@@ -80,175 +83,156 @@
             step="0.1"
             id="rating"
             required
-            autocomplete="off"
             placeholder="10?"
           />
         </div>
-      </label>
-      <label class="page" id="page2">
+      </div>
+      <div class="page" id="page2">
         <div class="front-page">
           <label for="checkboxPage2" style="justify-self: end; align-self: end"
             >&rarr;</label
           >
-          <span style="justify-self: center">Ваша думка:</span>
+          <label
+            for="message"
+            aria-label="Your message"
+            style="justify-self: center"
+            >Ваша думка:</label
+          >
           <textarea
+            maxlength="140"
             required
+            aria-label="Your message"
+            aria-required="true"
             placeholder="Розробник зверне увагу!"
             name="message"
             id="message"
           ></textarea>
         </div>
         <div class="back-page">
-          <button type="submit" onclick="checkInputs()">Надіслати</button>
+          <button type="button" aria-label="Send">Надіслати</button>
+          <script type="text/javascript">
+            (function () {
+              const lang = localStorage.getItem("language")
+                ? localStorage.getItem("language")
+                : "ukrainian";
+              if (lang == "english") {
+                document.querySelector("#cover .back-page").textContent =
+                  "It will be sent to the author of game";
+                document.querySelector("#cover .front-page").textContent =
+                  "Here you should complete an application form";
+                document.querySelector(
+                  "#page1 .front-page label:nth-of-type(2)"
+                ).textContent = "Your email";
+                document.querySelector(
+                  "#page1 .back-page label:nth-of-type(2)"
+                ).textContent = "Your rating out of 10";
+                document.querySelector(
+                  "#page2 .front-page label:nth-of-type(2)"
+                ).textContent = "Your thoughts";
+                document.querySelector('button[type="button"]').textContent =
+                  "Send";
+                document.querySelector("textarea").placeholder =
+                  "Developer will pay close attention to it!";
+              }
+            })();
+          </script>
           <label
             for="checkboxPage2"
             style="justify-self: start; align-self: end"
             >&larr;</label
           >
         </div>
-      </label>
+      </div>
       <div class="back-cover"></div>
     </form>
-    <script>
-      const sessionStorageInputs = sessionStorage.contactInputs
-        ? JSON.parse(sessionStorage.contactInputs)
-        : {
-            email: "",
-            message: "",
-            rating: "",
+    <script type="text/javascript">
+      document.addEventListener("DOMContentLoaded", function () {
+        const email = document.getElementById("email"),
+          rating = document.getElementById("rating"),
+          message = document.getElementById("message"),
+          allowedEmailProviders = [
+            "gmail.com",
+            "icloud.com",
+            "yahoo.com",
+            "hotmail.com",
+          ],
+          emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        function setEventListeners() {
+          rating.oninput = function (e) {
+            visualInputValidation(e, !rating.value == "");
+            checkRating(e);
+            rating.value = rating.value;
           };
-      for (const key in sessionStorageInputs) {
-        document.querySelector(`#${key}`).value = sessionStorageInputs[key];
-      }
-      const lang = localStorage.getItem("language")
-        ? localStorage.getItem("language")
-        : "ukrainian";
-      function setLanguage() {
-        if (lang == "english") {
-          document.querySelector("#cover .back-page").textContent =
-            "It will be sent to the author of game";
-          document.querySelector("#cover .front-page").textContent =
-            "Here you should complete an application form";
-          document.querySelector("#page1 .front-page span").textContent =
-            "Your email";
-          document.querySelector("#page1 .back-page span").textContent =
-            "Your rating out of 10";
-          document.querySelector("#page2 .front-page span").textContent =
-            "Your thoughts";
-          document.querySelector('button[type="submit"]').textContent = "Send";
-          document.querySelector("textarea").placeholder =
-            "Developer will pay close attention to it!";
+          message.onblur = (e) => {
+            visualInputValidation(e, !message.value == "");
+          };
+          email.onblur = (e) => {
+            const isValid = isEmailValid();
+            visualInputValidation(e, isValid);
+            if (!isValid)
+              alert(
+                localStorage.language == "ukrainian"
+                  ? "Неправильний email"
+                  : "Wrong email"
+              );
+          };
+          document
+            .querySelector('[type="button"]')
+            .addEventListener("click", formSubmitting);
+          document
+            .getElementById("checkboxPage1")
+            .addEventListener("input", function (e) {
+              document
+                .getElementById("checkboxCover")
+                .toggleAttribute("disabled", e.target.checked);
+            });
         }
-      }
-      setLanguage();
-      function checkRating() {
-        if (rating.value >= 8) {
-          if (rating.value > 10) rating.value = 10;
-          rating.style.color = "green";
-        } else if (rating.value < 5) rating.style.color = "red";
-        else rating.style.color = "black";
-        rating.value = rating.value.replace("+", "");
-        rating.value = rating.value.replace("-", "");
-      }
-      function changeBorder(e) {
-        e.target.style.border =
-          e.target.value == "" ? "2px solid red" : "2px solid green";
-      }
-      function fixAnimation(e) {
-        let checked = e.target.checked;
-        let el = `#${e.target.id.replace("checkbox", "").toLowerCase()}`;
-        let neededPosition =
-          (Number(getComputedStyle(document.querySelector(el))["z-index"]) -
-            4) *
-          -1;
-
-        setTimeout(() => {
-          if (e.target == checkboxCover) {
-            if (checked) {
-              document.querySelector(
-                ".cover .back-page"
-              ).style.backfaceVisibility = "visible";
-              document.querySelector(".cover .front-page").style.visibility =
-                "hidden";
-            } else {
-              document.querySelector(
-                ".cover .back-page"
-              ).style.backfaceVisibility = "hidden";
-              document.querySelector(".cover .front-page").style.visibility =
-                "visible";
-            }
-          } else {
-            if (checked) {
-              document.querySelector(el + ` .front-page`).style.visibility =
-                "hidden";
-              document.querySelector(el + ` .back-page`).style.visibility =
-                "visible";
-            } else {
-              document.querySelector(el + ` .front-page`).style.visibility =
-                "visible";
-              document.querySelector(el + ` .back-page`).style.visibility =
-                "hidden";
-            }
+        function checkRating(e) {
+          if (e.target.value > 10 || e.target.value < 0) {
+            alert("Please enter a rating between 0 and 10");
+            e.target.value = "";
+            rating.style.color = "red";
+            return;
           }
-          document.querySelector(el).style.zIndex = `${neededPosition}`;
-        }, 250);
-      }
-      function checkInputs() {
-        let completedInputs = inputs.filter((element) => element.value != "");
-        sessionStorage.contactInputs = JSON.stringify({
-          email: email.value,
-          rating: rating.value,
-          message: message.value,
-        });
-        if (
-          email.value.replaceAll("@gmail.com", "") == "" ||
-          completedInputs.length != 3
-        )
-          alert(
-            lang == "ukrainian"
-              ? "Заповніть ПОТРІБНІ поля"
-              : "Fill ESSENTIAL inputs"
-          );
-
-        labels.forEach((element) => {
-          element.checked = false;
-        });
-        document.querySelector(".cover .back-page").style.backfaceVisibility =
-          "hidden";
-        document.querySelector(".cover .front-page").style.visibility =
-          "visible";
-        cover.style.zIndex = 4;
-        page1.style.zIndex = 3;
-        page2.style.zIndex = 2;
-        location.reload();
-      }
-      email.onblur = () => {
-        if (
-          !email.value.includes("@gmail.com") ||
-          email.value.replaceAll("@gmail.com", "") == ""
-        ) {
-          alert(lang == "ukrainian" ? "Неправильний email" : "Wrong email");
-          setTimeout(() => {
-            email.focus();
-          }, 100);
+          const ratingValue = parseInt(rating.value),
+            goodRatingColor = "green",
+            badRatingColor = "red",
+            actualRatingColor =
+              ratingValue >= 8
+                ? goodRatingColor
+                : ratingValue <= 2
+                ? badRatingColor
+                : "black";
+          if (ratingValue > 10) rating.value = 10;
+          rating.style.color = actualRatingColor;
         }
-      };
-      email.oninput = changeBorder;
-      rating.onclick = changeBorder;
-      rating.oninput = function (e) {
-        changeBorder(e);
-        checkRating();
-      };
-      email.onclick = changeBorder;
-      message.oninput = changeBorder;
-      message.onclick = changeBorder;
-      email.click();
-      rating.click();
-      message.click();
-      let inputs = [email, rating, message];
-      let labels = [checkboxCover, checkboxPage1, checkboxPage2];
-      labels.forEach((element) => {
-        element.oninput = fixAnimation;
+        function visualInputValidation(e, successCondition) {
+          e.target.style.border = successCondition
+            ? "2px solid green"
+            : "2px solid red";
+        }
+        function formSubmitting() {
+          const isValid =
+            isEmailValid() && message.value != "" && rating.value != "";
+          if (isValid) document.querySelector("form").submit();
+          else {
+            alert(
+              localStorage.language == "ukrainian"
+                ? "Заповніть всі поля"
+                : "Fill in all fields"
+            );
+          }
+        }
+        function isEmailValid() {
+          if (!emailRegex.test(email?.value)) return false;
+          const provider = email?.value.split("@")[1];
+          if (!allowedEmailProviders.includes(provider)) return false;
+          return true;
+        }
+        visualInputValidation({ target: rating }, !rating.value == "");
+        visualInputValidation({ target: message }, !message.value == "");
+        visualInputValidation({ target: email }, isEmailValid());
+        setEventListeners();
       });
     </script>
   </body>

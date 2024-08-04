@@ -8,12 +8,12 @@ $windowSize: 640;
   padding: 0;
   box-sizing: border-box;
 }
-button[type="submit"],
+button[type="button"],
 .cover label,
 .page label {
   cursor: pointer;
 }
-button[type="submit"] {
+button[type="button"] {
   color: red;
   font-size: setSizeWithMath(25, $windowSize, 100vh);
   border: dashed 1px black;
@@ -22,8 +22,13 @@ button[type="submit"] {
   padding: setSizeWithMath(10, $windowSize, 100vh)
     setSizeWithMath(15, $windowSize, 100vh);
 }
+.dialog {
+  position: absolute;
+  height: fit-content;
+  display: none;
+}
 @media (orientation: portrait) {
-  dialog {
+  div.dialog {
     display: flex;
     color: white;
     font-size: 5vw;
@@ -34,7 +39,7 @@ button[type="submit"] {
     width: 61vw;
     text-align: center;
   }
-  *:not(dialog, body, html) {
+  *:not(div.dialog, body, html) {
     display: none !important;
   }
 }
@@ -72,8 +77,7 @@ $form-width: math.div($form-height, 9) * 7;
 }
 .cover {
   text-align: center;
-  transition-property: transform;
-  transition-duration: 1s;
+  transition: transform 1s, z-index 0s 250ms;
   transform-origin: center left;
   position: absolute;
   z-index: 4;
@@ -85,22 +89,13 @@ $form-width: math.div($form-height, 9) * 7;
     height: 100%;
   }
 }
-.page {
-  label {
-    font-size: setSizeWithMath(25, $windowSize, 100vh);
-    padding: setSizeWithMath(5, $windowSize, 100vh)
-      setSizeWithMath(20, $windowSize, 100vh);
-    position: absolute;
-  }
-}
 .back-cover {
   position: relative;
 }
 .page {
-  transition-property: transform;
-  transition-duration: 1s;
+  transition: transform 1s, z-index 0s 250ms;
   transform: rotateY(0);
-  transform-origin: left;
+  transform-origin: center left;
   transform-style: preserve-3d;
   z-index: 1;
   position: absolute;
@@ -136,24 +131,55 @@ textarea {
 textarea {
   height: 80%;
 }
-#checkboxCover:checked ~ form {
-  .cover {
-    perspective: 1500px;
-    transform: rotateY(-180deg);
+#checkboxCover:checked {
+  ~ form {
+    .cover {
+      perspective: 1500px;
+      transform: rotateY(-180deg);
+      z-index: 0;
+      .back-page {
+        visibility: visible;
+      }
+      .front-page {
+        visibility: hidden;
+      }
+    }
+    .page {
+      box-shadow: 0 0 3px 1px rgb(50, 50, 50);
+    }
+    transform: translateX(math.div($form-width, 2));
   }
-  transform: translateX(math.div($form-width, 2));
 }
-#checkboxCover:checked ~ form .page {
-  box-shadow: 0 0 3px 1px rgb(50, 50, 50);
-}
-#checkboxPage1:checked ~ form #page1 {
-  transform: rotateY(-180deg);
+#checkboxPage1:checked {
+  ~ form #page1 {
+    transform: rotateY(-180deg);
+    z-index: 1;
+    .front-page {
+      visibility: hidden;
+    }
+    .back-page {
+      visibility: visible;
+    }
+  }
 }
 #checkboxPage2:checked ~ form #page2 {
   transform: rotateY(-180deg);
+  .front-page {
+    visibility: hidden;
+  }
+  .back-page {
+    visibility: visible;
+  }
 }
 .front-page,
 .back-page {
+  transition: backface-visibility 0ms 250ms, visibility 0ms 250ms;
+  label:first-of-type {
+    font-size: setSizeWithMath(25, $windowSize, 100vh);
+    padding: setSizeWithMath(5, $windowSize, 100vh)
+      setSizeWithMath(20, $windowSize, 100vh);
+    position: absolute;
+  }
   padding: setSizeWithMath(10, $windowSize, 100vh)
     setSizeWithMath(15, $windowSize, 100vh);
   font-size: setSizeWithMath(25, $windowSize, 100vh);
@@ -164,8 +190,8 @@ textarea {
   width: 100%;
   height: 100%;
   position: absolute;
-  backface-visibility: hidden;
 }
 .back-page {
   transform: rotateY(180deg);
+  visibility: hidden;
 }
