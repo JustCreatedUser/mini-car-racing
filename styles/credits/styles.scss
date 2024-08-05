@@ -59,23 +59,17 @@ body {
     background-color: black;
   }
 }
-[data-intersection="90deg"] {
+[data-intersection] {
   transition: 1s transform;
-  &:not([style*="2/4"]) {
-    transform: rotateY(90deg);
-  }
-  &[style*="2/4"] {
-    transform: rotateX(90deg);
-  }
 }
-[data-intersection="-90deg"] {
-  transition: 1s transform;
-  &:not([style*="2/4"]) {
-    transform: rotateY(-90deg);
-  }
-  &[style*="2/4"] {
-    transform: rotateX(-90deg);
-  }
+[data-intersection="left-column"] {
+  transform: rotateY(-90deg);
+}
+[data-intersection="right-column"] {
+  transform: rotateY(90deg);
+}
+[data-intersection="central-column"] {
+  transform: rotateX(90deg);
 }
 .animated[data-intersection] {
   transform: unset;

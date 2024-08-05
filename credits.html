@@ -13,93 +13,116 @@
       property="og:title"
       content="Mini-car racing credits"
     />
-    <title>Document</title>
-    <link rel="icon" importance="low" href="./icons-and-images/engine2.webp" />
+    <title>Mini-car racing credits</title>
+    <link
+      rel="icon"
+      importance="low"
+      href="./icons-and-images/engine2.webp"
+      alt="engine"
+    />
     <link rel="stylesheet" href="./styles/credits/styles.css" />
   </head>
   <body>
-    <section id="credits" class="credits">
+    <main id="credits" class="credits">
       <h1
         id="h1"
-        data-intersection="90deg"
+        data-intersection="central-column"
         style="grid-column: 2/4; grid-row: 1/2"
       >
         Дякую за гру!
       </h1>
       <img
-        alt="двигун"
+        alt="An image of a car engine"
         loading="lazy"
         style="grid-column: 1/2; grid-row: 2/3"
-        data-intersection="-90deg"
+        data-intersection="left-column"
         src="./icons-and-images/engine2.webp"
       />
-      <p style="grid-column: 2/4; grid-row: 2/3" data-intersection="90deg">
+      <p
+        style="grid-column: 2/4; grid-row: 2/3"
+        data-intersection="central-column"
+      >
         Головний розробник - Дириль Даніель
       </p>
       <img
-        alt="дорога"
+        alt="An image of a road"
         loading="lazy"
         style="grid-column: 4/5; grid-row: 3/4"
-        data-intersection="90deg"
+        data-intersection="right-column"
         src="./icons-and-images/roads/day.webp"
       /><img
-        alt="просто машина"
+        alt="A car picture"
         loading="lazy"
         style="grid-column: 1/2; grid-row: 4/5"
-        data-intersection="-90deg"
+        data-intersection="left-column"
         src="./icons-and-images/cars/sedan.webp"
       />
-      <p style="grid-column: 2/4; grid-row: 3/4" data-intersection="90deg">
+      <p
+        style="grid-column: 2/4; grid-row: 3/4"
+        data-intersection="central-column"
+      >
         Головні дизайнери - Creator IT
       </p>
-      <p style="grid-column: 2/4; grid-row: 4/5" data-intersection="90deg">
+      <p
+        style="grid-column: 2/4; grid-row: 4/5"
+        data-intersection="central-column"
+      >
         Другорядний дизайнер - Дириль Даніель
       </p>
       <img
-        alt="нічна дорога"
+        alt="A picture of a road at night"
         loading="lazy"
         style="grid-column: 4/5; grid-row: 5/6"
-        data-intersection="90deg"
+        data-intersection="right-column"
         src="./icons-and-images/parts-back-images/night.webp"
       />
-      <p style="grid-column: 2/4; grid-row: 5/6" data-intersection="90deg">
+      <p
+        style="grid-column: 2/4; grid-row: 5/6"
+        data-intersection="central-column"
+      >
         Сценарист - Дириль Даніель
       </p>
       <img
-        alt="Твоє авто"
+        alt="The car YOU used to drive"
         loading="lazy"
-        fetchpriority="low"
         style="grid-column: 1/2; grid-row: 6/7"
         src="./useless-images/car1dark.webp"
-        data-intersection="-90deg"
+        data-intersection="left-column"
       />
-      <p style="grid-column: 2/4; grid-row: 6/7" data-intersection="90deg">
+      <p
+        style="grid-column: 2/4; grid-row: 6/7"
+        data-intersection="central-column"
+      >
         Головний тестувальник - Дириль Даніель
       </p>
       <img
-        alt="Важливо!"
+        alt="Sign of an importance"
         loading="lazy"
-        fetchpriority="low"
         style="grid-column: 4/5; grid-row: 7/8"
-        data-intersection="90deg"
+        data-intersection="right-column"
         src="./icons-and-images/warning.webp"
       />
-      <p style="grid-column: 2/4; grid-row: 7/8" data-intersection="90deg">
+      <p
+        style="grid-column: 2/4; grid-row: 7/8"
+        data-intersection="central-column"
+      >
         Другорядний тестувальник - Станіслав Романовський
       </p>
       <img
-        fetchpriority="low"
-        alt="на жаль, більше не вчитель"
+        alt="An image of a door lock"
         loading="lazy"
         style="grid-column: 1/2; grid-row: 8/9"
-        data-intersection="-90deg"
+        data-intersection="left-column"
         src="./icons-and-images/disabled-race.webp"
       />
-      <p style="grid-column: 2/4; grid-row: 8/9" data-intersection="90deg">
+      <p
+        style="grid-column: 2/4; grid-row: 8/9"
+        data-intersection="central-column"
+      >
         Технологій навчив - Викладач Северин Максим
       </p>
       <svg
-        data-intersection="90deg"
+        data-intersection="right-column"
         viewBox="0 0 16 16"
         width="32"
         height="32"
@@ -113,14 +136,14 @@
 
       <a
         style="grid-column: 2/4; grid-row: 9/10; color: white"
-        data-intersection="90deg"
+        data-intersection="central-column"
         target="_blank"
         href="https://github.com/JustCreatedUser/mini-car-racing"
         >https://github.com/JustCreatedUser/mini-car-racing</a
       >
 
       <a
-        data-intersection="90deg"
+        data-intersection="central-column"
         style="
           grid-column: 2/4;
           grid-row: 10/11;
@@ -131,33 +154,36 @@
         class="close-credits"
         >Закрити титри</a
       >
-    </section>
+    </main>
 
     <script>
       (() => {
-        const lang = localStorage.getItem("language")
-          ? localStorage.getItem("language")
-          : "ukrainian";
-        if (lang == "english") {
-          let el = "h1";
-          function setTxt(txt) {
-            document.querySelector(el).textContent = txt;
-            el += "~p";
-          }
-          setTxt("Thanks for playing!");
-          setTxt("The only developer - Daniel Diril");
-          setTxt("Main designers - Creator IT Academy");
-          setTxt("Secondary designer - Daniel Diril");
-          setTxt("The only scriptwriter - Daniel Diril");
-          setTxt("Main test engineer - Daniel Diril");
-          setTxt("Secondary test engineer - Stanislav Romanovskij");
-          setTxt("Special thanks to Maksym Severyn");
-          document.querySelector(".close-credits").textContent =
-            "Close credits";
+        try {
+          if (localStorage.getItem("language") != "english") return;
+        } catch (error) {
+          console.error("Error accessing localStorage:", error);
         }
+        let currentParagraphIndex = 1;
+        function setTxt(txt) {
+          document.querySelector(
+            `p:nth-of-type(${currentParagraphIndex}`
+          ).textContent = txt;
+          currentParagraphIndex += 1;
+        }
+        document.querySelector("h1").textContent = "Thanks for playing!";
+        setTxt("The only developer - Daniel Diril");
+        setTxt("Main designers - Creator IT Academy");
+        setTxt("Secondary designer - Daniel Diril");
+        setTxt("The only scriptwriter - Daniel Diril");
+        setTxt("Main test engineer - Daniel Diril");
+        setTxt("Secondary test engineer - Stanislav Romanovskij");
+        setTxt("Special thanks to Maksym Severyn");
+        document.querySelector(".close-credits").textContent = "Close credits";
       })();
+
       let page = window.document.documentElement,
-        position = page.scrollTop;
+        position = page.scrollTop,
+        scrollInterval = null;
       const body = document.body;
       let maxPossibleScrollTop =
         Math.max(
@@ -168,63 +194,86 @@
           page.offsetHeight
         ) - window.innerHeight;
       function scrollPage() {
-        setTimeout(() => {
-          let scrolling = setInterval(() => {
-            if (
-              position != page.scrollTop ||
-              page.scrollTop == maxPossibleScrollTop
-            ) {
-              clearInterval(scrolling);
-              return;
-            }
-            position += 2;
-            window.scroll({
-              top: page.scrollTop + 2,
-              behavior: "instant",
-            });
-          }, 10);
-        }, 2000);
+        maxPossibleScrollTop =
+          Math.max(
+            body.scrollHeight,
+            body.offsetHeight,
+            page.clientHeight,
+            page.scrollHeight,
+            page.offsetHeight
+          ) - window.innerHeight;
+
+        position = page.scrollTop;
+        scrollInterval = setInterval(() => {
+          if (
+            position != page.scrollTop ||
+            page.scrollTop == maxPossibleScrollTop
+          ) {
+            clearInterval(scrollInterval);
+
+            return;
+          }
+          position += 2;
+          page.scrollTop = page.scrollTop + 2;
+        }, 10);
       }
 
       const closeCredits = document.querySelector(".close-credits"),
         observerConfig = {
-          rootMargin: `-${(screen.availWidth / 100) * 4}px`,
+          rootMargin: `-${(document.documentElement.clientWidth / 100) * 4}px`,
           root: null,
+          threshold: 1,
         };
       closeCredits.onclick = function () {
         location.replace("https://mini-car-racing.netlify.app");
       };
       function observeVisibility(entries) {
         entries.forEach((entry) => {
-          if (Math.round(entry.intersectionRatio.toFixed(2)) == 1) {
+          if (entry.isIntersecting) {
             entry.target.classList.add("animated");
-          } else if (entry.intersectionRatio == 0) {
-            entry.target.classList.remove("animated");
+            visibilityObserver.unobserve(entry.target);
           }
         });
       }
-      const visibilityObserver = new IntersectionObserver(
-        observeVisibility,
-        observerConfig
-      );
-      document.querySelectorAll("[data-intersection]").forEach((el) => {
-        visibilityObserver.observe(el);
-      });
-
-      screen.orientation.addEventListener("change", (event) => {
-        document.querySelectorAll("[data-intersection]").forEach((el) => {
-          visibilityObserver.unobserve(el);
-        });
-        observerConfig.rootMargin = `-${(screen.availWidth / 100) * 4}px`;
-        window.visibilityObserver = new IntersectionObserver(
+      try {
+        var visibilityObserver = new IntersectionObserver(
           observeVisibility,
           observerConfig
         );
         document.querySelectorAll("[data-intersection]").forEach((el) => {
           visibilityObserver.observe(el);
         });
+      } catch (error) {
+        document.querySelectorAll("[data-intersection]").forEach((el) => {
+          el.classList.add("animated");
+        });
+      }
+      try {
+        screen.orientation.addEventListener("change", (event) => {
+          visibilityObserver.disconnect();
+          document.querySelectorAll("[data-intersection]").forEach((el) => {
+            visibilityObserver.observe(el);
+          });
+          observerConfig.rootMargin = `-${
+            (document.documentElement.clientWidth / 100) * 4
+          }px`;
+        });
+      } catch {
+        console.error("Error adding screen orientation event listener:", error);
+      }
+      window.addEventListener("resize", () => {
+        maxPossibleScrollTop =
+          Math.max(
+            body.scrollHeight,
+            body.offsetHeight,
+            page.clientHeight,
+            page.scrollHeight,
+            page.offsetHeight
+          ) - window.innerHeight;
       });
-      window.onload = scrollPage;
+      setTimeout(() => {
+        scrollPage();
+      }, 2000);
     </script>
   </body>
 </html>
