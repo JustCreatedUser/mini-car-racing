@@ -271,9 +271,11 @@
             page.offsetHeight
           ) - window.innerHeight;
       });
-      setTimeout(() => {
-        scrollPage();
-      }, 2000);
+      window.addEventListener("DOMContentLoaded", () => {
+        setTimeout(() => {
+          scrollPage();
+        }, 2000);
+      });
     </script>
   </body>
 </html>
