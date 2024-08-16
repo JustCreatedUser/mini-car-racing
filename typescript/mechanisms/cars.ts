@@ -61,7 +61,11 @@ class MyCar extends Car {
         if (variables.device != "computer") {
           $("#useTheEngine").css("background-color", "red");
         }
-        document.querySelector("[data-performance-aid]").remove();
+        try {
+          document.querySelector("[data-performance-aid]").remove();
+        } catch (e) {
+          console.log(e);
+        }
         variables.isEngineWorking = false;
         gearFunctions.color = "white";
         $(".rpm-counter_center").css("background-color", gearFunctions.color);
@@ -137,7 +141,9 @@ class MyCar extends Car {
           }
         }
       } else if (!variables.isGamePaused && permissions.toOff_engine) {
-        document.querySelector("[data-performance-aid]").remove();
+        try {
+          document.querySelector("[data-performance-aid]").remove();
+        } catch {}
         cancelAnimationFrame(aniFrame);
         if (myCar.gear === 0) {
           if (variables.device != "computer") {
